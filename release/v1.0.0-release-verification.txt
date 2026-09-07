@@ -1,0 +1,75 @@
+Ethanol + Caffeine PK/PD Sandbox v1.0.0 — Release Verification
+Date: 2026-09-07
+
+Final artifact: index-v1.0.0.html
+SHA-256: 8189c545ee70c16e2975229f7b4445e56705327f619f0d85a238a4c97b0b5796
+
+Promotion consistency
+- Document title: v1.0.0 — PASS
+- Canonical app version: v1.0.0 — PASS
+- Changelog release entry: v1.0.0 — PASS
+- Build date: 2026-09-07 — PASS
+- Final differs from rc.1 only by intended promotion metadata — PASS
+
+Frozen model contracts
+- Scenario schema: 0.8.2
+- Model engine: 0.4.3
+- Constants: 0.3.0
+- Presets: 0.4.2
+- Behavioural model/coefficients/axis/interaction registries: 0.6.0
+- BAC phenotype registry: 0.3.0
+- BAC severity registry: 0.3.1
+Status: PASS
+
+Syntax/static integrity
+- Both embedded JavaScript blocks pass node --check — PASS
+- No external runtime subresources — PASS
+- No external script src — PASS
+- No fetch/XMLHttpRequest/WebSocket runtime dependency — PASS
+- No service-worker registration — PASS
+- Blob worker remains present — PASS
+- No static duplicate element IDs — PASS
+- Scope and intended-use surfaces present — PASS
+- Obsolete vehicle-warning vocabulary absent — PASS
+- Affirmative safe/legal/fit-to-drive phrases absent — PASS
+
+Embedded regression suite
+- 104/104 passed; 0 failed — PASS
+- v1.0 release identity — PASS
+- v1.0 scope declaration — PASS
+- v1.0 BAC-reference vocabulary — PASS
+- v1.0 frozen model contracts — PASS
+- v1.0 affirmative-clearance exclusion — PASS
+- Browser page errors: 0
+- Browser console errors: 0
+
+Runtime suites
+- Worker parity: 14/14 passed — PASS
+- Deduplication/dependency suite: 7/7 passed — PASS
+- Cancellation/cleanup suite: 8/8 passed — PASS
+- Compact-cache stress contract reproduced through fallback runtime:
+  detail cache 128 max — PASS
+  behavioural cache 8 variants max — PASS
+  combined cache 11,991,118 bytes (<64 MiB) — PASS
+  50 profile edits reuse one PK run — PASS
+
+v0.9.1 numerical equivalence
+- 16/16 matrix cases passed — PASS
+- Cases: zero, ethanol-only, caffeine-only, combined, sequential, fasted, heavy-meal, zero-order, body-fat-known, lean/fat-known, direct-Vd, sensitivity, high-BAC, historical, behavioural-default, behavioural-profile.
+- All numerical point series and selected numerical summaries are exact.
+- Behavioural computations are exact.
+- Expected differences are limited to renamed threshold-status strings and release/provenance metadata.
+
+Responsive/render qualification
+- 320, 360, 390, 430, 720, 768, 1024, 1440, 1920 px and landscape case — PASS
+- Narrow/intermediate/wide layout states resolve correctly — PASS
+- Document-level horizontal overflow: none — PASS
+- Live-result containment: PASS
+- Keyboard traversal sample remains visible — PASS
+- Reduced-motion render: PASS
+
+Environment-limited / deployment-only gates
+- Direct file:// navigation could not be exercised because the sandbox browser blocks navigation by administrator policy. The exact HTML bytes were successfully executed via document injection in headless Chromium.
+- Production response headers/CSP require the eventual deployed origin.
+- Public-URL production smoke testing requires the eventual deployed origin.
+- Firefox and Safari/WebKit qualification require those browser environments; this sandbox exposes Chromium only.
