@@ -12,7 +12,7 @@ export function createServer(directory=root,{htmlRedirects=false}={}){return htt
  }
  if(name.endsWith('/'))name+='index.html';let file=path.resolve(directory,'.'+name);
  if(!file.startsWith(path.resolve(directory)+path.sep)){res.writeHead(403);res.end();return;}
- if(htmlRedirects&&!path.extname(file)&&fs.existsSync(file+'.html'))file+='.html';
+ if(htmlRedirects&&fs.existsSync(file+'.html'))file+='.html';
  fs.readFile(file,(error,content)=>{if(error){res.writeHead(404);res.end('Not found');return;}res.writeHead(200,{'Content-Type':types[path.extname(file)]??'application/octet-stream','Cache-Control':'no-cache'});res.end(content);});
  });}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const port=Number(process.env.PORT||8765);createServer().listen(port,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:'+port));}
