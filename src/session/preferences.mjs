@@ -2,6 +2,15 @@ export const UI_VERSION='1.0.0';
 export const UI_KEY='pkpd-v160-interface';
 export const UI_DEFAULTS=Object.freeze({explanations:'concise',density:'comfortable',textSize:16,lineSpacing:'standard',focus:false,theme:'clarity-system',contrast:false,motion:'system',palette:'standard',chartLayout:'stacked',notifications:'quiet',panels:{}});
 const choices={explanations:['concise','expanded','guided'],density:['comfortable','compact'],textSize:[16,18,20],lineSpacing:['standard','relaxed'],theme:['clarity-system','clarity-light','clarity-dark','workbench-dark','workbench-light','royal-vapor-dark','royal-vapor-light','chromatic','clinical','spectral','midnight','manuscript'],motion:['system','reduced'],palette:['standard','restrained'],chartLayout:['stacked','overlay'],notifications:['quiet','all']};
+const displayDefaults=Object.freeze({bacDisplayUnit:'g/dL',unitDisplay:'metric',timeDisplayMode:'elapsed',autoRecalculate:true});
+function validateDisplay(value){
+ if(value===undefined)return {};
+ if(!value||typeof value!=='object'||Array.isArray(value))throw Error('Invalid display preferences.');
+ const safe={},options={bacDisplayUnit:['g/dL','% BAC','g/L','permille'],unitDisplay:['metric','metric-plus-imperial'],timeDisplayMode:['elapsed','clock']};
+ for(const [key,allowed]of Object.entries(options)){if(value[key]!==undefined){if(!allowed.includes(value[key]))throw Error('Unsupported display preference: '+key);safe[key]=value[key];}}
+ if(value.autoRecalculate!==undefined){if(typeof value.autoRecalculate!=='boolean')throw Error('Invalid automatic-calculation preference.');safe.autoRecalculate=value.autoRecalculate;}
+ return safe;
+}
 export function validatePreferences(value){
  if(!value||typeof value!=='object'||Array.isArray(value))throw Error('The interface profile is incomplete.');
  const safe={...UI_DEFAULTS};
@@ -32,17 +41,19 @@ export class InterfacePreferences {
   this.emit();
  }
  reset(group){
-  const groups={reading:['explanations','density','textSize','lineSpacing','focus'],appearance:['theme','contrast','palette','chartLayout'],interaction:['motion','notifications'],panels:['panels']};
+  const groups={reading:['explanations','density','textSize','lineSpacing','focus'],appearance:['theme','contrast','palette','chartLayout'],interaction:['motion','notifications'],units:[],panels:['panels']};
   const keys=group?groups[group]:Object.keys(UI_DEFAULTS);if(!keys)throw Error('Unknown preference group.');
   this.set(Object.fromEntries(keys.map(k=>[k,UI_DEFAULTS[k]])));
+  const display=!group?displayDefaults:group==='units'?{bacDisplayUnit:'g/dL',unitDisplay:'metric',timeDisplayMode:'elapsed'}:group==='interaction'?{autoRecalculate:true}:null;
+  if(display)this.store.field('settings',{...this.store.state.presentation,...display});
  }
- export(){return {schema:'pkpd-interface-profile',version:UI_VERSION,values:validatePreferences(this.values),scientificDepth:this.store.state.presentation.detailMode};}
+ export(){return {schema:'pkpd-interface-profile',version:UI_VERSION,values:validatePreferences(this.values),scientificDepth:this.store.state.presentation.detailMode,display:validateDisplay(Object.fromEntries(Object.entries(displayDefaults).map(([key,value])=>[key,this.store.state.presentation[key]??value])))};}
  import(text){
   if(typeof text!=='string'||text.length>65536)throw Error('Interface profiles are limited to 64 KiB.');
   const data=JSON.parse(text,(k,v)=>{if(['__proto__','prototype','constructor'].includes(k))throw Error('Unsupported profile key.');return v;});
   if(data.schema!=='pkpd-interface-profile'||data.version!==UI_VERSION)throw Error('This is not a supported interface profile.');
   if(!['default','detailed','expert'].includes(data.scientificDepth))throw Error('Invalid scientific depth.');
-  const safe=validatePreferences(data.values);this.set(safe);this.store.field('settings',{...this.store.state.presentation,detailMode:data.scientificDepth});
+  const safe=validatePreferences(data.values),display=validateDisplay(data.display);this.set(safe);this.store.field('settings',{...this.store.state.presentation,...display,detailMode:data.scientificDepth});
  }
  panel(key,open){this.set({panels:{...this.values.panels,[key]:open}});}
 }

@@ -52,7 +52,7 @@ Check. A parameter change is applied only after validation and becomes one Undo 
 
 Action. Choose Settings → Profiles → Export interface profile. Import that JSON later with Import interface profile.
 
-Expected result. The profile preserves reading, appearance, interaction preferences and scientific depth.
+Expected result. The profile preserves reading, appearance, interaction and unit preferences, plus scientific depth.
 
 Check. Session JSON stores analytical inputs and history separately. Restore interface defaults preserves the working scenario.
 
