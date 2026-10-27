@@ -60,3 +60,5 @@ html[data-v160-theme=dark]{--v160-control:#8aa1b1}
 .v160-legacy-slot h1{display:none!important}
 html[data-v160-text="18"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(15px,.95rem)!important}
 html[data-v160-text="20"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(17px,1.05rem)!important}
+.v160-document-menu,.v160-document-menu>summary{border:0;margin:0}
+.v160-dialog .v15-field :is(input,select,textarea){border-color:var(--v160-control)}

@@ -127,6 +127,8 @@ html[data-v160-theme=dark]{--v160-control:#8aa1b1}
 .v160-legacy-slot h1{display:none!important}
 html[data-v160-text="18"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(15px,.95rem)!important}
 html[data-v160-text="20"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(17px,1.05rem)!important}
+.v160-document-menu,.v160-document-menu>summary{border:0;margin:0}
+.v160-dialog .v15-field :is(input,select,textarea){border-color:var(--v160-control)}
 </style>
 <script id="pk-kernel-source" type="text/plain">var PKCore=(()=>{
 const Vv = "0.3.0";
@@ -4605,7 +4607,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "6ef0040b7f72a0d6ae9ae5118d3ee993486a1c7dd033b246911d0b31113f9cf2",
+  buildFingerprint: "a10aaa27dbbf556c290b6bf1371a082e8ee6f98595471866fdd91b94eea58799",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -7709,6 +7711,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     React.useEffect(() => {
       const el = ref.current;
       if (!el.open) el.showModal();
+      el.querySelector('[autofocus],input:not([type="hidden"]),select,textarea')?.focus();
       const onCancel = (e) => {
         e.preventDefault();
         onClose();
@@ -52632,7 +52635,7 @@ function hne() {
         behavior: "auto"
       }));
     };
-    return window.addEventListener("hashchange", _), window.location.hash || window.history.replaceState(null, "", "#calculate"), _(), () => window.removeEventListener("hashchange", _);
+    return window.addEventListener("hashchange", _), window.location.hash || window.history.replaceState(null, "", "#session/overview"), _(), () => window.removeEventListener("hashchange", _);
   }, []), M.useEffect(() => {
     canonicalStore.setEditingInvalid(yi.invalidCount);
   }, [yi.invalidCount]), M.useEffect(() => {

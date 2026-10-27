@@ -15,6 +15,7 @@ if(!/Vi\s*=\s*"1\.6\.0"/.test(engine))throw Error('Application version patch did
 let app=read('src/legacy/app.js');
 const replace=(from,to)=>{if(!app.includes(from))throw Error('Missing integration seam: '+from.slice(0,90));app=app.replace(from,to);};
 replace('const tne = ["calculate", "results", "behaviour", "explore", "expert", "export"];','const tne = ["calculate", "results", "behaviour", "explore", "expert", "export", "session", "help"];');
+replace('window.location.hash || window.history.replaceState(null, "", "#calculate")','window.location.hash || window.history.replaceState(null, "", "#session/overview")');
 replace('settings: this.state.presentation,',"settings: {...this.state.presentation,selectedWorkspace:['calculate','results','behaviour','explore','expert','export'].includes(this.state.presentation.selectedWorkspace)?this.state.presentation.selectedWorkspace:'calculate',selectedSubview:this.state.presentation.selectedWorkspace==='session'||this.state.presentation.selectedWorkspace==='help'?'':this.state.presentation.selectedSubview},");
 const anchorStart=app.indexOf('    const _ = Ar.current;'),anchorEnd=app.indexOf('  }, [ct]),',anchorStart);
 if(anchorStart<0||anchorEnd<0)throw Error('Missing fixed-anchor integration seam.');

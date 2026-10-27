@@ -41,6 +41,14 @@ jobs:
       - run: npm run test:browser
         env:
           TEST_BROWSER: ${{ matrix.browser }}
+      - run: npm run test:ui
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
       - run: node test/pwa-browser.mjs
         env:
           TEST_BROWSER: ${{ matrix.browser }}
+      - uses: actions/upload-artifact@v7.0.1
+        if: always()
+        with:
+          name: browser-${{ matrix.browser }}
+          path: test/artifacts
