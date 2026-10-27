@@ -19,7 +19,7 @@ const categories=()=>page.getByRole('group',{name:'Preference categories'});
 async function axe(label){
  const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
  const violations=result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}));
- fs.writeFileSync(path.join(artifacts,engine+'-axe-'+label+'.json'),JSON.stringify(violations,null,2));assert.deepEqual(violations,[],JSON.stringify(violations));
+ fs.writeFileSync(path.join(artifacts,engine+'-axe-'+label+'.json'),JSON.stringify(violations,null,2));assert.deepEqual(violations,[],label+": "+JSON.stringify(violations));
 }
 try{
  await page.goto(url,{waitUntil:'networkidle'});await current();
