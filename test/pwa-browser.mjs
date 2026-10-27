@@ -11,13 +11,22 @@ fs.mkdirSync(artifacts,{recursive:true});
 const directory=fs.mkdtempSync(path.join(artifacts,'pwa-'+engine+'-'));
 fs.cpSync(path.join(root,'public'),directory,{recursive:true});
 const originalSW=fs.readFileSync(path.join(directory,'sw.js'),'utf8');
-const server=createServer(directory);await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const server=createServer(directory,{htmlRedirects:true});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const url='http://127.0.0.1:'+server.address().port;
 const browser=await playwright[engine].launch({headless:true}),context=await browser.newContext(),page=await context.newPage(),results=[];
 async function check(name,fn){try{await fn();results.push({name,passed:true});console.log('PASS '+name);}catch(error){results.push({name,passed:false,error:error.stack});console.error('FAIL '+name+' '+error.message);}}
 try{
  await page.goto(url,{waitUntil:'networkidle'});
  await page.waitForFunction(()=>window.__PK_SANDBOX_V15__?.pwa.state.status==='ready'&&navigator.serviceWorker.controller,null,{timeout:60000});
+ await check('Cached navigation survives Cloudflare-style HTML redirects',async()=>{
+  const redirect=await fetch(url+'/index.html',{redirect:'manual'});assert.equal(redirect.status,308);
+  assert.equal(await page.evaluate(async()=>{const keys=await caches.keys();for(const key of keys){const cache=await caches.open(key),response=await cache.match('./index.html');if(response)return response.redirected;}return false;}),true);
+  await page.reload({waitUntil:'networkidle'});
+  for(const route of ['/index.html','/standalone-v1.6.0.html','/standalone-v1.6.0','/']){
+   await page.goto(url+route,{waitUntil:'networkidle'});
+   await page.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
+  }
+ });
  await check('Standalone delivery computes without registering its own offline worker',async()=>{
   const isolated=await browser.newContext(),tab=await isolated.newPage();await tab.goto(url+'/standalone-v1.6.0.html',{waitUntil:'networkidle'});
   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
@@ -53,6 +62,24 @@ try{
   await withOriginOutage({server,browser,url},async()=>{await page.reload({waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!window.__PK_SANDBOX_V15__);
   assert.equal(await page.evaluate(()=>document.documentElement.dataset.updateProof),'yes');});
+ });
+ await check('Cache read failures fall back to network and preserve saved sessions',async()=>{
+  const fallbackDirectory=fs.mkdtempSync(path.join(artifacts,'pwa-cache-failure-'+engine+'-'));
+  fs.cpSync(path.join(root,'public'),fallbackDirectory,{recursive:true});
+  const injection="self.addEventListener('fetch',event=>{if(event.request.mode==='navigate')caches.open=()=>Promise.reject(new DOMException('Injected cache read failure','SecurityError'));});\n";
+  fs.writeFileSync(path.join(fallbackDirectory,'sw.js'),injection+originalSW);
+  const fallbackServer=createServer(fallbackDirectory,{htmlRedirects:true});await new Promise(r=>fallbackServer.listen(0,'127.0.0.1',r));
+  const isolated=await browser.newContext(),tab=await isolated.newPage();
+  try{
+   await tab.goto('http://127.0.0.1:'+fallbackServer.address().port,{waitUntil:'networkidle'});
+   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__?.pwa.state.status==='ready'&&navigator.serviceWorker.controller);
+   await tab.evaluate(async()=>{localStorage.setItem('pkpd-cache-failure-proof','preserved');await window.__PK_SANDBOX_V15__.controller.saveNamed('Cache failure proof');});
+   await tab.reload({waitUntil:'networkidle'});
+   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
+   const after=await tab.evaluate(()=>Object.fromEntries(Object.entries(localStorage)));
+   assert.equal(after['pkpd-cache-failure-proof'],'preserved');
+   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__.controller.projects.some(p=>p.label==='Cache failure proof'));
+  }finally{await isolated.close();await new Promise(r=>fallbackServer.close(r));}
  });
 }finally{
  const output={browser:engine,passed:results.filter(x=>x.passed).length,failed:results.filter(x=>!x.passed).length,results};

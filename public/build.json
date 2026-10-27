@@ -5,8 +5,8 @@
   "constantsVersion": "0.3.0",
   "schemaVersion": "0.8.2",
   "sessionSchemaVersion": "1.0.0",
-  "buildFingerprint": "07bfe78183420d1c49910bc235e30af6f92665b12bbce9b84b8fcf005854607f",
-  "htmlSha256": "a2d7b96eb7fd4fb4c997f673edab58c0549160ae702d0d024bdb815bef9e4bcd",
-  "standaloneSha256": "d04aee8c9420de6415af0135743c2ead852db6da0735e2cf1c2ee2ac845e3bf6",
+  "buildFingerprint": "4322fe4892dcbe3d55b6a202ad513acaee960f9224acfb60fbd10f7424e96a0a",
+  "htmlSha256": "66ab4dd17bc3cfbac5738f9f45d4aaa9ae4f96d1969683ffdecc0e1aa406b252",
+  "standaloneSha256": "d63fd3f79de46f7085bf4ef603e00734b28933c24d2941347927133f0e88b9aa",
   "sourceDeployment": "https://ethanol-caffeine-pk-pd-sandbox.pages.dev/"
 }

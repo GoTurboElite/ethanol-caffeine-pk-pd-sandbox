@@ -9,6 +9,7 @@ concurrency:
   cancel-in-progress: true
 permissions:
   contents: read
+  checks: read
 jobs:
   numerical-and-build:
     runs-on: ubuntu-latest
@@ -50,6 +51,13 @@ jobs:
         if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
+      - run: node test/live-browser.mjs
+        if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
+          DEPLOYMENT_URL: ${{ github.event_name == 'push' && 'https://ethanol-caffeine-pk-pd-sandbox.pages.dev/' || '' }}
+          DEPLOYMENT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+          GITHUB_TOKEN: ${{ github.token }}
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
