@@ -1,9 +1,11 @@
 {
-  "appVersion": "1.0.1",
+  "appVersion": "1.5.0",
   "engineVersion": "0.4.4",
   "constantsVersion": "0.3.0",
   "schemaVersion": "0.8.2",
-  "sourceDeployment": "https://ethanol-caffeine-pk-pd-sandbox.pages.dev/",
-  "buildFingerprint": "9ac766ef9e6c751625620e8645ef58ee44df308f5735bde27e1a22efbba5e7c4",
-  "htmlSha256": "26135234a89b61e990507c6982be427b3dc887143380ffad799686e68a1a8af6"
+  "sessionSchemaVersion": "1.0.0",
+  "buildFingerprint": "e6eef173492ca3b2428456d8c5a0cb9ad098d8711fd0582e73de31168de796d9",
+  "htmlSha256": "7852cf8f1423e3aedb8e5e85f4640c2c648474f37395d94eb6d2406fb4289357",
+  "standaloneSha256": "6173465ec1626444e3bb5e11ab7672a9d55847a0da07ae76bc2f7ada1e286443",
+  "sourceDeployment": "https://ethanol-caffeine-pk-pd-sandbox.pages.dev/"
 }

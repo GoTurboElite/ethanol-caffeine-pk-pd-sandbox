@@ -1,147 +1,70 @@
-# Ethanol + Caffeine PK/PD Sandbox
+# Ethanol + Caffeine PK/PD Sandbox 1.5.0
 
-A self-contained, non-commercial educational and analytical sandbox for exploring modelled ethanol and caffeine pharmacokinetics, pharmacodynamic proxies, parameter sensitivity, behavioural-state heuristics, and scenario comparison.
+A browser application for constructing exposure schedules, inspecting the retained PK/PD model, comparing explicit analytical states and exporting reproducible sessions and reports.
 
-The application runs entirely in the browser as a static HTML document. Calculations, scenario handling, behavioural interpretation, comparison workflows, and exports are performed locally without a server-side computational backend.
+Production: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
 
-## Current release
+## Using the application
 
-**v1.0.0 -- Stable**
+Open **How to use** in the main navigation. Choose **Default**, **Detailed** or **Expert** to read the operating sequence at that scope. Every walkthrough step gives an action, an expected result and a check. The guide selector and application detail selector can be changed independently. Three worked examples cover coffee absorption, repeated ethanol episodes and overnight calendar inspection.
 
-Version 1.0 establishes the first stable standalone release contract following the v0.x development series. The numerical and behavioural engines, scenario schema, model constants, provenance registries, persistence layer, comparison architecture, and export pipeline are independently versioned within the application.
+The same guide is available in [docs/HOW_TO_USE.md](docs/HOW_TO_USE.md). It includes calendar and daylight-saving instructions, units, snapshot interpretation, saving, comparison, reporting, installation, glossary and troubleshooting.
 
-The stable release is distributed as a single self-contained HTML artifact:
+## What 1.5 adds
 
-```text
-index-v1.0.0.html
-```
+The Session workspace combines intakes, meals, analysis markers, model-zero chronology and calendar display. Explicit IANA time-zone resolution handles ambiguous clock times and rejected clock-change gaps. Editing an intake preserves model zero. Reanchoring explicitly chooses whether elapsed offsets or absolute event instants are preserved.
 
-A SHA-256 checksum and release-verification record accompany the frozen release artifact.
+Shared editing history supports 60 committed states, undo, redo and history restoration across the original calculator and the added workspaces. Saved states, opt-in browser recovery, portable session JSON and legacy scenario import preserve editable input states. Recovery retains the latest valid committed document; portable session files include bounded editing history. Browser storage is specific to the current origin, browser and device.
 
-## Purpose
+Explain shows accepted compartment amounts, local rate estimates and defined functional indices. Intake-removal counterfactuals run through the existing calculation runtime. Compare captures A and B inputs, displays changed fields and behavioural profiles, and reports accepted deltas, threshold intervals and calendar identities. Refresh B explicitly copies subsequent working edits. Comparison aligns elapsed hours from each scenario's model zero.
 
-The sandbox is designed for education, mechanistic exploration, hypothesis generation, model inspection, parameter sensitivity analysis, and comparison of hypothetical exposure scenarios.
+Reports freeze the accepted numerical state, chronology, markers and any accepted comparison into a self-contained printable HTML document. Default, Detailed and Expert report depths control the included material. Expert depth retains the complete constants and input state.
 
-It models ethanol and caffeine trajectories from user-supplied scenario parameters using literature-derived population parameters, explicit engineering assumptions, and locally defined heuristic transformations.
+Hosted delivery includes an offline cache, installation support where exposed by the browser, a waiting-update action and recovery before activation. Standalone delivery is one HTML file with embedded JavaScript, CSS and calculation kernel. The archived original release remains available in the repository and hosted archive path.
 
-Outputs include pharmacokinetic trajectories, pharmacodynamic proxy indices, dose accounting, concentration thresholds, sensitivity analyses, comparison views, and optional behavioural-state interpretations.
+## Model identity
 
-## Scope and intended use
+Application 1.5.0 retains engine **0.4.4**, constants **0.3.0**, scenario schema **0.8.2** and the retained behavioural model. The new session wrapper schema is **1.0.0**. PK equations, defaults and parameter values remain those shipped in 1.0.1. Flux displays are local finite-difference estimates derived from the accepted dense trajectory. Functional and behavioural indices retain their defined heuristic meanings, including the retained zero-valued no-exposure encoding.
 
-Ethanol + Caffeine PK/PD Sandbox is a non-commercial educational and analytical tool.
+The original Expert and About workspaces retain model sources, assumptions, diagnostics and coefficient provenance. This release adds no sleep prediction, individualized calibration, measured-data fitting or new substance model.
 
-Outputs are simulated estimates. They do not constitute measurements of an individual’s blood ethanol concentration, caffeine concentration, physiological state, cognitive performance, behavioural state, or degree of impairment.
+## Development and verification
 
-The software is not intended for diagnosis, clinical management, legal determination of blood alcohol concentration, determination of actual intoxication, or assessment of fitness to drive, operate machinery, or undertake another safety-critical activity.
+Use Node.js 24 and npm. Dependencies are pinned in package-lock.json.
 
-Behavioural and temperament outputs are exploratory model constructs. They are non-diagnostic and do not predict individual clinical outcomes or harmful conduct.
+    npm ci
+    npm run build
+    npm test
+    npx playwright install --with-deps
+    npm run test:browser
+    node test/pwa-browser.mjs
+    npm run preview
 
-A modelled BAC threshold crossing represents a numerical property of the simulated trajectory. It does not establish physiological recovery or fitness for a safety-critical activity.
+The local preview URL is http://127.0.0.1:8765/. To select another Playwright engine, set TEST_BROWSER to firefox or webkit. The default is chromium. The test harness requires successful native downloads. An explicit ALLOW_BLOCKED_DOWNLOADS=1 diagnostic setting permits payload verification in constrained hosts and records the limitation in its results; CI leaves that setting unset.
 
-## Model architecture
+Regenerate the portable guide with node scripts/export-guide.mjs after changing the in-app guide. CI runs the deterministic build, numerical/state/release suites and all three browser engines. Committed public outputs must exactly match a clean build.
 
-The application combines ethanol and caffeine pharmacokinetic modelling with derived pharmacodynamic and behavioural-state layers.
+## Source layout
 
-Ethanol modelling includes configurable distribution assumptions, gastric and intestinal absorption, first-pass handling, food-state effects, zero-order or Michaelis–Menten elimination, dose accounting, body-composition-sensitive distribution modes, historical exposure states, and parameter sensitivity analysis.
+| Path | Purpose |
+| --- | --- |
+| src/legacy | Recovered 1.0.1 interface, styles and calculation kernel |
+| src/session | Calendar, history, persistence, comparison controller and offline lifecycle |
+| src/ui | Added React workspaces and report generator |
+| src/content | Three-level operating guide |
+| src/bridge.js | Guarded integration with the original store and simulation runtime |
+| build.mjs | Deterministic hosted and standalone generation |
+| public | Committed Cloudflare Pages output |
+| test | Numerical regressions, state tests and mounted browser workflows |
 
-Caffeine modelling includes absorption, effective or reference half-life formulations, CYP1A2-related parameterisation, paraxanthine approximation, and optional ethanol-linked clearance interaction.
-
-The behavioural layer operates downstream of the PK/PD state. It represents functional reliability, activation, self-calibration, continuation pressure, protective regulation, social expression, affective volatility, and related dimensions through bounded heuristic transformations with explicit provenance and versioning.
-
-Caffeine-linked activation is represented independently from ethanol-linked impairment; alertness does not imply restored functional competence.
-
-## Scenario analysis
-
-The application supports single-scenario analysis, A/B comparison, parameter refinement, sensitivity envelopes, configurable simulation horizons, initial conditions, meal events, repeated or temporally distributed doses, and optional temperament/context inputs.
-
-Scenario state can be exported and re-imported using the application’s versioned JSON schema.
-
-Generated numerical and behavioural outputs can also be exported for further inspection.
-
-## Local-first execution
-
-The application is designed to operate without a computational backend.
-
-Model execution occurs locally in the browser, including the off-main-thread numerical execution path where supported. Scenario data, autosave state, interface preferences, and related persistence remain within browser-local storage unless the user explicitly exports them.
-
-The standalone HTML artifact can also be retained locally for offline use.
-
-## Running locally
-
-No build process or package installation is required for the stable standalone artifact.
-
-Open:
-
-```text
-index-v1.0.0.html
-```
-
-directly in a modern browser.
-
-For HTTP-origin testing or local development, the directory can also be served using any static web server. For example:
-
-```bash
-python -m http.server 8000
-```
-
-and opened through:
-
-```text
-http://localhost:8000/
-```
-
-## Browser support
-
-The application targets current standards-compliant desktop and mobile browsers.
-
-The v1.0.0 release has been qualified against Chromium across desktop, responsive, worker, persistence, comparison, export, numerical-equivalence, and embedded-regression workflows. Firefox and Safari/WebKit remain part of deployment-origin qualification.
-
-## Release verification
-
-The v1.0.0 artifact passed the embedded regression suite, worker/fallback parity checks, cancellation and request-deduplication checks, numerical-integrity tests, responsive-layout qualification, and direct numerical-equivalence testing against the frozen v0.9.1 baseline.
-
-The v0.9.1 → v1.0.0 release transition intentionally preserves the established numerical and behavioural engines. Release-surface changes concern stable-version promotion, intended-use communication, deployment semantics, and BAC reference-threshold terminology.
-
-The release checksum is distributed separately as:
-
-```text
-index-v1.0.0.html.sha256
-```
-
-The corresponding verification record is distributed as:
-
-```text
-v1.0.0-release-verification.txt
-```
-
-## Versioning
-
-The public application follows semantic versioning from v1.0.0 onward.
-
-`1.0.x` releases are reserved for compatible defect corrections and narrowly scoped hardening.
-
-`1.x.0` releases may introduce additive functionality while preserving the stable application contract.
-
-Major-version changes are reserved for materially incompatible changes to architecture, schemas, model contracts, or application behaviour.
-
-Internal model components retain independent version identifiers so application releases do not imply simultaneous revisions of every scientific or behavioural subsystem.
+The build patches explicit integration seams and fails when a required seam is absent. It reuses the embedded React runtime and the existing simulation runtime. No CDN request or server-side calculation is required. The source fingerprint normalizes text line endings and includes all src files; public/build.json records both HTML SHA-256 values.
 
 ## Deployment
 
-The canonical deployment target is a top-level static web origin.
+The existing Cloudflare Pages project remains connected to this repository. Production branch is main, root directory is blank, build command is exit 0 and output directory is public. Because this deployment publishes committed output directly, every release must include a freshly generated public directory.
 
-Embedding the application inside nested site containers is intentionally avoided because the interface relies on direct access to the browser viewport for responsive layout, sticky and fixed positioning, modal geometry, charts, mobile navigation, and container-query behaviour.
+Review the release branch and passing checks, inspect its Cloudflare branch preview, then merge its pull request into main to replace production. Confirm public/build.json appVersion and both served HTML hashes after deployment. Users with a previously cached release can choose Check for update, then Save session and update.
 
-The standalone versioned HTML artifact remains the authoritative immutable release representation.
+Reverting the release commit on main restores the prior hosted output. The service worker remains reachable at the same path; test rollback on the preview origin and retain an exported session before moving between releases with different session support.
 
-## Privacy
-
-The stable application contains no requirement for user accounts, remote calculation services, or server-side storage of scenario inputs.
-
-Local browser persistence is optional and is confined to the browser environment. Exported scenario or result files are created only through explicit user actions.
-
-## Repository status
-
-**Stable release: v1.0.0**
-
-Further development should occur on subsequent version branches or preview deployments while the tagged v1.0.0 release artifact remains immutable.
+See [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) for measured checks and execution limits.
