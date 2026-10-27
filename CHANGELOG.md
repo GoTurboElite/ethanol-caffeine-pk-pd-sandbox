@@ -8,6 +8,8 @@ Separated scientific depth from explanation support, spacing, text size, line sp
 
 Retained engine 0.4.4, constants 0.3.0, scenario schema 0.8.2 and session schema 1.0.0. Added trajectory compatibility fixtures, three-browser keyboard/accessibility/responsive checks and post-deployment byte verification. Existing session, recovery, comparison, export, standalone and offline/update workflows remain release gates.
 
+Corrected cached navigation on Cloudflare Pages: redirected cached HTML is copied into a fresh response before serving a navigation, and cache-read failures fall back to the network. Added Cloudflare-style redirect fixtures and hosted-browser reload checks.
+
 ## 1.5.0 — 2026-10-27
 
 Added Session chronology with stable model zero, IANA calendar display, explicit clock-change resolution, grouped intake/meal shifts and duplication, and inspection markers. Added shared bounded history, named saved states, opt-in recovery and portable session documents with legacy scenario import.
