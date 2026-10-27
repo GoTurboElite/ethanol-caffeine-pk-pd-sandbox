@@ -84,6 +84,9 @@ body[data-v15-workspace="true"]{background:var(--v15-bg);color:var(--v15-text)}b
 html[data-v15-theme*="dark"],html[data-v15-theme*="night"]{--v15-bg:#121b27;--v15-panel:#1a2636;--v15-text:#e0e8f2;--v15-muted:#a6b5c8;--v15-line:#344255;--v15-soft:#302c4a;--v15-accent:#b2a2f0}html[data-v15-theme*="dark"] .v15-metric,html[data-v15-theme*="dark"] .v15-inspector,html[data-v15-theme*="dark"] .v15-table-scroll th,html[data-v15-theme*="dark"] .v15-code{background:#202e40}
 @media(max-width:700px){.v15-shell{padding:10px 12px 0}.v15-topline{gap:9px}.v15-top-actions{width:100%;margin-left:0;gap:10px}.v15-top-actions .v15-button{min-height:36px;font-size:11px}.v15-nav{gap:3px;padding:5px}.v15-nav>.v15-button{padding:8px 10px;font-size:12px;min-height:44px;flex:1 0 auto}.v15-history-controls{margin-left:0;flex:1;justify-content:flex-end}.v15-page-heading{align-items:stretch;flex-direction:column;gap:15px;margin:22px 0 18px}.v15-page-heading h1{font-size:29px}.v15-page-heading>.v15-field{flex:auto;max-width:230px}.v15-panel{padding:18px 15px;border-radius:12px}.v15-metric>strong{font-size:21px}.v15-inspector{padding:12px;gap:12px}.v15-inspection-time{flex-basis:100%}.v15-guide-step{grid-template-columns:30px minmax(0,1fr);gap:10px}.v15-step-number{width:28px;height:28px}.v15-actions>.v15-field{flex:1 1 100%}.v15-table-scroll th,.v15-table-scroll td{padding:10px;min-width:95px}.v15-table-scroll td:first-child{min-width:52px}.v15-stack{gap:14px}}
 @media(prefers-reduced-motion:reduce){.v15-shell *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Bound the closed native select to its field in WebKit, including long options. */
+.v15-field select{-webkit-appearance:none;appearance:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23526479' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px}
 </style>
 <script id="pk-kernel-source" type="text/plain">var PKCore=(()=>{
 const Vv = "0.3.0";
@@ -4562,7 +4565,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "baf471dede356f4b33edc29539542299acea38e6ce45e2b8a410b6070816303f",
+  buildFingerprint: "e6eef173492ca3b2428456d8c5a0cb9ad098d8711fd0582e73de31168de796d9",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,

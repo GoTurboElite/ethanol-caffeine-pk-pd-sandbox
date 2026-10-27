@@ -21,7 +21,7 @@ The deterministic build runs twice and compares bytes. The embedded application 
 
 Chromium passed 17 workflow groups covering workspace mounting, all three guides, a worked example, bulk retiming, immutable model zero, undo/redo, explicit DST overlap selection, analysis markers, named states, captured A/B comparison, portable session round-trip, legacy import, frozen report content, intake-removal comparison, recovery, responsive layout, offline reload, mounted diagnostics and worker fallback.
 
-Responsive checks covered widths of 320, 390, 430, 768, 1024 and 1440 pixels, with no document overflow in the sampled workspaces. Desktop and mobile screenshots were visually inspected.
+Responsive checks covered widths of 320, 390, 430, 768, 1024 and 1440 pixels, with no document overflow in the sampled workspaces. Desktop and mobile screenshots were visually inspected. A native-select sizing overflow found in Linux WebKit at 320 pixels was corrected by bounding the collapsed control and preserving the full option text in its menu. The fix was also checked with several font families.
 
 Three additional Chromium lifecycle checks passed: standalone calculation without service-worker registration; waiting-update activation after recovery has been saved, with title and markers restored; and a failed new installation leaving the existing offline cache usable.
 
@@ -29,7 +29,7 @@ Three additional Chromium lifecycle checks passed: standalone calculation withou
 
 Chromium in the local restricted Windows host cancels native attachment downloads, including a minimal ordinary attachment unrelated to this application. The test-only diagnostic fallback inspected the application's actual JSON and HTML Blob payloads and their dispatched download events. It verified session re-import and report content. This is recorded in the test results and does not establish native disk-transfer success in Chromium on this host. WebKit completed both native exports.
 
-The local Windows Firefox process terminated during headless startup before application navigation. The local WebKit run passed 16 workflow groups; offline page reload returned a WebKit internal error. The three-engine Linux CI configuration runs strict native-download checks and offline lifecycle checks without the diagnostic fallback. CI outcomes and the branch-preview deployment should be reviewed before production promotion.
+The local Windows Firefox process terminated during headless startup before application navigation. Linux Firefox subsequently passed the mounted workflows and offline/update lifecycle checks. Local WebKit passed all 17 workflow groups and all three lifecycle checks with native downloads. The pinned Playwright WebKit build has a documented [offline-emulation navigation defect](https://github.com/microsoft/playwright/issues/42775). The shared outage harness now stops the origin server, verifies that an uncached context cannot connect, and reloads the controlled application from its cache. This checks cached operation during an actual origin outage across all engines. The three-engine Linux CI configuration runs strict native-download checks without the diagnostic fallback. Current CI outcomes are recorded on [pull request #2](https://github.com/GoTurboElite/ethanol-caffeine-pk-pd-sandbox/pull/2).
 
 A physical iPhone/iPad installation and home-screen relaunch have not been verified. Browser-local storage can be cleared by browser settings or operating-system storage management. The portable session export is the user-controlled recovery artifact.
 
@@ -41,6 +41,6 @@ Generated test output is written under test/artifacts and excluded from git. The
 
 ## Deployment identity
 
-public/build.json contains application, engine, constants, scenario-schema and session-schema versions, the normalized source fingerprint, and hosted/standalone SHA-256 values. Cloudflare publishes the committed public directory using the existing exit 0 build configuration.
+public/build.json contains application, engine, constants, scenario-schema and session-schema versions, the normalized source fingerprint, and hosted/standalone SHA-256 values. Cloudflare publishes the committed public directory using the existing exit 0 build configuration. The release branch preview is https://release-v1-5-0.ethanol-caffeine-pk-pd-sandbox.pages.dev/. Its served hosted and standalone bytes are checked against the build manifest after deployment.
 
 Production promotion consists of merging the verified release pull request into main. After deployment, compare the served build.json and both HTML hashes against the commit. Keep an exported session when moving between application versions.

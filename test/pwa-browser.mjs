@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 import {root} from './helpers.mjs';
 import {createServer} from '../scripts/serve.mjs';
+import {withOriginOutage} from './outage.mjs';
 const playwright=process.env.PLAYWRIGHT_MODULE_PATH?await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE_PATH)):await import('playwright');
 const engine=process.env.TEST_BROWSER??'chromium',artifacts=path.join(root,'test/artifacts');
 fs.mkdirSync(artifacts,{recursive:true});
@@ -49,10 +50,9 @@ try{
   });
   assert.equal(outcome,'redundant');
   assert.equal(await page.evaluate(()=>navigator.serviceWorker.controller.scriptURL),previous);
-  await context.setOffline(true);await page.reload({waitUntil:'domcontentloaded'});
+  await withOriginOutage({server,browser,url},async()=>{await page.reload({waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!window.__PK_SANDBOX_V15__);
-  assert.equal(await page.evaluate(()=>document.documentElement.dataset.updateProof),'yes');
-  await context.setOffline(false);
+  assert.equal(await page.evaluate(()=>document.documentElement.dataset.updateProof),'yes');});
  });
 }finally{
  const output={browser:engine,passed:results.filter(x=>x.passed).length,failed:results.filter(x=>!x.passed).length,results};
