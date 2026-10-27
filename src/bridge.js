@@ -1,5 +1,8 @@
 const V15Integration=PKPDV15.createV15UI({
  React:M,store:canonicalStore,runtime:simulationRuntime,versions:qt,
+ parameters:[...XJ,...QJ].filter(p=>/^(subject|constants)\./.test(p.id)),
+ ethanolAmount:(event,constants)=>Ta(event,constants),caffeineAmount:event=>Na(event),
+ openSurface:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface}})),
  validate:input=>simulationRuntime.validateDraft(input),
  resolveProfile:profile=>Bm(profile),
  snapshot:()=>simulationRuntime.getSnapshot(canonicalStore.state.snapshots.currentSnapshotId),
@@ -27,4 +30,6 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:Object.freeze({version:'1.5.0',controller:V15Integration.controller,pwa:V15Integration.pwa,store:canonicalStore,runtime:simulationRuntime,versions:qt}),enumerable:false});
+const V160_PUBLIC=Object.freeze({version:'1.6.0',releaseLabel:'1.60',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,store:canonicalStore,runtime:simulationRuntime,versions:qt});
+Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
+Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});

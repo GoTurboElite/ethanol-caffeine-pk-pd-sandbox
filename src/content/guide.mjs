@@ -4,7 +4,7 @@ export const V15_GUIDES = {
   scope:'Use this level for intake entry, the concentration timeline, selected-time inspection and saving. The model calculates the same trajectories at every detail level.',
   sections:[
    {id:'first-run',title:'First complete calculation',steps:[
-    ['Open Calculator','Choose Calculator in the navigation. Set the detail selector to Default.','The person and intake controls are visible.','A detail level changes the displayed controls and explanation depth.'],
+    ['Open Session inputs','Choose Session, then Inputs. Set Scientific depth to Default.','The person and intake controls are visible.','A detail level changes the displayed controls and explanation depth.'],
     ['Set the person','Open Refine person. Enter body mass in kilograms. Choose the appropriate physiology and available composition inputs. Close the panel when the entries are complete.','The person summary reflects your committed values.','Use measured values where available. An empty optional composition field leaves the selected fallback model active.'],
     ['Define an intake','Choose Add drink or caffeine. Select a preset or enter a custom amount. Read the amount and serving labels before applying it.','The intake appears in the intake list.','Ethanol is recorded as grams; caffeine is recorded as milligrams. Presets convert their volume and composition into those amounts.'],
     ['Set its start','Enter the start relative to model zero, or use the clock entry controls. In Session, the anchor is the absolute instant corresponding to +0 h.','The event is placed at its intended position on the timeline.','A start of +2 h is two elapsed hours after model zero. A negative start represents historical intake before model zero.'],
@@ -115,7 +115,7 @@ export const V15_GUIDE_COMMON = {
   ['A saved state is absent on another device','Import its exported session JSON. Browser-local storage is specific to the origin and browser environment.'],
   ['Session recovery reports a failure','Export a portable session file. Retry local storage after resolving the browser restriction or available-storage problem.'],
   ['A report button is unavailable','Complete invalid text entry, wait for Current status and finish an enabled comparison.'],
-  ['The installed app shows an older release','Reconnect, check for an update and use Save session and update. Read the active version in the application header.'],
+  ['The installed app shows an older release','Reconnect, check for an update and use Save session and update. Read the active version in the Scientific depth control.'],
   ['An import is rejected','Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message.']
  ]
 };

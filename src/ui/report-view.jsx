@@ -11,12 +11,12 @@ export function V15Report(){
  const make=()=>action(()=>{
   if(!ready)throw Error('Wait for current accepted main and comparison results before generating the report.');
   const frame=controller.validateFrame(controller.capture()),html=v15BuildReport({frame,result,snapshotId:snapshot.snapshotId,versions:{...bridge.versions},depth,comparison:state.document.comparisonEnabled?comparison:null});
-  download('pkpd-analysis-v1.5.0.html',html,'text/html;charset=utf-8');
+  download('pkpd-analysis-v1.6.0.html',html,'text/html;charset=utf-8');
   setGenerated({snapshotId:snapshot.snapshotId,time:new Date().toLocaleString(),bytes:new TextEncoder().encode(html).byteLength});
  },'Analysis report prepared for download.');
  return <div className="v15-stack"><SnapshotNotice state={state} snapshot={snapshot}/>
   <Panel title="A frozen, readable analysis document" kicker="Report">
-   <p>The report combines the accepted full-horizon curve, intake chronology, threshold intervals, analysis markers and calculation identity. Detailed and Expert depth add assumptions, compartments and numerical provenance.</p>
+   <p>The report freezes the accepted calculation, chronology and provenance. Concentrations use explicitly labelled canonical units. Detailed and Expert depth add assumptions, compartments and numerical provenance.</p>
    <div className="v15-actions"><label className="v15-field">Report depth<select value={depth} onChange={e=>setDepth(e.target.value)}>{['default','detailed','expert'].map(v=><option key={v} value={v}>{v[0].toUpperCase()+v.slice(1)}</option>)}</select></label><Button primary disabled={!ready} onClick={make}>Download analysis report</Button><Button onClick={()=>navigate('session','projects')}>Export editable session</Button></div>
    {!current&&<p>Finish input editing and wait for a Current accepted result.</p>}{!comparisonReady&&<p>Waiting for the enabled A/B comparison to finish.</p>}
    <p className="v15-note">Open the downloaded HTML in a browser. Use the browser’s Print command to produce a PDF. The separate session JSON preserves editable state and history.</p>

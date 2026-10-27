@@ -1,4 +1,4 @@
-# How to use v1.5.0
+# How to use v1.60
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -8,9 +8,9 @@ Use this level for intake entry, the concentration timeline, selected-time inspe
 
 ### First complete calculation
 
-#### 1. Open Calculator
+#### 1. Open Session inputs
 
-Action. Choose Calculator in the navigation. Set the detail selector to Default.
+Action. Choose Session, then Inputs. Set Scientific depth to Default.
 
 Expected result. The person and intake controls are visible.
 
@@ -518,7 +518,7 @@ Expected result. You can explicitly restore the desired committed state.
 
 **A report button is unavailable** Complete invalid text entry, wait for Current status and finish an enabled comparison.
 
-**The installed app shows an older release** Reconnect, check for an update and use Save session and update. Read the active version in the application header.
+**The installed app shows an older release** Reconnect, check for an update and use Save session and update. Read the active version in the Scientific depth control.
 
 **An import is rejected** Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message.
 

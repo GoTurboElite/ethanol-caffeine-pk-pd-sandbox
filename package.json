@@ -1,18 +1,20 @@
 {
   "name": "ethanol-caffeine-pk-pd-sandbox",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
     "test": "node test/run.mjs",
     "test:browser": "node test/browser.mjs",
-    "preview": "node scripts/serve.mjs"
+    "preview": "node scripts/serve.mjs",
+    "test:ui": "node test/accessibility.mjs"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "esbuild": "0.28.2",
     "playwright": "1.62.1"
   }

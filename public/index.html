@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111527'/%3E%3Cpath d='M13 43 26 17h8L21 43z' fill='%23ff5f72'/%3E%3Cpath d='M31 43 44 17h8L39 43z' fill='%238b5cf6'/%3E%3C/svg%3E">
-    <title>Ethanol + Caffeine PK/PD Sandbox v1.5.0</title>
+    <title>Ethanol + Caffeine PK/PD Sandbox v1.6.0</title>
     
 
     
@@ -65,28 +65,68 @@
 
 .metadata-panel dd,.metadata-panel td{overflow-wrap:anywhere}
 
-:root{--v15-bg:#f4f6fa;--v15-panel:#fff;--v15-text:#203348;--v15-muted:#526479;--v15-line:#dce3ec;--v15-accent:#6552bc;--v15-soft:#f1eefa}
-body[data-v15-workspace="true"]{background:var(--v15-bg);color:var(--v15-text)}body[data-v15-workspace="true"] .app-shell{display:none!important}
-.v15-shell{max-width:1536px;margin:auto;padding:14px 24px 0;color:var(--v15-text);font:14px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-wrap:anywhere}.v15-shell *{box-sizing:border-box}
-.v15-topline{display:flex;align-items:center;gap:16px;flex-wrap:wrap;min-height:46px;margin-bottom:12px}.v15-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--v15-text);font-weight:650;letter-spacing:-.02em;font-size:16px}.v15-brand strong{font-size:11px;background:var(--v15-soft);color:var(--v15-accent);padding:3px 7px;border-radius:5px;margin-left:5px;letter-spacing:0}.v15-symbol{display:grid;place-items:center;border-radius:10px;background:var(--v15-accent);color:#fff;width:33px;height:33px;font-size:27px}.v15-offline{font-size:11px;color:var(--v15-muted);border:1px solid var(--v15-line);padding:4px 9px;border-radius:20px}.v15-offline.ready{color:#276957;background:#edf8f3;border-color:#cce8dc}.v15-top-actions{margin-left:auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.v15-text-link{color:var(--v15-accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.v15-nav{display:flex;align-items:center;flex-wrap:wrap;gap:5px;padding:7px;background:var(--v15-panel);border:1px solid var(--v15-line);border-radius:13px;margin-bottom:18px;box-shadow:0 3px 10px #20334804}.v15-button{appearance:none;display:inline-flex;justify-content:center;align-items:center;gap:5px;min-height:40px;padding:8px 13px;border-radius:8px;border:1px solid var(--v15-line);background:var(--v15-panel);color:var(--v15-text);font:inherit;font-weight:600;line-height:1.35;text-align:center;cursor:pointer;white-space:normal;max-width:100%}.v15-button:hover:not(:disabled){background:var(--v15-soft);border-color:#b8aedf}.v15-button.primary{background:var(--v15-accent);border-color:var(--v15-accent);color:white}.v15-button.primary:hover:not(:disabled){background:#5140a2}.v15-button:disabled{opacity:.48;cursor:not-allowed}.v15-button[aria-current="page"],.v15-button[aria-pressed="true"]{background:var(--v15-soft);color:#4b379e;border-color:#b7abdd}.v15-nav>.v15-button{border-color:transparent;background:transparent;min-height:42px}.v15-nav>.v15-button[aria-current="page"]{background:var(--v15-soft);color:#4b379e}.v15-history-controls{display:flex;gap:5px;margin-left:auto}.v15-history-controls .v15-button{font-size:12px;min-height:34px;padding:6px 10px}
-.v15-main{padding:0 0 80px}.v15-page-heading{display:flex;justify-content:space-between;align-items:center;gap:25px;margin:28px 0 24px}.v15-page-heading h1{font-size:35px;line-height:1.15;letter-spacing:-.04em;margin:5px 0 10px;color:var(--v15-text);font-weight:650}.v15-page-heading p{margin:5px 0;color:var(--v15-muted)}.v15-page-heading>.v15-field{flex:0 0 190px}.v15-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--v15-accent);font-weight:750;margin:0 0 7px}
-.v15-stack{display:grid;gap:20px}.v15-panel{background:var(--v15-panel);border:1px solid var(--v15-line);border-radius:15px;padding:24px;min-width:0;box-shadow:0 3px 12px #172f4803}.v15-panel>h2{font-size:20px;letter-spacing:-.025em;line-height:1.3;margin:0 0 14px;color:var(--v15-text);font-weight:650}.v15-panel h3{font-size:16px;margin:20px 0 9px;color:var(--v15-text)}.v15-panel p{max-width:100ch;color:var(--v15-muted);margin:10px 0 15px}.v15-panel .v15-kicker{color:var(--v15-accent)}
-.v15-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:16px;align-items:end;margin:16px 0}.v15-field{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:650;color:var(--v15-text);min-width:0}.v15-field input,.v15-field textarea,.v15-field select{width:100%;min-width:0;max-width:100%;min-height:43px;border:1px solid #c6d0de;border-radius:8px;padding:9px 11px;color:var(--v15-text);background:var(--v15-panel);font:14px/1.4 system-ui,sans-serif;font-weight:400}.v15-field textarea{resize:vertical;min-height:70px}.v15-field input[type=range]{padding:8px 0;border:0;accent-color:var(--v15-accent)}.v15-shell input[type=checkbox]{width:18px;height:18px;accent-color:var(--v15-accent);vertical-align:middle}.v15-shell :focus-visible{outline:3px solid #8b79cf;outline-offset:3px}
-.v15-actions{display:flex;align-items:end;flex-wrap:wrap;gap:10px;margin:15px 0}.v15-actions>.v15-field{flex:0 1 300px}.v15-actions>span{color:var(--v15-muted);font-size:12px;align-self:center}.v15-checkbox{display:flex;align-items:center;gap:9px;font-weight:550;min-height:42px}.v15-details{border-top:1px solid var(--v15-line);padding:15px 0}.v15-details:first-child{border-top:0}.v15-details summary{cursor:pointer;font-weight:650;min-height:28px;color:var(--v15-text)}.v15-note{font-size:12px;color:var(--v15-muted);line-height:1.6}
-.v15-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px;margin:20px 0}.v15-metric{background:#f6f8fb;border:1px solid #e6ebf2;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px}.v15-metric>span{font-size:11px;font-weight:650;color:var(--v15-muted)}.v15-metric>strong{font-size:23px;font-weight:600;letter-spacing:-.025em;line-height:1.3;overflow-wrap:anywhere}.v15-metric small{font-size:11px;font-weight:450;letter-spacing:0;color:var(--v15-muted)}.v15-metric>strong>small{margin-left:7px}
-.v15-snapshot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1px solid #d8e5de;border-left:4px solid #4b8b6c;background:#f4faf6;border-radius:9px;padding:12px 16px;font-size:12px;color:#355846}.v15-snapshot.stale{border-color:#e5d6b7;border-left-color:#b98a36;background:#fff9eb;color:#76571f}.v15-snapshot>span{overflow-wrap:anywhere}
-.v15-inspector{display:flex;align-items:center;flex-wrap:wrap;gap:18px;border:1px solid var(--v15-line);border-radius:11px;background:#f9fafc;padding:15px;margin:16px 0}.v15-inspector .v15-slider{flex:1 1 250px}.v15-inspector>.v15-field:not(.v15-slider){flex:0 1 135px}.v15-inspection-time{display:flex;flex-direction:column;gap:4px;flex:1 1 240px;font-size:12px}.v15-inspection-time span{color:var(--v15-muted)}.v15-inline-values{display:flex;gap:18px;flex-wrap:wrap;width:100%;font-size:12px;color:var(--v15-muted)}.v15-inline-values b{font-size:16px;color:var(--v15-text)}.v15-chart{width:100%;min-width:0;cursor:crosshair}.v15-chart svg{display:block;width:100%;height:auto}
-.v15-table-scroll{width:100%;max-width:100%;overflow-x:auto;margin:15px 0;border:1px solid var(--v15-line);border-radius:9px}.v15-table-scroll table{width:100%;border-collapse:collapse;background:var(--v15-panel);font-size:12px}.v15-table-scroll th,.v15-table-scroll td{padding:12px 13px;text-align:left;vertical-align:middle;border-bottom:1px solid var(--v15-line);overflow-wrap:anywhere;max-width:430px}.v15-table-scroll th{font-size:10px;letter-spacing:.025em;font-weight:750;background:#f6f8fb;color:var(--v15-muted);white-space:nowrap}.v15-table-scroll tr:last-child td{border-bottom:0}.v15-table-scroll td .v15-button{min-height:34px;padding:5px 9px;font-size:11px}.v15-table-scroll td .v15-actions{margin:0;min-width:180px}.v15-table-scroll caption{padding:10px;text-align:left;color:var(--v15-muted)}
-.v15-code{font:11px/1.55 ui-monospace,Consolas,monospace;background:#f3f6fa;border:1px solid var(--v15-line);padding:16px;border-radius:9px;max-height:600px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.v15-history{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:8px;margin-top:15px;max-height:400px;overflow:auto}.v15-history .v15-button{align-items:flex-start;flex-direction:column;text-align:left;font-size:12px}.v15-history small{font-size:10px;font-weight:400;color:var(--v15-muted)}
-.v15-feedback{display:flex;justify-content:space-between;align-items:center;gap:15px;background:#f0f8f4;border:1px solid #cce5d8;border-radius:9px;padding:12px 16px;margin-bottom:15px;color:#2c624b}.v15-feedback.error{background:#fff3f3;color:#943535;border-color:#ebcccc}.v15-feedback button{border:0;background:transparent;color:inherit;font-size:23px;cursor:pointer;min-width:32px;min-height:32px}.v15-offline-message{font-size:11px;color:var(--v15-muted);margin:6px 0 12px}
-.v15-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.v15-tabs .v15-button{min-width:100px}.v15-guide-jumps{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.v15-guide-jumps .v15-button{font-size:11px}.v15-guide-section{scroll-margin-top:20px}.v15-guide-step{display:grid;grid-template-columns:39px minmax(0,1fr);gap:15px;padding:22px 0;border-top:1px solid var(--v15-line)}.v15-guide-step:first-of-type{border-top:0}.v15-step-number{width:34px;height:34px;display:grid;place-items:center;background:var(--v15-soft);color:var(--v15-accent);border-radius:9px;font-size:11px;font-weight:750;margin-top:2px}.v15-guide-step h3{margin:0 0 10px;font-size:16px}.v15-guide-step p{margin:7px 0 10px}.v15-guide-step .v15-expected{color:#326553}.v15-guide-step p strong{font-weight:700;color:var(--v15-text)}
-html[data-v15-theme*="dark"],html[data-v15-theme*="night"]{--v15-bg:#121b27;--v15-panel:#1a2636;--v15-text:#e0e8f2;--v15-muted:#a6b5c8;--v15-line:#344255;--v15-soft:#302c4a;--v15-accent:#b2a2f0}html[data-v15-theme*="dark"] .v15-metric,html[data-v15-theme*="dark"] .v15-inspector,html[data-v15-theme*="dark"] .v15-table-scroll th,html[data-v15-theme*="dark"] .v15-code{background:#202e40}
-@media(max-width:700px){.v15-shell{padding:10px 12px 0}.v15-topline{gap:9px}.v15-top-actions{width:100%;margin-left:0;gap:10px}.v15-top-actions .v15-button{min-height:36px;font-size:11px}.v15-nav{gap:3px;padding:5px}.v15-nav>.v15-button{padding:8px 10px;font-size:12px;min-height:44px;flex:1 0 auto}.v15-history-controls{margin-left:0;flex:1;justify-content:flex-end}.v15-page-heading{align-items:stretch;flex-direction:column;gap:15px;margin:22px 0 18px}.v15-page-heading h1{font-size:29px}.v15-page-heading>.v15-field{flex:auto;max-width:230px}.v15-panel{padding:18px 15px;border-radius:12px}.v15-metric>strong{font-size:21px}.v15-inspector{padding:12px;gap:12px}.v15-inspection-time{flex-basis:100%}.v15-guide-step{grid-template-columns:30px minmax(0,1fr);gap:10px}.v15-step-number{width:28px;height:28px}.v15-actions>.v15-field{flex:1 1 100%}.v15-table-scroll th,.v15-table-scroll td{padding:10px;min-width:95px}.v15-table-scroll td:first-child{min-width:52px}.v15-stack{gap:14px}}
-@media(prefers-reduced-motion:reduce){.v15-shell *{scroll-behavior:auto!important;transition:none!important}}
+:root{--v160-bg:#f5f7f9;--v160-surface:#fff;--v160-soft:#eef2f5;--v160-text:#203348;--v160-muted:#526375;--v160-line:#d5dee6;--v160-accent:#216b61;--v160-accent-soft:#e8f3ef;--v160-bac:#945324;--v160-caf:#295fb1;--v160-danger:#a02c35;--v160-warning:#875516;--v160-text-size:16px;--v160-leading:1.55;--v160-pad:22px;--v160-gap:20px;--v15-bg:var(--v160-bg);--v15-panel:var(--v160-surface);--v15-text:var(--v160-text);--v15-muted:var(--v160-muted);--v15-line:var(--v160-line);--v15-accent:var(--v160-accent);--v15-soft:var(--v160-accent-soft)}
+html[data-v160-theme=dark]{color-scheme:dark;--v160-bg:#111c26;--v160-surface:#182630;--v160-soft:#22343f;--v160-text:#e4edf2;--v160-muted:#b2c1cc;--v160-line:#405562;--v160-accent:#91d3bd;--v160-accent-soft:#263f3a;--v160-bac:#e8ae79;--v160-caf:#8fb8ff;--v160-danger:#ffb3ba;--v160-warning:#eac58c}
+html[data-v160-palette^=royal-vapor]{--v160-accent:#7044a0;--v160-accent-soft:#f0eaf8}html[data-v160-theme=dark][data-v160-palette^=royal-vapor]{--v160-accent:#d0a9f2;--v160-accent-soft:#392c47}
+html[data-v160-palette=manuscript]{--v160-bg:#f4f1ea;--v160-surface:#fffdf8;--v160-soft:#eeeae0;--v160-accent:#5c6544;--v160-accent-soft:#eeefe7}
+html[data-v160-density=compact]{--v160-pad:16px;--v160-gap:14px}html[data-v160-line-spacing=relaxed]{--v160-leading:1.85}
+html[data-v160-contrast=true]{--v160-line:#647486;--v160-muted:#354b60}html[data-v160-contrast=true][data-v160-theme=dark]{--v160-line:#b0bfcb;--v160-muted:#d8e4ed}
+body{margin:0;background:var(--v160-bg);color:var(--v160-text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:var(--v160-text-size);line-height:var(--v160-leading)}
+.v160-app,.v160-app *,.modal-backdrop *{box-sizing:border-box}.v160-app{max-width:1560px;margin:0 auto;padding:0 32px}.v160-app button,.v160-app input,.v160-app select,.v160-app textarea{font:inherit;color:inherit}button,a,input,select,textarea,summary{touch-action:manipulation}a{color:var(--v160-accent)}
+.v160-header{min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--v160-line)}
+.v160-brand{display:flex;align-items:center;gap:28px;min-width:0}.v160-brand>a{display:flex;gap:10px;align-items:center;color:var(--v160-text);font-size:17px;font-weight:700;text-decoration:none;white-space:nowrap;letter-spacing:-.025em}.v160-brand small{font-size:11px;background:var(--v160-soft);color:var(--v160-muted);padding:3px 5px;border-radius:4px;margin-left:6px;letter-spacing:0}
+.v160-mark{display:grid;place-items:center;width:35px;height:35px;border-radius:9px;background:var(--v160-accent);color:var(--v160-surface);font:700 18px/1 ui-monospace,monospace;letter-spacing:-.1em;padding-right:3px}.v160-session-name{font-size:13px;color:var(--v160-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px}
+.v160-header-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}.v160-header-actions .v15-button{font-size:13px;border-color:transparent;background:transparent;padding:7px 10px;min-height:42px}.v160-header-actions kbd{font:10px/1.2 inherit;color:var(--v160-muted);border:1px solid var(--v160-line);border-radius:4px;padding:3px;margin-left:7px}
+.v160-navigation{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid var(--v160-line);min-height:62px}.v160-navigation>nav{display:flex;align-self:stretch;gap:28px;align-items:stretch}.v160-navigation>nav>a{display:flex;align-items:center;border-bottom:3px solid transparent;padding:13px 0 11px;font-size:14px;font-weight:600;color:var(--v160-muted);text-decoration:none;white-space:nowrap}.v160-navigation>nav>a[aria-current=page]{color:var(--v160-accent);border-color:var(--v160-accent)}
+.v160-view-controls{display:flex;align-items:center;gap:18px}.v160-view-controls>label{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--v160-muted);white-space:nowrap}.v160-view-controls select{max-width:130px;border:1px solid var(--v160-line);border-radius:6px;padding:6px 25px 6px 9px;min-height:36px;background:var(--v160-surface);font-size:13px}.v160-undo-controls{display:flex;gap:3px}.v160-undo-controls .v15-button{border-color:transparent;background:none;min-height:36px;padding:5px 7px;font-size:14px}.v160-undo-controls span{font-size:12px}
+.v160-app main{min-width:0;padding-bottom:24px;outline:none}.v160-page-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:21px 0 13px}.v160-page-heading h1{font-size:25px;line-height:1.25;letter-spacing:-.035em;font-weight:650;margin:0;white-space:normal}.v160-page-heading nav{display:flex;align-items:center;gap:4px;overflow-x:auto;max-width:100%;padding:3px}.v160-page-heading nav a{font-size:12px;font-weight:550;text-decoration:none;color:var(--v160-muted);padding:7px 10px;border-radius:6px;white-space:nowrap}.v160-page-heading nav a[aria-current=page]{color:var(--v160-accent);background:var(--v160-accent-soft)}
+.v160-calculation-state{display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:32px;font-size:12px;color:var(--v160-muted);margin-bottom:16px}.v160-calculation-state>span{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.v160-calculation-state i{width:7px;height:7px;background:var(--v160-muted);border-radius:50%;flex-shrink:0}.v160-calculation-state strong{font-weight:600;color:var(--v160-text)}.v160-calculation-state.pending i{background:var(--v160-warning)}.v160-calculation-state.error strong,.v160-calculation-state.error i{color:var(--v160-danger)}.v160-calculation-state .v15-button{font-size:12px;min-height:32px;padding:4px 10px}
+.v160-analysis-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:var(--v160-gap);align-items:start}.v160-input-rail{background:var(--v160-surface);border:1px solid var(--v160-line);border-radius:11px;padding:var(--v160-pad);min-width:0}.v160-section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.v160-section-heading h2{font-size:16px;line-height:1.35;margin:0;font-weight:650;letter-spacing:-.015em}.v160-section-heading>span{font-size:11px;color:var(--v160-muted);text-align:right}
+.v160-link{appearance:none;border:0;padding:5px 0;min-height:32px;background:none;color:var(--v160-accent)!important;font:inherit;font-size:12px!important;font-weight:600;cursor:pointer;text-decoration:none;text-underline-offset:3px;max-width:100%;white-space:normal}.v160-link:hover{text-decoration:underline}.v160-rail-section{border-top:1px solid var(--v160-line);padding:15px 0}.v160-rail-section:first-of-type{border:0;padding-top:0}.v160-rail-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.v160-rail-heading h3{font-size:13px;margin:0;color:var(--v160-text);font-weight:650}.v160-person-mass{font-size:29px;letter-spacing:-.03em;font-weight:600;line-height:1.2;display:block}.v160-person-mass small{font-size:14px;color:var(--v160-muted);font-weight:450}.v160-rail-section p{font-size:12px;color:var(--v160-muted);margin:8px 0 10px}.v160-key-value{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;margin:8px 0}.v160-key-value span{color:var(--v160-muted)}.v160-count{font-size:10px;background:var(--v160-soft);color:var(--v160-muted);padding:2px 5px;border-radius:4px;margin-left:4px}
+.v160-intake-list{display:grid;gap:0;margin-top:8px;max-height:350px;overflow:auto}.v160-intake-row{display:flex;gap:9px;justify-content:space-between;align-items:start;padding:13px 0;border-bottom:1px solid var(--v160-line)}.v160-intake-row:last-child{border-bottom:0}.v160-intake-row>div{min-width:0}.v160-intake-row b{font-size:13px;display:block;line-height:1.4;overflow-wrap:anywhere}.v160-intake-row span,.v160-intake-row small{display:block;font-size:11px;color:var(--v160-muted);margin-top:5px;line-height:1.5}.v160-secondary-value{font-size:12px;color:var(--v160-muted)}
+.v160-analysis-main{min-width:0}.v160-plots{background:var(--v160-surface);border:1px solid var(--v160-line);padding:var(--v160-pad);border-radius:11px}.v160-plots>.v160-section-heading{margin-bottom:6px}.v160-plot{padding:14px 0 10px}.v160-plot+.v160-plot{border-top:1px solid var(--v160-line);margin-top:8px}.v160-plot>header{display:flex;align-items:center;justify-content:space-between;gap:12px}.v160-series-label{font-size:13px;font-weight:650;display:flex;align-items:center;gap:7px}.v160-series-label i{display:inline-block;width:18px;height:0;border-top:3px solid var(--v160-bac)}.v160-plot.caffeine .v160-series-label i{border-color:var(--v160-caf);border-top-style:dashed}.v160-series-label small{font-weight:450;color:var(--v160-muted);font-size:11px}.v160-plot-meta{font-size:10px;color:var(--v160-muted);margin:5px 0 0}.v160-concentration{font-size:25px;line-height:1.25;letter-spacing:-.025em;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}.v160-concentration small{font-size:12px;font-weight:450;color:var(--v160-muted)}.v160-plot svg{display:block;width:100%;height:auto;max-height:190px;cursor:crosshair;margin-top:8px;overflow:visible}.v160-plot svg text{font-size:11px;fill:var(--v160-muted);font-family:inherit;font-variant-numeric:tabular-nums}.v160-grid-line{stroke:var(--v160-line);stroke-width:1}.v160-trace{stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}.v160-trace.bac{stroke:var(--v160-bac)}.v160-trace.caffeine{stroke:var(--v160-caf);stroke-dasharray:7 4}.v160-cursor-line{stroke:var(--v160-text);stroke-width:1.4;stroke-dasharray:3 3}.v160-marker-line{stroke:var(--v160-muted);stroke-width:1;stroke-dasharray:2 5}.v160-plot>footer{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:var(--v160-muted)}.v160-plot footer b{font-weight:600;color:var(--v160-text)}.v160-plot footer .v160-link{font-size:11px!important;white-space:nowrap}.v160-inline-values{display:flex;justify-content:space-between;gap:15px;font-size:13px;color:var(--v160-text)}
+.v15-inspector{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:15px 0 0;border-top:1px solid var(--v160-line);margin-top:12px}.v15-inspector .v15-slider{flex:1 1 180px}.v15-inspector>.v15-field:not(.v15-slider){flex:0 0 110px}.v15-inspection-time{display:flex;flex:1 1 170px;flex-direction:column;gap:4px;font-size:12px}.v15-inspection-time span{font-size:11px;color:var(--v160-muted)}.v15-inspector .v15-field{font-size:11px}.v15-inspector input:not([type=range]){min-height:36px;padding:5px 8px;font-size:13px}.v15-inspector input[type=range]{accent-color:var(--v160-accent);min-height:36px;padding:0;border:0;background:none}
+.v160-disclosure{border-top:1px solid var(--v160-line);margin-top:16px;padding-top:12px;font-size:13px}.v160-disclosure summary{min-height:36px;cursor:pointer;font-weight:600;color:var(--v160-text);padding:7px 0}.v160-disclosure-body{padding:10px 0 4px}.v160-input-rail .v160-disclosure{font-size:12px}.v160-analysis-links{display:flex;gap:24px;flex-wrap:wrap;margin:12px 0}.v160-guidance{background:var(--v160-accent-soft);padding:15px;border-radius:8px;font-size:12px;margin-top:14px}.v160-guidance p{line-height:1.8}
+.v15-stack{display:grid;gap:var(--v160-gap);min-width:0}.v15-panel{background:var(--v160-surface);border:1px solid var(--v160-line);border-radius:10px;padding:var(--v160-pad);min-width:0}.v15-panel>h2{font-size:18px;font-weight:650;line-height:1.35;letter-spacing:-.02em;margin:0 0 15px}.v15-panel h3{font-size:16px;margin:18px 0 10px}.v15-panel p{max-width:100ch;margin:10px 0 14px;color:var(--v160-muted);font-size:14px}.v15-kicker{display:none}.v15-field{display:flex;flex-direction:column;gap:7px;min-width:0;font-size:13px;font-weight:550;color:var(--v160-text)}
+.v15-field input,.v15-field textarea,.v15-field select{box-sizing:border-box;width:100%;max-width:100%;min-width:0;border:1px solid var(--v160-line);border-radius:6px;min-height:42px;padding:8px 10px;background:var(--v160-surface);color:var(--v160-text);font-size:14px;font-weight:400;line-height:1.4}.v15-field textarea{resize:vertical;min-height:70px}.v160-app select{appearance:none;-webkit-appearance:none;text-overflow:ellipsis;overflow:hidden;padding-right:29px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23526479' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:10px 7px}.v160-app input[type=checkbox]{accent-color:var(--v160-accent);width:18px;height:18px;flex-shrink:0}.v15-checkbox{display:flex;align-items:center;gap:10px;min-height:42px;font-size:14px}.v15-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px;align-items:end;margin:16px 0}.v15-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:15px 0}.v15-actions>.v15-field{flex:0 1 310px}.v15-actions>span{font-size:12px;color:var(--v160-muted)}
+.v15-button{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;border:1px solid var(--v160-line);border-radius:6px;padding:8px 13px;background:var(--v160-surface);color:var(--v160-text);font:inherit;font-size:13px;font-weight:550;line-height:1.35;cursor:pointer;max-width:100%;white-space:normal}.v15-button.primary{background:var(--v160-accent);border-color:var(--v160-accent);color:var(--v160-surface)}.v15-button:hover:not(:disabled){background:var(--v160-soft)}.v15-button.primary:hover:not(:disabled){filter:brightness(.92);background:var(--v160-accent)}.v15-button:disabled{opacity:.48;cursor:not-allowed}.v15-button[aria-pressed=true]{color:var(--v160-accent);border-color:var(--v160-accent);background:var(--v160-accent-soft)}
+.v15-table-scroll{max-width:100%;overflow:auto;border:1px solid var(--v160-line);border-radius:7px;margin:14px 0}.v15-table-scroll table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5;background:var(--v160-surface)}.v15-table-scroll th,.v15-table-scroll td{padding:12px;text-align:left;border-bottom:1px solid var(--v160-line);vertical-align:top;overflow-wrap:anywhere;min-width:75px}.v15-table-scroll th{font-size:12px;font-weight:600;background:var(--v160-soft);white-space:normal}.v15-table-scroll td:first-child{min-width:130px}.v15-table-scroll tr:last-child td{border-bottom:0}.v15-table-scroll .v15-button{font-size:12px;min-height:34px;padding:5px 8px}.v15-table-scroll .v15-actions{min-width:160px;margin:0}.v15-table-scroll caption{padding:12px;text-align:left}
+.v15-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:14px;margin:18px 0}.v15-metric{padding:15px;background:var(--v160-soft);border-radius:7px;display:flex;flex-direction:column;gap:7px;min-width:0}.v15-metric>span{font-size:12px;color:var(--v160-muted)}.v15-metric>strong{font-size:25px;font-weight:600;line-height:1.3;letter-spacing:-.02em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.v15-metric small{font-size:12px;color:var(--v160-muted);font-weight:400;margin-left:5px}.v15-metric>small{margin-left:0}.v15-snapshot{font-size:12px;border-left:3px solid var(--v160-line);padding:8px 12px;color:var(--v160-muted);display:flex;gap:12px;flex-wrap:wrap}.v15-snapshot.current{display:none}.v15-snapshot.stale{border-color:var(--v160-warning);background:var(--v160-soft)}
+.v160-help,.v15-note{font-size:13px!important;line-height:1.65;color:var(--v160-muted)!important}.v160-error,.v15-field [role=alert]{color:var(--v160-danger)!important;font-size:13px}.v160-error{background:var(--v160-soft);padding:10px;border-left:3px solid var(--v160-danger)}.v15-code{font:12px/1.65 ui-monospace,Consolas,monospace;background:var(--v160-soft);border:1px solid var(--v160-line);border-radius:7px;padding:16px;max-height:600px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}.v15-details{border-top:1px solid var(--v160-line);padding:15px 0;font-size:14px}.v15-details summary{cursor:pointer;font-weight:600;min-height:32px}
+.v160-dialog{position:fixed;max-width:min(600px,calc(100vw - 32px));width:600px;max-height:calc(100dvh - 48px);margin:auto;padding:0;border:1px solid var(--v160-line);border-radius:12px;background:var(--v160-surface);color:var(--v160-text);box-shadow:0 24px 80px #081a3033;font:var(--v160-text-size)/var(--v160-leading) Inter,system-ui,sans-serif}.v160-dialog.wide{width:760px;max-width:min(760px,calc(100vw - 32px))}.v160-dialog::backdrop{background:#10253980}.v160-dialog>header{display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border-bottom:1px solid var(--v160-line);position:sticky;top:0;background:var(--v160-surface);z-index:1}.v160-dialog h2{font-size:20px;line-height:1.3;font-weight:650;letter-spacing:-.02em;margin:0}.v160-dialog .icon-button{font-size:23px;min-width:40px;border:0;padding:0}.v160-dialog-body{padding:22px;overflow-wrap:anywhere}.v160-dialog input,.v160-dialog select,.v160-dialog textarea{font-size:var(--v160-text-size)}.v160-settings-tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:1px solid var(--v160-line);padding-bottom:13px;margin-bottom:18px}.v160-settings-tabs .v15-button{border-color:transparent;font-size:13px}.v160-settings-tabs .v15-button[aria-pressed=true]{background:var(--v160-accent-soft)}.v160-settings-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--v160-line);padding-top:18px;margin-top:20px;gap:15px;font-size:12px;color:var(--v160-muted)}
+.v160-search-results{margin-top:20px;max-height:55vh;overflow:auto}.v160-search-results h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--v160-muted);margin:18px 0 8px}.v160-search-result{display:flex;align-items:center;justify-content:space-between;gap:15px;border:0;border-bottom:1px solid var(--v160-line);background:transparent;color:var(--v160-text);padding:13px 5px;min-height:48px;width:100%;text-align:left;cursor:pointer;font:inherit}.v160-search-result:hover{background:var(--v160-soft)}.v160-search-result b{font-size:14px;font-weight:600}.v160-search-result span:last-child{font-size:12px;color:var(--v160-muted);flex-shrink:0}.v160-search-result small{display:block;font-size:11px;color:var(--v160-muted);margin-top:4px;overflow-wrap:anywhere}.v160-param-path{display:block;font-size:12px;margin-top:18px;padding:10px;background:var(--v160-soft);overflow-wrap:anywhere}.v160-search-field{max-width:520px}
+.v160-document-menu{position:relative;font-size:13px}.v160-document-menu summary{cursor:pointer;min-height:40px;padding:10px 9px;color:var(--v160-text)}.v160-document-menu>div{position:absolute;z-index:15;top:calc(100% + 5px);right:0;width:210px;padding:7px;background:var(--v160-surface);border:1px solid var(--v160-line);border-radius:8px;box-shadow:0 10px 35px #122b4826}.v160-document-menu button,.v160-document-menu a{display:block;width:100%;text-align:left;font-size:13px;font-weight:450;text-decoration:none;color:var(--v160-text);min-height:40px;padding:10px;border:0;background:transparent;border-radius:4px}.v160-document-menu button:hover,.v160-document-menu a:hover{background:var(--v160-soft)}
+.v160-footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--v160-line);padding:18px 0 26px;font-size:11px;color:var(--v160-muted);align-items:center}.v160-footer .v160-link{font-size:11px!important}.v160-feedback,.v160-update{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:12px 15px;border:1px solid var(--v160-line);border-radius:7px;background:var(--v160-soft);font-size:13px;margin:0 0 16px}.v160-feedback.error{border-left:3px solid var(--v160-danger);color:var(--v160-danger)}.v160-feedback button{border:0;background:none;font-size:22px;cursor:pointer;color:inherit;padding:4px 9px}
+.v15-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.v15-guide-jumps{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.v15-guide-step{display:grid;grid-template-columns:32px minmax(0,1fr);gap:14px;border-top:1px solid var(--v160-line);padding:20px 0}.v15-guide-step h3{font-size:16px;margin:0 0 10px}.v15-guide-step p{margin:8px 0;font-size:14px}.v15-step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:5px;background:var(--v160-soft);font-size:11px;font-weight:650;color:var(--v160-muted)}.v15-guide-section{scroll-margin-top:20px}.v15-history{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:8px;max-height:400px;overflow:auto}.v15-history button{display:flex;flex-direction:column;align-items:flex-start;text-align:left}.v15-history small{font-size:11px;color:var(--v160-muted);font-weight:450}
+.v160-legacy-slot>.app-shell{max-width:none!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important;font-size:var(--v160-text-size);--background:var(--v160-bg);--surface:var(--v160-surface);--surface-soft:var(--v160-soft);--surface-strong:var(--v160-soft);--surface-muted:var(--v160-soft);--text:var(--v160-text);--text-strong:var(--v160-text);--muted:var(--v160-muted);--line:var(--v160-line);--accent:var(--v160-accent);--accent-strong:var(--v160-accent);--accent-soft:var(--v160-accent-soft);--persistent-header-height:0px;--persistent-workspace-tabs-height:0px}
+.v160-legacy-slot .scenario-header,.v160-legacy-slot .app-header,.v160-legacy-slot>.app-shell>.release-scope-strip,.v160-legacy-slot>.app-shell>.workspace-tabs,.v160-legacy-slot>.app-shell>.scenario-context-strip,.v160-legacy-slot>.app-shell>.kernel-status,.v160-legacy-slot .calculate-title,.v160-legacy-slot .calculator-journey,.v160-legacy-slot .calculate-workspace>.calculation-status-bar,.v160-legacy-slot .calculation-preview-column{display:none!important}
+.v160-legacy-slot .workspace-frame{padding:0!important;margin:0!important}.v160-legacy-slot .calculate-workbench{grid-template-columns:minmax(260px,.75fr) minmax(0,1.6fr)!important;gap:var(--v160-gap)!important}.v160-legacy-slot .calculation-person-column,.v160-legacy-slot .calculation-intake-column{min-width:0}.v160-legacy-slot :is(.panel,.person-panel,.dose-panel,.chart-panel,.dashboard,.expert-section){box-shadow:none!important;border-radius:10px!important}.v160-legacy-slot .panel-kicker,.v160-legacy-slot .eyebrow{display:none!important}.v160-legacy-slot :is(button,input,select,textarea,summary){font-size:max(13px,.86rem);line-height:1.45}.v160-legacy-slot :is(h2,h3){letter-spacing:-.015em}.v160-legacy-slot button{min-height:36px}.modal-backdrop.app-shell{font-size:var(--v160-text-size);--surface:var(--v160-surface);--surface-soft:var(--v160-soft);--text:var(--v160-text);--text-strong:var(--v160-text);--muted:var(--v160-muted);--line:var(--v160-line);--accent:var(--v160-accent);--accent-soft:var(--v160-accent-soft)}
+.v160-app :focus-visible,.modal-backdrop :focus-visible{outline:3px solid var(--v160-accent)!important;outline-offset:3px!important}.v160-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.v160-skip{position:fixed;left:18px;top:-100px;padding:10px 16px;z-index:100;background:var(--v160-surface);color:var(--v160-accent);border:2px solid var(--v160-accent)}.v160-skip:focus{top:10px}
+html[data-v160-contrast=true] :is(input,select,textarea,button,summary){border-width:2px}html[data-v160-text-size] .v160-dialog{font-size:var(--v160-text-size)}
+html[data-v160-text-size=large] .v160-app{font-size:18px}
+html[data-v160-motion=reduced] *,html[data-v160-motion=reduced] *:before,html[data-v160-motion=reduced] *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(forced-colors:active){.v160-trace.bac{stroke:CanvasText}.v160-trace.caffeine{stroke:LinkText;stroke-dasharray:7 4}.v160-grid-line,.v160-cursor-line,.v160-marker-line{stroke:CanvasText}.v160-mark{border:1px solid CanvasText}.v160-navigation a[aria-current=page]{border-color:Highlight}}
+@media(max-width:1200px){.v160-session-name{display:none}.v160-navigation>nav{gap:22px}.v160-header-actions kbd{display:none}.v160-page-heading{align-items:flex-start}.v160-page-heading nav{flex-wrap:wrap;justify-content:flex-end}.v160-analysis-grid{grid-template-columns:255px minmax(0,1fr)}}
+@media(max-width:900px){.v160-app{padding:0 20px}.v160-header{gap:12px;flex-wrap:wrap;padding:14px 0}.v160-header-actions{gap:2px;flex-wrap:wrap}.v160-header-actions .v15-button{padding:6px 8px}.v160-navigation{align-items:flex-start;flex-wrap:wrap;gap:0;padding:0 0 10px}.v160-navigation>nav{gap:24px;min-height:54px}.v160-view-controls{width:100%;justify-content:space-between;gap:10px}.v160-page-heading{flex-direction:column;gap:10px;margin:18px 0 10px}.v160-page-heading nav{justify-content:flex-start;flex-wrap:nowrap;width:100%}.v160-analysis-grid{grid-template-columns:220px minmax(0,1fr)}.v160-plots,.v160-input-rail{padding:16px}.v160-concentration{font-size:22px}.v160-plot>footer{align-items:flex-start;flex-wrap:wrap;gap:3px}.v160-plot footer .v160-link{min-height:28px}.v160-legacy-slot .calculate-workbench{grid-template-columns:minmax(0,1fr)!important}.v160-legacy-slot .calculation-person-column{position:static!important}.v160-footer{gap:6px}}
+@media(max-width:650px){.v160-app{padding:0 12px}.v160-header{padding:12px 0 8px;gap:9px}.v160-brand>a{font-size:15px}.v160-mark{width:30px;height:30px;font-size:16px;border-radius:7px}.v160-header-actions{width:100%;justify-content:space-between;gap:0}.v160-header-actions .v15-button{font-size:12px;min-height:40px;padding:7px}.v160-header-actions kbd{display:none}.v160-document-menu summary{font-size:12px}.v160-navigation>nav{gap:17px;width:100%;min-height:50px;justify-content:space-between}.v160-navigation>nav>a{font-size:12px;min-height:48px}.v160-view-controls{gap:8px}.v160-view-controls>label{font-size:11px;gap:7px}.v160-undo-controls span{font-size:11px}.v160-view-controls select{font-size:12px;max-width:114px}.v160-page-heading h1{font-size:23px}.v160-page-heading nav a{font-size:12px;min-height:36px;padding:7px 9px}.v160-calculation-state{font-size:11px;align-items:flex-start;margin-bottom:12px}.v160-calculation-state>span>span{font-size:11px}.v160-analysis-grid{display:flex;flex-direction:column;gap:14px}.v160-analysis-main{width:100%;order:0}.v160-input-rail{width:100%;order:1}.v160-plots{padding:15px}.v160-plots .v160-section-heading{align-items:flex-start}.v160-section-heading h2{font-size:15px}.v160-section-heading>span{max-width:115px;font-size:10px}.v160-plot{padding:12px 0 6px}.v160-concentration{font-size:22px}.v160-plot-meta{font-size:10px}.v160-series-label{font-size:12px}.v160-series-label small{font-size:10px}.v160-plot svg{margin-top:12px;min-height:92px}.v160-plot>footer{font-size:10px}.v160-plot footer .v160-link{font-size:10px!important}.v15-inspector{gap:12px}.v15-inspector .v15-slider{flex:1 1 100%}.v15-inspector>.v15-field:not(.v15-slider){flex:0 1 105px}.v15-inspection-time{flex:1 1 130px;font-size:11px}.v15-panel{padding:16px}.v15-panel>h2{font-size:17px}.v15-actions>.v15-field{flex:1 1 100%}.v15-guide-step{grid-template-columns:28px minmax(0,1fr);gap:10px}.v160-dialog,.v160-dialog.wide{max-width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}.v160-dialog>header{padding:14px 16px}.v160-dialog-body{padding:16px}.v160-dialog h2{font-size:18px}.v160-settings-tabs{gap:3px}.v160-settings-tabs .v15-button{font-size:12px;padding:7px 8px}.v160-settings-footer{align-items:flex-start}.v160-search-result{gap:9px}.v160-search-result b{font-size:13px}.v160-search-result span:last-child{font-size:11px;max-width:90px}.v160-inline-values{font-size:12px;flex-wrap:wrap}.v160-input-rail .v160-intake-list{max-height:none}.v160-footer{font-size:10px;gap:4px}.v160-feedback,.v160-update{font-size:12px}.v160-legacy-slot .workspace-title-row{flex-wrap:wrap}}
 
-/* Bound the closed native select to its field in WebKit, including long options. */
-.v15-field select{-webkit-appearance:none;appearance:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23526479' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;background-size:12px 8px}
+
+:root{--v160-scale:1;--v160-control:#7c8d9b}
+html[data-v160-theme=dark]{--v160-control:#8aa1b1}
+.v160-app .v15-field :is(input,select,textarea){border-color:var(--v160-control)}
+.v160-app .v15-field{font-size:calc(13px * var(--v160-scale))}
+.v160-app .v15-field :is(input,select,textarea){font-size:calc(14px * var(--v160-scale))}
+.v160-app .v15-panel p,.v160-app .v15-guide-step p{font-size:calc(14px * var(--v160-scale))}
+.v160-app .v160-help,.v160-app .v15-note{font-size:calc(13px * var(--v160-scale))!important}
+.v160-app .v160-plot-meta,.v160-app .v160-plot>footer,.v160-app .v160-series-label small{font-size:calc(12px * var(--v160-scale))}
+.v160-app .v160-plot svg text{font-size:calc(12px * var(--v160-scale))}
+.v160-app .v160-plot footer .v160-link{font-size:calc(12px * var(--v160-scale))!important}
+.v160-app .v160-intake-row :is(span,small),.v160-app .v160-rail-section p{font-size:calc(12px * var(--v160-scale))}
+.v160-app .v160-rail-heading h3,.v160-app .v160-intake-row b{font-size:calc(13px * var(--v160-scale))}
+.v160-legacy-slot h1{display:none!important}
+html[data-v160-text="18"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(15px,.95rem)!important}
+html[data-v160-text="20"] .v160-legacy-slot :is(label,p,td,input,select,textarea,button){font-size:max(17px,1.05rem)!important}
 </style>
 <script id="pk-kernel-source" type="text/plain">var PKCore=(()=>{
 const Vv = "0.3.0";
@@ -4549,7 +4589,7 @@ function kj(e, t, n, a, acceptedNumerical, acceptedBehavioural) {
     validationMessages: []
   };
 }
-const Vi = "1.5.0";
+const Vi = "1.6.0";
 const tg = "ethanol-caffeine-pk-scenario";
 const Cr = "0.8.2";
 const zp = "0.8.3";
@@ -4565,7 +4605,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "e6eef173492ca3b2428456d8c5a0cb9ad098d8711fd0582e73de31168de796d9",
+  buildFingerprint: "6ef0040b7f72a0d6ae9ae5118d3ee993486a1c7dd033b246911d0b31113f9cf2",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -6137,7 +6177,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   });
 
   // src/session/core.mjs
-  var V15_VERSION = "1.5.0";
+  var V15_VERSION = "1.6.0";
   var V15_PROJECT_SCHEMA = "ethanol-caffeine-session";
   var V15_PROJECT_SCHEMA_VERSION = "1.0.0";
   var V15_HISTORY_LIMIT = 60;
@@ -6214,10 +6254,10 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return [...new Set(found)].sort();
   }
   function v15ResolveLocal(local, zone, choice = "") {
-    const choices = v15LocalInstants(local, zone);
-    if (!choices.length) throw Error("This local time falls in a clock-change gap. Choose an existing time.");
-    if (choices.length > 1 && choice !== "earlier" && choice !== "later") throw Error("This clock time occurs twice. Select the earlier or later occurrence.");
-    return choices.length === 1 ? choices[0] : choices[choice === "earlier" ? 0 : choices.length - 1];
+    const choices2 = v15LocalInstants(local, zone);
+    if (!choices2.length) throw Error("This local time falls in a clock-change gap. Choose an existing time.");
+    if (choices2.length > 1 && choice !== "earlier" && choice !== "later") throw Error("This clock time occurs twice. Select the earlier or later occurrence.");
+    return choices2.length === 1 ? choices2[0] : choices2[choice === "earlier" ? 0 : choices2.length - 1];
   }
   function v15TimeLabel(h2) {
     if (!Number.isFinite(h2)) return "Unavailable";
@@ -6992,20 +7032,124 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return api;
   }
 
+  // src/session/preferences.mjs
+  var UI_VERSION = "1.0.0";
+  var UI_KEY = "pkpd-v160-interface";
+  var UI_DEFAULTS = Object.freeze({ explanations: "concise", density: "comfortable", textSize: 16, lineSpacing: "standard", focus: false, theme: "clarity-system", contrast: false, motion: "system", palette: "standard", chartLayout: "stacked", notifications: "quiet", panels: {} });
+  var choices = { explanations: ["concise", "expanded", "guided"], density: ["comfortable", "compact"], textSize: [16, 18, 20], lineSpacing: ["standard", "relaxed"], theme: ["clarity-system", "clarity-light", "clarity-dark", "workbench-dark", "workbench-light", "royal-vapor-dark", "royal-vapor-light", "chromatic", "clinical", "spectral", "midnight", "manuscript"], motion: ["system", "reduced"], palette: ["standard", "restrained"], chartLayout: ["stacked", "overlay"], notifications: ["quiet", "all"] };
+  function validatePreferences(value) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("The interface profile is incomplete.");
+    const safe = { ...UI_DEFAULTS };
+    for (const [key, values] of Object.entries(choices)) {
+      if (value[key] !== void 0 && !values.includes(value[key])) throw Error("Unsupported interface option: " + key);
+      if (value[key] !== void 0) safe[key] = value[key];
+    }
+    for (const key of ["focus", "contrast"]) {
+      if (value[key] !== void 0 && typeof value[key] !== "boolean") throw Error("Invalid interface option: " + key);
+      if (value[key] !== void 0) safe[key] = value[key];
+    }
+    if (value.panels !== void 0) {
+      if (!value.panels || typeof value.panels !== "object" || Array.isArray(value.panels)) throw Error("Invalid panel preferences.");
+      for (const [k, v] of Object.entries(value.panels)) {
+        if (!/^[a-z0-9-]{1,80}$/i.test(k) || typeof v !== "boolean") throw Error("Invalid panel preference.");
+      }
+      safe.panels = { ...value.panels };
+    }
+    return safe;
+  }
+  var InterfacePreferences = class {
+    constructor(store, env = globalThis) {
+      __publicField(this, "subscribe", (f) => {
+        this.listeners.add(f);
+        return () => this.listeners.delete(f);
+      });
+      __publicField(this, "snapshot", () => this.revision);
+      this.store = store;
+      this.env = env;
+      this.listeners = /* @__PURE__ */ new Set();
+      this.revision = 0;
+      this.error = "";
+      this.status = "saved";
+      const old = store.state.presentation;
+      this.values = validatePreferences({ ...UI_DEFAULTS, theme: choices.theme.includes(old.theme) ? old.theme : UI_DEFAULTS.theme, density: old.density === "comfortable" ? "comfortable" : "compact", contrast: !!old.enhancedContrast, motion: old.reducedMotion ? "reduced" : "system", palette: old.colourfulCharts === false ? "restrained" : "standard" });
+      try {
+        const raw = env.localStorage?.getItem(UI_KEY);
+        if (raw) {
+          const data = JSON.parse(raw);
+          if (data.version !== UI_VERSION) throw Error("This interface profile uses an unsupported version.");
+          this.values = validatePreferences(data.values);
+        }
+      } catch (e) {
+        this.error = "Interface preferences could not be restored: " + e.message;
+        this.status = "failed";
+      }
+      this.apply();
+    }
+    emit() {
+      this.revision++;
+      for (const f of this.listeners) f();
+    }
+    apply() {
+      const p = this.values, s = this.store.state.presentation;
+      const next = { theme: p.theme, density: p.density, enhancedContrast: p.contrast, reducedMotion: p.motion === "reduced", colourfulCharts: p.palette === "standard" };
+      if (Object.entries(next).some(([k, v]) => s[k] !== v)) this.store.field("settings", { ...s, ...next });
+    }
+    set(patch) {
+      const next = validatePreferences({ ...this.values, ...patch });
+      this.values = next;
+      this.apply();
+      try {
+        this.env.localStorage?.setItem(UI_KEY, JSON.stringify({ version: UI_VERSION, values: next }));
+        this.status = "saved";
+        this.error = "";
+      } catch (e) {
+        this.status = "failed";
+        this.error = "Interface changes apply to this tab, but could not be saved: " + e.message;
+      }
+      this.emit();
+    }
+    reset(group) {
+      const groups = { reading: ["explanations", "density", "textSize", "lineSpacing", "focus"], appearance: ["theme", "contrast", "palette", "chartLayout"], interaction: ["motion", "notifications"], panels: ["panels"] };
+      const keys = group ? groups[group] : Object.keys(UI_DEFAULTS);
+      if (!keys) throw Error("Unknown preference group.");
+      this.set(Object.fromEntries(keys.map((k) => [k, UI_DEFAULTS[k]])));
+    }
+    export() {
+      return { schema: "pkpd-interface-profile", version: UI_VERSION, values: validatePreferences(this.values), scientificDepth: this.store.state.presentation.detailMode };
+    }
+    import(text) {
+      if (typeof text !== "string" || text.length > 65536) throw Error("Interface profiles are limited to 64 KiB.");
+      const data = JSON.parse(text, (k, v) => {
+        if (["__proto__", "prototype", "constructor"].includes(k)) throw Error("Unsupported profile key.");
+        return v;
+      });
+      if (data.schema !== "pkpd-interface-profile" || data.version !== UI_VERSION) throw Error("This is not a supported interface profile.");
+      if (!["default", "detailed", "expert"].includes(data.scientificDepth)) throw Error("Invalid scientific depth.");
+      const safe = validatePreferences(data.values);
+      this.set(safe);
+      this.store.field("settings", { ...this.store.state.presentation, detailMode: data.scientificDepth });
+    }
+    panel(key, open) {
+      this.set({ panels: { ...this.values.panels, [key]: open } });
+    }
+  };
+
   // src/ui/runtime.mjs
   var React;
   var Fragment;
   var bridge;
   var controller;
   var pwa;
+  var preferences;
   var h = (...args) => React.createElement(...args);
   function v15InitUI(value) {
     bridge = value;
     React = value.React;
     Fragment = React.Fragment;
     controller = new V15Controller(value);
+    preferences = new InterfacePreferences(value.store);
     pwa = v15PWA(controller);
-    return { controller, pwa };
+    return { controller, pwa, preferences };
   }
   function useSession() {
     React.useSyncExternalStore(controller.subscribe, controller.getRevision, controller.getRevision);
@@ -7014,6 +7158,10 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   function usePWA() {
     React.useSyncExternalStore(pwa.subscribe, () => pwa.revision, () => pwa.revision);
     return pwa.state;
+  }
+  function usePreferences() {
+    React.useSyncExternalStore(preferences.subscribe, preferences.snapshot, preferences.snapshot);
+    return preferences.values;
   }
   function navigate(workspace, view = "") {
     window.location.hash = "#" + workspace + (view ? "/" + view : "");
@@ -7049,6 +7197,25 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return { state, snapshot, result: snapshot?.numerical ?? null, input: state.accepted?.canonicalScenario ?? null, current: !!snapshot && state.snapshots.relationToDraft === "current" && !state.editingInvalidCount };
   }
 
+  // src/ui/units.mjs
+  function bacUnit(presentation) {
+    return presentation.bacDisplayUnit === "permille" ? "\u2030" : presentation.bacDisplayUnit ?? "g/dL";
+  }
+  function bacValue(value, presentation) {
+    return value * (presentation.bacDisplayUnit === "g/L" || presentation.bacDisplayUnit === "permille" ? 10 : 1);
+  }
+  function bacText(value, presentation, digits = 4) {
+    if (!Number.isFinite(value)) return "Unavailable";
+    const factor = presentation.bacDisplayUnit === "g/L" || presentation.bacDisplayUnit === "permille" ? 10 : 1;
+    const number = value * factor, places = Math.min(6, digits + (factor === 1 ? 0 : 0));
+    if (number > 0 && number < Math.pow(10, -places)) return "<" + Math.pow(10, -places).toFixed(places);
+    return number.toFixed(places);
+  }
+  function parameterLabel(id) {
+    const overrides = { "subject.bodyMassKg": "Body mass", "subject.simulationDurationH": "Observation horizon", "subject.caffeineHalfLifeH": "Effective caffeine half-life", "subject.referenceCaffeineHalfLifeH": "Reference caffeine half-life", "subject.ethanolVmaxGPerH": "Ethanol Vmax", "constants.ethanolVmaxGPerH": "Ethanol Vmax", "subject.solverInternalStepMin": "Internal solver step", "subject.timeStepMin": "Output sampling step" };
+    return overrides[id] ?? id.split(".").slice(1).join(" \xB7 ").replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/GdL/g, "g/dL").replace(/^./, (x) => x.toUpperCase());
+  }
+
   // src/ui/common.jsx
   function Button({ children, onClick, primary = false, ...props }) {
     return /* @__PURE__ */ h("button", { type: "button", className: "v15-button" + (primary ? " primary" : ""), onClick, ...props }, children);
@@ -7057,7 +7224,13 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return /* @__PURE__ */ h("section", { className: "v15-panel " + className, ...props }, kicker && /* @__PURE__ */ h("p", { className: "v15-kicker" }, kicker), title && /* @__PURE__ */ h("h2", null, title), children);
   }
   function Table({ headers, rows, caption }) {
-    return /* @__PURE__ */ h("div", { className: "v15-table-scroll" }, /* @__PURE__ */ h("table", null, caption && /* @__PURE__ */ h("caption", null, caption), /* @__PURE__ */ h("thead", null, /* @__PURE__ */ h("tr", null, headers.map((x) => /* @__PURE__ */ h("th", { key: x, scope: "col" }, x)))), /* @__PURE__ */ h("tbody", null, rows.map((row, i) => /* @__PURE__ */ h("tr", { key: i }, row.map((cell, j) => /* @__PURE__ */ h("td", { key: j }, cell)))))));
+    return /* @__PURE__ */ h("div", { className: "v15-table-scroll", tabIndex: "0", role: "region", "aria-label": caption ?? headers.join(", ") }, /* @__PURE__ */ h("table", null, caption && /* @__PURE__ */ h("caption", null, caption), /* @__PURE__ */ h("thead", null, /* @__PURE__ */ h("tr", null, headers.map((x) => /* @__PURE__ */ h("th", { key: x, scope: "col" }, x)))), /* @__PURE__ */ h("tbody", null, rows.map((row, i) => /* @__PURE__ */ h("tr", { key: i }, row.map((cell, j) => /* @__PURE__ */ h("td", { key: j }, cell)))))));
+  }
+  function Disclosure({ id, title, children, defaultOpen = false }) {
+    const p = usePreferences(), key = (p.focus ? "focus-" : "standard-") + id, open = p.panels[key] ?? (!p.focus && defaultOpen);
+    return /* @__PURE__ */ h("details", { id, className: "v160-disclosure", open, onToggle: (e) => {
+      if (e.currentTarget.open !== open) preferences.panel(key, e.currentTarget.open);
+    } }, /* @__PURE__ */ h("summary", null, title), /* @__PURE__ */ h("div", { className: "v160-disclosure-body" }, children));
   }
   function Metric({ label, value, unit, sub }) {
     return /* @__PURE__ */ h("div", { className: "v15-metric" }, /* @__PURE__ */ h("span", null, label), /* @__PURE__ */ h("strong", null, value, /* @__PURE__ */ h("small", null, unit)), sub && /* @__PURE__ */ h("small", null, sub));
@@ -7066,21 +7239,42 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const relation = state.snapshots.relationToDraft;
     return /* @__PURE__ */ h("div", { className: "v15-snapshot " + (relation === "current" ? "current" : "stale"), role: "status" }, /* @__PURE__ */ h("strong", null, relation === "current" ? "Current accepted result" : snapshot ? "Previous accepted result" : "Calculation pending"), /* @__PURE__ */ h("span", null, snapshot ? "Snapshot " + snapshot.snapshotId : "Enter valid inputs and run the calculation."), relation !== "current" && /* @__PURE__ */ h("span", null, "Committed draft changes are awaiting a matching accepted calculation."));
   }
+  function InspectionNumber({ time, end }) {
+    const [draft, setDraft] = React.useState(String(Number(time.toFixed(4)))), [error, setError] = React.useState("");
+    React.useEffect(() => {
+      setDraft(String(Number(time.toFixed(4))));
+      setError("");
+    }, [time]);
+    const commit = () => {
+      try {
+        if (!draft.trim()) throw Error("Enter an inspection time.");
+        controller.inspect(Number(draft));
+        setError("");
+      } catch (e) {
+        setError(e.message);
+      }
+    };
+    return /* @__PURE__ */ h("label", { className: "v15-field" }, "Elapsed hours", /* @__PURE__ */ h("input", { "aria-label": "Inspection elapsed hours", inputMode: "decimal", value: draft, onChange: (e) => setDraft(e.target.value), onBlur: commit, onKeyDown: (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        e.currentTarget.blur();
+      }
+    }, "aria-invalid": !!error }), error && /* @__PURE__ */ h("span", { className: "v160-error", role: "alert" }, error));
+  }
   function Inspector({ state, result }) {
     const t = state.presentation.selectedTimeH, end = state.document.mainScenario.subject.simulationDurationH, p = result ? v15Interpolate(result.analysisPoints ?? result.points, t) : null;
-    return /* @__PURE__ */ h("div", { className: "v15-inspector" }, /* @__PURE__ */ h("label", { className: "v15-field v15-slider" }, "Inspection time", /* @__PURE__ */ h("input", { "aria-label": "Inspection time slider", type: "range", min: "0", max: end, step: ".01", value: Math.min(end, Math.max(0, t)), onChange: (e) => action(() => controller.inspect(Number(e.target.value))) })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Elapsed hours", /* @__PURE__ */ h("input", { "aria-label": "Inspection elapsed hours", type: "number", min: "0", max: end, step: ".01", value: Number(t.toFixed(4)), onChange: (e) => {
-      if (e.target.value !== "") action(() => controller.inspect(Number(e.target.value)));
-    } })), /* @__PURE__ */ h("div", { className: "v15-inspection-time" }, /* @__PURE__ */ h("strong", null, v15TimeLabel(t)), /* @__PURE__ */ h("span", null, v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant) + t * 36e5, state.presentation.scenarioTimeZone))), p && /* @__PURE__ */ h("div", { className: "v15-inline-values" }, /* @__PURE__ */ h("span", null, "BAC ", /* @__PURE__ */ h("b", null, v15Number(p.bacGdL, 5)), " g/dL"), /* @__PURE__ */ h("span", null, "Caffeine ", /* @__PURE__ */ h("b", null, v15Number(p.caffeineMgL, 4)), " mg/L")));
+    return /* @__PURE__ */ h("div", { className: "v15-inspector" }, /* @__PURE__ */ h("label", { className: "v15-field v15-slider" }, "Inspection time", /* @__PURE__ */ h("input", { "aria-label": "Inspection time slider", type: "range", min: "0", max: end, step: ".01", value: Math.min(end, Math.max(0, t)), onChange: (e) => action(() => controller.inspect(Number(e.target.value))) })), /* @__PURE__ */ h(InspectionNumber, { time: t, end }), /* @__PURE__ */ h("div", { className: "v15-inspection-time" }, /* @__PURE__ */ h("strong", null, "Selected ", v15TimeLabel(t)), state.presentation.timeDisplayMode === "clock" && /* @__PURE__ */ h("span", null, v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant) + t * 36e5, state.presentation.scenarioTimeZone))));
   }
   function Intervals({ result }) {
+    const presentation = bridge.store.state.presentation, unit = bacUnit(presentation);
     const rows = [];
     for (const [label, key] of [["Vehicle reference", "vehicleThresholdOutcome"], ["Comparison reference", "legalThresholdOutcome"], ["Negligible BAC", "negligibleThresholdOutcome"]]) {
       const out = result.summary[key];
       if (!out) continue;
-      if (!out.intervals.length) rows.push([label, v15Number(out.threshold, 4), "Never exceeded", "\u2014", "\u2014"]);
-      else out.intervals.forEach((i, n) => rows.push([label + " \xB7 " + (n + 1), v15Number(out.threshold, 4), v15TimeLabel(i.startH) + (i.leftCensored ? " \xB7 active at start" : ""), v15TimeLabel(i.endH) + (i.rightCensored ? " \xB7 open at horizon" : ""), out.finalReturnH === void 0 ? "Not observed" : v15TimeLabel(out.finalReturnH)]));
+      if (!out.intervals.length) rows.push([label, bacText(out.threshold, presentation), "Never exceeded", "\u2014", "\u2014"]);
+      else out.intervals.forEach((i, n) => rows.push([label + " \xB7 " + (n + 1), bacText(out.threshold, presentation), v15TimeLabel(i.startH) + (i.leftCensored ? " \xB7 active at start" : ""), v15TimeLabel(i.endH) + (i.rightCensored ? " \xB7 open at horizon" : ""), out.finalReturnH == null ? "Not observed" : v15TimeLabel(out.finalReturnH)]));
     }
-    return /* @__PURE__ */ h(Table, { headers: ["Reference / interval", "g/dL", "Start", "End", "Final return in schedule"], rows });
+    return /* @__PURE__ */ h(Table, { headers: ["Reference / interval", unit, "Start", "End", "Final return in schedule"], rows });
   }
   function EmptyResult() {
     return /* @__PURE__ */ h(Panel, { title: "A calculation is required" }, /* @__PURE__ */ h("p", null, "Open Calculator, finish the inputs and wait for an accepted result."), /* @__PURE__ */ h(Button, { primary: true, onClick: () => navigate("calculate") }, "Open Calculator"));
@@ -7164,20 +7358,20 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       setZone(p.scenarioTimeZone);
       setOccurrence("");
     }, [p.scenarioAnchorInstant, p.scenarioTimeZone]);
-    let choices = [], message = "";
+    let choices2 = [], message = "";
     try {
-      choices = v15LocalInstants(local, zone);
-      message = choices.length === 0 ? "This local time falls in a clock-change gap." : choices.length > 1 ? "This clock time occurs twice; choose an occurrence." : "Corresponding instant: " + choices[0];
+      choices2 = v15LocalInstants(local, zone);
+      message = choices2.length === 0 ? "This local time falls in a clock-change gap." : choices2.length > 1 ? "This clock time occurs twice; choose an occurrence." : "Corresponding instant: " + choices2[0];
     } catch (error) {
       message = error.message;
     }
-    return /* @__PURE__ */ h("details", { className: "v15-details" }, /* @__PURE__ */ h("summary", null, "Calendar anchor"), /* @__PURE__ */ h("p", null, "Model zero is the saved absolute instant corresponding to +0 h. The chosen time zone controls calendar presentation."), /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Local date and time for model zero", /* @__PURE__ */ h("input", { type: "datetime-local", value: local, onChange: (e) => {
+    return /* @__PURE__ */ h("details", { className: "v15-details", id: "v160-calendar-anchor" }, /* @__PURE__ */ h("summary", null, "Calendar anchor"), /* @__PURE__ */ h("p", null, "Model zero is the saved absolute instant corresponding to +0 h. The chosen time zone controls calendar presentation."), /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Local date and time for model zero", /* @__PURE__ */ h("input", { type: "datetime-local", value: local, onChange: (e) => {
       setLocal(e.target.value);
       setOccurrence("");
     } })), /* @__PURE__ */ h("label", { className: "v15-field" }, "IANA time zone", /* @__PURE__ */ h("input", { value: zone, onChange: (e) => {
       setZone(e.target.value);
       setOccurrence("");
-    }, placeholder: "Europe/London" })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Clock occurrence", /* @__PURE__ */ h("select", { value: occurrence, onChange: (e) => setOccurrence(e.target.value), disabled: choices.length < 2 }, /* @__PURE__ */ h("option", { value: "" }, "Choose if ambiguous"), /* @__PURE__ */ h("option", { value: "earlier" }, "Earlier occurrence"), /* @__PURE__ */ h("option", { value: "later" }, "Later occurrence"))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Anchor-change policy", /* @__PURE__ */ h("select", { value: policy, onChange: (e) => setPolicy(e.target.value) }, /* @__PURE__ */ h("option", { value: "elapsed" }, "Preserve elapsed schedule"), /* @__PURE__ */ h("option", { value: "absolute" }, "Preserve absolute event times")))), /* @__PURE__ */ h("p", { className: "v15-note", role: "status" }, message), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.reanchor(v15ResolveLocal(local, zone, occurrence), zone, policy), "Calendar anchor applied.") }, "Apply anchor"));
+    }, placeholder: "Europe/London" })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Clock occurrence", /* @__PURE__ */ h("select", { value: occurrence, onChange: (e) => setOccurrence(e.target.value), disabled: choices2.length < 2 }, /* @__PURE__ */ h("option", { value: "" }, "Choose if ambiguous"), /* @__PURE__ */ h("option", { value: "earlier" }, "Earlier occurrence"), /* @__PURE__ */ h("option", { value: "later" }, "Later occurrence"))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Anchor-change policy", /* @__PURE__ */ h("select", { value: policy, onChange: (e) => setPolicy(e.target.value) }, /* @__PURE__ */ h("option", { value: "elapsed" }, "Preserve elapsed schedule"), /* @__PURE__ */ h("option", { value: "absolute" }, "Preserve absolute event times")))), /* @__PURE__ */ h("p", { className: "v15-note", role: "status" }, message), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.reanchor(v15ResolveLocal(local, zone, occurrence), zone, policy), "Calendar anchor applied.") }, "Apply anchor"));
   }
   function EventEditor({ state }) {
     const d = state.document.mainScenario, [selected, setSelected] = React.useState([]), [shift, setShift] = React.useState("60");
@@ -7197,24 +7391,15 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   }
   function Markers({ state, result }) {
     const [label, setLabel] = React.useState("Bedtime"), [kind, setKind] = React.useState("bedtime"), [time, setTime] = React.useState("12");
-    return /* @__PURE__ */ h(Panel, { title: "Analysis markers" }, /* @__PURE__ */ h("p", null, "Inspect concentrations at a named time. A bedtime or waking marker adds a question to the trajectory; it does not introduce a sleep model."), /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker label", /* @__PURE__ */ h("input", { value: label, onChange: (e) => setLabel(e.target.value), maxLength: "160" })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker kind", /* @__PURE__ */ h("select", { value: kind, onChange: (e) => setKind(e.target.value) }, ["bedtime", "waking", "activity", "custom"].map((x) => /* @__PURE__ */ h("option", { key: x, value: x }, x)))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker elapsed hours", /* @__PURE__ */ h("input", { type: "number", value: time, step: ".01", onChange: (e) => setTime(e.target.value) })), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.addMarker({ label, kind, timeH: v15Finite(time, "Marker time") }), "Analysis marker added.") }, "Add marker")), controller.markers.length > 0 && /* @__PURE__ */ h(Table, { headers: ["Marker", "Elapsed time", "BAC, g/dL", "Caffeine, mg/L", "Actions"], rows: controller.markers.map((m) => {
+    return /* @__PURE__ */ h(Panel, { title: "Analysis markers" }, /* @__PURE__ */ h("p", null, "Inspect concentrations at a named time. A bedtime or waking marker adds a question to the trajectory; it does not introduce a sleep model."), /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker label", /* @__PURE__ */ h("input", { value: label, onChange: (e) => setLabel(e.target.value), maxLength: "160" })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker kind", /* @__PURE__ */ h("select", { value: kind, onChange: (e) => setKind(e.target.value) }, ["bedtime", "waking", "activity", "custom"].map((x) => /* @__PURE__ */ h("option", { key: x, value: x }, x)))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Marker elapsed hours", /* @__PURE__ */ h("input", { type: "number", value: time, step: ".01", onChange: (e) => setTime(e.target.value) })), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.addMarker({ label, kind, timeH: v15Finite(time, "Marker time") }), "Analysis marker added.") }, "Add marker")), controller.markers.length > 0 && /* @__PURE__ */ h(Table, { headers: ["Marker", "Elapsed time", "BAC, " + bacUnit(state.presentation), "Caffeine, mg/L", "Actions"], rows: controller.markers.map((m) => {
       const p = result ? v15Interpolate(result.analysisPoints ?? result.points, m.timeH) : null;
-      return [m.label, v15TimeLabel(m.timeH), p ? v15Number(p.bacGdL, 5) : "Outside accepted coverage", p ? v15Number(p.caffeineMgL, 4) : "Outside accepted coverage", /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !p, onClick: () => controller.inspect(m.timeH) }, "Inspect"), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.removeMarker(m.id), "Marker removed.") }, "Remove"))];
+      return [m.label, v15TimeLabel(m.timeH), p ? bacText(p.bacGdL, state.presentation) : "Outside accepted coverage", p ? v15Number(p.caffeineMgL, 4) : "Outside accepted coverage", /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !p, onClick: () => controller.inspect(m.timeH) }, "Inspect"), /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.removeMarker(m.id), "Marker removed.") }, "Remove"))];
     }) }));
   }
   function V15Timeline() {
-    const state = useSession(), { snapshot, result, input } = accepted(), p = state.presentation, nowH = (Date.now() - Date.parse(p.scenarioAnchorInstant)) / 36e5;
-    const samples = React.useMemo(() => result ? v15ChartSamples(result.analysisPoints ?? result.points) : [], [result]);
-    const [tick, setTick] = React.useState(0);
-    React.useEffect(() => {
-      const i = setInterval(() => setTick((x) => x + 1), 6e4);
-      return () => clearInterval(i);
-    }, []);
+    const state = useSession(), { result } = accepted(), p = state.presentation;
     const currentNow = (Date.now() - Date.parse(p.scenarioAnchorInstant)) / 36e5;
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "A single chronology for the complete session", kicker: "Session timeline" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Scenario title", /* @__PURE__ */ h("input", { value: state.document.title, placeholder: "Untitled scenario", maxLength: "500", onChange: (e) => bridge.store.field("title", e.target.value) })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Scenario notes", /* @__PURE__ */ h("textarea", { value: state.document.notes, rows: "2", maxLength: "20000", onChange: (e) => bridge.store.field("notes", e.target.value) }))), /* @__PURE__ */ h("div", { className: "v15-metrics" }, /* @__PURE__ */ h(Metric, { label: "Model zero", value: v15FormatInstant(p.scenarioAnchorInstant, p.scenarioTimeZone), sub: p.scenarioTimeZone }), /* @__PURE__ */ h(Metric, { label: "Observation window", value: "0\u2013" + v15Number(state.document.mainScenario.subject.simulationDurationH), unit: "h" }), /* @__PURE__ */ h(Metric, { label: "Current clock position", value: v15TimeLabel(currentNow), sub: currentNow >= 0 && currentNow <= state.document.mainScenario.subject.simulationDurationH ? "Inside the configured horizon" : "Outside this scenario horizon" })), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: currentNow < 0 || currentNow > state.document.mainScenario.subject.simulationDurationH, onClick: () => action(() => controller.inspect(currentNow)) }, "Inspect current time"), /* @__PURE__ */ h(Button, { onClick: () => navigate("help", p.detailMode) }, "Read this level\u2019s guide")), /* @__PURE__ */ h(Calendar, { state })), /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), result ? /* @__PURE__ */ h(Panel, { title: "Accepted concentration trajectory" }, /* @__PURE__ */ h(Inspector, { state, result }), /* @__PURE__ */ h("div", { className: "v15-chart", onClick: (event) => {
-      const rect = event.currentTarget.getBoundingClientRect(), x = (event.clientX - rect.left) / rect.width * 920, t = (x - 65) / (850 - 65) * result.summary.horizonH;
-      if (t >= 0 && t <= result.summary.horizonH) action(() => controller.inspect(t));
-    }, dangerouslySetInnerHTML: { __html: v15CurveSVG(result, { selectedTimeH: p.selectedTimeH, markers: controller.markers, events: input?.doseEvents ?? [], points: samples }) } }), /* @__PURE__ */ h("p", { className: "v15-note" }, "The two concentration axes have different units. Shading marks the configured vehicle-reference intervals; bars mark accepted intake intervals. Click the chart or use Inspection time to inspect a point."), /* @__PURE__ */ h(Intervals, { result })) : /* @__PURE__ */ h(EmptyResult, null), /* @__PURE__ */ h(EventEditor, { state }), /* @__PURE__ */ h(Markers, { state, result }));
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Session chronology" }, /* @__PURE__ */ h("div", { className: "v160-section-heading" }, /* @__PURE__ */ h("span", null, "Model zero: ", v15FormatInstant(p.scenarioAnchorInstant, p.scenarioTimeZone), " \xB7 ", p.scenarioTimeZone), /* @__PURE__ */ h(Button, { disabled: currentNow < 0 || currentNow > state.document.mainScenario.subject.simulationDurationH, onClick: () => action(() => controller.inspect(currentNow)) }, "Inspect current time")), /* @__PURE__ */ h(Calendar, { state }), /* @__PURE__ */ h(Disclosure, { id: "session-notes", title: "Session title and notes" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Scenario title", /* @__PURE__ */ h("input", { value: state.document.title, maxLength: "500", onChange: (e) => bridge.store.field("title", e.target.value) })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Scenario notes", /* @__PURE__ */ h("textarea", { value: state.document.notes, maxLength: "20000", onChange: (e) => bridge.store.field("notes", e.target.value) }))))), /* @__PURE__ */ h(EventEditor, { state }), /* @__PURE__ */ h(Disclosure, { id: "analysis-markers", title: "Analysis markers", defaultOpen: state.presentation.detailMode !== "default" }, /* @__PURE__ */ h(Markers, { state, result })));
   }
 
   // src/ui/explain.jsx
@@ -7246,7 +7431,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         setBusy(false);
       }
     });
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), /* @__PURE__ */ h(Panel, { title: "Why the model has this state", kicker: "Selected-time explanation" }, /* @__PURE__ */ h(Inspector, { state, result }), /* @__PURE__ */ h("div", { className: "v15-metrics" }, /* @__PURE__ */ h(Metric, { label: "BAC", value: v15Number(p?.bacGdL, 5), unit: "g/dL" }), /* @__PURE__ */ h(Metric, { label: "Caffeine", value: v15Number(p?.caffeineMgL, 4), unit: "mg/L" }), /* @__PURE__ */ h(Metric, { label: "BAC trajectory slope", value: v15Number(p?.bacRateGdLPerH, 5), unit: "g/dL/h" })), /* @__PURE__ */ h("p", null, "Compartment amounts, distribution assumptions and the accepted trajectory determine these concentrations. Response indices add the separately defined PD and behavioural transformations."), /* @__PURE__ */ h(Table, { headers: ["Compartment", "Amount", "Unit"], rows })), /* @__PURE__ */ h(Panel, { title: "Active kinetic assumptions" }, /* @__PURE__ */ h(Table, { headers: ["Assumption", "Accepted value"], rows: [
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), /* @__PURE__ */ h(Panel, { title: "Why the model has this state", kicker: "Selected-time explanation" }, /* @__PURE__ */ h(Inspector, { state, result }), /* @__PURE__ */ h("div", { className: "v15-metrics" }, /* @__PURE__ */ h(Metric, { label: "BAC", value: bacText(p?.bacGdL, state.presentation), unit: bacUnit(state.presentation) }), /* @__PURE__ */ h(Metric, { label: "Caffeine", value: v15Number(p?.caffeineMgL, 4), unit: "mg/L" }), /* @__PURE__ */ h(Metric, { label: "BAC trajectory slope", value: v15Number(bacValue(p?.bacRateGdLPerH, state.presentation), 5), unit: bacUnit(state.presentation) + "/h" })), /* @__PURE__ */ h("p", null, "Compartment amounts, distribution assumptions and the accepted trajectory determine these concentrations. Response indices add the separately defined PD and behavioural transformations."), /* @__PURE__ */ h(Table, { headers: ["Compartment", "Amount", "Unit"], rows })), /* @__PURE__ */ h(Panel, { title: "Active kinetic assumptions" }, /* @__PURE__ */ h(Table, { headers: ["Assumption", "Accepted value"], rows: [
       ["Distribution formulation", input.subject.bodyCompositionMode],
       ["Resolved distribution basis", result.distribution?.formula ?? "See Expert distribution details"],
       ["Ethanol elimination", input.subject.ethanolEliminationMode],
@@ -7277,8 +7462,8 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       }
       await action(async () => controller.importText(await file.text()), "Session imported and validated.");
     };
-    const exportSession = () => action(() => download("pkpd-session-v1.5.0.json", JSON.stringify(controller.project(includeHistory), null, 2)), "Session JSON prepared for download.");
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Portable session documents", kicker: "Saved states and recovery" }, /* @__PURE__ */ h("p", null, "A session document contains the committed scenario, comparison state, absolute anchor, time zone, analysis markers and optional bounded editing history. Existing 0.8.2 scenario JSON files can also be imported."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: exportSession }, "Export session JSON"), /* @__PURE__ */ h(Button, { onClick: () => fileRef.current.click() }, "Import session or legacy scenario"), /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: includeHistory, onChange: (e) => setIncludeHistory(e.target.checked) }), "Include editing history"), /* @__PURE__ */ h("input", { ref: fileRef, type: "file", accept: ".json,application/json", hidden: true, onChange: imported })), !controller.canSave() && /* @__PURE__ */ h("p", null, "Finish or correct incomplete inputs before saving or exporting the current session.")), /* @__PURE__ */ h(Panel, { title: "Session recovery" }, /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: controller.recoveryEnabled, onChange: (e) => action(() => controller.setRecovery(e.target.checked)) }), "Enable session recovery in this browser"), /* @__PURE__ */ h("p", { role: "status" }, /* @__PURE__ */ h("strong", null, controller.storageStatus), " \xB7 ", controller.message || "Choose a recovery setting. Saved states and exported files are available separately."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !controller.canSave(), onClick: () => action(() => controller.flushRecovery(true), "Recovery copy saved.") }, "Save recovery copy now"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.restoreRecovery(), "Recovery copy restored.") }, "Restore recovery copy"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.clearRecovery(), "Recovery copy cleared.") }, "Clear recovery copy")), controller.recovery && /* @__PURE__ */ h("p", { className: "v15-note" }, "Available copy: ", new Date(controller.recovery.updatedAt).toLocaleString(), " \xB7 ", controller.recovery.project.frame.document.title || "Untitled scenario"), /* @__PURE__ */ h("p", { className: "v15-note" }, "Storage backend: ", controller.storage.mode, ". Keep an exported session file for restoration in another browser or device. The existing Scenarios autosave remains independently available.")), /* @__PURE__ */ h(Panel, { title: "Named saved states" }, /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Saved-state name", /* @__PURE__ */ h("input", { value: name, maxLength: "160", onChange: (e) => setName(e.target.value), placeholder: "Baseline before timing change" })), /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: () => action(async () => {
+    const exportSession = () => action(() => download("pkpd-session-v1.6.0.json", JSON.stringify(controller.project(includeHistory), null, 2)), "Session JSON prepared for download.");
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Portable session documents", kicker: "Saved states and recovery" }, /* @__PURE__ */ h("p", null, "A session document contains the committed scenario, comparison state, absolute anchor, time zone, analysis markers and optional bounded editing history. Existing 0.8.2 scenario JSON files can also be imported."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: exportSession }, "Export session JSON"), /* @__PURE__ */ h(Button, { onClick: () => fileRef.current.click() }, "Import session or legacy scenario"), /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: includeHistory, onChange: (e) => setIncludeHistory(e.target.checked) }), "Include editing history"), /* @__PURE__ */ h("input", { ref: fileRef, type: "file", accept: ".json,application/json", hidden: true, onChange: imported })), !controller.canSave() && /* @__PURE__ */ h("p", null, "Finish or correct incomplete inputs before saving or exporting the current session.")), /* @__PURE__ */ h(Panel, { title: "Session recovery" }, /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: controller.recoveryEnabled, onChange: (e) => action(() => controller.setRecovery(e.target.checked)) }), "Enable session recovery in this browser"), /* @__PURE__ */ h("p", { role: "status" }, /* @__PURE__ */ h("strong", null, controller.storageStatus), " \xB7 ", controller.message || "Choose a recovery setting. Saved states and exported files are available separately."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !controller.canSave(), onClick: () => action(() => controller.flushRecovery(true), "Recovery copy saved.") }, "Save recovery copy now"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.restoreRecovery(), "Recovery copy restored.") }, "Restore recovery copy"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.clearRecovery(), "Recovery copy cleared.") }, "Clear recovery copy")), controller.recovery && /* @__PURE__ */ h("p", { className: "v15-note" }, "Available copy: ", new Date(controller.recovery.updatedAt).toLocaleString(), " \xB7 ", controller.recovery.project.frame.document.title || "Untitled scenario"), /* @__PURE__ */ h("p", { className: "v15-note" }, "Storage backend: ", controller.storage.mode, ". Keep an exported session file for restoration in another browser or device. Earlier scenario autosaves remain available through the compatibility control below.")), /* @__PURE__ */ h(Panel, { title: "Named saved states" }, /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Saved-state name", /* @__PURE__ */ h("input", { value: name, maxLength: "160", onChange: (e) => setName(e.target.value), placeholder: "Baseline before timing change" })), /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: () => action(async () => {
       await controller.saveNamed(name);
       setName("");
     }, "Named state saved.") }, "Save named state")), controller.projects.length ? /* @__PURE__ */ h(Table, { headers: ["Name", "Saved", "Scenario", "Actions"], rows: controller.projects.map((p) => [
@@ -7288,7 +7473,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { onClick: () => action(() => controller.loadNamed(p.id), "Named state loaded.") }, "Load"), /* @__PURE__ */ h(Button, { onClick: () => action(() => download("pkpd-" + p.id + ".json", JSON.stringify(p.project, null, 2))) }, "Export"), /* @__PURE__ */ h(Button, { onClick: () => {
         if (window.confirm("Remove this named browser-local saved state?")) action(() => controller.deleteNamed(p.id), "Named state removed.");
       } }, "Delete"))
-    ]) }) : /* @__PURE__ */ h("p", null, "No named states have been saved in this browser.")), /* @__PURE__ */ h(Panel, { title: "Editing history" }, /* @__PURE__ */ h("p", null, "History stores up to 60 committed document states. Selecting an earlier state preserves a redo path until a new edit is made."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !controller.history.canUndo, onClick: () => action(() => controller.undo()) }, "Undo"), /* @__PURE__ */ h(Button, { disabled: !controller.history.canRedo, onClick: () => action(() => controller.redo()) }, "Redo")), /* @__PURE__ */ h("div", { className: "v15-history" }, controller.history.entries.map((e, i) => /* @__PURE__ */ h(Button, { key: i, "aria-pressed": i === controller.history.index, onClick: () => action(() => controller.jump(i)) }, /* @__PURE__ */ h("strong", null, i + 1, ". ", e.label), /* @__PURE__ */ h("small", null, new Date(e.at).toLocaleTimeString(), i === controller.history.index ? " \xB7 current" : "")))), controller.importedHistory.length > 0 && /* @__PURE__ */ h("details", { className: "v15-details" }, /* @__PURE__ */ h("summary", null, "History retained from the imported document"), /* @__PURE__ */ h("p", null, "Loading an imported historical state creates an undoable edit in this working session."), /* @__PURE__ */ h("div", { className: "v15-history" }, controller.importedHistory.map((e, i) => /* @__PURE__ */ h(Button, { key: i, onClick: () => action(() => controller.restore(e.frame, "Loaded imported history state"), "Imported historical state loaded.") }, i + 1, ". ", e.label))))));
+    ]) }) : /* @__PURE__ */ h("p", null, "No named states have been saved in this browser.")), /* @__PURE__ */ h(Disclosure, { id: "legacy-autosave", title: "Earlier scenario autosave" }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Review a legacy scenario autosave and its import preview before applying it. Current session history remains available through Undo."), /* @__PURE__ */ h(Button, { onClick: () => bridge.openSurface("scenario") }, "Review earlier scenario autosave")), /* @__PURE__ */ h(Disclosure, { id: "editing-history", title: "Editing history" }, /* @__PURE__ */ h("p", null, "History stores up to 60 committed document states. Selecting an earlier state preserves a redo path until a new edit is made."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !controller.history.canUndo, onClick: () => action(() => controller.undo()) }, "Undo"), /* @__PURE__ */ h(Button, { disabled: !controller.history.canRedo, onClick: () => action(() => controller.redo()) }, "Redo")), /* @__PURE__ */ h("div", { className: "v15-history" }, controller.history.entries.map((e, i) => /* @__PURE__ */ h(Button, { key: i, "aria-pressed": i === controller.history.index, onClick: () => action(() => controller.jump(i)) }, /* @__PURE__ */ h("strong", null, i + 1, ". ", e.label), /* @__PURE__ */ h("small", null, new Date(e.at).toLocaleTimeString(), i === controller.history.index ? " \xB7 current" : "")))), controller.importedHistory.length > 0 && /* @__PURE__ */ h("details", { className: "v15-details" }, /* @__PURE__ */ h("summary", null, "History retained from the imported document"), /* @__PURE__ */ h("p", null, "Loading an imported historical state creates an undoable edit in this working session."), /* @__PURE__ */ h("div", { className: "v15-history" }, controller.importedHistory.map((e, i) => /* @__PURE__ */ h(Button, { key: i, onClick: () => action(() => controller.restore(e.frame, "Loaded imported history state"), "Imported historical state loaded.") }, i + 1, ". ", e.label))))));
   }
 
   // src/ui/comparison.jsx
@@ -7314,9 +7499,9 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     } }, "Retry comparison")), ready && /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h(Panel, { title: "Accepted comparison outputs" }, /* @__PURE__ */ h("p", null, "A: ", /* @__PURE__ */ h("strong", null, value.input.scenarios.A.label), " \xB7 B: ", /* @__PURE__ */ h("strong", null, value.input.scenarios.B.label)), /* @__PURE__ */ h("p", { className: "v15-note" }, "Delta = B minus A. Snapshots: ", value.A.snapshotId, " / ", value.B.snapshotId, "."), /* @__PURE__ */ h(Table, { headers: ["Output", "A", "B", "Delta", "Unit"], rows: v15MetricRows(value.A.numerical, value.B.numerical).concat([
       { label: "BAC area under curve", unit: "g\xB7h/dL", a: value.A.numerical.summary.bacAucGdLH, b: value.B.numerical.summary.bacAucGdLH, delta: value.B.numerical.summary.bacAucGdLH - value.A.numerical.summary.bacAucGdLH },
       { label: "Caffeine area under curve", unit: "mg\xB7h/L", a: value.A.numerical.summary.caffeineAucMgHL, b: value.B.numerical.summary.caffeineAucMgHL, delta: value.B.numerical.summary.caffeineAucMgHL - value.A.numerical.summary.caffeineAucMgHL }
-    ]).map((x) => [x.label, v15Number(x.a, 5), v15Number(x.b, 5), v15Number(x.delta, 5), x.unit]) })), /* @__PURE__ */ h(Panel, { title: "Input differences" }, differences.length ? /* @__PURE__ */ h(Table, { headers: ["Field", "A", "B"], rows: differences.map((x) => [x.path, typeof x.before === "object" ? JSON.stringify(x.before) : String(x.before ?? "\u2014"), typeof x.after === "object" ? JSON.stringify(x.after) : String(x.after ?? "\u2014")]) }) : /* @__PURE__ */ h("p", null, "The kinetic input states match. Profile differences, when enabled, affect the downstream behavioural calculation.")), /* @__PURE__ */ h(Panel, { title: "Behavioural profile differences" }, profileDifferences.length ? /* @__PURE__ */ h(Table, { headers: ["Field", "A", "B"], rows: profileDifferences.map((x) => [x.path, typeof x.before === "object" ? JSON.stringify(x.before) : String(x.before ?? "-"), typeof x.after === "object" ? JSON.stringify(x.after) : String(x.after ?? "-")]) }) : /* @__PURE__ */ h("p", null, "Both sides use the same captured behavioural profile.")), /* @__PURE__ */ h(Panel, { title: "Comparison at the inspection time" }, /* @__PURE__ */ h(Inspector, { state, result: value.B.numerical }), /* @__PURE__ */ h(Table, { headers: ["Scenario", "BAC, g/dL", "Caffeine, mg/L", "Calendar instant", "Coverage"], rows: ["A", "B"].map((side) => {
+    ]).map((x) => [x.label, v15Number(x.unit === "g/dL" ? bacValue(x.a, state.presentation) : x.a, 5), v15Number(x.unit === "g/dL" ? bacValue(x.b, state.presentation) : x.b, 5), v15Number(x.unit === "g/dL" ? bacValue(x.delta, state.presentation) : x.delta, 5), x.unit === "g/dL" ? bacUnit(state.presentation) : x.unit]) })), /* @__PURE__ */ h(Panel, { title: "Input differences" }, differences.length ? /* @__PURE__ */ h(Table, { headers: ["Field", "A", "B"], rows: differences.map((x) => [x.path, typeof x.before === "object" ? JSON.stringify(x.before) : String(x.before ?? "\u2014"), typeof x.after === "object" ? JSON.stringify(x.after) : String(x.after ?? "\u2014")]) }) : /* @__PURE__ */ h("p", null, "The kinetic input states match. Profile differences, when enabled, affect the downstream behavioural calculation.")), /* @__PURE__ */ h(Panel, { title: "Behavioural profile differences" }, profileDifferences.length ? /* @__PURE__ */ h(Table, { headers: ["Field", "A", "B"], rows: profileDifferences.map((x) => [x.path, typeof x.before === "object" ? JSON.stringify(x.before) : String(x.before ?? "-"), typeof x.after === "object" ? JSON.stringify(x.after) : String(x.after ?? "-")]) }) : /* @__PURE__ */ h("p", null, "Both sides use the same captured behavioural profile.")), /* @__PURE__ */ h(Panel, { title: "Comparison at the inspection time" }, /* @__PURE__ */ h(Inspector, { state, result: value.B.numerical }), /* @__PURE__ */ h(Table, { headers: ["Scenario", "BAC, " + bacUnit(state.presentation), "Caffeine, mg/L", "Calendar instant", "Coverage"], rows: ["A", "B"].map((side) => {
       const p = v15Interpolate(value[side].numerical.analysisPoints, state.presentation.selectedTimeH);
-      return [side, p ? v15Number(p.bacGdL, 5) : "Outside coverage", p ? v15Number(p.caffeineMgL, 5) : "Outside coverage", value.input.scenarios[side].calendarAnchorInstant ? v15FormatInstant(Date.parse(value.input.scenarios[side].calendarAnchorInstant) + state.presentation.selectedTimeH * 36e5, value.input.scenarios[side].calendarTimeZone || "UTC") : "Elapsed comparison; anchor not captured", v15Number(value[side].numerical.summary.horizonH) + " h"];
+      return [side, p ? bacText(p.bacGdL, state.presentation) : "Outside coverage", p ? v15Number(p.caffeineMgL, 5) : "Outside coverage", value.input.scenarios[side].calendarAnchorInstant ? v15FormatInstant(Date.parse(value.input.scenarios[side].calendarAnchorInstant) + state.presentation.selectedTimeH * 36e5, value.input.scenarios[side].calendarTimeZone || "UTC") : "Elapsed comparison; anchor not captured", v15Number(value[side].numerical.summary.horizonH) + " h"];
     }) })), /* @__PURE__ */ h(Panel, { title: "A: complete threshold intervals" }, /* @__PURE__ */ h(Intervals, { result: value.A.numerical })), /* @__PURE__ */ h(Panel, { title: "B: complete threshold intervals" }, /* @__PURE__ */ h(Intervals, { result: value.B.numerical }))));
   }
 
@@ -7332,10 +7517,10 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const make = () => action(() => {
       if (!ready) throw Error("Wait for current accepted main and comparison results before generating the report.");
       const frame = controller.validateFrame(controller.capture()), html = v15BuildReport({ frame, result, snapshotId: snapshot.snapshotId, versions: { ...bridge.versions }, depth, comparison: state.document.comparisonEnabled ? comparison : null });
-      download("pkpd-analysis-v1.5.0.html", html, "text/html;charset=utf-8");
+      download("pkpd-analysis-v1.6.0.html", html, "text/html;charset=utf-8");
       setGenerated({ snapshotId: snapshot.snapshotId, time: (/* @__PURE__ */ new Date()).toLocaleString(), bytes: new TextEncoder().encode(html).byteLength });
     }, "Analysis report prepared for download.");
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), /* @__PURE__ */ h(Panel, { title: "A frozen, readable analysis document", kicker: "Report" }, /* @__PURE__ */ h("p", null, "The report combines the accepted full-horizon curve, intake chronology, threshold intervals, analysis markers and calculation identity. Detailed and Expert depth add assumptions, compartments and numerical provenance."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Report depth", /* @__PURE__ */ h("select", { value: depth, onChange: (e) => setDepth(e.target.value) }, ["default", "detailed", "expert"].map((v) => /* @__PURE__ */ h("option", { key: v, value: v }, v[0].toUpperCase() + v.slice(1))))), /* @__PURE__ */ h(Button, { primary: true, disabled: !ready, onClick: make }, "Download analysis report"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "projects") }, "Export editable session")), !current && /* @__PURE__ */ h("p", null, "Finish input editing and wait for a Current accepted result."), !comparisonReady && /* @__PURE__ */ h("p", null, "Waiting for the enabled A/B comparison to finish."), /* @__PURE__ */ h("p", { className: "v15-note" }, "Open the downloaded HTML in a browser. Use the browser\u2019s Print command to produce a PDF. The separate session JSON preserves editable state and history."), generated && /* @__PURE__ */ h("p", { role: "status" }, "Prepared ", generated.time, " \xB7 ", v15Number(generated.bytes), " bytes \xB7 snapshot ", generated.snapshotId, ".")), /* @__PURE__ */ h(Panel, { title: "Report contents" }, /* @__PURE__ */ h(Table, { headers: ["Depth", "Included content"], rows: [
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), /* @__PURE__ */ h(Panel, { title: "A frozen, readable analysis document", kicker: "Report" }, /* @__PURE__ */ h("p", null, "The report freezes the accepted calculation, chronology and provenance. Concentrations use explicitly labelled canonical units. Detailed and Expert depth add assumptions, compartments and numerical provenance."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Report depth", /* @__PURE__ */ h("select", { value: depth, onChange: (e) => setDepth(e.target.value) }, ["default", "detailed", "expert"].map((v) => /* @__PURE__ */ h("option", { key: v, value: v }, v[0].toUpperCase() + v.slice(1))))), /* @__PURE__ */ h(Button, { primary: true, disabled: !ready, onClick: make }, "Download analysis report"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "projects") }, "Export editable session")), !current && /* @__PURE__ */ h("p", null, "Finish input editing and wait for a Current accepted result."), !comparisonReady && /* @__PURE__ */ h("p", null, "Waiting for the enabled A/B comparison to finish."), /* @__PURE__ */ h("p", { className: "v15-note" }, "Open the downloaded HTML in a browser. Use the browser\u2019s Print command to produce a PDF. The separate session JSON preserves editable state and history."), generated && /* @__PURE__ */ h("p", { role: "status" }, "Prepared ", generated.time, " \xB7 ", v15Number(generated.bytes), " bytes \xB7 snapshot ", generated.snapshotId, ".")), /* @__PURE__ */ h(Panel, { title: "Report contents" }, /* @__PURE__ */ h(Table, { headers: ["Depth", "Included content"], rows: [
       ["Default", "Release identity, calendar anchor, selected time, full-horizon curves, summary, intakes, threshold intervals, markers and accepted comparison."],
       ["Detailed", "Default content plus physiology, active assumptions, meal events and selected-time compartment amounts."],
       ["Expert", "Detailed content plus complete constants, numerical summary metadata and the complete reproducible input state."]
@@ -7349,7 +7534,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       scope: "Use this level for intake entry, the concentration timeline, selected-time inspection and saving. The model calculates the same trajectories at every detail level.",
       sections: [
         { id: "first-run", title: "First complete calculation", steps: [
-          ["Open Calculator", "Choose Calculator in the navigation. Set the detail selector to Default.", "The person and intake controls are visible.", "A detail level changes the displayed controls and explanation depth."],
+          ["Open Session inputs", "Choose Session, then Inputs. Set Scientific depth to Default.", "The person and intake controls are visible.", "A detail level changes the displayed controls and explanation depth."],
           ["Set the person", "Open Refine person. Enter body mass in kilograms. Choose the appropriate physiology and available composition inputs. Close the panel when the entries are complete.", "The person summary reflects your committed values.", "Use measured values where available. An empty optional composition field leaves the selected fallback model active."],
           ["Define an intake", "Choose Add drink or caffeine. Select a preset or enter a custom amount. Read the amount and serving labels before applying it.", "The intake appears in the intake list.", "Ethanol is recorded as grams; caffeine is recorded as milligrams. Presets convert their volume and composition into those amounts."],
           ["Set its start", "Enter the start relative to model zero, or use the clock entry controls. In Session, the anchor is the absolute instant corresponding to +0 h.", "The event is placed at its intended position on the timeline.", "A start of +2 h is two elapsed hours after model zero. A negative start represents historical intake before model zero."],
@@ -7460,7 +7645,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       ["A saved state is absent on another device", "Import its exported session JSON. Browser-local storage is specific to the origin and browser environment."],
       ["Session recovery reports a failure", "Export a portable session file. Retry local storage after resolving the browser restriction or available-storage problem."],
       ["A report button is unavailable", "Complete invalid text entry, wait for Current status and finish an enabled comparison."],
-      ["The installed app shows an older release", "Reconnect, check for an update and use Save session and update. Read the active version in the application header."],
+      ["The installed app shows an older release", "Reconnect, check for an update and use Save session and update. Read the active version in the Scientific depth control."],
       ["An import is rejected", "Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message."]
     ]
   };
@@ -7471,28 +7656,292 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const [query, setQuery] = React.useState(""), [demo, setDemo] = React.useState("coffee"), guide = V15_GUIDES[level], q = query.trim().toLowerCase();
     const sections = guide.sections.map((section) => ({ ...section, steps: section.steps.map((step, index) => ({ step, index })).filter((x) => !q || x.step.join(" ").toLowerCase().includes(q) || section.title.toLowerCase().includes(q)) })).filter((s) => s.steps.length);
     const load = () => {
-      if (window.confirm("Load the worked example into the main scenario? The current committed state remains available through Undo.")) action(() => bridge.loadDemo(demo), "Worked example loaded. Open Calculator or Session to inspect it.");
+      if (window.confirm("Load the worked example into the main scenario? The current committed state remains available through Undo.")) action(() => bridge.loadDemo(demo), "Worked example loaded. Open inputs or Session to inspect it.");
     };
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "How to use this application", kicker: "Explicit instructions by expertise and analytical scope" }, /* @__PURE__ */ h("p", null, "Read an instruction, perform its action, and check the expected result before continuing. The expertise selector controls interface depth. Each level uses the same numerical calculation authority."), /* @__PURE__ */ h("div", { className: "v15-tabs", role: "group", "aria-label": "Guide expertise level" }, ["default", "detailed", "expert"].map((x) => /* @__PURE__ */ h(Button, { key: x, "aria-pressed": level === x, onClick: () => navigate("help", x) }, x[0].toUpperCase() + x.slice(1)))), /* @__PURE__ */ h("h3", null, guide.title), /* @__PURE__ */ h("p", null, guide.scope), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, onClick: () => action(() => controller.setDetailMode(level), level[0].toUpperCase() + level.slice(1) + " detail mode selected.") }, "Use ", level[0].toUpperCase() + level.slice(1), " mode"), /* @__PURE__ */ h(Button, { onClick: () => navigate("calculate") }, "Open Calculator"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "timeline") }, "Open Session")), /* @__PURE__ */ h("label", { className: "v15-field" }, "Search this guide", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try duration, history, clock, half-life or report" })), /* @__PURE__ */ h("div", { className: "v15-guide-jumps" }, sections.map((s) => /* @__PURE__ */ h(Button, { key: s.id, onClick: () => document.getElementById("v15-guide-" + s.id)?.scrollIntoView({ block: "start" }) }, s.title)))), /* @__PURE__ */ h(Panel, { title: "Worked examples" }, /* @__PURE__ */ h("p", null, "Each example is synthetic and uses documented reference inputs. Loading one creates an undoable scenario transaction."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Example", /* @__PURE__ */ h("select", { "aria-label": "Example", value: demo, onChange: (e) => setDemo(e.target.value) }, /* @__PURE__ */ h("option", { value: "coffee" }, "Single coffee: absorption and elimination"), /* @__PURE__ */ h("option", { value: "episodes" }, "Two ethanol episodes: repeated threshold crossings"), /* @__PURE__ */ h("option", { value: "overnight" }, "Overnight mixed scenario: calendar and markers"))), /* @__PURE__ */ h(Button, { onClick: load }, "Load worked example"))), !sections.length && /* @__PURE__ */ h(Panel, { title: "No walkthrough steps match" }, /* @__PURE__ */ h("p", null, "Try a shorter search term or clear the search field.")), sections.map((section) => /* @__PURE__ */ h(Panel, { key: section.id, id: "v15-guide-" + section.id, title: section.title, className: "v15-guide-section" }, section.steps.map(({ step, index }) => /* @__PURE__ */ h("article", { key: step[0], className: "v15-guide-step" }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(index + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, step[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", step[1]), /* @__PURE__ */ h("p", { className: "v15-expected" }, /* @__PURE__ */ h("strong", null, "Expected result."), " ", step[2]), step[3] && /* @__PURE__ */ h("p", { className: "v15-note" }, /* @__PURE__ */ h("strong", null, "Check."), " ", step[3])))))), /* @__PURE__ */ h(Panel, { title: "Offline installation and updates" }, V15_GUIDE_COMMON.offline.map((s, i) => /* @__PURE__ */ h("article", { className: "v15-guide-step", key: s[0] }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, s[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", s[1]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Expected result."), " ", s[2]))))), /* @__PURE__ */ h(Panel, { title: "Glossary" }, /* @__PURE__ */ h(Table, { headers: ["Term", "Meaning"], rows: V15_GUIDE_COMMON.glossary })), /* @__PURE__ */ h(Panel, { title: "Troubleshooting" }, V15_GUIDE_COMMON.troubleshooting.map(([title, text]) => /* @__PURE__ */ h("details", { className: "v15-details", key: title }, /* @__PURE__ */ h("summary", null, title), /* @__PURE__ */ h("p", null, text)))));
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "How to use this application", kicker: "Explicit instructions by expertise and analytical scope" }, /* @__PURE__ */ h("p", null, "Read an instruction, perform its action, and check the expected result before continuing. The Scientific depth control changes the visible analytical depth. Reading preferences are independent. Each level uses the same numerical calculation authority."), /* @__PURE__ */ h("div", { className: "v15-tabs", role: "group", "aria-label": "Guide expertise level" }, ["default", "detailed", "expert"].map((x) => /* @__PURE__ */ h(Button, { key: x, "aria-pressed": level === x, onClick: () => navigate("help", x) }, x[0].toUpperCase() + x.slice(1)))), /* @__PURE__ */ h("h3", null, guide.title), /* @__PURE__ */ h("p", null, guide.scope), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, onClick: () => action(() => controller.setDetailMode(level), level[0].toUpperCase() + level.slice(1) + " detail mode selected.") }, "Use ", level[0].toUpperCase() + level.slice(1), " mode"), /* @__PURE__ */ h(Button, { onClick: () => navigate("calculate") }, "Open inputs"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "timeline") }, "Open Session")), /* @__PURE__ */ h("label", { className: "v15-field" }, "Search this guide", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try duration, history, clock, half-life or report" })), /* @__PURE__ */ h("div", { className: "v15-guide-jumps" }, sections.map((s) => /* @__PURE__ */ h(Button, { key: s.id, onClick: () => document.getElementById("v15-guide-" + s.id)?.scrollIntoView({ block: "start" }) }, s.title)))), /* @__PURE__ */ h(Disclosure, { id: "worked-examples", title: "Worked examples" }, /* @__PURE__ */ h("p", null, "Each example is synthetic and uses documented reference inputs. Loading one creates an undoable scenario transaction."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Example", /* @__PURE__ */ h("select", { "aria-label": "Example", value: demo, onChange: (e) => setDemo(e.target.value) }, /* @__PURE__ */ h("option", { value: "coffee" }, "Single coffee: absorption and elimination"), /* @__PURE__ */ h("option", { value: "episodes" }, "Two ethanol episodes: repeated threshold crossings"), /* @__PURE__ */ h("option", { value: "overnight" }, "Overnight mixed scenario: calendar and markers"))), /* @__PURE__ */ h(Button, { onClick: load }, "Load worked example"))), !sections.length && /* @__PURE__ */ h(Panel, { title: "No walkthrough steps match" }, /* @__PURE__ */ h("p", null, "Try a shorter search term or clear the search field.")), sections.map((section) => /* @__PURE__ */ h(Panel, { key: section.id, id: "v15-guide-" + section.id, title: section.title, className: "v15-guide-section" }, section.steps.map(({ step, index }) => /* @__PURE__ */ h("article", { key: step[0], className: "v15-guide-step" }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(index + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, step[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", step[1]), /* @__PURE__ */ h("p", { className: "v15-expected" }, /* @__PURE__ */ h("strong", null, "Expected result."), " ", step[2]), step[3] && /* @__PURE__ */ h("p", { className: "v15-note" }, /* @__PURE__ */ h("strong", null, "Check."), " ", step[3])))))), /* @__PURE__ */ h(Panel, { title: "Offline installation and updates" }, V15_GUIDE_COMMON.offline.map((s, i) => /* @__PURE__ */ h("article", { className: "v15-guide-step", key: s[0] }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, s[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", s[1]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Expected result."), " ", s[2]))))), /* @__PURE__ */ h(Panel, { title: "Glossary" }, /* @__PURE__ */ h(Table, { headers: ["Term", "Meaning"], rows: V15_GUIDE_COMMON.glossary })), /* @__PURE__ */ h(Panel, { title: "Troubleshooting" }, V15_GUIDE_COMMON.troubleshooting.map(([title, text]) => /* @__PURE__ */ h("details", { className: "v15-details", key: title }, /* @__PURE__ */ h("summary", null, title), /* @__PURE__ */ h("p", null, text)))));
+  }
+
+  // src/ui/plots.jsx
+  function ConcentrationPlots({ state, result, input }) {
+    const box = React.useRef(null), [width, setWidth] = React.useState(840);
+    React.useLayoutEffect(() => {
+      const observer = new ResizeObserver((entries) => {
+        const value = Math.max(240, Math.round(entries[0].contentRect.width));
+        setWidth((old) => old === value ? old : value);
+      });
+      if (box.current) observer.observe(box.current);
+      return () => observer.disconnect();
+    }, []);
+    const prefs = usePreferences(), points = React.useMemo(() => v15ChartSamples(result.analysisPoints ?? result.points), [result]), time = state.presentation.selectedTimeH;
+    const point = v15Interpolate(result.analysisPoints ?? result.points, time), end = result.summary.horizonH ?? points.at(-1)?.tH ?? 24;
+    const [W, L, R, T, B] = [width, 52, width - 18, 12, 106], x = (t) => L + (R - L) * t / (end || 1), bacMax = Math.max(0.01, result.summary.peakBACGdL || 0) * 1.12, cafMax = Math.max(1, result.summary.peakCaffeineMgL || 0) * 1.12;
+    const path = (key, max) => points.map((p, i) => (i ? "L" : "M") + x(p.tH).toFixed(2) + "," + (B - (B - T) * (p[key] ?? 0) / max).toFixed(2)).join(" ");
+    const inspect = (e) => {
+      const svg = e.currentTarget, p = svg.createSVGPoint();
+      p.x = e.clientX;
+      p.y = e.clientY;
+      const matrix = svg.getScreenCTM();
+      if (!matrix) return;
+      const local = p.matrixTransform(matrix.inverse()), t = (local.x - L) / (R - L) * end;
+      if (t >= 0 && t <= end) controller.inspect(t);
+    };
+    const marks = () => /* @__PURE__ */ h(Fragment, null, (input?.doseEvents ?? []).filter((e) => e.startTimeH >= 0 && e.startTimeH <= end).map((e) => /* @__PURE__ */ h("rect", { key: e.id, x: x(e.startTimeH), y: B + 5, width: Math.max(3, x(Math.min(end, e.startTimeH + (e.durationMin ?? 0) / 60)) - x(e.startTimeH)), height: "4", rx: "2", fill: "var(--v160-muted)" }, /* @__PURE__ */ h("title", null, e.label || "Intake"))), controller.markers.filter((m) => m.timeH >= 0 && m.timeH <= end).map((m) => /* @__PURE__ */ h("line", { key: m.id, x1: x(m.timeH), x2: x(m.timeH), y1: T, y2: B, className: "v160-marker-line" }, /* @__PURE__ */ h("title", null, m.label))), time >= 0 && time <= end && /* @__PURE__ */ h("line", { x1: x(time), x2: x(time), y1: T, y2: B, className: "v160-cursor-line" }));
+    const grid = (max, bac) => /* @__PURE__ */ h(Fragment, null, [0, 0.5, 1].map((v) => /* @__PURE__ */ h("g", { key: v }, /* @__PURE__ */ h("line", { x1: L, x2: R, y1: B - v * (B - T), y2: B - v * (B - T), className: "v160-grid-line" }), /* @__PURE__ */ h("text", { x: L - 9, y: B - v * (B - T) + 4, textAnchor: "end" }, bac ? bacValue(v * max, state.presentation).toFixed(3) : v15Number(v * max, 1)))), (W < 450 ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1]).map((v) => /* @__PURE__ */ h("text", { key: v, x: x(v * end), y: "133", textAnchor: "middle" }, v15Number(v * end, 1), " h")));
+    const plot = (bac) => {
+      const key = bac ? "bacGdL" : "caffeineMgL", max = bac ? bacMax : cafMax, peak = bac ? result.summary.peakBACGdL : result.summary.peakCaffeineMgL, peakH = bac ? result.summary.timeOfPeakBACH : result.summary.timeOfPeakCaffeineH, label = bac ? "BAC" : "Caffeine", unit = bac ? bacUnit(state.presentation) : "mg/L";
+      return /* @__PURE__ */ h("section", { className: "v160-plot " + (bac ? "bac" : "caffeine"), "aria-label": label + " concentration" }, /* @__PURE__ */ h("header", null, /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("span", { className: "v160-series-label" }, /* @__PURE__ */ h("i", { "aria-hidden": "true" }), label, " ", /* @__PURE__ */ h("small", null, unit)), /* @__PURE__ */ h("p", { className: "v160-plot-meta" }, "At the selected inspection time")), /* @__PURE__ */ h("strong", { className: "v160-concentration" }, point ? bac ? bacText(point[key], state.presentation) : v15Number(point[key], 2) : "Outside coverage", " ", /* @__PURE__ */ h("small", null, point ? unit : ""))), /* @__PURE__ */ h("svg", { viewBox: "0 0 " + W + " 145", role: "img", "aria-label": label + " over elapsed time; shared inspection cursor", onClick: inspect }, /* @__PURE__ */ h("title", null, label + " concentration over the complete " + v15Number(end) + " hour accepted horizon. Use the inspection slider to select a time."), grid(max, bac), /* @__PURE__ */ h("path", { d: path(key, max), className: "v160-trace " + (bac ? "bac" : "caffeine"), fill: "none" }), marks()), /* @__PURE__ */ h("footer", null, /* @__PURE__ */ h("span", null, "Whole-session peak ", /* @__PURE__ */ h("b", null, bac ? bacText(peak, state.presentation) : v15Number(peak, 2), " ", unit), " at ", v15TimeLabel(peakH)), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", "aria-label": "Inspect " + label + " peak", onClick: () => controller.inspect(Math.min(state.document.mainScenario.subject.simulationDurationH, peakH)) }, "Inspect peak")));
+    };
+    return /* @__PURE__ */ h("div", { className: "v160-plots", ref: box }, /* @__PURE__ */ h("div", { className: "v160-section-heading" }, /* @__PURE__ */ h("h2", null, "Concentration trajectory"), /* @__PURE__ */ h("span", null, "Modelled \xB7 full horizon ", v15Number(end), " h")), prefs.chartLayout === "stacked" ? /* @__PURE__ */ h(Fragment, null, plot(true), plot(false)) : /* @__PURE__ */ h("section", { className: "v160-plot overlay" }, /* @__PURE__ */ h("header", null, /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("span", { className: "v160-series-label" }, "BAC ", bacUnit(state.presentation), " \xB7 caffeine mg/L"), /* @__PURE__ */ h("p", { className: "v160-plot-meta" }, "Separate vertical scales; compare timing and shape."))), /* @__PURE__ */ h("svg", { viewBox: "0 0 " + W + " 155", role: "img", "aria-label": "Concentration overlay with separate BAC and caffeine scales", onClick: inspect }, /* @__PURE__ */ h("title", null, "BAC uses the left scale and a solid line. Caffeine uses the right scale and a dashed line."), grid(bacMax, true), [0, 0.5, 1].map((v) => /* @__PURE__ */ h("text", { key: v, x: R - 3, y: B - v * (B - T) - 5, textAnchor: "end" }, v15Number(v * cafMax, 1), " mg/L")), /* @__PURE__ */ h("path", { d: path("bacGdL", bacMax), fill: "none", className: "v160-trace bac" }), /* @__PURE__ */ h("path", { d: path("caffeineMgL", cafMax), fill: "none", className: "v160-trace caffeine" }), marks()), /* @__PURE__ */ h("div", { className: "v160-inline-values" }, /* @__PURE__ */ h("span", null, "BAC: ", point ? bacText(point.bacGdL, state.presentation) : "Unavailable", " ", bacUnit(state.presentation)), /* @__PURE__ */ h("span", null, "Caffeine: ", point ? v15Number(point.caffeineMgL, 2) : "Unavailable", " mg/L"))), /* @__PURE__ */ h(Inspector, { state, result }));
+  }
+
+  // src/ui/overview.jsx
+  function Overview({ onAdd, onEditPerson, onEditIntake }) {
+    const state = useSession(), prefs = usePreferences(), { snapshot, result, input, current } = accepted(), d = state.document.mainScenario;
+    return /* @__PURE__ */ h("div", { className: "v160-analysis-grid" }, /* @__PURE__ */ h("aside", { className: "v160-input-rail", "aria-label": "Session inputs" }, /* @__PURE__ */ h("div", { className: "v160-section-heading" }, /* @__PURE__ */ h("h2", null, "Session inputs"), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => navigate("calculate") }, "Full editor")), /* @__PURE__ */ h("section", { className: "v160-rail-section" }, /* @__PURE__ */ h("div", { className: "v160-rail-heading" }, /* @__PURE__ */ h("h3", null, "Reference person"), /* @__PURE__ */ h("button", { className: "v160-link", type: "button", onClick: onEditPerson }, "Edit person")), /* @__PURE__ */ h("strong", { className: "v160-person-mass" }, v15Number(d.subject.bodyMassKg), " ", /* @__PURE__ */ h("small", null, "kg")), state.presentation.unitDisplay === "metric-plus-imperial" && /* @__PURE__ */ h("span", { className: "v160-secondary-value" }, v15Number(d.subject.bodyMassKg * 2.2046226218, 1), " lb reference"), /* @__PURE__ */ h("p", null, d.subject.sexOrPhysiologyMode, " \xB7 ", d.subject.foodState), /* @__PURE__ */ h("div", { className: "v160-key-value" }, /* @__PURE__ */ h("span", null, "Observation window"), /* @__PURE__ */ h("b", null, v15Number(d.subject.simulationDurationH), " h"))), /* @__PURE__ */ h("section", { className: "v160-rail-section" }, /* @__PURE__ */ h("div", { className: "v160-rail-heading" }, /* @__PURE__ */ h("h3", null, "Intakes ", /* @__PURE__ */ h("span", { className: "v160-count" }, d.doseEvents.length)), /* @__PURE__ */ h("button", { className: "v160-link", type: "button", onClick: () => navigate("session", "timeline") }, "Schedule")), /* @__PURE__ */ h(Button, { primary: true, onClick: onAdd }, "+ Add intake"), /* @__PURE__ */ h("div", { className: "v160-intake-list" }, d.doseEvents.map((e) => /* @__PURE__ */ h("div", { className: "v160-intake-row", key: e.id }, /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("b", null, e.label || "Intake"), /* @__PURE__ */ h("span", null, v15TimeLabel(e.startTimeH), " \xB7 ", v15Number(e.durationMin), " min"), /* @__PURE__ */ h("small", null, v15Number(bridge.ethanolAmount(e, d.constants), 2), " g ethanol \xB7 ", v15Number(bridge.caffeineAmount(e), 1), " mg caffeine")), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", "aria-label": "Edit " + (e.label || "intake"), onClick: () => typeof e.ethanolGrams === "number" && e.caffeineDoseMode !== "mixer-derived" ? onEditIntake(e) : navigate("calculate") }, "Edit")))), !d.doseEvents.length && /* @__PURE__ */ h("p", { className: "v160-help" }, "Add an intake to populate the trajectory.")), /* @__PURE__ */ h("section", { className: "v160-rail-section" }, /* @__PURE__ */ h("div", { className: "v160-key-value" }, /* @__PURE__ */ h("span", null, "Meals"), /* @__PURE__ */ h("b", null, d.subject.mealEvents?.length ?? 0)), /* @__PURE__ */ h("button", { className: "v160-link", type: "button", onClick: () => {
+      navigate("calculate");
+      setTimeout(() => bridge.openSurface("person"), 80);
+    } }, "Edit physiology and meals")), /* @__PURE__ */ h(Disclosure, { id: "overview-context", title: "Calendar and model context", defaultOpen: prefs.explanations === "expanded" && !prefs.focus }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Model zero: ", v15FormatInstant(state.presentation.scenarioAnchorInstant, state.presentation.scenarioTimeZone), ". ", state.presentation.scenarioTimeZone, "."), /* @__PURE__ */ h("p", { className: "v160-help" }, "Engine ", bridge.versions.modelEngineVersion, " \xB7 snapshot ", snapshot?.snapshotId ?? "pending", "."), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "timeline") }, "Calendar settings")), prefs.explanations === "guided" && /* @__PURE__ */ h("div", { className: "v160-guidance" }, /* @__PURE__ */ h("b", null, "First analysis"), /* @__PURE__ */ h("p", null, "1. Check the person and horizon.", /* @__PURE__ */ h("br", null), "2. Add or edit intakes.", /* @__PURE__ */ h("br", null), "3. Wait for Current calculation.", /* @__PURE__ */ h("br", null), "4. Move the inspection cursor."), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => navigate("help", state.presentation.detailMode) }, "Open this level\u2019s guide"))), /* @__PURE__ */ h("div", { className: "v160-analysis-main" }, result ? /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h(ConcentrationPlots, { state, result, input }), /* @__PURE__ */ h(Disclosure, { id: "overview-intervals", title: "Threshold intervals and horizon coverage", defaultOpen: state.presentation.detailMode !== "default" && !prefs.focus }, /* @__PURE__ */ h(Intervals, { result }), /* @__PURE__ */ h("p", { className: "v160-help" }, "References describe the accepted schedule and observation window. An open interval continues beyond the calculated horizon.")), /* @__PURE__ */ h("div", { className: "v160-analysis-links" }, /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => navigate("session", "explain") }, "Explain this state \u2192"), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => navigate("session", "parameters") }, "Parameters and assumptions \u2192"), state.presentation.detailMode === "expert" && /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => navigate("results", "data") }, "Numerical data \u2192"))) : /* @__PURE__ */ h(EmptyResult, null)));
+  }
+
+  // src/ui/dialog.jsx
+  function Dialog({ title, onClose, children, wide = false }) {
+    const ref = React.useRef(null), previous = React.useRef(document.activeElement);
+    React.useEffect(() => {
+      const el = ref.current;
+      if (!el.open) el.showModal();
+      const onCancel = (e) => {
+        e.preventDefault();
+        onClose();
+      };
+      el.addEventListener("cancel", onCancel);
+      return () => {
+        el.removeEventListener("cancel", onCancel);
+        el.close();
+        if (previous.current?.isConnected) previous.current.focus();
+        else document.querySelector('[aria-label="Find a control or parameter"]')?.focus();
+      };
+    }, []);
+    return /* @__PURE__ */ h("dialog", { ref, className: "v160-dialog" + (wide ? " wide" : ""), "aria-labelledby": "v160-dialog-title" }, /* @__PURE__ */ h("header", null, /* @__PURE__ */ h("h2", { id: "v160-dialog-title" }, title), /* @__PURE__ */ h("button", { type: "button", className: "v15-button icon-button", "aria-label": "Close " + title, onClick: onClose }, "\xD7")), /* @__PURE__ */ h("div", { className: "v160-dialog-body" }, children));
+  }
+
+  // src/ui/editors.jsx
+  function ErrorText({ error }) {
+    return error ? /* @__PURE__ */ h("p", { className: "v160-error", role: "alert" }, error) : null;
+  }
+  function IntakeDialog({ onClose, event = null }) {
+    const [values, setValues] = React.useState(() => ({ label: event?.label ?? "New intake", startTimeH: String(event?.startTimeH ?? controller.store.state.presentation.selectedTimeH ?? 0), durationMin: String(event?.durationMin ?? 15), ethanolGrams: String(event?.ethanolGrams ?? 0), caffeineMg: String(event?.caffeineMg ?? 0), servings: String(event?.servings ?? 1) })), [error, setError] = React.useState("");
+    const change = (key, value) => setValues((v) => ({ ...v, [key]: value }));
+    const submit = (e) => {
+      e.preventDefault();
+      try {
+        const frame = controller.capture(), item = { ...event ?? {}, id: event?.id ?? v15Id("dose"), label: values.label.trim() || "Intake", doseBasis: "direct ethanol mass", caffeineDoseMode: "direct", beverageType: event?.beverageType ?? "custom" };
+        for (const k of ["startTimeH", "durationMin", "ethanolGrams", "caffeineMg", "servings"]) item[k] = v15Finite(values[k], k);
+        const items = frame.document.mainScenario.doseEvents, at = items.findIndex((v) => v.id === item.id);
+        if (at >= 0) items[at] = item;
+        else items.push(item);
+        controller.restore(frame, event ? "Edited intake" : "Added intake");
+        onClose();
+      } catch (e2) {
+        setError(e2.message);
+      }
+    };
+    return /* @__PURE__ */ h(Dialog, { title: event ? "Edit direct intake" : "Add intake", onClose }, /* @__PURE__ */ h("form", { onSubmit: submit }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Enter direct amounts per serving. Start time is measured from model zero. For drink-volume recipes and beverage presets, use the full intake editor."), /* @__PURE__ */ h("label", { className: "v15-field" }, "Intake label", /* @__PURE__ */ h("input", { autoFocus: true, value: values.label, maxLength: "160", onChange: (e) => change("label", e.target.value) })), /* @__PURE__ */ h("div", { className: "v15-form-grid" }, [["startTimeH", "Start, elapsed hours"], ["durationMin", "Duration, minutes"], ["ethanolGrams", "Ethanol per serving, g"], ["caffeineMg", "Caffeine per serving, mg"], ["servings", "Number of servings"]].map(([key, label]) => /* @__PURE__ */ h("label", { className: "v15-field", key }, label, /* @__PURE__ */ h("input", { inputMode: "decimal", value: values[key], onChange: (e) => change(key, e.target.value), required: true })))), /* @__PURE__ */ h(ErrorText, { error }), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, type: "submit" }, event ? "Apply intake changes" : "Add intake to session"), /* @__PURE__ */ h(Button, { onClick: onClose }, "Cancel"), /* @__PURE__ */ h(Button, { onClick: () => {
+      onClose();
+      navigate("calculate");
+    } }, "Full intake editor"))));
+  }
+  function PersonDialog({ onClose }) {
+    const subject = bridge.store.state.document.mainScenario.subject;
+    const [mass, setMass] = React.useState(String(subject.bodyMassKg)), [horizon, setHorizon] = React.useState(String(subject.simulationDurationH)), [error, setError] = React.useState("");
+    const submit = (e) => {
+      e.preventDefault();
+      try {
+        const f = controller.capture();
+        f.document.mainScenario.subject.bodyMassKg = v15Finite(mass, "Body mass");
+        f.document.mainScenario.subject.simulationDurationH = v15Finite(horizon, "Observation horizon");
+        f.presentation.selectedTimeH = Math.min(f.presentation.selectedTimeH, f.document.mainScenario.subject.simulationDurationH);
+        controller.restore(f, "Edited reference person and horizon");
+        onClose();
+      } catch (e2) {
+        setError(e2.message);
+      }
+    };
+    return /* @__PURE__ */ h(Dialog, { title: "Person and observation window", onClose }, /* @__PURE__ */ h("form", { onSubmit: submit }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Body mass, kg", /* @__PURE__ */ h("input", { autoFocus: true, inputMode: "decimal", value: mass, onChange: (e) => setMass(e.target.value), required: true })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Observation horizon, h", /* @__PURE__ */ h("input", { inputMode: "decimal", value: horizon, onChange: (e) => setHorizon(e.target.value), required: true }))), /* @__PURE__ */ h("p", { className: "v160-help" }, "Composition, physiology, food and initial conditions are available in the full person editor."), /* @__PURE__ */ h(ErrorText, { error }), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, type: "submit" }, "Apply person and horizon"), /* @__PURE__ */ h(Button, { onClick: onClose }, "Cancel"), /* @__PURE__ */ h(Button, { onClick: () => {
+      onClose();
+      navigate("calculate");
+      setTimeout(() => bridge.openSurface("person"), 80);
+    } }, "Full person editor"))));
+  }
+  function readParameter(frame, path) {
+    return path.split(".").reduce((obj, k) => obj?.[k], frame.document.mainScenario);
+  }
+  function ParameterDialog({ entry, onClose }) {
+    const current = readParameter(controller.capture(), entry.path), [value, setValue] = React.useState(current == null ? "" : String(current)), [error, setError] = React.useState("");
+    const submit = (e) => {
+      e.preventDefault();
+      try {
+        const frame = controller.capture(), parts = entry.path.split(".");
+        let node = frame.document.mainScenario;
+        for (const k of parts.slice(0, -1)) node = node[k] ?? (node[k] = {});
+        let next;
+        if (entry.type === "number") next = v15Finite(value, parameterLabel(entry.id));
+        else if (entry.type === "boolean") next = value === "true";
+        else next = value;
+        if (entry.allowed && !entry.allowed.includes(next)) throw Error("Choose a supported value.");
+        if (entry.hard && (next < entry.hard.min || next > entry.hard.max)) throw Error("Value must be between " + entry.hard.min + " and " + entry.hard.max + ".");
+        node[parts.at(-1)] = next;
+        frame.presentation.selectedTimeH = Math.min(frame.presentation.selectedTimeH, frame.document.mainScenario.subject.simulationDurationH);
+        controller.restore(frame, "Changed " + parameterLabel(entry.id));
+        onClose();
+      } catch (e2) {
+        setError(e2.message);
+      }
+    };
+    const options = entry.allowed ?? (entry.type === "boolean" ? [false, true] : null), editable = ["number", "boolean", "enum", "select"].includes(entry.type) || options;
+    return /* @__PURE__ */ h(Dialog, { title: parameterLabel(entry.id), onClose }, /* @__PURE__ */ h("form", { onSubmit: submit }, /* @__PURE__ */ h("p", { className: "v160-help" }, entry.applicability), /* @__PURE__ */ h("label", { className: "v15-field" }, parameterLabel(entry.id), entry.unit ? " \xB7 " + entry.unit : "", options ? /* @__PURE__ */ h("select", { autoFocus: true, value, onChange: (e) => setValue(e.target.value) }, current == null && /* @__PURE__ */ h("option", { value: "" }, "Choose a value"), options.map((v) => /* @__PURE__ */ h("option", { key: String(v), value: String(v) }, String(v)))) : /* @__PURE__ */ h("input", { autoFocus: true, inputMode: entry.type === "number" ? "decimal" : void 0, value, onChange: (e) => setValue(e.target.value), readOnly: !editable })), /* @__PURE__ */ h("p", { className: "v160-help" }, entry.message, entry.hard ? " Supported range: " + entry.hard.min + " to " + entry.hard.max + "." : ""), /* @__PURE__ */ h("code", { className: "v160-param-path" }, entry.path), /* @__PURE__ */ h(ErrorText, { error }), /* @__PURE__ */ h("div", { className: "v15-actions" }, editable && /* @__PURE__ */ h(Button, { primary: true, type: "submit" }, "Apply parameter"), /* @__PURE__ */ h(Button, { onClick: onClose }, "Close"))));
+  }
+
+  // src/ui/settings.jsx
+  var themes = [["clarity-system", "System"], ["clarity-light", "Light"], ["clarity-dark", "Dark"], ["workbench-dark", "Workbench dark"], ["workbench-light", "Workbench light"], ["royal-vapor-dark", "Royal vapor dark"], ["royal-vapor-light", "Royal vapor light"], ["chromatic", "Chromatic"], ["clinical", "Clinical"], ["spectral", "Spectral"], ["midnight", "Midnight"], ["manuscript", "Manuscript"]];
+  function PreferencesDialog({ onClose }) {
+    const state = useSession(), p = usePreferences(), offline = usePWA(), [tab, setTab] = React.useState("Reading"), file = React.useRef(null), [message, setMessage] = React.useState("");
+    const set = (key, value) => preferences.set({ [key]: value });
+    const field = (label, key, options) => /* @__PURE__ */ h("label", { className: "v15-field" }, label, /* @__PURE__ */ h("select", { value: p[key], onChange: (e) => set(key, key === "textSize" ? Number(e.target.value) : e.target.value) }, options.map(([v, l]) => /* @__PURE__ */ h("option", { key: v, value: v }, l))));
+    const check = (label, key) => /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: p[key], onChange: (e) => set(key, e.target.checked) }), label);
+    const setting = (key, value) => bridge.store.field("settings", { ...bridge.store.state.presentation, [key]: value });
+    return /* @__PURE__ */ h(Dialog, { title: "Interface preferences", onClose, wide: true }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Changes preview immediately. Scientific depth, explanation support and spacing can be selected independently."), /* @__PURE__ */ h("div", { className: "v160-settings-tabs", role: "group", "aria-label": "Preference categories" }, ["Reading", "Appearance", "Interaction", "Units", "Profiles"].map((t) => /* @__PURE__ */ h(Button, { key: t, "aria-pressed": t === tab, onClick: () => setTab(t) }, t))), tab === "Reading" && /* @__PURE__ */ h("section", { "aria-label": "Reading preferences" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Scientific depth", /* @__PURE__ */ h("select", { value: state.presentation.detailMode, onChange: (e) => controller.setDetailMode(e.target.value) }, /* @__PURE__ */ h("option", { value: "default" }, "Default"), /* @__PURE__ */ h("option", { value: "detailed" }, "Detailed"), /* @__PURE__ */ h("option", { value: "expert" }, "Expert"))), field("Explanation support", "explanations", [["concise", "Concise"], ["expanded", "Expanded"], ["guided", "Step-by-step support"]]), field("Spacing", "density", [["comfortable", "Comfortable"], ["compact", "Compact"]]), field("Text size", "textSize", [[16, "Standard \xB7 16 px"], [18, "Large \xB7 18 px"], [20, "Larger \xB7 20 px"]]), field("Line spacing", "lineSpacing", [["standard", "Standard"], ["relaxed", "Relaxed"]])), check("Focus layout: collapse optional context", "focus"), /* @__PURE__ */ h("p", { className: "v160-help" }, "Focus layout preserves calculation status, errors, units and result scope. Browser zoom remains available."), /* @__PURE__ */ h(Button, { onClick: () => preferences.reset("reading") }, "Reset reading preferences")), tab === "Appearance" && /* @__PURE__ */ h("section", { "aria-label": "Appearance preferences" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, field("Colour theme", "theme", themes), field("Chart traces", "palette", [["standard", "Distinct colour and line pattern"], ["restrained", "Restrained colour and line pattern"]]), field("Concentration layout", "chartLayout", [["stacked", "Aligned separate plots"], ["overlay", "Overlay with two labelled scales"]])), check("Enhanced interface contrast", "contrast"), /* @__PURE__ */ h("p", { className: "v160-help" }, "Plot identities and units remain consistent across themes. Additional palettes from previous releases remain selectable."), /* @__PURE__ */ h(Button, { onClick: () => preferences.reset("appearance") }, "Reset appearance preferences")), tab === "Interaction" && /* @__PURE__ */ h("section", { "aria-label": "Interaction preferences" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, field("Interface motion", "motion", [["system", "Follow device preference"], ["reduced", "Reduce motion"]]), field("Routine notifications", "notifications", [["quiet", "Quiet"], ["all", "Show confirmations"]])), /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: state.presentation.autoRecalculate, onChange: (e) => setting("autoRecalculate", e.target.checked) }), "Recalculate automatically after committed edits"), /* @__PURE__ */ h("p", { className: "v160-help" }, "With automatic recalculation off, choose Update calculation after editing. Previous results remain explicitly labelled."), /* @__PURE__ */ h(Button, { onClick: () => preferences.reset("interaction") }, "Reset interaction preferences"), /* @__PURE__ */ h("div", { className: "v160-disclosure" }, /* @__PURE__ */ h("h3", null, "Installation and updates"), /* @__PURE__ */ h("p", { className: "v160-help" }, "Offline status: ", offline.status, ". ", offline.message), /* @__PURE__ */ h("div", { className: "v15-actions" }, offline.prompt && /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.install()) }, "Install app"), offline.registration && /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.check()) }, "Check for update"), offline.waiting && /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.activate()) }, "Save session and update")))), tab === "Units" && /* @__PURE__ */ h("section", { "aria-label": "Unit preferences" }, /* @__PURE__ */ h("div", { className: "v15-form-grid" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "BAC display", /* @__PURE__ */ h("select", { value: state.presentation.bacDisplayUnit, onChange: (e) => setting("bacDisplayUnit", e.target.value) }, ["g/dL", "% BAC", "g/L", "permille"].map((u) => /* @__PURE__ */ h("option", { key: u, value: u }, u === "permille" ? "\u2030" : u)))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Body and volume units", /* @__PURE__ */ h("select", { value: state.presentation.unitDisplay, onChange: (e) => setting("unitDisplay", e.target.value) }, /* @__PURE__ */ h("option", { value: "metric" }, "Metric"), /* @__PURE__ */ h("option", { value: "metric-plus-imperial" }, "Metric + imperial reference"))), /* @__PURE__ */ h("label", { className: "v15-field" }, "Time display", /* @__PURE__ */ h("select", { value: state.presentation.timeDisplayMode, onChange: (e) => setting("timeDisplayMode", e.target.value) }, /* @__PURE__ */ h("option", { value: "elapsed" }, "Elapsed time"), /* @__PURE__ */ h("option", { value: "clock" }, "Calendar and elapsed time")))), /* @__PURE__ */ h("p", { className: "v160-help" }, "Interactive BAC values follow this selection. Numerical exports and frozen reports declare their own canonical units. Change model zero and time zone in Session \u2192 Schedule.")), tab === "Profiles" && /* @__PURE__ */ h("section", { "aria-label": "Interface profiles" }, /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { onClick: () => {
+      preferences.set({ explanations: "concise", focus: true, density: "comfortable", motion: "reduced" });
+      controller.setDetailMode("expert");
+      setMessage("Expert focus profile applied.");
+    } }, "Use expert focus profile"), /* @__PURE__ */ h(Button, { onClick: () => download("pkpd-interface-profile.json", JSON.stringify(preferences.export(), null, 2)) }, "Export interface profile"), /* @__PURE__ */ h(Button, { onClick: () => file.current.click() }, "Import interface profile"), /* @__PURE__ */ h("input", { ref: file, hidden: true, type: "file", accept: ".json", onChange: async (e) => {
+      const f = e.target.files?.[0];
+      e.target.value = "";
+      if (!f) return;
+      try {
+        if (f.size > 65536) throw Error("Profile exceeds 64 KiB.");
+        preferences.import(await f.text());
+        setMessage("Interface profile imported.");
+      } catch (err) {
+        setMessage(err.message);
+      }
+    } })), /* @__PURE__ */ h("p", { className: "v160-help" }, "Profiles contain interface preferences and scientific depth. Scenario inputs and results are stored separately."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { onClick: () => preferences.reset("panels") }, "Reset remembered panels"), /* @__PURE__ */ h(Button, { onClick: () => {
+      preferences.reset();
+      setMessage("Interface defaults restored. Analytical inputs retained.");
+    } }, "Restore interface defaults"))), message && /* @__PURE__ */ h("p", { role: "status" }, message), preferences.error && /* @__PURE__ */ h("p", { className: "v160-error", role: "alert" }, preferences.error), /* @__PURE__ */ h("footer", { className: "v160-settings-footer" }, /* @__PURE__ */ h("span", null, "Preference storage: ", preferences.status === "saved" ? "saved in this browser" : "not saved"), /* @__PURE__ */ h(Button, { primary: true, onClick: onClose }, "Done")));
+  }
+
+  // src/ui/search.jsx
+  var tasks = [
+    { label: "Add intake", terms: "drink ethanol caffeine dose add event", action: "intake" },
+    { label: "Person and observation window", terms: "body mass weight kg horizon duration person", action: "person" },
+    { label: "Schedule and calendar anchor", terms: "meal time zone model zero clock DST calendar schedule", route: ["session", "timeline"] },
+    { label: "Concentration analysis", terms: "BAC caffeine concentration plot curve inspection selected time", route: ["session", "overview"] },
+    { label: "Explain model state", terms: "compartment rate flux assumptions counterfactual remove intake", route: ["session", "explain"] },
+    { label: "Compare scenarios", terms: "baseline A B delta comparison differences", route: ["session", "compare"] },
+    { label: "Saved sessions and recovery", terms: "save restore undo history JSON import export recovery", route: ["session", "projects"] },
+    { label: "Report", terms: "download print PDF frozen analysis report", route: ["session", "report"] },
+    { label: "Model diagnostics and sources", terms: "diagnostics integrity conservation provenance formula references", route: ["expert", ""] },
+    { label: "Sensitivity analysis", terms: "sweep sensitivity perturbation", route: ["explore", "sweep"] },
+    { label: "Behavioural interpretation", terms: "traits temperament personality effects behaviour PD", route: ["behaviour", ""] },
+    { label: "How to use", terms: "help walkthrough instructions example", route: ["help", "default"] }
+  ];
+  function parameterMatches(entry, query) {
+    const q = query.trim().toLowerCase(), name = parameterLabel(entry.id), text = [name, entry.id, entry.path, entry.unit, entry.applicability, entry.message].join(" ").toLowerCase();
+    return !q || q.split(/\s+/).every((word) => text.includes(word));
+  }
+  function SearchDialog({ onClose, onParameter, onAdd, onPerson }) {
+    const [query, setQuery] = React.useState(""), q = query.trim().toLowerCase(), entries = bridge.parameters.filter((e) => parameterMatches(e, q)).slice(0, 20);
+    const results = tasks.filter((t) => !q || (t.label + " " + t.terms).toLowerCase().includes(q));
+    const go = (t) => {
+      onClose();
+      if (t.action === "intake") onAdd();
+      else if (t.action === "person") onPerson();
+      else {
+        if (t.route[0] === "explore" && t.route[1] === "sweep") controller.setDetailMode("detailed");
+        navigate(...t.route);
+      }
+    };
+    return /* @__PURE__ */ h(Dialog, { title: "Find a control or parameter", onClose, wide: true }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Search by name, abbreviation or unit", /* @__PURE__ */ h("input", { autoFocus: true, type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try Vmax, half-life, body mass, g/h or recovery" })), /* @__PURE__ */ h("p", { className: "v160-help" }, "Select a parameter to inspect its current value and edit it directly. Its model applicability remains visible."), /* @__PURE__ */ h("div", { className: "v160-search-results" }, results.length > 0 && /* @__PURE__ */ h("section", null, /* @__PURE__ */ h("h3", null, "Tasks"), results.map((t) => /* @__PURE__ */ h("button", { key: t.label, className: "v160-search-result", type: "button", onClick: () => go(t) }, /* @__PURE__ */ h("b", null, t.label), /* @__PURE__ */ h("span", null, "Open task \u2192")))), entries.length > 0 && /* @__PURE__ */ h("section", null, /* @__PURE__ */ h("h3", null, "Parameters"), entries.map((e) => /* @__PURE__ */ h("button", { key: e.id, type: "button", className: "v160-search-result", onClick: () => {
+      onClose();
+      onParameter(e);
+    } }, /* @__PURE__ */ h("span", null, /* @__PURE__ */ h("b", null, parameterLabel(e.id)), /* @__PURE__ */ h("small", null, e.path)), /* @__PURE__ */ h("span", null, e.unit || e.type, " \u2192")))), !entries.length && !results.length && /* @__PURE__ */ h("p", null, "No matching controls. Try a shorter parameter name or its unit.")));
+  }
+  function Parameters({ onParameter }) {
+    const state = useSession(), [query, setQuery] = React.useState(""), frame = controller.capture();
+    const entries = bridge.parameters.filter((e) => parameterMatches(e, query)), subject = entries.filter((e) => e.path.startsWith("subject.")), constants = entries.filter((e) => e.path.startsWith("constants."));
+    const table = (rows) => /* @__PURE__ */ h(Table, { headers: ["Parameter", "Committed value", "Unit", "Applicability", "Action"], rows: rows.map((e) => [parameterLabel(e.id), String(readParameter(frame, e.path) ?? "Model default"), e.unit || "\u2014", e.applicability, /* @__PURE__ */ h(Button, { onClick: () => onParameter(e), "aria-label": "Edit " + parameterLabel(e.id) }, "Inspect / edit")]) });
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Parameters and assumptions" }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Values are committed scenario inputs. The selected formulation determines which inputs are active. Changes are validated and recorded in Undo history."), /* @__PURE__ */ h("label", { className: "v15-field v160-search-field" }, "Filter parameters", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Name, field path or unit" })), /* @__PURE__ */ h("div", { className: "v160-section-heading" }, /* @__PURE__ */ h("span", null, entries.length, " matching parameters"), /* @__PURE__ */ h(Button, { onClick: () => navigate("expert") }, "Diagnostics and coefficient sources"))), subject.length > 0 && /* @__PURE__ */ h(Panel, { title: "Person, timing and model formulation" }, table(subject)), constants.length > 0 && /* @__PURE__ */ h(Panel, { title: "Model constants" }, table(constants)), !entries.length && /* @__PURE__ */ h(Panel, { title: "No matching parameters" }, /* @__PURE__ */ h("p", null, "Try a shorter name, an abbreviation or a unit.")));
   }
 
   // src/ui/index.jsx
+  var analysisRoutes = [["Overview", "session", "overview"], ["Explain", "session", "explain"], ["Behaviour", "behaviour", ""], ["Parameters", "session", "parameters"], ["Diagnostics", "expert", ""], ["Numerical data", "results", "data"]];
+  function locationFor(state) {
+    const r = state.presentation.selectedWorkspace, v = state.presentation.selectedSubview || "timeline";
+    if (r === "help") return { group: "help", title: "How to use", view: "help", native: true };
+    if (r === "session") {
+      if (v === "timeline") return { group: "session", title: "Session", view: v, native: true };
+      if (v === "compare") return { group: "compare", title: "Compare scenarios", view: v, native: true };
+      if (v === "projects") return { group: "saved", title: "Saved sessions", view: v, native: true };
+      if (v === "report") return { group: "document", title: "Analysis report", view: v, native: true };
+      return { group: "analysis", title: v === "overview" ? "Analysis" : v === "parameters" ? "Parameters and assumptions" : "Explain model state", view: v, native: true };
+    }
+    if (r === "calculate") return { group: "session", title: "Session inputs", view: "inputs", native: false };
+    if (r === "explore") return { group: "compare", title: state.presentation.exploreView === "sweep" ? "Sensitivity analysis" : "Comparison editor", view: "explore", native: false };
+    if (r === "export") return { group: "document", title: "Export analytical data", view: "export", native: false };
+    return { group: "analysis", title: r === "expert" ? "Model diagnostics" : r === "behaviour" ? "Behavioural interpretation" : "Numerical results", view: r, native: false };
+  }
+  function CalculationState({ state }) {
+    const current = state.snapshots.relationToDraft === "current", busy = ["queued", "running"].includes(state.execution.status), invalid = state.editingInvalidCount || state.draft.validation.status === "invalid";
+    let label = invalid ? "Input requires attention" : busy ? "Updating calculation" : state.execution.status === "failed" ? "Calculation failed" : current ? "Current calculation" : state.snapshots.currentSnapshotId ? "Previous accepted result" : "Preparing calculation";
+    return /* @__PURE__ */ h("div", { className: "v160-calculation-state" + (invalid ? " error" : current ? " current" : " pending") }, /* @__PURE__ */ h("span", { role: "status" }, /* @__PURE__ */ h("i", { "aria-hidden": "true" }), /* @__PURE__ */ h("strong", null, label), !current && state.snapshots.currentSnapshotId && /* @__PURE__ */ h("span", null, " \xB7 results retain the previous accepted inputs")), busy ? /* @__PURE__ */ h(Button, { onClick: () => bridge.store.cancel() }, "Cancel calculation") : !current && !invalid ? /* @__PURE__ */ h(Button, { onClick: () => bridge.store.calculate() }, "Update calculation") : invalid ? /* @__PURE__ */ h(Button, { onClick: () => navigate("calculate") }, "Review inputs") : null);
+  }
   function createV15UI(value) {
     const integration = v15InitUI(value);
-    const titles = { timeline: ["Session", "One chronology for the complete exposure schedule."], explain: ["Explain", "Inspect the accepted model state and its assumptions."], compare: ["Compare", "Make the changed inputs and resulting differences explicit."], projects: ["Saved states", "Recover, name, export and revisit committed analytical states."], report: ["Report", "Freeze an accepted analysis into a readable document."] };
-    function Shell() {
-      const state = useSession(), offline = usePWA(), route = state.presentation.selectedWorkspace;
-      const active = route === "session" || route === "help", view = route === "help" ? "help" : state.presentation.selectedSubview || "timeline", title = route === "help" ? ["How to use", "Action, expected result and scope at each expertise level."] : titles[view] ?? titles.timeline;
+    function Shell({ legacy }) {
+      const state = useSession(), offline = usePWA(), prefs = usePreferences(), place = locationFor(state), [dialog, setDialog] = React.useState(null), [parameter, setParameter] = React.useState(null), [event, setEvent] = React.useState(null), [systemDark, setSystemDark] = React.useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
+      const native = place.native, depth = state.presentation.detailMode;
+      React.useEffect(() => {
+        if (!window.location.hash) window.location.replace("#session/overview");
+      }, []);
+      React.useEffect(() => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)"), change = () => setSystemDark(media.matches);
+        media.addEventListener("change", change);
+        return () => media.removeEventListener("change", change);
+      }, []);
       React.useLayoutEffect(() => {
-        document.body.dataset.v15Workspace = active ? "true" : "false";
-        document.documentElement.dataset.v15Theme = state.presentation.theme || "clarity-system";
-      }, [active, state.presentation.theme]);
+        const root = document.documentElement, theme = prefs.theme === "clarity-system" ? systemDark ? "dark" : "light" : /dark|midnight/.test(prefs.theme) ? "dark" : "light";
+        root.dataset.v160Theme = theme;
+        root.dataset.v160Palette = prefs.theme;
+        root.dataset.v160Density = prefs.density;
+        root.dataset.v160Contrast = String(prefs.contrast);
+        root.dataset.v160Motion = prefs.motion;
+        root.dataset.v160LineSpacing = prefs.lineSpacing;
+        root.dataset.v160Focus = String(prefs.focus);
+        root.dataset.v160Explanations = prefs.explanations;
+        root.dataset.v160Signals = prefs.palette;
+        root.dataset.v160Text = String(prefs.textSize);
+        root.style.setProperty("--v160-text-size", prefs.textSize + "px");
+        root.style.setProperty("--v160-scale", String(prefs.textSize / 16));
+        document.body.dataset.v160Legacy = String(!native);
+        document.body.dataset.v160Page = place.view;
+        delete document.body.dataset.v15Workspace;
+        document.title = place.title + " \xB7 PK/PD Sandbox v1.6.0";
+      }, [prefs, systemDark, native, place.view, place.title]);
+      React.useEffect(() => {
+        const fn = (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            setDialog("search");
+          }
+        };
+        window.addEventListener("keydown", fn);
+        return () => window.removeEventListener("keydown", fn);
+      }, []);
       React.useEffect(() => {
         const flush = () => {
           if (controller.recoveryEnabled) controller.flushRecovery().catch(() => {
           });
-        };
-        const visibility = () => {
+        }, visibility = () => {
           if (document.visibilityState === "hidden") flush();
         };
         window.addEventListener("pagehide", flush);
@@ -7502,11 +7951,29 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
           document.removeEventListener("visibilitychange", visibility);
         };
       }, []);
+      const close = () => {
+        setDialog(null);
+        setParameter(null);
+        setEvent(null);
+      };
+      const add = () => {
+        setEvent(null);
+        setDialog("intake");
+      }, person = () => setDialog("person"), edit = (e) => {
+        setEvent(e);
+        setDialog("intake");
+      }, param = (e) => {
+        setParameter(e);
+        setDialog("parameter");
+      };
+      const exportSession = () => action(() => download("pkpd-session-v1.6.0.json", JSON.stringify(controller.project(true), null, 2)), "Session JSON prepared.");
       const status = offline.status === "ready" ? offline.online ? "Offline ready" : "Offline \xB7 cached release" : offline.status === "standalone" ? "Standalone build" : offline.status === "failed" ? "Offline setup unavailable" : "Preparing offline cache";
-      return /* @__PURE__ */ h("div", { className: "v15-shell" }, /* @__PURE__ */ h("div", { className: "v15-topline" }, /* @__PURE__ */ h("a", { className: "v15-brand", href: "#calculate" }, /* @__PURE__ */ h("span", { className: "v15-symbol", "aria-hidden": "true" }, "\u223F"), /* @__PURE__ */ h("span", null, "PK/PD Sandbox ", /* @__PURE__ */ h("strong", null, "1.5"))), /* @__PURE__ */ h("span", { className: "v15-offline " + (offline.status === "ready" ? "ready" : ""), role: "status" }, status), /* @__PURE__ */ h("div", { className: "v15-top-actions" }, offline.prompt && /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.install()) }, "Install app"), offline.waiting ? /* @__PURE__ */ h(Button, { primary: true, onClick: () => action(() => pwa.activate()) }, "Save session and update") : offline.registration && /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.check()) }, "Check for update"), /* @__PURE__ */ h("a", { className: "v15-text-link", href: "./standalone-v1.5.0.html", download: true }, "Standalone HTML"))), /* @__PURE__ */ h("nav", { className: "v15-nav", "aria-label": "Session and guidance workspaces" }, [[null, "Calculator"], ["timeline", "Session"], ["explain", "Explain"], ["compare", "Compare"], ["projects", "Saved states"], ["report", "Report"], ["help", "How to use"]].map(([key, label]) => /* @__PURE__ */ h(Button, { key: label, "aria-current": (key === "help" ? route === "help" : key === null ? route === "calculate" : route === "session" && view === key) ? "page" : void 0, onClick: () => key === "help" ? navigate("help", state.presentation.detailMode) : key === null ? navigate("calculate") : navigate("session", key) }, label)), /* @__PURE__ */ h("div", { className: "v15-history-controls" }, /* @__PURE__ */ h(Button, { "aria-label": "Undo committed scenario edit", disabled: !controller.history.canUndo, onClick: () => action(() => controller.undo()) }, "Undo"), /* @__PURE__ */ h(Button, { "aria-label": "Redo committed scenario edit", disabled: !controller.history.canRedo, onClick: () => action(() => controller.redo()) }, "Redo"))), controller.notice && /* @__PURE__ */ h("div", { className: "v15-feedback " + controller.notice.kind, role: controller.notice.kind === "error" ? "alert" : "status" }, /* @__PURE__ */ h("span", null, controller.notice.text), /* @__PURE__ */ h("button", { type: "button", "aria-label": "Dismiss message", onClick: () => {
+      const notification = controller.notice, showNotification = notification && (notification.kind === "error" || prefs.notifications === "all");
+      const subnav = place.group === "session" ? [["Inputs", "calculate", ""], ["Schedule", "session", "timeline"]] : place.group === "analysis" ? analysisRoutes : place.group === "compare" ? [["Comparison", "session", "compare"], ["Full editor", "explore", "compare"], ["Sensitivity", "explore", "sweep"]] : [];
+      return /* @__PURE__ */ h("div", { className: "v160-app" }, /* @__PURE__ */ h("a", { className: "v160-skip", href: "#main-content" }, "Skip to workspace"), /* @__PURE__ */ h("header", { className: "v160-header" }, /* @__PURE__ */ h("div", { className: "v160-brand" }, /* @__PURE__ */ h("a", { href: "#session/overview", "aria-label": "PK/PD Sandbox analysis home" }, /* @__PURE__ */ h("span", { className: "v160-mark", "aria-hidden": "true" }, "pk"), /* @__PURE__ */ h("span", null, "PK/PD Sandbox ", /* @__PURE__ */ h("small", null, "1.60"))), /* @__PURE__ */ h("span", { className: "v160-session-name", title: state.document.title }, state.document.title || "Untitled session")), /* @__PURE__ */ h("div", { className: "v160-header-actions" }, /* @__PURE__ */ h(Button, { "aria-label": "Find a control or parameter", onClick: () => setDialog("search") }, /* @__PURE__ */ h("span", { "aria-hidden": "true" }, "\u2315"), " Find control ", /* @__PURE__ */ h("kbd", null, "Ctrl K")), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "report") }, "Report"), /* @__PURE__ */ h("details", { className: "v160-document-menu" }, /* @__PURE__ */ h("summary", null, "Export"), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("button", { type: "button", disabled: !controller.canSave(), onClick: exportSession }, "Session JSON"), /* @__PURE__ */ h("a", { href: "#export" }, "Analytical data"), /* @__PURE__ */ h("a", { href: "./standalone-v1.6.0.html", download: true }, "Standalone HTML"))), /* @__PURE__ */ h(Button, { onClick: () => navigate("help", depth) }, "Help"), /* @__PURE__ */ h(Button, { onClick: () => setDialog("settings") }, "Settings"))), /* @__PURE__ */ h("div", { className: "v160-navigation" }, /* @__PURE__ */ h("nav", { "aria-label": "Main workspaces" }, [["Session", "session", "#calculate"], ["Analysis", "analysis", "#session/overview"], ["Compare", "compare", "#session/compare"], ["Saved sessions", "saved", "#session/projects"]].map(([label, key, href]) => /* @__PURE__ */ h("a", { key, href, "aria-current": place.group === key ? "page" : void 0 }, label))), /* @__PURE__ */ h("div", { className: "v160-view-controls" }, /* @__PURE__ */ h("div", { className: "v160-undo-controls" }, /* @__PURE__ */ h(Button, { "aria-label": "Undo committed scenario edit", disabled: !controller.history.canUndo, onClick: () => action(() => controller.undo()) }, "\u21B6 ", /* @__PURE__ */ h("span", null, "Undo")), /* @__PURE__ */ h(Button, { "aria-label": "Redo committed scenario edit", disabled: !controller.history.canRedo, onClick: () => action(() => controller.redo()) }, "\u21B7 ", /* @__PURE__ */ h("span", null, "Redo"))), /* @__PURE__ */ h("label", null, "Scientific depth", /* @__PURE__ */ h("select", { "aria-label": "Scientific depth", value: depth, onChange: (e) => controller.setDetailMode(e.target.value) }, /* @__PURE__ */ h("option", { value: "default" }, "Default"), /* @__PURE__ */ h("option", { value: "detailed" }, "Detailed"), /* @__PURE__ */ h("option", { value: "expert" }, "Expert"))))), /* @__PURE__ */ h("main", { id: "main-content", tabIndex: "-1" }, /* @__PURE__ */ h("div", { className: "v160-page-heading" }, /* @__PURE__ */ h("h1", null, place.title), subnav.length > 0 && /* @__PURE__ */ h("nav", { "aria-label": place.group === "session" ? "Session views" : place.group === "compare" ? "Comparison views" : "Analysis views" }, subnav.map(([label, route, view]) => /* @__PURE__ */ h("a", { key: label, href: "#" + route + (view ? "/" + view : ""), "aria-current": state.presentation.selectedWorkspace === route && (view ? state.presentation.selectedSubview === view : route !== "session") ? "page" : void 0 }, label)))), /* @__PURE__ */ h(CalculationState, { state }), showNotification && /* @__PURE__ */ h("div", { className: "v160-feedback " + notification.kind, role: notification.kind === "error" ? "alert" : "status" }, /* @__PURE__ */ h("span", null, notification.text), /* @__PURE__ */ h("button", { type: "button", "aria-label": "Dismiss message", onClick: () => {
         controller.notice = null;
         controller.emit();
-      } }, "\xD7")), offline.message && /* @__PURE__ */ h("p", { className: "v15-offline-message", role: "status" }, offline.message), active && /* @__PURE__ */ h("main", { className: "v15-main", "data-detail-mode": state.presentation.detailMode }, /* @__PURE__ */ h("header", { className: "v15-page-heading" }, /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("p", { className: "v15-kicker" }, "Ethanol + Caffeine \xB7 session and analysis release"), /* @__PURE__ */ h("h1", null, title[0]), /* @__PURE__ */ h("p", null, title[1])), /* @__PURE__ */ h("label", { className: "v15-field" }, "Application detail", /* @__PURE__ */ h("select", { "aria-label": "Application detail level", value: state.presentation.detailMode, onChange: (e) => controller.setDetailMode(e.target.value) }, /* @__PURE__ */ h("option", { value: "default" }, "Default"), /* @__PURE__ */ h("option", { value: "detailed" }, "Detailed"), /* @__PURE__ */ h("option", { value: "expert" }, "Expert")))), route === "help" ? /* @__PURE__ */ h(V15Help, null) : view === "explain" ? /* @__PURE__ */ h(V15Explain, null) : view === "compare" ? /* @__PURE__ */ h(V15Comparison, null) : view === "projects" ? /* @__PURE__ */ h(V15Projects, null) : view === "report" ? /* @__PURE__ */ h(V15Report, null) : /* @__PURE__ */ h(V15Timeline, null)));
+      } }, "\xD7")), !showNotification && notification && /* @__PURE__ */ h("span", { className: "v160-sr", role: "status" }, notification.text), offline.waiting && /* @__PURE__ */ h("div", { className: "v160-update" }, /* @__PURE__ */ h("span", null, "An application update is ready."), /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.activate()) }, "Save session and update")), native && /* @__PURE__ */ h("div", { className: "v160-workspace v15-main", "data-detail-mode": depth }, place.view === "overview" ? /* @__PURE__ */ h(Overview, { onAdd: add, onEditPerson: person, onEditIntake: edit }) : place.view === "timeline" ? /* @__PURE__ */ h(V15Timeline, null) : place.view === "explain" ? /* @__PURE__ */ h(V15Explain, null) : place.view === "compare" ? /* @__PURE__ */ h(V15Comparison, null) : place.view === "projects" ? /* @__PURE__ */ h(V15Projects, null) : place.view === "report" ? /* @__PURE__ */ h(V15Report, null) : place.view === "parameters" ? /* @__PURE__ */ h(Parameters, { onParameter: param }) : /* @__PURE__ */ h(V15Help, null)), /* @__PURE__ */ h("div", { className: "v160-legacy-slot", hidden: native }, legacy)), /* @__PURE__ */ h("footer", { className: "v160-footer" }, /* @__PURE__ */ h("span", null, "Educational model \xB7 modelled concentrations and heuristic response indices"), /* @__PURE__ */ h("span", null, status, controller.recoveryEnabled ? " \xB7 recovery " + controller.storageStatus : ""), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => bridge.openSurface("about") }, "Model sources and release identity")), dialog === "search" && /* @__PURE__ */ h(SearchDialog, { onClose: close, onParameter: param, onAdd: add, onPerson: person }), dialog === "settings" && /* @__PURE__ */ h(PreferencesDialog, { onClose: close }), dialog === "intake" && /* @__PURE__ */ h(IntakeDialog, { event, onClose: close }), dialog === "person" && /* @__PURE__ */ h(PersonDialog, { onClose: close }), dialog === "parameter" && parameter && /* @__PURE__ */ h(ParameterDialog, { entry: parameter, onClose: close }));
     }
     return { ...integration, Shell };
   }
@@ -52144,6 +52611,7 @@ function hne() {
     Ym = () => {
       Jte(), Ee(au()), ne?.source === "autosave" && ue(null), K("Autosave cleared.");
     };
+  M.useEffect(()=>{const fn=event=>{const surface=event.detail?.surface;if(surface==='person')pe(true);else if(surface==='timeline')Qe(true);else if(['about','scenario'].includes(surface))Z(surface);};window.addEventListener('pkpd-ui-action',fn);return()=>window.removeEventListener('pkpd-ui-action',fn);},[]);
   M.useEffect(() => {
     LB(), Ee(au());
   }, [persistenceState]), M.useEffect(() => {
@@ -52350,7 +52818,7 @@ function hne() {
         customStandardDrinkGrams: g.customStandardDrinkGrams,
         customStandardDrinkLabel: g.customStandardDrinkLabel
       };
-    return r.jsxs("main", {
+    return r.jsxs("div", {
       className: "app-shell invalid-run-shell",
       "data-theme": g.theme,
       "data-tier": Xr,
@@ -53724,7 +54192,7 @@ function hne() {
       expert: Zr ? Ws : hc,
       export: Zr ? Ws : eh
     };
-  return r.jsxs("main", {
+  return r.jsxs("div", {
     className: "app-shell v5-shell v7-shell",
     "data-theme": g.theme,
     "data-tier": Xr,
@@ -54812,7 +55280,7 @@ function Ane() {
         label: "a",
         timeH: -2
       }
-    })?.timeH === -.5 && Date.parse(zB("2026-01-01T10:00:00Z", 2, -1)) === Date.parse("2026-01-01T13:00:00Z"), "Elapsed historical reference and preserved first-instant rebinding."), Se("v0.8.5 horizon and shortcuts", () => Oj(-.1, 24).status === "before" && Oj(24.1, 24).status === "after" && Vf(2, 2.04, .1) && !Vf(2, 2.06, .1), "Outside-horizon status is explicit; pressed tolerance is half the output interval."), Se("v0.8.5 structured account", () => !!(B?.pkStateSentence && B.subjectiveSentence && B.functionalSentence && B.expressionSentence && B.trajectorySentence && B.selectedClauseIds.includes(`presentation.severity.${B.severityTierId}`)), B?.compactAccount ?? "no presentation"), Se("v0.8.4 presentation numerical invariance", () => JSON.stringify(l.analysisPoints) === f, "Selected-time composition leaves canonical numerical arrays unchanged."), Se("v1.0 release identity", () => Vi === "1.5.0" && qt.appVersion === Vi && (typeof document > "u" || document.title.includes(Vi)) && (typeof document > "u" || !document.querySelector(".metadata-panel .status-pill") || document.querySelector(".metadata-panel .status-pill").textContent.trim() === `v${qt.appVersion}`), `app ${qt.appVersion}; title ${typeof document > "u" ? "unavailable" : document.title}`), Se("v1.0 scope declaration", () => iN.toString().includes("Scope and intended use") && iN.toString().includes("A modelled BAC threshold crossing represents a numerical property of the simulated trajectory."), "Canonical educational/sandbox scope is present in About."), Se("v1.0 BAC-reference vocabulary", () => kJ(0, .01) === "Below vehicle reference threshold" && kJ(.02, .01) === "At or above vehicle reference threshold" && !kJ.toString().includes(["vehicle", "warning"].join("-")) && !PJ.toString().includes(["vehicle", "warning"].join(" ")), `${kJ(0, .01)} / ${kJ(.02, .01)}`), Se("v1.0.1 retained scientific contracts", () => qt.scenarioSchemaVersion === "0.8.2" && qt.modelEngineVersion === "0.4.4" && qt.constantsVersion === "0.3.0" && qt.presetSetVersion === "0.4.2" && qt.behaviouralModelVersion === "0.6.0" && qt.behaviouralCoefficientVersion === "0.6.0" && qt.behaviouralAxisRegistryVersion === "0.6.0" && qt.behaviouralInteractionRegistryVersion === "0.6.0" && qt.behaviouralCoefficientRegistryVersion === "0.6.0" && qt.behaviouralNarrativeVersion === "0.6.0" && qt.bacPhenotypeRegistryVersion === "0.3.0" && qt.bacSeverityRegistryVersion === "0.3.1", `schema ${qt.scenarioSchemaVersion}; engine ${qt.modelEngineVersion}; constants ${qt.constantsVersion}; behaviour ${qt.behaviouralModelVersion}`), Se("v1.0 release copy excludes affirmative clearance", () => { const q = [kJ(0, .01), kJ(.02, .01), PJ(0, .08), PJ(.1, .08), iN.toString()].join(" ").toLowerCase(), Ne = [["safe", "to", "drive"], ["legal", "to", "drive"], ["fit", "to", "drive"]].map(ce => ce.join(" ")); return Ne.every(ce => !q.includes(ce)); }, "No affirmative driving-clearance phrase is emitted by the audited release surfaces.")],
+    })?.timeH === -.5 && Date.parse(zB("2026-01-01T10:00:00Z", 2, -1)) === Date.parse("2026-01-01T13:00:00Z"), "Elapsed historical reference and preserved first-instant rebinding."), Se("v0.8.5 horizon and shortcuts", () => Oj(-.1, 24).status === "before" && Oj(24.1, 24).status === "after" && Vf(2, 2.04, .1) && !Vf(2, 2.06, .1), "Outside-horizon status is explicit; pressed tolerance is half the output interval."), Se("v0.8.5 structured account", () => !!(B?.pkStateSentence && B.subjectiveSentence && B.functionalSentence && B.expressionSentence && B.trajectorySentence && B.selectedClauseIds.includes(`presentation.severity.${B.severityTierId}`)), B?.compactAccount ?? "no presentation"), Se("v0.8.4 presentation numerical invariance", () => JSON.stringify(l.analysisPoints) === f, "Selected-time composition leaves canonical numerical arrays unchanged."), Se("v1.0 release identity", () => Vi === "1.6.0" && qt.appVersion === Vi && (typeof document > "u" || document.title.includes(Vi)) && (typeof document > "u" || !document.querySelector(".metadata-panel .status-pill") || document.querySelector(".metadata-panel .status-pill").textContent.trim() === `v${qt.appVersion}`), `app ${qt.appVersion}; title ${typeof document > "u" ? "unavailable" : document.title}`), Se("v1.0 scope declaration", () => iN.toString().includes("Scope and intended use") && iN.toString().includes("A modelled BAC threshold crossing represents a numerical property of the simulated trajectory."), "Canonical educational/sandbox scope is present in About."), Se("v1.0 BAC-reference vocabulary", () => kJ(0, .01) === "Below vehicle reference threshold" && kJ(.02, .01) === "At or above vehicle reference threshold" && !kJ.toString().includes(["vehicle", "warning"].join("-")) && !PJ.toString().includes(["vehicle", "warning"].join(" ")), `${kJ(0, .01)} / ${kJ(.02, .01)}`), Se("v1.0.1 retained scientific contracts", () => qt.scenarioSchemaVersion === "0.8.2" && qt.modelEngineVersion === "0.4.4" && qt.constantsVersion === "0.3.0" && qt.presetSetVersion === "0.4.2" && qt.behaviouralModelVersion === "0.6.0" && qt.behaviouralCoefficientVersion === "0.6.0" && qt.behaviouralAxisRegistryVersion === "0.6.0" && qt.behaviouralInteractionRegistryVersion === "0.6.0" && qt.behaviouralCoefficientRegistryVersion === "0.6.0" && qt.behaviouralNarrativeVersion === "0.6.0" && qt.bacPhenotypeRegistryVersion === "0.3.0" && qt.bacSeverityRegistryVersion === "0.3.1", `schema ${qt.scenarioSchemaVersion}; engine ${qt.modelEngineVersion}; constants ${qt.constantsVersion}; behaviour ${qt.behaviouralModelVersion}`), Se("v1.0 release copy excludes affirmative clearance", () => { const q = [kJ(0, .01), kJ(.02, .01), PJ(0, .08), PJ(.1, .08), iN.toString()].join(" ").toLowerCase(), Ne = [["safe", "to", "drive"], ["legal", "to", "drive"], ["fit", "to", "drive"]].map(ce => ce.join(" ")); return Ne.every(ce => !q.includes(ce)); }, "No affirmative driving-clearance phrase is emitted by the audited release surfaces.")],
     L = In.filter(q => q.passed).length,
     Pe = In.length - L;
   return {
@@ -56646,6 +57114,9 @@ Dee.unshift({version:'1.0.0',summary:'Established the first stable standalone re
 Dee.unshift({version:'1.0.1',summary:'Corrected endpoint dose accounting, dense numerical summaries, tied peaks, episode chronology, result state, persistence feedback and responsive intake filtering.',bullets:['Canonical exact event/horizon boundaries and complete threshold intervals.','Bounded-argument reductions and explicit tied-peak convergence.','Shared terminal/recovery status and accepted-snapshot provenance.','Schedule-aware curves, rolling-window intake warnings and immediate autosave feedback.']});
 const V15Integration=PKPDV15.createV15UI({
  React:M,store:canonicalStore,runtime:simulationRuntime,versions:qt,
+ parameters:[...XJ,...QJ].filter(p=>/^(subject|constants)\./.test(p.id)),
+ ethanolAmount:(event,constants)=>Ta(event,constants),caffeineAmount:event=>Na(event),
+ openSurface:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface}})),
  validate:input=>simulationRuntime.validateDraft(input),
  resolveProfile:profile=>Bm(profile),
  snapshot:()=>simulationRuntime.getSnapshot(canonicalStore.state.snapshots.currentSnapshotId),
@@ -56673,12 +57144,16 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:Object.freeze({version:'1.5.0',controller:V15Integration.controller,pwa:V15Integration.pwa,store:canonicalStore,runtime:simulationRuntime,versions:qt}),enumerable:false});
+const V160_PUBLIC=Object.freeze({version:'1.6.0',releaseLabel:'1.60',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,store:canonicalStore,runtime:simulationRuntime,versions:qt});
+Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
+Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});
 
-Dee.unshift({version:'1.5.0',summary:'Added calendar sessions, editing history, accepted-state explanations, comparisons, portable documents, reports, offline delivery and three-level operating instructions.',bullets:['Stable model-zero chronology and explicit clock-change handling.','Shared editing history, named saved states and recovery.','Selected-time compartments, estimated fluxes and conditional intake-removal comparisons.','Readable reports and deterministic hosted and standalone builds.','Default, Detailed and Expert how-to walkthroughs.']});
+Dee.unshift({version:'1.5.0',summary:'Added calendar sessions, history, recovery, comparisons, reports, offline delivery and three-level operating guides.',bullets:['Stable model-zero chronology and explicit clock-change handling.','Portable session documents and named states.','Accepted-state explanation, counterfactuals and captured comparisons.']});
+Dee.unshift({version:'1.6.0',summary:'Redesigned navigation, analysis hierarchy and interface accessibility.',bullets:['One task-based application shell with stable scientific-depth controls.','Aligned BAC and caffeine plots with a shared inspection cursor.','Independent explanation, density, text, contrast and motion preferences.','Searchable and directly editable model parameters.','Unified document actions and updated operating instructions.']});
+
 let appRoot=null;function mountApplication(){if(appRoot)return;appRoot=sR.createRoot(document.getElementById("root"));appRoot.render(r.jsx(IN.StrictMode, {
   children: r.jsx(IQ, {
-    children: r.jsxs(r.Fragment,{children:[r.jsx(V15Integration.Shell,{}),r.jsx(hne,{})]})
+    children: r.jsx(V15Integration.Shell,{legacy:r.jsx(hne,{})})
   })
 }));}
 function unmountApplication(){appRoot?.unmount();appRoot=null;}
