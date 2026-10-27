@@ -64,3 +64,6 @@ html[data-v160-text="20"] .v160-legacy-slot :is(label,p,td,input,select,textarea
 .v160-dialog .v15-field :is(input,select,textarea){border-color:var(--v160-control)}
 
 @media(max-width:650px){.v160-view-controls{flex-wrap:wrap}}
+
+.v160-undo-controls .v15-button[aria-disabled=true]{opacity:.48;cursor:not-allowed}
+@media(max-width:650px){.v160-navigation>nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;min-width:0}.v160-navigation>nav>a{min-width:0;white-space:normal;justify-content:center;text-align:center;line-height:1.4;padding:8px 2px}}
