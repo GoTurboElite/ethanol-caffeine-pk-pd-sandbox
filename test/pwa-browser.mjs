@@ -19,7 +19,7 @@ try{
  await page.goto(url,{waitUntil:'networkidle'});
  await page.waitForFunction(()=>window.__PK_SANDBOX_V15__?.pwa.state.status==='ready'&&navigator.serviceWorker.controller,null,{timeout:60000});
  await check('Standalone delivery computes without registering its own offline worker',async()=>{
-  const isolated=await browser.newContext(),tab=await isolated.newPage();await tab.goto(url+'/standalone-v1.5.0.html',{waitUntil:'networkidle'});
+  const isolated=await browser.newContext(),tab=await isolated.newPage();await tab.goto(url+'/standalone-v1.6.0.html',{waitUntil:'networkidle'});
   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
   assert.equal(await tab.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
   assert.equal(await tab.evaluate(async()=>(await navigator.serviceWorker.getRegistrations()).length),0);

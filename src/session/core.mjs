@@ -1,4 +1,4 @@
-export const V15_VERSION = '1.5.0';
+export const V15_VERSION = '1.6.0';
 export const V15_PROJECT_SCHEMA = 'ethanol-caffeine-session';
 export const V15_PROJECT_SCHEMA_VERSION = '1.0.0';
 export const V15_HISTORY_LIMIT = 60;

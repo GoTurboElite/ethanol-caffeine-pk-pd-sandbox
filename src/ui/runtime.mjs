@@ -1,16 +1,18 @@
 import {V15Controller} from '../session/controller.mjs';
 import {v15PWA} from '../session/pwa.mjs';
-export let React,Fragment,bridge,controller,pwa;
+import {InterfacePreferences} from '../session/preferences.mjs';
+export let React,Fragment,bridge,controller,pwa,preferences;
 export const h=(...args)=>React.createElement(...args);
 export function v15InitUI(value){
- bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);pwa=v15PWA(controller);
- return{controller,pwa};
+ bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);preferences=new InterfacePreferences(value.store);pwa=v15PWA(controller);
+ return{controller,pwa,preferences};
 }
 export function useSession(){
  React.useSyncExternalStore(controller.subscribe,controller.getRevision,controller.getRevision);
  return React.useSyncExternalStore(bridge.store.subscribe,bridge.store.getState,bridge.store.getState);
 }
 export function usePWA(){React.useSyncExternalStore(pwa.subscribe,()=>pwa.revision,()=>pwa.revision);return pwa.state;}
+export function usePreferences(){React.useSyncExternalStore(preferences.subscribe,preferences.snapshot,preferences.snapshot);return preferences.values;}
 export function navigate(workspace,view=''){window.location.hash='#'+workspace+(view?'/'+view:'');}
 export function announce(text,kind='success'){controller.notice={text,kind};controller.emit();}
 export function action(fn,success){
