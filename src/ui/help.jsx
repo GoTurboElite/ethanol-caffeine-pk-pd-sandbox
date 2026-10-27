@@ -11,7 +11,7 @@ export function V15Help(){
    <p>Read an instruction, perform its action, and check the expected result before continuing. The Scientific depth control changes the visible analytical depth. Reading preferences are independent. Each level uses the same numerical calculation authority.</p>
    <div className="v15-tabs" role="group" aria-label="Guide expertise level">{['default','detailed','expert'].map(x=><Button key={x} aria-pressed={level===x} onClick={()=>navigate('help',x)}>{x[0].toUpperCase()+x.slice(1)}</Button>)}</div>
    <h3>{guide.title}</h3><p>{guide.scope}</p>
-   <div className="v15-actions"><Button primary onClick={()=>action(()=>controller.setDetailMode(level),level[0].toUpperCase()+level.slice(1)+' detail mode selected.')}>Use {level[0].toUpperCase()+level.slice(1)} mode</Button><Button onClick={()=>navigate('calculate')}>Open inputs</Button><Button onClick={()=>navigate('session','timeline')}>Open Session</Button></div>
+   <div className="v15-actions"><Button primary onClick={()=>action(()=>controller.setDetailMode(level),level[0].toUpperCase()+level.slice(1)+' detail mode selected.')}>Use {level[0].toUpperCase()+level.slice(1)} mode</Button><Button onClick={()=>navigate('calculate')}>Open inputs</Button><Button onClick={()=>navigate('session','timeline')}>Open schedule</Button></div>
    <label className="v15-field">Search this guide<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try duration, history, clock, half-life or report"/></label>
    <div className="v15-guide-jumps">{sections.map(s=><Button key={s.id} onClick={()=>document.getElementById('v15-guide-'+s.id)?.scrollIntoView({block:'start'})}>{s.title}</Button>)}</div>
   </Panel>

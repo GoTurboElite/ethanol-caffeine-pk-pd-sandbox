@@ -1,46 +1,43 @@
-# v1.5.0 release verification
+# v1.60 release verification
 
-Verification date: 2026-10-27. The release retains the 1.0.1 calculation model and adds session, explanation, comparison, reporting, offline delivery and three-level operating guidance.
+Verification date: 2026-10-27. Application 1.6.0 retains engine 0.4.4, constants 0.3.0, scenario schema 0.8.2 and session wrapper 1.0.0. The release adds an interface/accessibility overhaul and independent reading preferences.
 
 ## Numerical, state and build checks
 
-| Suite | Passed | Failed |
-| --- | ---: | ---: |
-| Session, chronology, history, storage and import validation | 17 | 0 |
-| Numerical regression scenarios | 19 | 0 |
-| Canonical store, snapshot and asynchronous state transitions | 10 | 0 |
-| Release identity, deterministic build and schema compatibility | 4 | 0 |
-| Embedded model diagnostics | 104 | 0 |
-| Total | 154 | 0 |
+| Suite | Checks |
+| --- | ---: |
+| Session, chronology, history, storage and import validation | 17 |
+| Interface preferences, units and v1.5 trajectory compatibility | 8 |
+| Numerical regression scenarios | 19 |
+| Canonical store, snapshot and asynchronous state transitions | 10 |
+| Release identity, deterministic build and schema compatibility | 4 |
+| Embedded model diagnostics | 104 |
+| Total | 162 |
 
-The repeated-exposure fixture retains two vehicle-reference intervals and the final return of approximately 17.860446 h. Worker and main-thread fallback calculations agree in the mounted application. PK equations, constants and defaults are retained from engine 0.4.4.
+These checks pass on the release candidate. Compatibility fixtures compare complete analysis trajectories, peak values/times and threshold outcomes with the retained v1.5 standalone implementation for zero-input, coffee and repeated mixed schedules. The build checks normalized source identity and deterministic hosted/standalone bytes. The calculation kernel and scientific defaults are unchanged.
 
-The deterministic build runs twice and compares bytes. The embedded application identity, source fingerprint and HTML SHA-256 agree with public/build.json. The build contains its calculation kernel, scripts and styles. There is no required CDN script.
+## Browser release gates
 
-## Mounted browser workflows
+The original 17 mounted workflow groups remain in Chromium, Firefox and WebKit, with strict native attachment downloads in CI. They cover guides, numerical anchors, fixed model zero, grouped events, undo/redo, clock-change ambiguity, markers, named states, captured comparisons, session round-trips, legacy imports, reports, counterfactuals, recovery, responsive layouts, offline reload, diagnostics and worker fallback.
 
-Chromium passed 17 workflow groups covering workspace mounting, all three guides, a worked example, bulk retiming, immutable model zero, undo/redo, explicit DST overlap selection, analysis markers, named states, captured A/B comparison, portable session round-trip, legacy import, frozen report content, intake-removal comparison, recovery, responsive layout, offline reload, mounted diagnostics and worker fallback.
+The added interface suite has 12 workflow groups: initial analysis and landmarks; first-field dialog focus and undo; search and invalid/valid parameter edits; independence of preferences and scientific state; BAC units; light/dark/system appearance across retained and new views; reset and direct bookmarks; remembered panels; keyboard search/Escape focus; automated accessibility scans at three scientific depths; responsive/large-text layouts; and unhandled errors.
 
-Responsive checks covered widths of 320, 390, 430, 768, 1024 and 1440 pixels, with no document overflow in the sampled workspaces. Desktop and mobile screenshots were visually inspected. A native-select sizing overflow found in Linux WebKit at 320 pixels was corrected by bounding the collapsed control and preserving the full option text in its menu. The fix was also checked with several font families.
+Automated accessibility scans use axe with WCAG 2 A/AA, 2.1 AA and 2.2 AA tags on the sampled analysis, settings and retained input states. Tests sample widths from 320 to 1440 pixels. CI retains JSON results and desktop/mobile screenshots as job artifacts. A first-run 320-pixel toolbar overflow was identified and corrected before promotion.
 
-Three additional Chromium lifecycle checks passed: standalone calculation without service-worker registration; waiting-update activation after recovery has been saved, with title and markers restored; and a failed new installation leaving the existing offline cache usable.
+Three additional lifecycle groups verify standalone calculation without service-worker registration, waiting-update recovery/restoration and interrupted installation preserving an existing offline cache. The outage fixture stops the origin and confirms that an uncached context cannot connect before reloading the cached application.
 
-## Execution limits and remaining checks
+Current three-engine outcomes and any candidate corrections are recorded on [pull request #3](https://github.com/GoTurboElite/ethanol-caffeine-pk-pd-sandbox/pull/3). Production promotion requires these gates to pass.
 
-Chromium in the local restricted Windows host cancels native attachment downloads, including a minimal ordinary attachment unrelated to this application. The test-only diagnostic fallback inspected the application's actual JSON and HTML Blob payloads and their dispatched download events. It verified session re-import and report content. This is recorded in the test results and does not establish native disk-transfer success in Chromium on this host. WebKit completed both native exports.
+## Execution limits
 
-The local Windows Firefox process terminated during headless startup before application navigation. Linux Firefox subsequently passed the mounted workflows and offline/update lifecycle checks. Local WebKit passed all 17 workflow groups and all three lifecycle checks with native downloads. The pinned Playwright WebKit build has a documented [offline-emulation navigation defect](https://github.com/microsoft/playwright/issues/42775). The shared outage harness now stops the origin server, verifies that an uncached context cannot connect, and reloads the controlled application from its cache. This checks cached operation during an actual origin outage across all engines. The three-engine Linux CI configuration runs strict native-download checks without the diagnostic fallback. Current CI outcomes are recorded on [pull request #2](https://github.com/GoTurboElite/ethanol-caffeine-pk-pd-sandbox/pull/2).
+Local Playwright browser downloads were unavailable in the restricted implementation environment. Browser-engine verification therefore runs in GitHub Actions; visual interaction checks use the Cloudflare preview. The cloud browser harness blocked the preview's update activation, so that particular interaction is verified by the independent automated lifecycle suite.
 
-A physical iPhone/iPad installation and home-screen relaunch have not been verified. Browser-local storage can be cleared by browser settings or operating-system storage management. The portable session export is the user-controlled recovery artifact.
+Physical iPhone/iPad installation, screen-reader task testing, browser zoom with assistive technology and observed use by target experts have not been completed. Automated rule scans do not establish full WCAG conformance or measured reductions in cognitive effort.
 
-## Reproduction
+## Reproduction and deployment
 
-Run npm ci, npm run build and npm test with Node.js 24. Install Playwright browsers with npx playwright install --with-deps. Run npm run test:browser and node test/pwa-browser.mjs for each TEST_BROWSER value chromium, firefox and webkit. CI leaves ALLOW_BLOCKED_DOWNLOADS unset.
+Run npm ci, npm run build and npm test with Node.js 24. Install Playwright browsers, then run npm run test:browser, npm run test:ui and node test/pwa-browser.mjs for each TEST_BROWSER value chromium, firefox and webkit. CI leaves ALLOW_BLOCKED_DOWNLOADS unset. Generated evidence is under test/artifacts and excluded from git.
 
-Generated test output is written under test/artifacts and excluded from git. The in-app guide is the source for docs/HOW_TO_USE.md; regenerate it with node scripts/export-guide.mjs.
+Cloudflare retains its existing GitHub connection: main, blank root, exit 0 build command, public output. public/build.json contains versions, source fingerprint and hosted/standalone SHA-256 values. The branch preview is https://release-v1-6-0.ethanol-caffeine-pk-pd-sandbox.pages.dev/.
 
-## Deployment identity
-
-public/build.json contains application, engine, constants, scenario-schema and session-schema versions, the normalized source fingerprint, and hosted/standalone SHA-256 values. Cloudflare publishes the committed public directory using the existing exit 0 build configuration. The release branch preview is https://release-v1-5-0.ethanol-caffeine-pk-pd-sandbox.pages.dev/. Its served hosted and standalone bytes are checked against the build manifest after deployment.
-
-Production promotion consists of merging the verified release pull request into main. After deployment, compare the served build.json and both HTML hashes against the commit. Keep an exported session when moving between application versions.
+After the verified pull request is merged, main-branch CI runs scripts/verify-deployment.mjs. It checks the production manifest, exact hosted/standalone HTML bytes and exact service-worker bytes against the checked commit, retrying briefly for Pages propagation. The emitted verification record and Cloudflare deployment check identify the promoted release. Cached clients can use Settings → Interaction → Check for update, then Save session and update.

@@ -6,6 +6,56 @@ This is the portable copy of the instructions included in How to use inside the 
 
 Use this level for intake entry, the concentration timeline, selected-time inspection and saving. The model calculates the same trajectories at every detail level.
 
+### Orient the interface before editing
+
+#### 1. Choose the working area
+
+Action. Use Session for complete input entry and scheduling; Analysis for plots, explanations and diagnostics; Compare for captured A/B states; Saved sessions for files and recovery.
+
+Expected result. The selected workspace and its secondary views stay visible above the content.
+
+Check. Report, Export, Help and Settings are always available in the top toolbar.
+
+#### 2. Choose analytical depth independently
+
+Action. Use Scientific depth above the workspace. Choose Default, Detailed or Expert according to the controls you need.
+
+Expected result. The numerical model and entered scenario are retained.
+
+Check. An experienced user can choose Expert and retain comfortable spacing and concise explanations.
+
+#### 3. Set reading support
+
+Action. Choose Settings → Reading. Select Explanation support, Spacing, Text size and Line spacing. Choose Done to close the dialog.
+
+Expected result. The interface previews each selection immediately.
+
+Check. These preferences apply to the interface. They do not edit physiological assumptions or intake amounts.
+
+#### 4. Reduce optional context
+
+Action. Choose Settings → Reading and enable Focus layout. Open an optional panel when needed. To return, disable Focus layout or reset remembered panels under Profiles.
+
+Expected result. Optional panels begin collapsed. Errors, calculation status, units and horizon information remain available.
+
+Check. Collapsed panels retain their headings. Standard and Focus layouts remember their open panels separately.
+
+#### 5. Find an exact control
+
+Action. Choose Find control, or press Ctrl+K on Windows/Linux or Command+K on macOS. Type a task, parameter name or unit. Select a result.
+
+Expected result. A task opens its workspace; a parameter opens its value, units, applicability and supported range.
+
+Check. A parameter change is applied only after validation and becomes one Undo operation. Escape closes the dialog.
+
+#### 6. Keep a reading profile
+
+Action. Choose Settings → Profiles → Export interface profile. Import that JSON later with Import interface profile.
+
+Expected result. The profile preserves reading, appearance, interaction preferences and scientific depth.
+
+Check. Session JSON stores analytical inputs and history separately. Restore interface defaults preserves the working scenario.
+
 ### First complete calculation
 
 #### 1. Open Session inputs
@@ -14,11 +64,11 @@ Action. Choose Session, then Inputs. Set Scientific depth to Default.
 
 Expected result. The person and intake controls are visible.
 
-Check. A detail level changes the displayed controls and explanation depth.
+Check. Scientific depth changes analytical controls. Explanation support and spacing are separate settings.
 
 #### 2. Set the person
 
-Action. Open Refine person. Enter body mass in kilograms. Choose the appropriate physiology and available composition inputs. Close the panel when the entries are complete.
+Action. For body mass and horizon, choose Analysis, then Edit person. Enter kilograms and hours, then choose Apply person and horizon. For physiology and composition, use Full person editor and finish its input controls.
 
 Expected result. The person summary reflects your committed values.
 
@@ -26,7 +76,7 @@ Check. Use measured values where available. An empty optional composition field 
 
 #### 3. Define an intake
 
-Action. Choose Add drink or caffeine. Select a preset or enter a custom amount. Read the amount and serving labels before applying it.
+Action. Choose Analysis, then + Add intake. Enter a label, ethanol grams per serving, caffeine milligrams per serving and the number of servings. For beverage-volume recipes or presets, choose Full intake editor.
 
 Expected result. The intake appears in the intake list.
 
@@ -46,7 +96,7 @@ Action. Enter the number of minutes over which the amount is consumed. Use zero 
 
 Expected result. The timeline displays the full administration interval.
 
-Check. Dose amount is the total for the event and servings. A 60-minute duration distributes that event over one hour.
+Check. The quick editor multiplies per-serving amounts by Number of servings. A 60-minute duration distributes that event total over one hour.
 
 #### 6. Add the remaining events
 
@@ -58,7 +108,7 @@ Check. Events after the configured horizon require an extended horizon to be obs
 
 #### 7. Wait for a current result
 
-Action. Automatic recalculation is enabled by default. If you have disabled it, use the calculation control. Wait until the result status is Current.
+Action. Automatic recalculation is enabled by default. If you have disabled it, use Update calculation. Wait until the result status is Current calculation.
 
 Expected result. The accepted snapshot matches the committed inputs.
 
@@ -66,7 +116,7 @@ Check. A previous-result or pending label means that a displayed result belongs 
 
 #### 8. Open Session
 
-Action. Choose Session in the upper navigation. Read the model-zero anchor, time zone and horizon.
+Action. Choose Session, then Schedule. Expand Calendar anchor. Read the model-zero anchor and time zone. The observation horizon is available through Analysis → Edit person.
 
 Expected result. Intakes, curves and threshold intervals share one elapsed-time axis.
 
@@ -82,7 +132,7 @@ Check. The current-time marker is a separate clock reference. It may fall outsid
 
 #### 10. Read the units
 
-Action. Read BAC in g/dL and caffeine in mg/L. Inspect the peak values and the selected-time values separately.
+Action. Choose Analysis → Overview. Read BAC and caffeine in the units written beside each plot. Read the selected-time value above each plot and the whole-session peak below it. To change BAC units, choose Settings → Units.
 
 Expected result. You can identify the concentration at the selected time and the maximum across the full horizon.
 
@@ -90,7 +140,7 @@ Check. A peak time and a selected time refer to different questions.
 
 #### 11. Read repeated exposure
 
-Action. Review each above-threshold interval. Read first return and final return with their schedule and horizon labels.
+Action. Under the concentration plots, expand Threshold intervals and horizon coverage. Read every interval and its final return with the schedule and horizon labels.
 
 Expected result. Later re-exposure remains visible.
 
@@ -98,7 +148,7 @@ Check. An interval open at the horizon has no observed final return within this 
 
 #### 12. Save a portable copy
 
-Action. Open Saved states. Enter a name and choose Save named state. Choose Export session JSON to retain an external copy.
+Action. Open Saved sessions. Enter a name and choose Save named state. Choose Export session JSON to retain an external copy.
 
 Expected result. The named state appears in the list and the JSON file downloads.
 
@@ -108,7 +158,7 @@ Check. Browser-local saved states belong to this browser and origin. A downloade
 
 #### 1. Enable session recovery
 
-Action. Open Saved states and enable Session recovery. Wait for the Saved status.
+Action. Open Saved sessions and enable Session recovery. Wait for the Saved status.
 
 Expected result. A recoverable copy is stored after valid committed edits.
 
@@ -132,7 +182,7 @@ Check. History covers committed values. Finish or correct incomplete text entry 
 
 #### 4. Create an analysis marker
 
-Action. Open Analysis markers in Session. Enter a label, a kind and an elapsed time; choose Add marker.
+Action. Choose Session → Schedule, then expand Analysis markers. Enter a label, a kind and an elapsed time; choose Add marker.
 
 Expected result. A marker appears on the timeline with modelled concentrations.
 
@@ -146,7 +196,7 @@ Use this level for meal and physiology assumptions, compartment interpretation, 
 
 #### 1. Choose the calendar anchor
 
-Action. Open Session and expand Calendar anchor. Enter the local date and time for model zero and an IANA time zone, such as Europe/London.
+Action. Choose Session → Schedule and expand Calendar anchor. Enter the local date and time for model zero and an IANA time zone, such as Europe/London.
 
 Expected result. The form displays the corresponding absolute instant or a clock-change explanation.
 
@@ -170,7 +220,7 @@ Check. Preserving absolute times can move events into historical or future parts
 
 #### 4. Shift a group of events
 
-Action. Select the intake or meal checkboxes in Session. Enter a signed shift in minutes and choose Shift selected.
+Action. Choose Session → Schedule. Select the intake or meal checkboxes. Enter a signed shift in minutes and choose Shift selected.
 
 Expected result. All selected starts move by the same elapsed interval.
 
@@ -196,7 +246,7 @@ Check. A subject-level food state and explicit meal events have model-defined ro
 
 #### 1. Inspect a current accepted snapshot
 
-Action. Choose Explain and select an inspection time. Wait for Current status.
+Action. Choose Analysis → Explain and select an inspection time. Wait for Current status.
 
 Expected result. The panel identifies its snapshot, elapsed time and calendar instant.
 
@@ -246,7 +296,7 @@ Check. A marker outside the horizon is labelled outside coverage. Extend the hor
 
 #### 1. Preserve a baseline
 
-Action. Open Saved states, give the current valid scenario a name and choose Save named state.
+Action. Open Saved sessions, give the current valid scenario a name and choose Save named state.
 
 Expected result. The baseline appears with its timestamp and release identity.
 
@@ -286,7 +336,7 @@ Check. Open the downloaded report in a browser and use Print to create a PDF if 
 
 #### 6. Distinguish sensitivity from sampling
 
-Action. Use the existing Explore sensitivity and sweep controls to examine defined parameter perturbations.
+Action. Use Compare → Sensitivity and its sweep controls to examine defined parameter perturbations.
 
 Expected result. The selected output varies across the stated parameter range.
 
@@ -300,7 +350,7 @@ Use this level for numerical configuration, model assumptions, provenance, conse
 
 #### 1. Record model identity
 
-Action. Open Expert and record the application, engine, constants, schema and behavioural-model versions. Inspect the source fingerprint.
+Action. Choose Analysis → Diagnostics and record the application, engine, constants, schema and behavioural-model versions. Inspect the source fingerprint.
 
 Expected result. The analysis can be associated with a specific implementation and parameter set.
 
@@ -382,7 +432,7 @@ Check. The retained heuristic transforms have their own baseline rules. Inspect 
 
 #### 5. Exercise the diagnostic suite
 
-Action. Run the embedded diagnostics in About and inspect Expert integrity information. Retain the reported results with the release identity.
+Action. Choose Model sources and release identity in the footer to open About and run its embedded diagnostics. Inspect integrity information through Analysis → Diagnostics. Retain the reported results with the release identity.
 
 Expected result. Each assertion reports its own result and coverage.
 
@@ -400,15 +450,15 @@ Check. Use named reference devices when recording performance budgets.
 
 #### 1. Export the session document
 
-Action. Choose Export session JSON in Saved states. Retain its schema, versions, anchor, time zone, markers and history.
+Action. Choose Export session JSON in Saved sessions. Retain its schema, versions, anchor, time zone, markers and history.
 
 Expected result. The exported session can reconstruct its committed state in a compatible release.
 
-Check. The v1.5 session schema is separate from the retained 0.8.2 scenario schema.
+Check. Session wrapper schema 1.0.0 is separate from the retained 0.8.2 scenario schema.
 
 #### 2. Import a legacy scenario
 
-Action. In Saved states, choose Import session or legacy scenario and select the existing scenario JSON.
+Action. In Saved sessions, choose Import session or legacy scenario and select the existing scenario JSON.
 
 Expected result. The existing schema migration and validation path prepares the scenario.
 
@@ -416,7 +466,7 @@ Check. Review the resulting chronology, initial conditions and active optional m
 
 #### 3. Export analytical data
 
-Action. Use the existing Export workspace for numerical or behavioural series. Select the full horizon when that is the intended coverage.
+Action. Choose Export in the top toolbar, then Analytical data, for numerical or behavioural series. Select the full horizon when that is the intended coverage.
 
 Expected result. The output identifies its accepted snapshot and coverage.
 
@@ -450,13 +500,13 @@ Check. The report is a frozen document. Subsequent input changes create a new an
 
 ### 1. Open the hosted application online
 
-Allow the installation status to reach Offline ready before disconnecting.
+Allow the footer to reach Offline ready before disconnecting.
 
 Expected result. The current shell and required assets are cached.
 
 ### 2. Install when offered
 
-Use Install app when the browser exposes that action. On iPhone or iPad, use the browser sharing controls and Add to Home Screen.
+Choose Settings → Interaction, then Install app when the browser exposes that action. On iPhone or iPad, use the browser sharing controls and Add to Home Screen.
 
 Expected result. The installed application opens the same hosted origin.
 
@@ -474,7 +524,7 @@ Expected result. A recovery copy is written before update activation and reload.
 
 ### 5. Restore after an interrupted session
 
-Open Saved states and inspect the recovery timestamp.
+Open Saved sessions and inspect the recovery timestamp.
 
 Expected result. You can explicitly restore the desired committed state.
 
@@ -502,7 +552,7 @@ Expected result. You can explicitly restore the desired committed state.
 
 **Right-censored interval.** An above-threshold interval that remains open when the horizon ends.
 
-**Session JSON.** The v1.5 document containing committed scenario state, calendar information, markers and bounded history.
+**Session JSON.** The schema-1.0.0 document containing committed scenario state, calendar information, markers and bounded history.
 
 ## Troubleshooting
 
@@ -518,7 +568,7 @@ Expected result. You can explicitly restore the desired committed state.
 
 **A report button is unavailable** Complete invalid text entry, wait for Current status and finish an enabled comparison.
 
-**The installed app shows an older release** Reconnect, check for an update and use Save session and update. Read the active version in the Scientific depth control.
+**The installed app shows an older release** Reconnect, choose Settings → Interaction → Check for update, then use Save session and update when offered. Read the active release beside PK/PD Sandbox in the top-left corner.
 
 **An import is rejected** Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message.
 

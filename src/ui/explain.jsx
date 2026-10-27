@@ -1,7 +1,7 @@
 import {h,React,Fragment,bridge,controller,action,announce,useSession,accepted} from './runtime.mjs';
 import {Panel,Button,Table,Metric,SnapshotNotice,Inspector,EmptyResult} from './common.jsx';
 import {v15Fluxes,v15Number,v15MetricRows,v15Diff,v15TimeLabel} from '../session/core.mjs';
-import {bacText,bacUnit,bacValue} from './units.mjs';
+import {bacText,bacUnit,bacValue,bacMetric} from './units.mjs';
 export function V15Explain(){
  const state=useSession(),{snapshot,result,input,current}=accepted(),[eventId,setEventId]=React.useState(''),[counter,setCounter]=React.useState(null),[busy,setBusy]=React.useState(false);
  const identity=state.accepted?.numericalKey;
@@ -40,7 +40,7 @@ export function V15Explain(){
   <Panel title="Remove one intake counterfactual"><p>Evaluate the original accepted schedule against the same schedule after one intake is removed. This conditional difference includes shared nonlinear dynamics.</p>
    <div className="v15-actions"><label className="v15-field">Accepted intake<select value={eventId} onChange={e=>setEventId(e.target.value)}><option value="">Select an intake</option>{input.doseEvents.map(e=><option key={e.id} value={e.id}>{e.label||e.id} · {v15TimeLabel(e.startTimeH)}</option>)}</select></label><Button primary disabled={!current||busy||!eventId} onClick={evaluate}>{busy?'Evaluating…':'Evaluate removal'}</Button></div>
    {!current&&<p>Wait for a current accepted result before evaluating a counterfactual.</p>}
-   {counter?.status==='valid'&&counter.inputKey===state.accepted?.numericalKey&&<><p>Removed: <strong>{counter.event.label}</strong>. Delta = remaining schedule minus original schedule.</p><Table headers={['Output','Original','Remaining schedule','Delta','Unit']} rows={v15MetricRows(counter.A.numerical,counter.B.numerical).map(x=>[x.label,v15Number(x.a,5),v15Number(x.b,5),v15Number(x.delta,5),x.unit])}/></>}
+   {counter?.status==='valid'&&counter.inputKey===state.accepted?.numericalKey&&<><p>Removed: <strong>{counter.event.label}</strong>. Delta = remaining schedule minus original schedule.</p><Table headers={['Output','Original','Remaining schedule','Delta','Unit']} rows={v15MetricRows(counter.A.numerical,counter.B.numerical).map(x=>bacMetric(x,state.presentation)).map(x=>[x.label,v15Number(x.a,5),v15Number(x.b,5),v15Number(x.delta,5),x.unit])}/></>}
    {counter&&counter.status!=='valid'&&<p role="alert">Counterfactual status: {counter.status}. {counter.message}</p>}
   </Panel>
   {detail==='expert'&&<Panel title="Selected-time numerical provenance"><p>Current inspection is interpolated from the accepted dense trajectory. The original Expert workspace retains complete diagnostics and coefficient provenance.</p><pre className="v15-code">{JSON.stringify({snapshotId:snapshot.snapshotId,solver:result.solver,convergence:result.convergence,integrity:result.integrity,selectedPoint:p},null,2)}</pre></Panel>}

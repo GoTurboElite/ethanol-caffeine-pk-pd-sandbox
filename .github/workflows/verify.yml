@@ -37,14 +37,17 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: npx playwright install --with-deps --only-shell ${{ matrix.browser }}
+      - id: browsers
+        run: npx playwright install --with-deps --only-shell ${{ matrix.browser }}
       - run: npm run test:browser
         env:
           TEST_BROWSER: ${{ matrix.browser }}
       - run: npm run test:ui
+        if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
       - run: node test/pwa-browser.mjs
+        if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v7.0.1
@@ -52,3 +55,14 @@ jobs:
         with:
           name: browser-${{ matrix.browser }}
           path: test/artifacts
+  production-deployment:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [numerical-and-build, browser]
+    timeout-minutes: 7
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+      - run: node scripts/verify-deployment.mjs

@@ -37,4 +37,4 @@ export function Intervals({result}){
  }
  return <Table headers={['Reference / interval',unit,'Start','End','Final return in schedule']} rows={rows}/>;
 }
-export function EmptyResult(){return <Panel title="A calculation is required"><p>Open Calculator, finish the inputs and wait for an accepted result.</p><Button primary onClick={()=>navigate('calculate')}>Open Calculator</Button></Panel>;}
+export function EmptyResult(){return <Panel title="A calculation is required"><p>Open Session inputs, finish the inputs and wait for an accepted result.</p><Button primary onClick={()=>navigate('calculate')}>Open Session inputs</Button></Panel>;}

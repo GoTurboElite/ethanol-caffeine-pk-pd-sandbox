@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {root,core as loadCore} from './helpers.mjs';
 import {InterfacePreferences,UI_KEY,UI_VERSION} from '../src/session/preferences.mjs';
-import {bacValue,bacText,bacUnit} from '../src/ui/units.mjs';
+import {bacValue,bacText,bacUnit,bacMetric} from '../src/ui/units.mjs';
 const results=[];
 async function check(name,fn){try{await fn();results.push({name,passed:true});console.log('PASS '+name);}catch(e){results.push({name,passed:false,error:e.stack});console.error('FAIL '+name+' '+e.stack);}}
 function harness(saved=null,legacy={}){
@@ -35,7 +35,7 @@ await check('Reset and panel preferences preserve the scientific document',()=>{
  const {prefs,store}=harness();const before=JSON.stringify(store.state.document);prefs.panel('standard-thresholds',true);prefs.set({theme:'clarity-dark',density:'compact'});prefs.reset('reading');assert.equal(prefs.values.theme,'clarity-dark');prefs.reset();assert.equal(prefs.values.theme,'clarity-system');assert.deepEqual(prefs.values.panels,{});assert.equal(JSON.stringify(store.state.document),before);
 });
 await check('BAC formatting converts values and labels together without false zero rounding',()=>{
- for(const unit of ['g/dL','% BAC','g/L','permille']){const p={bacDisplayUnit:unit};assert.equal(bacValue(.08,p),unit==='g/L'||unit==='permille'?.8:.08);assert.ok(bacText(.000001,p).startsWith('<'));assert.equal(bacUnit(p),unit==='permille'?'‰':unit);}
+ for(const unit of ['g/dL','% BAC','g/L','permille']){const p={bacDisplayUnit:unit};assert.equal(bacValue(.08,p),unit==='g/L'||unit==='permille'?.8:.08);assert.ok(bacText(.000001,p).startsWith('<'));assert.equal(bacUnit(p),unit==='permille'?'‰':unit);const metric=bacMetric({unit:'g/dL',a:.08,b:.04,delta:-.04},p);assert.equal(metric.a,bacValue(.08,p));assert.equal(metric.unit,bacUnit(p));const auc=bacMetric({unit:'g·h/dL',a:1,b:2,delta:1},p);assert.equal(auc.delta,bacValue(1,p));}
 });
 await check('v1.5 and v1.60 retain identical numerical trajectories and threshold outcomes',()=>{
  const oldHTML=fs.readFileSync(path.join(root,'public/standalone-v1.5.0.html'),'utf8'),old=new Function(oldHTML.match(/<script id="pk-kernel-source" type="text\/plain">([\s\S]*?)<\/script>/)[1]+';return PKCore;')(),current=loadCore();

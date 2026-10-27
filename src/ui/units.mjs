@@ -9,5 +9,12 @@ export function bacText(value,presentation,digits=4){
 }
 export function parameterLabel(id){
  const overrides={'subject.bodyMassKg':'Body mass','subject.simulationDurationH':'Observation horizon','subject.caffeineHalfLifeH':'Effective caffeine half-life','subject.referenceCaffeineHalfLifeH':'Reference caffeine half-life','subject.ethanolVmaxGPerH':'Ethanol Vmax','constants.ethanolVmaxGPerH':'Ethanol Vmax','subject.solverInternalStepMin':'Internal solver step','subject.timeStepMin':'Output sampling step'};
- return overrides[id]??id.split('.').slice(1).join(' · ').replace(/([a-z0-9])([A-Z])/g,'$1 $2').replace(/GdL/g,'g/dL').replace(/^./,x=>x.toUpperCase());
+ const name=id.split('.').slice(1).join(' · ').replace(/(?:GdL|GPerH|MgPerL|MgL|PerH|Kg|Min|Ml)$/, '').replace(/([A-Z]+)([A-Z][a-z])/g,'$1 $2').replace(/([a-z0-9])([A-Z])/g,'$1 $2').replace(/\bFfm\b/g,'FFM').replace(/\bTbw\b/g,'TBW').replace(/\bCyp1a2\b/i,'CYP1A2').replace(/^./,x=>x.toUpperCase());
+ return overrides[id]??name;
+}
+
+export function bacMetric(row,presentation){
+ if(row.unit!=='g/dL'&&row.unit!=='g·h/dL')return row;
+ const unit=row.unit==='g/dL'?bacUnit(presentation):({'g/dL':'g·h/dL','g/L':'g·h/L','% BAC':'% BAC·h','permille':'‰·h'}[presentation.bacDisplayUnit]??'g·h/dL');
+ return {...row,unit,a:bacValue(row.a,presentation),b:bacValue(row.b,presentation),delta:bacValue(row.delta,presentation)};
 }

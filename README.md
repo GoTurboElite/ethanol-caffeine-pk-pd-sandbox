@@ -1,70 +1,73 @@
-# Ethanol + Caffeine PK/PD Sandbox 1.5.0
+# Ethanol + Caffeine PK/PD Sandbox 1.60
 
-A browser application for constructing exposure schedules, inspecting the retained PK/PD model, comparing explicit analytical states and exporting reproducible sessions and reports.
+A browser application for constructing exposure schedules, inspecting the retained PK/PD model, comparing captured analytical states and exporting reproducible sessions and reports.
 
 Production: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
 
 ## Using the application
 
-Open **How to use** in the main navigation. Choose **Default**, **Detailed** or **Expert** to read the operating sequence at that scope. Every walkthrough step gives an action, an expected result and a check. The guide selector and application detail selector can be changed independently. Three worked examples cover coffee absorption, repeated ethanol episodes and overnight calendar inspection.
+The application opens **Analysis → Overview** with aligned BAC and caffeine plots, one inspection time and a compact summary of the reference person and intakes. Choose **+ Add intake** for direct amounts per serving. **Session → Inputs** retains the complete beverage, physiology and preset editors; **Session → Schedule** contains calendar and grouped event operations.
 
-The same guide is available in [docs/HOW_TO_USE.md](docs/HOW_TO_USE.md). It includes calendar and daylight-saving instructions, units, snapshot interpretation, saving, comparison, reporting, installation, glossary and troubleshooting.
+The main workspaces are **Session**, **Analysis**, **Compare** and **Saved sessions**. **Find control** searches tasks and parameters; Ctrl+K or Command+K opens it. **Report**, **Export**, **Help** and **Settings** are always in the toolbar. The footer opens model sources and release identity.
 
-## What 1.5 adds
+Open **Help** for Default, Detailed or Expert instructions. Each step states an action, expected result and check. The help level is independent of scientific depth. The portable copy is [docs/HOW_TO_USE.md](docs/HOW_TO_USE.md).
 
-The Session workspace combines intakes, meals, analysis markers, model-zero chronology and calendar display. Explicit IANA time-zone resolution handles ambiguous clock times and rejected clock-change gaps. Editing an intake preserves model zero. Reanchoring explicitly chooses whether elapsed offsets or absolute event instants are preserved.
+## What 1.60 changes
 
-Shared editing history supports 60 committed states, undo, redo and history restoration across the original calculator and the added workspaces. Saved states, opt-in browser recovery, portable session JSON and legacy scenario import preserve editable input states. Recovery retains the latest valid committed document; portable session files include bounded editing history. Browser storage is specific to the current origin, browser and device.
+The unified shell removes duplicate headers, navigation and current-result announcements. Default analysis uses separate concentration scales, stable solid/dashed trace identities, shared event positions and a single inspection control. Optional context and threshold tables are disclosed on demand. Scientific depth exposes additional analytical material independently of explanation support and reading density.
 
-Explain shows accepted compartment amounts, local rate estimates and defined functional indices. Intake-removal counterfactuals run through the existing calculation runtime. Compare captures A and B inputs, displays changed fields and behavioural profiles, and reports accepted deltas, threshold intervals and calendar identities. Refresh B explicitly copies subsequent working edits. Comparison aligns elapsed hours from each scenario's model zero.
+**Settings** separates Reading, Appearance, Interaction, Units and Profiles. Reading supports concise, expanded or step-by-step explanations, comfortable or compact spacing, three text sizes, relaxed line spacing and Focus layout. Appearance controls theme, contrast, trace palette and plot layout. Motion follows the device or can be reduced explicitly. Profiles can be exported, imported and reset without changing analytical inputs. Standard and Focus layouts remember optional panel states separately.
 
-Reports freeze the accepted numerical state, chronology, markers and any accepted comparison into a self-contained printable HTML document. Default, Detailed and Expert report depths control the included material. Expert depth retains the complete constants and input state.
+The parameter index accepts names, field paths, abbreviations and units. Selecting a result opens its committed value, unit and validation limits. Direct intake, person/horizon and parameter dialogs validate before committing and create an undoable edit. Previous accepted calculations remain labelled while changes await recalculation. BAC units are converted consistently in the added interactive analysis views; exports and reports explicitly declare canonical units.
 
-Hosted delivery includes an offline cache, installation support where exposed by the browser, a waiting-update action and recovery before activation. Standalone delivery is one HTML file with embedded JavaScript, CSS and calculation kernel. The archived original release remains available in the repository and hosted archive path.
+The release retains v1.5 chronology, time-zone and clock-change resolution, analysis markers, bounded history, named states, opt-in recovery, session JSON, legacy import, captured A/B comparison, intake-removal analysis, reports, offline caching and the standalone HTML build. Reports now use aligned separate concentration plots as well.
 
-## Model identity
+See [docs/V1.60-DESIGN.md](docs/V1.60-DESIGN.md) for the implemented scope and [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) for measured validation and its limits.
 
-Application 1.5.0 retains engine **0.4.4**, constants **0.3.0**, scenario schema **0.8.2** and the retained behavioural model. The new session wrapper schema is **1.0.0**. PK equations, defaults and parameter values remain those shipped in 1.0.1. Flux displays are local finite-difference estimates derived from the accepted dense trajectory. Functional and behavioural indices retain their defined heuristic meanings, including the retained zero-valued no-exposure encoding.
+## Model identity and compatibility
 
-The original Expert and About workspaces retain model sources, assumptions, diagnostics and coefficient provenance. This release adds no sleep prediction, individualized calibration, measured-data fitting or new substance model.
+Application **1.6.0**, displayed as **1.60**, retains engine **0.4.4**, constants **0.3.0**, scenario schema **0.8.2** and session wrapper schema **1.0.0**. PK equations, scientific defaults and coefficient values are retained. Numerical compatibility fixtures compare the complete accepted trajectories and threshold outcomes against the archived v1.5 standalone build.
+
+The interface-profile schema is separate: `pkpd-interface-profile`, version **1.0.0**. Existing v1.5 sessions and legacy scenarios use their existing import paths. Browser-local saved states and recovery remain specific to the origin, browser and device. Export session JSON for a portable copy.
+
+Scientific fitting, empirical benchmark expansion, individualized calibration, new uncertainty models and additional substances remain future scientific release work.
 
 ## Development and verification
 
-Use Node.js 24 and npm. Dependencies are pinned in package-lock.json.
+Use Node.js 24 and the pinned dependencies in package-lock.json.
 
     npm ci
     npm run build
     npm test
     npx playwright install --with-deps
     npm run test:browser
+    npm run test:ui
     node test/pwa-browser.mjs
     npm run preview
 
-The local preview URL is http://127.0.0.1:8765/. To select another Playwright engine, set TEST_BROWSER to firefox or webkit. The default is chromium. The test harness requires successful native downloads. An explicit ALLOW_BLOCKED_DOWNLOADS=1 diagnostic setting permits payload verification in constrained hosts and records the limitation in its results; CI leaves that setting unset.
+The local preview is http://127.0.0.1:8765/. Set `TEST_BROWSER` to `chromium`, `firefox` or `webkit` for browser checks. The original mounted workflow suite verifies native downloads. `ALLOW_BLOCKED_DOWNLOADS=1` is a diagnostic fallback for restricted local hosts; CI leaves it unset.
 
-Regenerate the portable guide with node scripts/export-guide.mjs after changing the in-app guide. CI runs the deterministic build, numerical/state/release suites and all three browser engines. Committed public outputs must exactly match a clean build.
+Regenerate the guide with `node scripts/export-guide.mjs` after changing `src/content/guide.mjs`. CI verifies deterministic committed output, numerical/state/session/release tests, mounted workflows, keyboard/accessibility/responsive checks and offline/update recovery in all three browser engines. Automated accessibility checks are one part of verification; physical-device and assistive-technology testing remain distinct checks.
 
 ## Source layout
 
 | Path | Purpose |
 | --- | --- |
-| src/legacy | Recovered 1.0.1 interface, styles and calculation kernel |
-| src/session | Calendar, history, persistence, comparison controller and offline lifecycle |
-| src/ui | Added React workspaces and report generator |
-| src/content | Three-level operating guide |
-| src/bridge.js | Guarded integration with the original store and simulation runtime |
+| src/legacy | Recovered 1.0.1 interface, styles and unchanged calculation kernel |
+| src/session | Chronology, history, persistence, comparison, interface profiles and offline lifecycle |
+| src/ui | Unified shell, analytical views, dialogs, plots, preferences and reports |
+| src/content | Three-level operating guide and release history |
+| src/bridge.js | Integration with the retained store and simulation runtime |
 | build.mjs | Deterministic hosted and standalone generation |
 | public | Committed Cloudflare Pages output |
-| test | Numerical regressions, state tests and mounted browser workflows |
+| test | Numerical, state, compatibility, mounted workflow and accessibility verification |
 
-The build patches explicit integration seams and fails when a required seam is absent. It reuses the embedded React runtime and the existing simulation runtime. No CDN request or server-side calculation is required. The source fingerprint normalizes text line endings and includes all src files; public/build.json records both HTML SHA-256 values.
+The guarded build fails when an integration seam is missing. The legacy component remains mounted to preserve its calculation and worker lifecycle. New views reuse the embedded React runtime, canonical store and simulation runtime. Scripts, styles and the calculation kernel are embedded without a required CDN request. The normalized source fingerprint covers all src files; public/build.json records hosted and standalone SHA-256 values.
 
-## Deployment
+## Deployment and updates
 
-The existing Cloudflare Pages project remains connected to this repository. Production branch is main, root directory is blank, build command is exit 0 and output directory is public. Because this deployment publishes committed output directly, every release must include a freshly generated public directory.
+The existing Cloudflare Pages project uses production branch **main**, a blank root directory, build command **exit 0** and output directory **public**. Releases therefore include regenerated and verified public output. A release-branch push provides a Cloudflare preview; merging the verified pull request into main replaces production.
 
-Review the release branch and passing checks, inspect its Cloudflare branch preview, then merge its pull request into main to replace production. Confirm public/build.json appVersion and both served HTML hashes after deployment. Users with a previously cached release can choose Check for update, then Save session and update.
+An existing cached application can check for an update through **Settings → Interaction → Check for update** and choose **Save session and update**. Update activation writes a recoverable valid document before reloading. A portable session export remains available independently.
 
-Reverting the release commit on main restores the prior hosted output. The service worker remains reachable at the same path; test rollback on the preview origin and retain an exported session before moving between releases with different session support.
-
-See [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) for measured checks and execution limits.
+Verify production build.json, hosted HTML and standalone HTML against the checked commit. `node scripts/verify-deployment.mjs` performs those checks over HTTPS; main-branch CI repeats them after the build/browser gates. Reverting the release merge commit restores prior committed output through the same Pages connection.
