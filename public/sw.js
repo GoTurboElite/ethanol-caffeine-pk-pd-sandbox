@@ -1,4 +1,4 @@
-const CACHE='pkpd-v15-e2b68b92f6f15ace7a1c';
+const CACHE='pkpd-v15-92135161e247c6cce6bd';
 const PREFIX='pkpd-v15-';
 const ASSETS=['./index.html','./standalone-v1.6.0.html','./build.json','./manifest.webmanifest','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(ASSETS.map(url=>new Request(url,{cache:'reload'})));})()));

@@ -75,3 +75,4 @@ html[data-v160-palette=clinical]{--v160-bg:#f4f7f8;--v160-soft:#edf3f6;--v160-te
 html[data-v160-palette=spectral]{--v160-bg:#f4f7fb;--v160-surface:#fffefe;--v160-soft:#eef2fa;--v160-text:#172033;--v160-muted:#536075;--v160-accent:#5e3c94;--v160-accent-soft:#efe9f8}
 html[data-v160-palette=midnight]{--v160-bg:#0c1422;--v160-surface:#101e2f;--v160-soft:#1b2c44;--v160-text:#edf5ff;--v160-muted:#b7c5d8;--v160-accent:#7addcd;--v160-accent-soft:#173e42}
 html[data-v160-theme] body:has(.v160-app){background:var(--v160-bg);color:var(--v160-text)}
+.v160-legacy-slot>.app-shell,.modal-backdrop.app-shell{--ethanol:var(--v160-bac);--caffeine:var(--v160-caf);--chart-bac:var(--v160-bac);--chart-caffeine:var(--v160-caf)}
