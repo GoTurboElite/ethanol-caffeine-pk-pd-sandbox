@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 import {root} from './helpers.mjs';
 const expected=JSON.parse(fs.readFileSync(path.join(root,'public/build.json'),'utf8'));
-const productionHost='ethanol-caffeine-pk-pd-sandbox.pages.dev';
+const productionHost='pkpd.goturbo.one',projectHost='ethanol-caffeine-pk-pd-sandbox.pages.dev';
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function deploymentURL(){
  if(process.env.DEPLOYMENT_URL)return new URL(process.env.DEPLOYMENT_URL);
@@ -23,7 +23,7 @@ async function deploymentURL(){
  throw Error('Cloudflare preview for this commit did not become ready.');
 }
 const base=await deploymentURL();
-if(base.protocol!=='https:'||!(base.hostname===productionHost||base.hostname.endsWith('.'+productionHost)))throw Error('Unexpected deployment host.');
+if(base.protocol!=='https:'||!(base.hostname===productionHost||base.hostname===projectHost||base.hostname.endsWith('.'+projectHost)))throw Error('Unexpected deployment host.');
 let ready=false;
 for(let attempt=0;attempt<36;attempt++){
  try{const response=await fetch(new URL('build.json',base),{cache:'no-store',signal:AbortSignal.timeout(15000)});if(response.ok&&(await response.json()).buildFingerprint===expected.buildFingerprint){ready=true;break;}}catch{}
@@ -38,11 +38,11 @@ try{
  page.on('pageerror',error=>errors.push(error.message));
  page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}));
  const current=()=>page.waitForFunction(fp=>window.__PK_SANDBOX_V15__?.versions.buildFingerprint===fp&&window.__PK_SANDBOX_V15__.store.state.snapshots.relationToDraft==='current',expected.buildFingerprint,{timeout:90000});
- await page.goto(base.href,{waitUntil:'networkidle'});await current();
+ await page.goto(base.href,{waitUntil:'networkidle'});await current();assert.equal(new URL(page.url()).hostname,base.hostname,'Deployment origin must remain independently accessible.');
  await page.waitForFunction(()=>navigator.serviceWorker.controller&&window.__PK_SANDBOX_V15__.pwa.state.status==='ready',null,{timeout:60000});
  for(let i=0;i<2;i++){await page.reload({waitUntil:'networkidle'});await current();assert.ok(await page.evaluate(()=>!!navigator.serviceWorker.controller));}
  await page.goto(new URL('index.html',base).href,{waitUntil:'networkidle'});await current();
- await page.goto(new URL('standalone-v1.6.0.html',base).href,{waitUntil:'networkidle'});await current();
+ await page.goto(new URL('standalone-v2.0.0.html',base).href,{waitUntil:'networkidle'});await current();
  assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
  assert.deepEqual(errors,[]);assert.deepEqual(failedRequests,[]);
  console.log(JSON.stringify({browser:engine,url:base.href,buildFingerprint:expected.buildFingerprint,cachedReloads:2,indexAlias:true,standaloneAlias:true,errors,failedRequests,verifiedAt:new Date().toISOString()},null,2));

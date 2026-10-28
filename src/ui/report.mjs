@@ -1,4 +1,5 @@
 import {v15Escape,v15Number,v15ChartSamples,v15Interpolate,v15FormatInstant,V15_VERSION} from '../session/core.mjs';
+import {scientificReport} from '../science/report.mjs';
 export function v15CurveSVG(result,{selectedTimeH=0,markers=[],events=[],points=null}={}){
  const data=points??v15ChartSamples(result.analysisPoints??result.points),end=result.analysisPoints?.at(-1)?.tH??result.points.at(-1).tH;
  const width=920,height=195,left=65,right=890,top=29,bottom=143,x=h=>left+(right-left)*h/(end||1);
@@ -16,7 +17,7 @@ export function v15CurveSVG(result,{selectedTimeH=0,markers=[],events=[],points=
  }).join('');
 }
 export function v15BuildReport(data){
- const {frame,result,snapshotId,versions,depth='detailed',comparison=null,eventAmounts=null}=data;
+ const {frame,result,snapshotId,versions,depth='detailed',comparison=null,eventAmounts=null,scienceResults=[]}=data;
  if(!result)throw Error('A current accepted calculation is required for a report.');
  const esc=v15Escape,num=v15Number,subject=frame.document.mainScenario.subject,constants=frame.document.mainScenario.constants,events=frame.document.mainScenario.doseEvents;
  const time=frame.presentation.selectedTimeH,point=v15Interpolate(result.analysisPoints??result.points,time),zone=frame.presentation.scenarioTimeZone,anchor=Date.parse(frame.presentation.scenarioAnchorInstant);
@@ -44,6 +45,7 @@ export function v15BuildReport(data){
  if(comparison?.status==='valid'){
   parts.push('<h2>Accepted A/B comparison</h2>'+table([row('Scenario A',comparison.input.scenarios.A.label),row('Scenario B',comparison.input.scenarios.B.label),row('Comparison alignment','Elapsed hours from each captured model zero'),row('A anchor',comparison.input.scenarios.A.calendarAnchorInstant??'Anchor not captured'),row('A time zone',comparison.input.scenarios.A.calendarTimeZone??'Not captured'),row('B anchor',comparison.input.scenarios.B.calendarAnchorInstant??'Anchor not captured'),row('B time zone',comparison.input.scenarios.B.calendarTimeZone??'Not captured'),row('A snapshot',comparison.A.snapshotId),row('B snapshot',comparison.B.snapshotId),row('A peak BAC',num(comparison.A.numerical.summary.peakBACGdL,5)+' g/dL'),row('B peak BAC',num(comparison.B.numerical.summary.peakBACGdL,5)+' g/dL'),row('A peak caffeine',num(comparison.A.numerical.summary.peakCaffeineMgL,5)+' mg/L'),row('B peak caffeine',num(comparison.B.numerical.summary.peakCaffeineMgL,5)+' mg/L')]));
  }
+ parts.push(scientificReport(frame,scienceResults,depth));
  if(depth==='expert')parts.push('<h2>Complete constants</h2>'+table(Object.entries(constants).map(([k,v])=>row(k,typeof v==='object'?JSON.stringify(v):v)))+'<h2>Numerical and summary metadata</h2><pre>'+esc(JSON.stringify(result.summary,null,2))+'</pre><h2>Reproducible input state</h2><pre>'+esc(JSON.stringify(frame,null,2))+'</pre>');
  parts.push('<h2>Interpretation and provenance</h2><p>Concentrations, compartment amounts and crossings are computed from the selected model and parameters. Functional and behavioural indices use their defined heuristic transformations. Sensitivity envelopes describe selected parameter perturbations. The report retains its snapshot and version identity.</p><p>Parameter sources and model diagnostics are available in the application Analysis → Diagnostics view and Model sources and release identity dialog. A separate exported session JSON preserves the editable document and history.</p></body></html>');
  return parts.join('\n');

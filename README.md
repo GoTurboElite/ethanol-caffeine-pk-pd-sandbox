@@ -1,73 +1,45 @@
-# Ethanol + Caffeine PK/PD Sandbox 1.60
+# Ethanol + Caffeine PK/PD Sandbox 2.0
 
-A browser application for constructing exposure schedules, inspecting the retained PK/PD model, comparing captured analytical states and exporting reproducible sessions and reports.
+Official public application: https://pkpd.goturbo.one/
 
-Production: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
+Retained deployment alias: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
 
-## Using the application
+Version 2.0 adds a local scientific workbench around the retained v1.60 reference PK equations. The four main workspaces and independent scientific-depth, explanation, density and appearance settings remain available.
 
-The application opens **Analysis → Overview** with aligned BAC and caffeine plots, one inspection time and a compact summary of the reference person and intakes. Choose **+ Add intake** for direct amounts per serving. **Session → Inputs** retains the complete beverage, physiology and preset editors; **Session → Schedule** contains calendar and grouped event operations.
+## Scientific workbench
 
-The main workspaces are **Session**, **Analysis**, **Compare** and **Saved sessions**. **Find control** searches tasks and parameters; Ctrl+K or Command+K opens it. **Report**, **Export**, **Help** and **Settings** are always in the toolbar. The footer opens model sources and release identity.
+Session > Observations imports concentration measurements from CSV with elapsed or absolute timestamps, analyte, units, matrix, dataset role, optional measurement SD and censoring qualifier. Supported alternative matrices require an explicit conversion factor. Data remain local to the browser and portable session files.
 
-Open **Help** for Default, Detailed or Expert instructions. Each step states an action, expected result and check. The help level is independent of scientific depth. The portable copy is [docs/HOW_TO_USE.md](docs/HOW_TO_USE.md).
+Analysis > Scientific workbench provides Evaluation, Calibration, Uncertainty and Evidence. Evaluation separates calibration and held-out rows and reports canonical-unit bias, MAE and RMSE. The built-in published corpus contains four group-level Cmax summaries from two studies. It reports cohort reconstruction assumptions and descriptive discrepancies. Individual predictive validity and full empirical trajectory validation remain unevaluated by that summary corpus.
 
-## What 1.60 changes
+Calibration uses bounded weighted least squares for one or two registered parameters. It reports local sensitivity dependence, parameter-bound contact, objective support and error assumptions. Application requires a current, locally identifiable interior solution. Fitted values are applied in one undoable edit with a named record. Upper limits use an explicitly stated one-sided squared penalty. Coarse one-parameter profile support is emitted only with quantified rows and supplied SDs.
 
-The unified shell removes duplicate headers, navigation and current-result announcements. Default analysis uses separate concentration scales, stable solid/dashed trace identities, shared event positions and a single inspection control. Optional context and threshold tables are disclosed on demand. Scientific depth exposes additional analytical material independently of explanation support and reading density.
+Uncertainty uses a reproducible 32-bit seed, 16-256 parameter draws, uniform/triangular/truncated-lognormal distributions and a positive-definite Gaussian-copula dependence matrix. Paired A/B sampling shares absolute draws for equal parameter baselines and horizons. P05/P50/P95 quantiles, conditional threshold fractions and unresolved final returns retain their defined sampling semantics. Work budgets bound computation, workers support cancellation, and a cooperative fallback remains available.
 
-**Settings** separates Reading, Appearance, Interaction, Units and Profiles. Reading supports concise, expanded or step-by-step explanations, comfortable or compact spacing, three text sizes, relaxed line spacing and Focus layout. Appearance controls theme, contrast, trace palette and plot layout. Motion follows the device or can be reduced explicitly. Profiles can be exported, imported and reset without changing analytical inputs. Standard and Focus layouts remember optional panel states separately.
+Evidence exposes the existing 39-entry source registry, parameter derivations and population/model limits. The fed-elimination benchmark comparator is an explicit 1.39-fold hypothesis and changes no main-scenario defaults. The standardized ethanol benchmark scenarios underpredict reported peaks; increasing fed elimination lowers that benchmark prediction further. The reference equations are retained.
 
-The parameter index accepts names, field paths, abbreviations and units. Selecting a result opens its committed value, unit and validation limits. Direct intake, person/horizon and parameter dialogs validate before committing and create an undoable edit. Previous accepted calculations remain labelled while changes await recalculation. BAC units are converted consistently in the added interactive analysis views; exports and reports explicitly declare canonical units.
+Help provides action/result/check walkthroughs at Default, Detailed and Expert levels. The portable guide is [docs/HOW_TO_USE.md](docs/HOW_TO_USE.md).
 
-The release retains v1.5 chronology, time-zone and clock-change resolution, analysis markers, bounded history, named states, opt-in recovery, session JSON, legacy import, captured A/B comparison, intake-removal analysis, reports, offline caching and the standalone HTML build. Reports now use aligned separate concentration plots as well.
+## Reproducibility and compatibility
 
-See [docs/V1.60-DESIGN.md](docs/V1.60-DESIGN.md) for the implemented scope and [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md) for measured validation and its limits.
+Application 2.0.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench schema 1.0.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
 
-## Model identity and compatibility
+Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 
-Application **1.6.0**, displayed as **1.60**, retains engine **0.4.4**, constants **0.3.0**, scenario schema **0.8.2** and session wrapper schema **1.0.0**. PK equations, scientific defaults and coefficient values are retained. Numerical compatibility fixtures compare the complete accepted trajectories and threshold outcomes against the archived v1.5 standalone build.
+Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.0.0.html provides local operation; archived standalone releases remain available.
 
-The interface-profile schema is separate: `pkpd-interface-profile`, version **1.0.0**. Existing v1.5 sessions and legacy scenarios use their existing import paths. Browser-local saved states and recovery remain specific to the origin, browser and device. Export session JSON for a portable copy.
+## Development and tests
 
-Scientific fitting, empirical benchmark expansion, individualized calibration, new uncertainty models and additional substances remain future scientific release work.
+Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs and node test/science-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
 
-## Development and verification
+Regenerate the portable guide with node scripts/export-guide.mjs after changing guide content. Run node test/live-browser.mjs with DEPLOYMENT_URL for hosted checks. CI discovers the exact Cloudflare preview for a PR and verifies both production hostnames after promotion. Generated test evidence is under test/artifacts and excluded from git.
 
-Use Node.js 24 and the pinned dependencies in package-lock.json.
+The Node suite covers retained numerical/state/session behaviour, analytic anchors, deterministic builds, scientific input validation, synthetic recovery, held-out exclusion, joint sampling, cancellation, censorship and empirical-summary provenance. Browser gates cover existing workflows, interface accessibility, offline/update lifecycle and scientific workflows in three engines. See [docs/V2.0-DESIGN.md](docs/V2.0-DESIGN.md) and [docs/RELEASE-VERIFICATION.md](docs/RELEASE-VERIFICATION.md).
 
-    npm ci
-    npm run build
-    npm test
-    npx playwright install --with-deps
-    npm run test:browser
-    npm run test:ui
-    node test/pwa-browser.mjs
-    npm run preview
+## Source and delivery
 
-The local preview is http://127.0.0.1:8765/. Set `TEST_BROWSER` to `chromium`, `firefox` or `webkit` for browser checks. The original mounted workflow suite verifies native downloads. `ALLOW_BLOCKED_DOWNLOADS=1` is a diagnostic fallback for restricted local hosts; CI leaves it unset.
+src/legacy retains the recovered interface/runtime and calculation kernel. src/session provides chronology, history and persistence. src/science contains the versioned scientific document, observations, fitting, sampling, benchmark/evidence data, report projection and worker. src/ui retains the unified shell and adds scientific views. build.mjs embeds the application, kernel and scientific worker into deterministic hosted and standalone HTML.
 
-Regenerate the guide with `node scripts/export-guide.mjs` after changing `src/content/guide.mjs`. CI verifies deterministic committed output, numerical/state/session/release tests, mounted workflows, keyboard/accessibility/responsive checks and offline/update recovery in all three browser engines. Automated accessibility checks are one part of verification; physical-device and assistive-technology testing remain distinct checks.
+Cloudflare retains the existing GitHub connection, production branch main, blank root, build command exit 0 and output public. Generated public files are committed with each release. A release branch supplies a preview; merging the verified PR updates both configured production hostnames. The pages.dev address remains independently accessible. DNS, registration and Worker routes are unchanged.
 
-## Source layout
-
-| Path | Purpose |
-| --- | --- |
-| src/legacy | Recovered 1.0.1 interface, styles and unchanged calculation kernel |
-| src/session | Chronology, history, persistence, comparison, interface profiles and offline lifecycle |
-| src/ui | Unified shell, analytical views, dialogs, plots, preferences and reports |
-| src/content | Three-level operating guide and release history |
-| src/bridge.js | Integration with the retained store and simulation runtime |
-| build.mjs | Deterministic hosted and standalone generation |
-| public | Committed Cloudflare Pages output |
-| test | Numerical, state, compatibility, mounted workflow and accessibility verification |
-
-The guarded build fails when an integration seam is missing. The legacy component remains mounted to preserve its calculation and worker lifecycle. New views reuse the embedded React runtime, canonical store and simulation runtime. Scripts, styles and the calculation kernel are embedded without a required CDN request. The normalized source fingerprint covers all src files; public/build.json records hosted and standalone SHA-256 values.
-
-## Deployment and updates
-
-The existing Cloudflare Pages project uses production branch **main**, a blank root directory, build command **exit 0** and output directory **public**. Releases therefore include regenerated and verified public output. A release-branch push provides a Cloudflare preview; merging the verified pull request into main replaces production.
-
-An existing cached application can check for an update through **Settings → Interaction → Check for update** and choose **Save session and update**. Update activation writes a recoverable valid document before reloading. A portable session export remains available independently.
-
-Verify production build.json, hosted HTML and standalone HTML against the checked commit. `node scripts/verify-deployment.mjs` performs those checks over HTTPS; main-branch CI repeats them after the build/browser gates. Reverting the release merge commit restores prior committed output through the same Pages connection.
+Settings > Interaction > Check for update discovers a waiting release. Save session and update writes a valid recoverable document before activation. Production verification checks manifest identity, exact hosted/standalone/worker bytes and real service-worker-controlled browser reloads. Reverting the release merge restores the previous committed delivery through the same Pages project.

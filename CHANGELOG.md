@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0 — 2026-10-28
+
+Added a local scientific workbench with timestamped observations, explicit matrices/error scales and held-out evaluation. Added bounded one/two-parameter calibration with sensitivity checks, objective support and undoable named application. Added seeded joint uncertainty, paired A/B draws, conditional threshold fractions and censored final-return summaries.
+
+Added four published group-level Cmax benchmarks from two studies, a benchmark-only feeding hypothesis, evidence inspection and three-level operating instructions. Retained the v1.60 reference PK equations and heuristic response classifications. Session wrapper 1.1.0 preserves scientific inputs and result archives while importing earlier sessions. Reports and standalone delivery include the workbench. Production checks cover pkpd.goturbo.one and the retained Pages alias through the unchanged GitHub-connected Pages architecture.
+
 ## 1.6.0 (1.60) — 2026-10-27
 
 Reworked the application around one shell, four primary workspaces, contextual views and a default analysis overview. BAC and caffeine have aligned separate plots, distinct trace patterns and a shared inspector. Added quick intake/person editing, parameter search and direct validated parameter dialogs with Undo.

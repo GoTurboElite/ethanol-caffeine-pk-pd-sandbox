@@ -22,13 +22,13 @@ try{
   const redirect=await fetch(url+'/index.html',{redirect:'manual'});assert.equal(redirect.status,308);
   assert.equal(await page.evaluate(async()=>{const keys=await caches.keys();for(const key of keys){const cache=await caches.open(key),response=await cache.match('./index.html');if(response)return response.redirected;}return false;}),true);
   await page.reload({waitUntil:'networkidle'});
-  for(const route of ['/index.html','/standalone-v1.6.0.html','/standalone-v1.6.0','/']){
+  for(const route of ['/index.html','/standalone-v2.0.0.html','/standalone-v2.0.0','/']){
    await page.goto(url+route,{waitUntil:'networkidle'});
    await page.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
   }
  });
  await check('Standalone delivery computes without registering its own offline worker',async()=>{
-  const isolated=await browser.newContext(),tab=await isolated.newPage();await tab.goto(url+'/standalone-v1.6.0.html',{waitUntil:'networkidle'});
+  const isolated=await browser.newContext(),tab=await isolated.newPage();await tab.goto(url+'/standalone-v2.0.0.html',{waitUntil:'networkidle'});
   await tab.waitForFunction(()=>window.__PK_SANDBOX_V15__?.store.state.snapshots.relationToDraft==='current');
   assert.equal(await tab.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
   assert.equal(await tab.evaluate(async()=>(await navigator.serviceWorker.getRegistrations()).length),0);

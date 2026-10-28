@@ -1,10 +1,52 @@
-# How to use v1.60
+# How to use v2.0
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
 ## Default
 
 Use this level for intake entry, the concentration timeline, selected-time inspection and saving. The model calculates the same trajectories at every detail level.
+
+### Scientific workbench
+
+#### Open the scientific workbench
+
+Action. Choose Analysis, then Scientific workbench. Select Evaluation, Calibration, Uncertainty or Evidence inside that workspace.
+
+Expected result. The main navigation remains in its familiar position. Each task has a distinct configuration and result.
+
+Check. The ordinary Analysis overview continues to use the retained v1.60 reference equations.
+
+#### Enter observations
+
+Action. Choose Session, then Observations. Download the CSV template. Replace its illustrative values with your measurements and enter the actual units, sampling matrix and elapsed times. Paste the CSV, enter its source and choose Validate and import observations.
+
+Expected result. The committed dataset table shows every accepted measurement and its role.
+
+Check. Rows default to evaluation. Calibration requires at least four quantified calibration rows at three distinct times.
+
+#### Evaluate a prediction
+
+Action. Wait for Current calculation. Open Analysis, Scientific workbench, Evaluation. Choose Evaluate current observations.
+
+Expected result. Lines show the model and circles show the measurements. The table reports error separately by analyte and dataset role.
+
+Check. Residuals use the explicitly labelled canonical units. A synthetic example is a software diagnostic.
+
+#### Run a bounded uncertainty example
+
+Action. Open Uncertainty. Select effective caffeine half-life, keep triangular sampling, inspect the lower and upper bounds, and use 32 samples with a recorded integer seed. Choose Run uncertainty sampling.
+
+Expected result. The result shows a median line and P05-P95 shading for the chosen distribution.
+
+Check. A caffeine intake and direct effective-half-life mode must be active. The bounds must contain the reference half-life.
+
+#### Keep an editable record
+
+Action. Export Session JSON after the job completes. Save the file outside the browser.
+
+Expected result. The document contains observations, model identity, configurations and the latest three scientific result records.
+
+Check. Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias.
 
 ### Orient the interface before editing
 
@@ -192,6 +234,48 @@ Check. Bedtime and waking markers inspect concentration. They do not calculate s
 
 Use this level for meal and physiology assumptions, compartment interpretation, selected-time rates, repeated episodes and comparisons. Begin with the Default walkthrough when entering the app for the first time.
 
+### Scientific workbench
+
+#### Separate calibration from evaluation
+
+Action. In the observation CSV, assign calibration to rows used for estimation and evaluation to rows reserved for checking predictions. Include an SD in each row when its measurement error is known.
+
+Expected result. Evaluation rows appear in error summaries and remain outside the fitting objective.
+
+Check. Changing an evaluation value cannot change the estimated parameters. Reusing the same participants across roles still limits independence.
+
+#### Fit one active parameter
+
+Action. Open Calibration. Select one parameter, enter increasing bounds inside the stated supported range, and choose Fit selected parameters.
+
+Expected result. The application reports an estimate, objective value, residuals, boundary contact and a local identifiability assessment.
+
+Check. The estimate is conditional on recorded doses, model structure, matrix factors and the chosen error scales.
+
+#### Apply a fitted profile explicitly
+
+Action. Review residuals and diagnostics. Enter a profile name. Choose Apply fitted values when it is enabled.
+
+Expected result. The main scenario changes in one undoable edit and retains an applied-profile record.
+
+Check. Use Undo to recover the preceding parameter set. Imported result archives must be recomputed before application.
+
+#### Read conditional threshold outcomes
+
+Action. After uncertainty sampling, inspect the counts of open intervals, never-exceeded trajectories and resolved final returns.
+
+Expected result. Final-return quantiles explicitly use resolved trajectories. The unresolved count remains visible.
+
+Check. An open interval at the horizon remains censored. Extend the horizon and rerun to investigate it.
+
+#### Evaluate published summaries
+
+Action. Open Evaluation and choose Run published benchmarks. Open Cohort reconstruction and evidence limits.
+
+Expected result. Four group-level Cmax comparisons from two studies show predictions, reported means and standardized discrepancies.
+
+Check. The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated.
+
 ### Calendar and schedule operations
 
 #### 1. Choose the calendar anchor
@@ -345,6 +429,64 @@ Check. The current sensitivity envelopes are deterministic explorations. A proba
 ## Expert
 
 Use this level for numerical configuration, model assumptions, provenance, conservation, structural comparisons and reproducibility. The same accepted calculation authority serves every expertise level.
+
+### Scientific workbench
+
+#### Audit model and observation identity
+
+Action. Open Evidence. Search the parameter registry and inspect source populations, application values, derivations and applicability limits. Inspect captured inputs in the scientific JSON export.
+
+Expected result. Engine 0.4.4, constants 0.3.0, profile reference-1.60 and the evidence revision identify the scientific configuration.
+
+Check. The population Vmax confidence interval is distinct from a distribution of individual elimination rates.
+
+#### Specify matrix and timing transforms
+
+Action. Use time_iso with a Z suffix or UTC offset for absolute observations. Supply matrix_factor when converting a supported alternative matrix to whole-blood ethanol or plasma caffeine.
+
+Expected result. The canonical observation values follow the declared unit and matrix transformations.
+
+Check. Breath measurements require a separate model. Upper limits retain qualifier < and use an explicit one-sided squared penalty.
+
+#### Check parameter dependence
+
+Action. For a two-parameter fit provide at least six quantified calibration observations. Review sensitivity correlation and boundary contact.
+
+Expected result. Highly dependent local sensitivities disable application of the fit.
+
+Check. A maximum elimination rate and its multiplier cannot be independently estimated from their effective product. The registered fit set avoids that redundant pair.
+
+#### Declare joint sampling assumptions
+
+Action. In Uncertainty open Parameter dependence and sampling assumptions. Enter a symmetric positive-definite correlation matrix matching the selected parameter count. Record the seed and distributions.
+
+Expected result. The sampler uses a Gaussian copula and rejects complete draws outside the declared bounds.
+
+Check. Correlation is latent and precedes transformation and truncation. Lognormal reference values are medians. Other unrepresented uncertainty sources remain outside the band.
+
+#### Use paired A/B sampling
+
+Action. Prepare A and B in Compare and enable the comparison. Set equal horizons. In Uncertainty select Paired A/B sampling and run.
+
+Expected result. Both scenarios receive identical absolute parameter draws; the result includes B-minus-A metric quantiles.
+
+Check. A and B must both activate every sampled parameter. Identical scenarios produce zero paired differences.
+
+#### Inspect coarse objective support
+
+Action. For a one-parameter fit inspect the objective-support grid. A support interval is emitted only when all calibration rows are quantified and supply SD.
+
+Expected result. The interval uses a stated delta-weighted-SSE criterion under independent Gaussian errors.
+
+Check. Grid resolution and parameter bounds can truncate support. Missing SD or upper-limit penalties suppress the interval.
+
+#### Reproduce offline and archived results
+
+Action. Save a portable session and a scientific result JSON. Reopen the standalone application or hosted application and import the session. Run the recorded configuration again.
+
+Expected result. Seeds and captured inputs reproduce sampled draws and quantiles within the same implementation.
+
+Check. Imported records remain archival until recomputed. Worker jobs can be cancelled; prior accepted results retain their captured inputs.
 
 ### Define the calculation contract
 
