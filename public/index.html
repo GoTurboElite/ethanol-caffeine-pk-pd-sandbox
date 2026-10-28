@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23111527'/%3E%3Cpath d='M13 43 26 17h8L21 43z' fill='%23ff5f72'/%3E%3Cpath d='M31 43 44 17h8L39 43z' fill='%238b5cf6'/%3E%3C/svg%3E">
-    <title>Ethanol + Caffeine PK/PD Sandbox v1.6.0</title>
+    <title>Ethanol + Caffeine PK/PD Sandbox v2.0.0</title>
     
 
     
@@ -144,6 +144,16 @@ html[data-v160-palette=midnight]{--v160-bg:#0c1422;--v160-surface:#101e2f;--v160
 html[data-v160-theme] body:has(.v160-app){background:var(--v160-bg);color:var(--v160-text)}
 .v160-legacy-slot>.app-shell,.modal-backdrop.app-shell{--ethanol:var(--v160-bac);--caffeine:var(--v160-caf);--chart-bac:var(--v160-bac);--chart-caffeine:var(--v160-caf)}
 .v160-app button,.modal-backdrop.app-shell button{transition-property:box-shadow,transform!important}
+
+.v2-workbench-tabs{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 0;border-bottom:1px solid var(--v160-line)}
+.v2-workbench-tabs a{display:inline-block;padding:.5rem .8rem;border-radius:.45rem;text-decoration:none;color:var(--v160-text);border:1px solid var(--v160-line)}
+.v2-workbench-tabs a[aria-current=page]{font-weight:750;box-shadow:inset 0 -3px var(--v160-accent)}
+.v2-science-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:.75rem;align-items:start}
+.v2-parameter-rows{display:grid;gap:.75rem;margin:1rem 0}.v2-parameter-rows fieldset{min-width:0;border:1px solid var(--v160-line);border-radius:.65rem;padding:.8rem}.v2-parameter-rows legend{font-weight:650;padding:0 .4rem}
+.v2-science-plots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.v2-science-plot{min-width:0;border:1px solid var(--v160-line);border-radius:.65rem;padding:.8rem;color:var(--v160-text)}.v2-science-plot svg{display:block;width:100%;height:auto;min-height:180px;overflow:visible}.v2-science-plot svg text{fill:var(--v160-text);font-size:12px}.v2-science-plot h3{margin:.2rem 0}.v2-science-plot.caffeine{color:var(--v160-caf,#295fb1)}.v2-science-plot.ethanol{color:var(--v160-bac,#945324)}
+.v2-job-state{margin-top:1rem;padding-top:.6rem;border-top:1px solid var(--v160-line);overflow-wrap:anywhere}.v2-job-state p{margin:.4rem 0}.v2-job-state button{margin:.3rem .4rem .3rem 0}
+.v160-app textarea{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}.v160-app .v15-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:28rem;overflow:auto;padding:.8rem;border:1px solid var(--v160-line)}
+@media(max-width:900px){.v2-science-plots{grid-template-columns:1fr}}@media(max-width:480px){.v2-workbench-tabs a{flex:1 1 40%;text-align:center}.v2-parameter-rows fieldset{padding:.55rem}}
 </style>
 <script id="pk-kernel-source" type="text/plain">var PKCore=(()=>{
 const Vv = "0.3.0";
@@ -4606,7 +4616,7 @@ function kj(e, t, n, a, acceptedNumerical, acceptedBehavioural) {
     validationMessages: []
   };
 }
-const Vi = "1.6.0";
+const Vi = "2.0.0";
 const tg = "ethanol-caffeine-pk-scenario";
 const Cr = "0.8.2";
 const zp = "0.8.3";
@@ -4622,7 +4632,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "4322fe4892dcbe3d55b6a202ad513acaee960f9224acfb60fbd10f7424e96a0a",
+  buildFingerprint: "f99bd225a703124b9af8cd883ec88dcce8c32a3e5e26535b4e2fc400bbb0cc6d",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -6166,6 +6176,447 @@ for(const entry of XJ){entry.dependencyClass=dependencyClass(entry.id);entry.inv
 return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceRollingIntake,Vv,X_,Ps,pj,jr,bZ,ba,mT,jn,Qa,hT,Yl,Gv,$o,zu,Xg,Vu,yT,bT,Ls,OZ,hn,Mn,xa,aB,vj,Bm,xT,Xl,IZ,DZ,iB,Kv,um,jT,MT,Lm,Ts,$m,Ro,Rm,_Z,BZ,LZ,$Z,RZ,Wn,vt,jt,HZ,FZ,Uv,cr,_i,Vx,zZ,Qc,Ya,Zg,yM,bM,So,$t,VZ,Gx,Ms,GZ,KZ,UZ,qZ,xp,WZ,YZ,rB,XZ,ZZ,JZ,Oo,CT,QZ,xM,eJ,tJ,zi,br,Zl,ea,Ho,oB,lB,nJ,aJ,iJ,it,rJ,fa,sJ,oJ,jM,cB,wT,lJ,cJ,Po,uJ,dJ,fJ,mJ,jp,qi,hJ,yj,pJ,vJ,gJ,uB,Bi,hu,jJ,dB,qv,MM,fm,Hm,Jg,$l,CM,Hp,Ta,Na,St,bt,ST,CJ,mB,Ao,wJ,hB,SJ,AJ,mm,AT,Zt,wM,pB,SM,Do,Ux,qx,ET,Yv,Xv,EJ,kJ,PJ,an,TJ,Wx,NJ,OJ,IJ,DJ,AM,EM,_J,Pf,BJ,LJ,PT,TT,$J,RJ,NT,HJ,FJ,zJ,VJ,OT,IT,DT,jo,GJ,yf,xj,qJ,Ue,Nn,YJ,Cu,XJ,ZJ,JJ,QJ,Qg,ey,Fi,gs,_T,Be,dn,qe,nQ,aQ,iQ,rQ,Mp,BT,LT,sQ,$T,RT,HT,FT,Mr,Zn,It,Oa,ke,we,Ce,Ql,lQ,wu,ZQ,rt,Ku,ny,eee,jB,MB,Uu,NM,_r,jee,Mee,tN,Xx,vm,mr,Fo,bu,Cee,See,Aee,Eee,kee,kj,Vi,tg,Cr,zp,Pj,TB,NB,OB,Iee,qt,$ee,Ree,Hee,BB,Fee,ng,zee,OM,ag,IM,Jee,Qee,kN,PN,Ite,VB,o0,Qte,WB,YB,ine,Cs,Lj,Mo,rne,sne,one,Op,u0,lne,ON,cne,une,$j,kernelEnvironment,KERNEL_PROTOCOL,COMPACT_VERSION,SNAPSHOT_VERSION,kernelCounters,stableKey,pdSubjectFields,pdConstantFields,dependencyKeys,cheapValidation,packSeries,seriesPoint,indexedView,packNumerical,readonlyPoint,numericalView,compactBehaviour,thinBehaviourPoint,behaviourView,projectAxes,derivePD,kernelNumerical,retainedBytes,transferables,sweepOutput,exportBlob,executeKernelJob,dependencyClass};
 })();
 </script>
+<script id="pk-science-worker-source" type="text/plain">(() => {
+  // src/session/core.mjs
+  var V15_MAX_PROJECT_BYTES = 8 * 1024 * 1024;
+  var v15Clone = (value) => JSON.parse(JSON.stringify(value));
+  function v15Stable(value) {
+    if (Array.isArray(value)) return "[" + value.map(v15Stable).join(",") + "]";
+    if (value && typeof value === "object") return "{" + Object.keys(value).sort().map((k) => JSON.stringify(k) + ":" + v15Stable(value[k])).join(",") + "}";
+    return JSON.stringify(value);
+  }
+  function v15Interpolate(points, timeH) {
+    if (!points?.length || !Number.isFinite(timeH) || timeH < points[0].tH - 1e-10 || timeH > points.at(-1).tH + 1e-10) return null;
+    let lo = 0, hi = points.length - 1;
+    while (lo < hi) {
+      const m = Math.floor((lo + hi) / 2);
+      if (points[m].tH < timeH) lo = m + 1;
+      else hi = m;
+    }
+    const b = points[lo], a = points[Math.max(0, lo - 1)], f = b.tH === a.tH ? 0 : (timeH - a.tH) / (b.tH - a.tH), out = {};
+    for (const key of Object.keys(b)) out[key] = typeof b[key] === "number" && typeof a[key] === "number" ? a[key] + (b[key] - a[key]) * f : f < 1 ? a[key] : b[key];
+    out.tH = timeH;
+    return out;
+  }
+
+  // src/science/schema.mjs
+  var SCIENCE_VERSION = "1.0.0";
+  var MODEL_PROFILE = { id: "reference-1.60", name: "v1.60 reference model", engineVersion: "0.4.4", constantsVersion: "0.3.0", evidenceVersion: "2026-10-28.1", status: "Retained equations; empirical evaluation is endpoint-specific." };
+  var PARAMETERS = {
+    caffeineHalfLifeH: { label: "Effective caffeine half-life", unit: "h", section: "subject", key: "caffeineHalfLifeH", min: 1, max: 30, analyte: "caffeine" },
+    ethanolClearanceModifier: { label: "Ethanol elimination multiplier", unit: "fold", section: "subject", key: "ethanolClearanceModifier", min: 0.25, max: 3, analyte: "ethanol" },
+    caffeineVdLPerKg: { label: "Caffeine apparent distribution volume", unit: "L/kg", section: "constants", key: "caffeineVdLPerKg", min: 0.3, max: 1.2, analyte: "caffeine" },
+    caffeineAbsorptionModifier: { label: "Caffeine absorption multiplier", unit: "fold", section: "subject", key: "caffeineAbsorptionModifier", min: 0.25, max: 3, analyte: "caffeine" },
+    gastricEmptyingModifier: { label: "Gastric emptying multiplier", unit: "fold", section: "subject", key: "gastricEmptyingModifier", min: 0.25, max: 3, analyte: "ethanol" }
+  };
+  var emptyScience = () => ({ schemaVersion: SCIENCE_VERSION, modelProfile: MODEL_PROFILE.id, observations: [], observationSource: "User supplied; provenance not independently verified.", fit: { parameters: [{ id: "caffeineHalfLifeH", lower: 1, upper: 12 }], maxEvaluations: 120 }, uncertainty: { seed: 20261028, samples: 32, parameters: [{ id: "caffeineHalfLifeH", distribution: "triangular", lower: 3, upper: 8 }], correlation: [[1]], paired: false }, calibrations: [] });
+  function number(value, label) {
+    if (value === null || value === void 0 || typeof value === "boolean" || typeof value === "string" && !value.trim()) throw Error(label + " is required.");
+    const n = Number(value);
+    if (!Number.isFinite(n)) throw Error(label + " must be finite.");
+    return n;
+  }
+  var text = (value, label, max = 300) => {
+    if (typeof value !== "string" || value.length > max) throw Error(label + " is invalid.");
+    return value;
+  };
+  function validateObservation(row, index = 0) {
+    const analyte = String(row.analyte ?? "").toLowerCase();
+    if (!["ethanol", "caffeine"].includes(analyte)) throw Error("Observation " + (index + 1) + ": analyte must be ethanol or caffeine.");
+    const timeH = number(row.timeH, "Observation time");
+    if (timeH < 0 || timeH > 8760) throw Error("Observation times must be between 0 and 8760 elapsed hours.");
+    const value = number(row.value, "Observation value");
+    if (value < 0) throw Error("Observation values cannot be negative.");
+    const unit = String(row.unit ?? ""), matrix = String(row.matrix ?? "").toLowerCase(), qualifier = String(row.qualifier ?? "="), role = String(row.role ?? "evaluation");
+    const units = analyte === "ethanol" ? ["g/dL", "g/L", "mg/dL"] : ["mg/L", "ng/mL", "ug/mL"];
+    if (!units.includes(unit)) throw Error("Unsupported " + analyte + " unit. Use " + units.join(", ") + ".");
+    if (!["=", "<"].includes(qualifier)) throw Error("Observation qualifier must be = or <.");
+    if (!["calibration", "evaluation"].includes(role)) throw Error("Observation role must be calibration or evaluation.");
+    let matrixFactor = row.matrixFactor == null || row.matrixFactor === "" ? null : number(row.matrixFactor, "Matrix factor");
+    const canonicalMatrix = analyte === "ethanol" ? "whole-blood" : "plasma";
+    if (matrix !== canonicalMatrix) {
+      if (!["serum", "plasma", "whole-blood", "saliva"].includes(matrix) || matrixFactor === null) throw Error("Use " + canonicalMatrix + " for " + analyte + ", or supply an explicit matrix_factor for a supported alternative matrix. Breath alcohol requires a separate observation model.");
+    }
+    if (matrixFactor !== null && (matrixFactor <= 0 || matrixFactor > 10)) throw Error("Matrix factor must be positive and at most 10.");
+    const sd = row.sd == null || row.sd === "" ? null : number(row.sd, "Measurement SD");
+    if (sd !== null && sd <= 0) throw Error("Measurement SD must be positive.");
+    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160) };
+  }
+  function observationValue(row) {
+    const factor = row.analyte === "ethanol" ? row.unit === "g/L" ? 0.1 : row.unit === "mg/dL" ? 1e-3 : 1 : row.unit === "ng/mL" ? 1e-3 : 1;
+    return row.value * factor * (row.matrixFactor ?? 1);
+  }
+  function observationSD(row) {
+    return row.sd == null ? row.analyte === "ethanol" ? 2e-3 : 0.1 : observationValue({ ...row, value: row.sd });
+  }
+  function parameterValue(input, id) {
+    const p = PARAMETERS[id];
+    if (!p) throw Error("Unknown parameter " + id);
+    return input[p.section][p.key];
+  }
+  function setParameter(input, id, value) {
+    const p = PARAMETERS[id];
+    if (!p) throw Error("Unknown parameter " + id);
+    const n = number(value, p.label);
+    if (n < p.min || n > p.max) throw Error(p.label + " is outside " + p.min + " to " + p.max + " " + p.unit + ".");
+    input[p.section][p.key] = n;
+  }
+  function activeParameter(input, id) {
+    if (id === "caffeineHalfLifeH" && input.subject.caffeineParameterMode !== "direct effective half-life") throw Error("Effective half-life is inactive in CYP1A2 covariate mode. Select direct effective half-life in Session inputs.");
+    const p = PARAMETERS[id];
+    if (!input.doseEvents.some((e) => (p.analyte === "caffeine" ? e.caffeineMg ?? e.caffeineMgPerServing ?? 0 : e.ethanolGrams ?? e.ethanolGramsPerServing ?? e.volumeMl ?? 0) > 0)) throw Error("No " + p.analyte + " intake is present for " + p.label + ".");
+  }
+  function cholesky(matrix, n) {
+    if (!Array.isArray(matrix) || matrix.length !== n || matrix.some((row) => !Array.isArray(row) || row.length !== n)) throw Error("Correlation matrix dimensions must match the selected parameters.");
+    const L = Array.from({ length: n }, () => Array(n).fill(0));
+    for (let i = 0; i < n; i++) for (let j = 0; j <= i; j++) {
+      const a = number(matrix[i][j], "Correlation"), mirror = number(matrix[j][i], "Correlation");
+      if (Math.abs(a) > 1 || Math.abs(a - mirror) > 1e-10 || i === j && Math.abs(a - 1) > 1e-10) throw Error("Correlation matrix must be symmetric with a diagonal of 1.");
+      let s = a;
+      for (let k = 0; k < j; k++) s -= L[i][k] * L[j][k];
+      if (i === j) {
+        if (s <= 1e-10) throw Error("Correlation matrix must be positive definite.");
+        L[i][j] = Math.sqrt(s);
+      } else L[i][j] = s / L[j][j];
+    }
+    return L;
+  }
+  function validateParameters(rows, max = 3) {
+    if (!Array.isArray(rows) || rows.length < 1 || rows.length > max) throw Error("Select between 1 and " + max + " parameters.");
+    const seen = /* @__PURE__ */ new Set();
+    return rows.map((row) => {
+      const p = PARAMETERS[row.id];
+      if (!p || seen.has(row.id)) throw Error("Parameters must be distinct registered quantities.");
+      seen.add(row.id);
+      const lower = number(row.lower, "Lower bound"), upper = number(row.upper, "Upper bound");
+      if (lower < p.min || upper > p.max || upper <= lower) throw Error(p.label + ": bounds must increase within " + p.min + " to " + p.max + " " + p.unit + ".");
+      return { id: row.id, lower, upper, ...row.distribution ? { distribution: row.distribution } : {}, ...row.cv != null ? { cv: number(row.cv, "CV") } : {} };
+    });
+  }
+  function validateScience(value) {
+    const d = v15Clone(value ?? emptyScience());
+    if (d.schemaVersion !== SCIENCE_VERSION || d.modelProfile !== MODEL_PROFILE.id) throw Error("Unsupported scientific document or model profile.");
+    if (!d.fit || !d.uncertainty) throw Error("Scientific fitting and uncertainty configurations are required.");
+    if (!Array.isArray(d.observations) || d.observations.length > 200) throw Error("An observation dataset supports at most 200 rows.");
+    d.observations = d.observations.map(validateObservation);
+    if (new Set(d.observations.map((o) => o.id)).size !== d.observations.length) throw Error("Observation IDs must be distinct.");
+    d.observationSource = text(d.observationSource, "Observation provenance", 2e3);
+    d.fit = { parameters: validateParameters(d.fit?.parameters, 2), maxEvaluations: number(d.fit?.maxEvaluations ?? 120, "Fit budget") };
+    if (!Number.isInteger(d.fit.maxEvaluations) || d.fit.maxEvaluations < 40 || d.fit.maxEvaluations > 320) throw Error("Fit budget must be an integer from 40 to 320.");
+    const u = d.uncertainty;
+    u.parameters = validateParameters(u.parameters);
+    for (const p of u.parameters) {
+      if (!["uniform", "triangular", "lognormal"].includes(p.distribution)) throw Error("Select uniform, triangular or lognormal sampling.");
+      if (p.distribution === "lognormal" && (p.cv == null || p.cv <= 0 || p.cv > 1)) throw Error("Lognormal CV must be between 0 and 1.");
+    }
+    u.seed = number(u.seed, "Random seed");
+    u.samples = number(u.samples, "Sample count");
+    if (!Number.isInteger(u.seed) || u.seed < 0 || u.seed > 4294967295) throw Error("Seed must be an unsigned 32-bit integer.");
+    if (!Number.isInteger(u.samples) || u.samples < 16 || u.samples > 256) throw Error("Use 16 to 256 samples.");
+    u.paired = !!u.paired;
+    cholesky(u.correlation, u.parameters.length);
+    if (!Array.isArray(d.calibrations) || d.calibrations.length > 12) throw Error("A scientific document supports up to 12 named calibration profiles.");
+    d.calibrations = d.calibrations.map((p) => {
+      text(p.name, "Calibration name", 160);
+      if (!p.values || Object.keys(p.values).length > 2) throw Error("Malformed calibration profile.");
+      for (const [id, value2] of Object.entries(p.values)) {
+        const def = PARAMETERS[id];
+        if (!def || !Number.isFinite(value2) || value2 < def.min || value2 > def.max) throw Error("Invalid calibrated parameter.");
+      }
+      return p;
+    });
+    return d;
+  }
+
+  // src/science/analysis.mjs
+  var quantile = (values, p) => {
+    if (!values.length) return null;
+    const a = [...values].sort((x, y) => x - y), i = (a.length - 1) * p, j = Math.floor(i);
+    return a[j] + (a[Math.min(a.length - 1, j + 1)] - a[j]) * (i - j);
+  };
+  function seededRandom(seed) {
+    let t = seed >>> 0;
+    return () => {
+      t += 1831565813;
+      let x = t;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var normal = (r) => Math.sqrt(-2 * Math.log(Math.max(1e-15, r()))) * Math.cos(2 * Math.PI * r());
+  function normalCDF(x) {
+    const sign = x < 0 ? -1 : 1, z = Math.abs(x) / Math.SQRT2, t = 1 / (1 + 0.3275911 * z), erf = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+    return 0.5 * (1 + sign * erf);
+  }
+  function drawParameters(input, spec, random) {
+    const L = cholesky(spec.correlation, spec.parameters.length);
+    for (let attempt = 0; attempt < 256; attempt++) {
+      const z = spec.parameters.map(() => normal(random)), values = {};
+      let valid = true;
+      for (let i = 0; i < spec.parameters.length; i++) {
+        const p = spec.parameters[i], center = parameterValue(input, p.id), latent = L[i].reduce((s, a, j) => s + a * z[j], 0), u = normalCDF(latent);
+        let v;
+        if (p.distribution === "uniform") v = p.lower + (p.upper - p.lower) * u;
+        else if (p.distribution === "lognormal") v = center * Math.exp(Math.sqrt(Math.log(1 + p.cv * p.cv)) * latent);
+        else {
+          if (center < p.lower || center > p.upper) throw Error("The triangular mode must be inside its bounds: " + PARAMETERS[p.id].label);
+          const cut = (center - p.lower) / (p.upper - p.lower);
+          v = u < cut ? p.lower + Math.sqrt(u * (p.upper - p.lower) * (center - p.lower)) : p.upper - Math.sqrt((1 - u) * (p.upper - p.lower) * (p.upper - center));
+        }
+        if (v < p.lower || v > p.upper) {
+          valid = false;
+          break;
+        }
+        values[p.id] = v;
+      }
+      if (valid) return values;
+    }
+    throw Error("Truncated sampling rejected 256 consecutive draws. Widen bounds or reduce CV/correlation.");
+  }
+  function simulate(core, input) {
+    const result = core.Mr(v15Clone(input.subject), v15Clone(input.doseEvents), v15Clone(input.constants));
+    if (result.numericalValidity !== "valid" || !result.integrity?.massBalancePassed || !result.convergence?.converged) throw Error("The scientific job encountered a numerically invalid trajectory.");
+    return result;
+  }
+  function inputBudget(input, evaluations) {
+    const h = input.subject.simulationDurationH, step = input.subject.solverInternalStepMin ?? 0.5;
+    if (!Number.isFinite(h) || !Number.isFinite(step) || h <= 0 || step <= 0 || h * 60 / step * evaluations > 25e5) throw Error("This job exceeds the numerical work budget. Reduce samples, fit evaluations, horizon or internal resolution.");
+  }
+  function assertActive(core, input, id) {
+    activeParameter({ ...input, doseEvents: input.doseEvents.map((e) => ({ ...e, ethanolGrams: core.Ta(e, input.constants), caffeineMg: core.Na(e) })) }, id);
+  }
+  function observationResiduals(result, rows) {
+    return rows.map((row) => {
+      const p = v15Interpolate(result.analysisPoints ?? result.points, row.timeH);
+      if (!p) throw Error("Observation " + row.id + " lies outside the calculated horizon. Extend the horizon or remove that observation.");
+      const predicted = row.analyte === "ethanol" ? p.bacGdL : p.caffeineMgL, observed = observationValue(row), sd = observationSD(row), residual = predicted - observed, penalty = row.qualifier === "<" ? Math.max(0, residual) : residual;
+      return { ...row, canonicalUnit: row.analyte === "ethanol" ? "g/dL" : "mg/L", observed, predicted, residual, weighted: penalty / sd, assumedSD: row.sd == null };
+    });
+  }
+  function residualMetrics(rows) {
+    const out = [];
+    for (const analyte of ["ethanol", "caffeine"]) for (const role of ["calibration", "evaluation"]) {
+      const all = rows.filter((o) => o.analyte === analyte && o.role === role), a = all.filter((o) => o.qualifier === "=");
+      if (all.length) out.push({ analyte, role, n: a.length, censored: all.length - a.length, unit: analyte === "ethanol" ? "g/dL" : "mg/L", bias: a.length ? a.reduce((s, o) => s + o.residual, 0) / a.length : null, mae: a.length ? a.reduce((s, o) => s + Math.abs(o.residual), 0) / a.length : null, rmse: a.length ? Math.sqrt(a.reduce((s, o) => s + o.residual ** 2, 0) / a.length) : null, weightedSSE: all.reduce((s, o) => s + o.weighted ** 2, 0) });
+    }
+    return out;
+  }
+  var compactPoints = (r) => (r.analysisPoints ?? r.points).filter((_, i, a) => i % Math.max(1, Math.ceil(a.length / 180)) === 0 || i === a.length - 1).map((p) => ({ tH: p.tH, bacGdL: p.bacGdL, caffeineMgL: p.caffeineMgL }));
+  async function evaluate(core, input, doc, context) {
+    const result = simulate(core, input), residuals = observationResiduals(result, doc.observations);
+    context.progress(1, 1);
+    return { kind: "evaluate", profile: MODEL_PROFILE, residuals, metrics: residualMetrics(residuals), points: compactPoints(result), summary: result.summary };
+  }
+  async function calibrate(core, input, doc, context) {
+    const spec = doc.fit, parameters = spec.parameters, rows = doc.observations.filter((o) => o.role === "calibration" && parameters.some((p) => PARAMETERS[p.id].analyte === o.analyte)), quantified = rows.filter((o) => o.qualifier === "=");
+    if (quantified.length < Math.max(4, parameters.length * 3) || new Set(quantified.map((o) => o.timeH)).size < 3) throw Error("Calibration requires at least " + Math.max(4, parameters.length * 3) + " quantified calibration observations at three distinct times.");
+    for (const p of parameters) {
+      assertActive(core, input, p.id);
+      if (!rows.some((o) => o.analyte === PARAMETERS[p.id].analyte)) throw Error("No calibration observations match " + PARAMETERS[p.id].label + ".");
+    }
+    inputBudget(input, spec.maxEvaluations + 20);
+    let count = 0, best = null;
+    const lower = parameters.map((p) => Math.log(p.lower)), upper = parameters.map((p) => Math.log(p.upper));
+    async function score(x) {
+      context.check();
+      if (count >= spec.maxEvaluations) return Infinity;
+      const candidate = v15Clone(input);
+      parameters.forEach((p, i) => setParameter(candidate, p.id, Math.exp(x[i])));
+      const result2 = simulate(core, candidate), residuals2 = observationResiduals(result2, rows), cost = residuals2.reduce((s, o) => s + o.weighted ** 2, 0);
+      count++;
+      if (!best || cost < best.cost) best = { x: [...x], cost, input: candidate };
+      if (count % 4 === 0) {
+        context.progress(count, spec.maxEvaluations);
+        await context.yield();
+      }
+      return cost;
+    }
+    const initial = parameters.map((p, i) => Math.log(Math.max(p.lower, Math.min(p.upper, parameterValue(input, p.id)))));
+    await score(initial);
+    const starts = [initial, lower.map((a, i) => a + (upper[i] - a) * 0.25), lower.map((a, i) => a + (upper[i] - a) * 0.75)];
+    let converged = false;
+    for (const start of starts) {
+      let x = [...start], previous = Infinity;
+      for (let cycle = 0; cycle < 8 && count < spec.maxEvaluations; cycle++) {
+        for (let j = 0; j < parameters.length && count < spec.maxEvaluations; j++) {
+          let a = lower[j], b = upper[j], c = b - (b - a) * 0.61803398875, d = a + (b - a) * 0.61803398875, xc = [...x], xd = [...x];
+          xc[j] = c;
+          xd[j] = d;
+          let fc = await score(xc), fd = await score(xd);
+          for (let k = 0; k < 12 && count < spec.maxEvaluations; k++) {
+            if (fc < fd) {
+              b = d;
+              d = c;
+              fd = fc;
+              c = b - (b - a) * 0.61803398875;
+              xc = [...x];
+              xc[j] = c;
+              fc = await score(xc);
+            } else {
+              a = c;
+              c = d;
+              fc = fd;
+              d = a + (b - a) * 0.61803398875;
+              xd = [...x];
+              xd[j] = d;
+              fd = await score(xd);
+            }
+          }
+          x[j] = fc < fd ? c : d;
+        }
+        const value = await score(x);
+        if (Number.isFinite(value) && Math.abs(previous - value) < 1e-6 * (1 + value)) {
+          converged = true;
+          break;
+        }
+        previous = value;
+      }
+    }
+    if (!best) throw Error("No finite calibration result.");
+    const result = simulate(core, best.input), residuals = observationResiduals(result, doc.observations), values = Object.fromEntries(parameters.map((p, i) => [p.id, Math.exp(best.x[i])])), columns = [], objectiveColumns = [];
+    for (const p of parameters) {
+      const value = values[p.id], delta = Math.max(value * 2e-3, 1e-6), a = v15Clone(best.input), b = v15Clone(best.input), lo = Math.max(p.lower, value - delta), hi = Math.min(p.upper, value + delta);
+      setParameter(a, p.id, lo);
+      setParameter(b, p.id, hi);
+      const ar = simulate(core, a), br = simulate(core, b), ra = observationResiduals(ar, quantified), rb = observationResiduals(br, quantified);
+      columns.push(ra.map((r, i) => (rb[i].predicted - r.predicted) / (hi - lo) / observationSD(quantified[i]) * value));
+      const aa = observationResiduals(ar, rows), bb = observationResiduals(br, rows);
+      objectiveColumns.push(aa.map((r, i) => (bb[i].weighted - r.weighted) / (hi - lo) * value));
+    }
+    const norms = columns.map((a) => Math.sqrt(a.reduce((s, x) => s + x * x, 0))), dot = columns.length === 2 ? columns[0].reduce((s, x, i) => s + x * columns[1][i], 0) / (norms[0] * norms[1]) : 0, identifiable = norms.every((n) => Number.isFinite(n) && n > 1e-5) && Math.abs(dot) < 0.995;
+    const weightedResiduals = observationResiduals(result, rows).map((o) => o.weighted), stationarity = Math.max(...objectiveColumns.map((a) => Math.abs(a.reduce((s, x, i) => s + x * weightedResiduals[i], 0)) / Math.max(1e-12, Math.sqrt(a.reduce((s, x) => s + x * x, 0)))));
+    converged = converged || Number.isFinite(stationarity) && stationarity < 0.05;
+    const atBounds = parameters.filter((p) => (values[p.id] - p.lower) / (p.upper - p.lower) < 0.01 || (p.upper - values[p.id]) / (p.upper - p.lower) < 0.01).map((p) => p.id);
+    const profile = [];
+    if (parameters.length === 1) {
+      const p = parameters[0];
+      for (let i = 0; i <= 20; i++) {
+        context.check();
+        const candidate = v15Clone(best.input), value = Math.exp(lower[0] + (upper[0] - lower[0]) * i / 20);
+        setParameter(candidate, p.id, value);
+        const cost = observationResiduals(simulate(core, candidate), rows).reduce((s, o) => s + o.weighted ** 2, 0);
+        profile.push({ value, cost });
+        if (i % 4 === 0) await context.yield();
+      }
+    }
+    const support = profile.filter((p) => p.cost - best.cost <= 3.841459), interval = profile.length && rows.every((r) => r.qualifier === "=" && r.sd !== null) && support.length ? { lower: support[0].value, upper: support.at(-1).value, method: "Coarse profile support: delta weighted SSE <= 3.841459, conditional on independent Gaussian errors with the supplied SDs. Grid endpoints can truncate support." } : null;
+    return { kind: "fit", profile: MODEL_PROFILE, values, cost: best.cost, evaluations: count, converged, identifiable, stationarity, sensitivityCorrelation: Number.isFinite(dot) ? dot : null, atBounds, applicable: identifiable && atBounds.length === 0 && converged, residuals, metrics: residualMetrics(residuals), profilePoints: profile, supportInterval: interval, points: compactPoints(result), summary: result.summary, assumptions: "Bounded log-parameter weighted least squares; independent supplied SD or explicit defaults (ethanol 0.002 g/dL; caffeine 0.1 mg/L). Upper limits use a one-sided squared penalty. Matrix factors are user supplied. Evaluation rows are excluded from fitting. Numerical stopping uses objective stabilization or residual projection below 0.05 weighted units along every local parameter sensitivity." };
+  }
+  function metric(r) {
+    return { peakBAC: r.summary.peakBACGdL, peakCaffeine: r.summary.peakCaffeineMgL, bacPeakTime: r.summary.timeOfPeakBACH, caffeinePeakTime: r.summary.timeOfPeakCaffeineH };
+  }
+  var summarize = (values) => ({ p05: quantile(values, 0.05), p50: quantile(values, 0.5), p95: quantile(values, 0.95) });
+  async function sample(core, input, doc, context, comparison = null) {
+    const spec = doc.uncertainty, n = spec.samples, paired = spec.paired;
+    if (paired && !comparison) throw Error("Enable and prepare an A/B comparison before requesting paired uncertainty.");
+    const a = paired ? comparison.A : input, b = paired ? comparison.B : null;
+    for (const p of spec.parameters) {
+      assertActive(core, a, p.id);
+      if (b) assertActive(core, b, p.id);
+    }
+    inputBudget(a, n * (paired ? 2 : 1));
+    if (b) inputBudget(b, n * 2);
+    const random = seededRandom(spec.seed), grid = Array.from({ length: 97 }, (_, i) => a.subject.simulationDurationH * i / 96), series = grid.map((tH) => ({ tH, bac: [], caffeine: [], exceed: 0 })), draws = [], summaries = [], deltas = [], returns = [];
+    let censored = 0, never = 0;
+    if (b && b.subject.simulationDurationH !== a.subject.simulationDurationH) throw Error("Paired uncertainty requires equal A/B horizons.");
+    if (b && spec.parameters.some((p) => parameterValue(a, p.id) !== parameterValue(b, p.id))) throw Error("Paired absolute-parameter sampling requires equal reference values for selected A/B parameters. Compare dose or timing changes, or use separate runs for different parameter baselines.");
+    for (let i = 0; i < n; i++) {
+      context.check();
+      const values = drawParameters(a, spec, random), candidate = v15Clone(a);
+      for (const [id, value] of Object.entries(values)) setParameter(candidate, id, value);
+      const r = simulate(core, candidate);
+      draws.push(values);
+      summaries.push(metric(r));
+      for (const bucket of series) {
+        const p = v15Interpolate(r.analysisPoints ?? r.points, bucket.tH);
+        bucket.bac.push(p.bacGdL);
+        bucket.caffeine.push(p.caffeineMgL);
+        if (p.bacGdL >= a.subject.vehicleZeroToleranceThresholdGdL) bucket.exceed++;
+      }
+      const out = r.summary.vehicleThresholdOutcome;
+      if (out?.rightCensored) censored++;
+      else if (out?.status === "never-exceeded") {
+        never++;
+        returns.push(0);
+      } else if (Number.isFinite(out?.timeH)) returns.push(out.timeH);
+      if (b) {
+        const other = v15Clone(b);
+        for (const [id, value] of Object.entries(values)) setParameter(other, id, value);
+        const m = metric(simulate(core, other)), base = summaries.at(-1);
+        deltas.push(Object.fromEntries(Object.keys(m).map((k) => [k, m[k] - base[k]])));
+      }
+      context.progress(i + 1, n);
+      await context.yield();
+    }
+    return { kind: "uncertainty", profile: MODEL_PROFILE, seed: spec.seed, samples: n, paired, parameterDraws: draws, grid: series.map((p) => ({ tH: p.tH, bac: summarize(p.bac), caffeine: summarize(p.caffeine), thresholdExceedanceFraction: p.exceed / n })), metrics: Object.fromEntries(Object.keys(summaries[0]).map((k) => [k, summarize(summaries.map((s) => s[k]))])), deltas: paired ? Object.fromEntries(Object.keys(deltas[0]).map((k) => [k, summarize(deltas.map((s) => s[k]))])) : null, threshold: { value: a.subject.vehicleZeroToleranceThresholdGdL, unit: "g/dL", rightCensored: censored, neverExceeded: never, resolved: returns.length, returnTimeResolvedOnly: summarize(returns) }, assumptions: "P05/P50/P95 are sampled quantiles conditional on user-specified parameter distributions. Correlation is latent Gaussian-copula correlation before truncation. Whole-draw rejection enforces bounds. Lognormal reference values are medians. Population heterogeneity, model discrepancy and observation error are absent unless explicitly represented. Paired A/B uses identical absolute parameter draws." };
+  }
+  async function runScience(core, request, options = {}) {
+    const doc = validateScience(request.document), input = v15Clone(request.input), context = { check: () => {
+      if (options.cancelled?.()) throw Error("Scientific job cancelled.");
+    }, yield: options.yield ?? (() => new Promise((r) => setTimeout(r, 0))), progress: options.progress ?? (() => {
+    }) };
+    inputBudget(input, 1);
+    if (["fit", "evaluate"].includes(request.kind) && doc.observations.some((o) => o.timeH > input.subject.simulationDurationH)) throw Error("An observation lies outside the calculated horizon. Extend the horizon before analysis.");
+    let result;
+    if (request.kind === "fit") result = await calibrate(core, input, doc, context);
+    else if (request.kind === "uncertainty") result = await sample(core, input, doc, context, request.comparison);
+    else if (request.kind === "evaluate") result = await evaluate(core, input, doc, context);
+    else throw Error("Unsupported scientific job.");
+    context.check();
+    return { ...result, scenario: input, document: doc, comparison: request.comparison ?? null, inputKey: v15Stable({ input, document: doc, comparison: request.comparison ?? null }), scientificVersion: "1.0.0", computedAt: (/* @__PURE__ */ new Date()).toISOString() };
+  }
+
+  // src/science/evidence.mjs
+  var BENCHMARKS = [
+    { id: "laizure2017-male", study: "Laizure et al. 2017", cohort: "Male energy-drink cohort", n: 9, analyte: "caffeine", matrix: "plasma", unit: "mg/L", observed: 1.758, sd: 0.341, massKg: 87.2, age: 28.7, sex: "male default", caffeineMg: 100, durationMin: 5, food: "light meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5698589/", location: "Table 2 (actual male Cmax); Methods and Results (dose, consumption time, breakfast, mean body mass).", provenance: "Published group mean and SD, transcribed; nominal 100 mg dose. Assayed drink mean was 96.6 mg. Group-mean physiology is an approximation; baseline caffeine is set to zero.", metric: "peakCaffeineMgL" },
+    { id: "laizure2017-female", study: "Laizure et al. 2017", cohort: "Female energy-drink cohort", n: 8, analyte: "caffeine", matrix: "plasma", unit: "mg/L", observed: 2.142, sd: 0.208, massKg: 62.9, age: 26.3, sex: "female default", caffeineMg: 100, durationMin: 5, food: "light meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5698589/", location: "Table 2 (actual female Cmax); Methods and Results (dose, consumption time, breakfast, mean body mass).", provenance: "Published group mean and SD, transcribed; 100 mg nominal dose; participants using oral contraceptives were excluded. Zero baseline and reference half-life are application assumptions.", metric: "peakCaffeineMgL" },
+    { id: "jones1997-fasted", study: "Jones et al. 1997", cohort: "Fasted oral ethanol", n: 9, analyte: "ethanol", matrix: "whole-blood", unit: "g/dL", observed: 0.0308, sd: 43e-4, massKg: 75, sex: "male default", ethanolGPerKg: 0.3, durationMin: 10, food: "fasted", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2042884/", location: "Abstract: oral 0.30 g/kg; reported fasted peak 30.8 +/- 4.3 mg/dL, converted to g/dL.", provenance: "Published group mean and SD. A 75 kg reference, zero baseline and 10 minute intake are standardized application assumptions; individual anthropometry and drinking duration were not extracted. This is a descriptive transportability check.", metric: "peakBACGdL" },
+    { id: "jones1997-fat-meal", study: "Jones et al. 1997", cohort: "High-fat breakfast oral ethanol", n: 9, analyte: "ethanol", matrix: "whole-blood", unit: "g/dL", observed: 0.0166, sd: 4e-3, massKg: 75, sex: "male default", ethanolGPerKg: 0.3, durationMin: 10, food: "heavy meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2042884/", location: "Abstract: oral 0.30 g/kg; reported high-fat meal peak 16.6 +/- 4.0 mg/dL, converted to g/dL.", provenance: "Published group mean and SD. A 75 kg reference and 10 minute intake are standardized assumptions. Application heavy-meal rates approximate the published breakfast; meal macronutrients are not explicitly modeled.", metric: "peakBACGdL" }
+  ];
+  function benchmarkScenario(core, b) {
+    const subject = v15Clone(core.St);
+    subject.bodyMassKg = b.massKg;
+    subject.sexOrPhysiologyMode = b.sex;
+    subject.foodState = b.food;
+    subject.simulationDurationH = 12;
+    subject.timeStepMin = 5;
+    subject.solverInternalStepMin = 0.5;
+    subject.mealEvents = [];
+    if (b.age) subject.ageYears = b.age;
+    return { subject, constants: core.bt(b.massKg), doseEvents: [{ id: b.id, label: b.cohort, startTimeH: 0, durationMin: b.durationMin, ethanolGrams: (b.ethanolGPerKg ?? 0) * b.massKg, caffeineMg: b.caffeineMg ?? 0, servings: 1 }] };
+  }
+  async function runBenchmarks(core, options = {}) {
+    const rows = [];
+    for (let i = 0; i < BENCHMARKS.length; i++) {
+      if (options.cancelled?.()) throw Error("Benchmark run cancelled.");
+      const b = BENCHMARKS[i], input = benchmarkScenario(core, b), r = simulate(core, input), predicted = r.summary[b.metric];
+      let candidate = null;
+      if (b.analyte === "ethanol" && b.food !== "fasted") {
+        const changed = v15Clone(input);
+        changed.subject.ethanolClearanceModifier *= 1.39;
+        candidate = simulate(core, changed).summary[b.metric];
+      }
+      rows.push({ ...b, predicted, error: predicted - b.observed, standardizedError: (predicted - b.observed) / b.sd, withinTwoReportedSD: Math.abs(predicted - b.observed) <= 2 * b.sd, feedingHypothesis: candidate, feedingHypothesisError: candidate == null ? null : candidate - b.observed });
+      options.progress?.(i + 1, BENCHMARKS.length);
+      await (options.yield?.() ?? Promise.resolve());
+    }
+    return { kind: "benchmarks", rows, studies: 2, criteria: "Descriptive Cmax comparison against reported mean +/- 2 SD. This is a predeclared discrepancy screen for these summaries; individual predictive validity and full trajectory error are unevaluated. Cohort group means, standardized inputs and fixed retained priors are used; benchmarks are excluded from fitting.", computedAt: (/* @__PURE__ */ new Date()).toISOString(), profile: "reference-1.60", evidenceVersion: "2026-10-28.1" };
+  }
+
+  // src/science/worker.mjs
+  self.onmessage = async (event) => {
+    const { id, request } = event.data;
+    try {
+      const options = { progress: (done, total) => self.postMessage({ id, type: "progress", done, total }), yield: () => new Promise((r) => setTimeout(r, 0)) };
+      const result = request.kind === "benchmarks" ? await runBenchmarks(PKCore, options) : await runScience(PKCore, request, options);
+      self.postMessage({ id, type: "result", result });
+    } catch (error) {
+      self.postMessage({ id, type: "error", message: error.message });
+    }
+  };
+})();
+</script>
 <script type="module">var PKPDV15 = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -6194,9 +6645,9 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   });
 
   // src/session/core.mjs
-  var V15_VERSION = "1.6.0";
+  var V15_VERSION = "2.0.0";
   var V15_PROJECT_SCHEMA = "ethanol-caffeine-session";
-  var V15_PROJECT_SCHEMA_VERSION = "1.0.0";
+  var V15_PROJECT_SCHEMA_VERSION = "1.1.0";
   var V15_HISTORY_LIMIT = 60;
   var V15_MAX_PROJECT_BYTES = 8 * 1024 * 1024;
   var v15Clone = (value) => JSON.parse(JSON.stringify(value));
@@ -6206,16 +6657,16 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return JSON.stringify(value);
   }
   function v15Finite(value, label = "Value") {
-    const n = typeof value === "number" ? value : Number(value);
-    if (!Number.isFinite(n) || typeof value === "string" && !value.trim()) throw Error(label + " must be a finite number.");
-    return n;
+    const n2 = typeof value === "number" ? value : Number(value);
+    if (!Number.isFinite(n2) || typeof value === "string" && !value.trim()) throw Error(label + " must be a finite number.");
+    return n2;
   }
   function v15Id(prefix = "item") {
     return prefix + "-" + (globalThis.crypto?.randomUUID?.() ?? Date.now().toString(36) + "-" + Math.random().toString(36).slice(2));
   }
-  function v15SafeParse(text) {
-    if (typeof text !== "string" || new TextEncoder().encode(text).byteLength > V15_MAX_PROJECT_BYTES) throw Error("Session files are limited to 8 MiB.");
-    return JSON.parse(text, (k, v) => {
+  function v15SafeParse(text2) {
+    if (typeof text2 !== "string" || new TextEncoder().encode(text2).byteLength > V15_MAX_PROJECT_BYTES) throw Error("Session files are limited to 8 MiB.");
+    return JSON.parse(text2, (k, v) => {
       if (["__proto__", "prototype", "constructor"].includes(k)) throw Error("The file contains an unsupported object key.");
       return v;
     });
@@ -6259,9 +6710,9 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const nominal = Date.UTC(y, mo - 1, d, h2, mi, sec), check = new Date(nominal);
     if (check.getUTCFullYear() !== y || check.getUTCMonth() !== mo - 1 || check.getUTCDate() !== d) throw Error("The calendar date does not exist.");
     const offsets = /* @__PURE__ */ new Set();
-    for (let n = -36; n <= 36; n += 6) {
-      const sample = nominal + n * 36e5, p = v15WallParts(sample, zone);
-      offsets.add(Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - sample);
+    for (let n2 = -36; n2 <= 36; n2 += 6) {
+      const sample2 = nominal + n2 * 36e5, p = v15WallParts(sample2, zone);
+      offsets.add(Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - sample2);
     }
     const found = [];
     for (const offset of offsets) {
@@ -6559,6 +7010,178 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     }
   };
 
+  // src/science/schema.mjs
+  var SCIENCE_VERSION = "1.0.0";
+  var MODEL_PROFILE = { id: "reference-1.60", name: "v1.60 reference model", engineVersion: "0.4.4", constantsVersion: "0.3.0", evidenceVersion: "2026-10-28.1", status: "Retained equations; empirical evaluation is endpoint-specific." };
+  var PARAMETERS = {
+    caffeineHalfLifeH: { label: "Effective caffeine half-life", unit: "h", section: "subject", key: "caffeineHalfLifeH", min: 1, max: 30, analyte: "caffeine" },
+    ethanolClearanceModifier: { label: "Ethanol elimination multiplier", unit: "fold", section: "subject", key: "ethanolClearanceModifier", min: 0.25, max: 3, analyte: "ethanol" },
+    caffeineVdLPerKg: { label: "Caffeine apparent distribution volume", unit: "L/kg", section: "constants", key: "caffeineVdLPerKg", min: 0.3, max: 1.2, analyte: "caffeine" },
+    caffeineAbsorptionModifier: { label: "Caffeine absorption multiplier", unit: "fold", section: "subject", key: "caffeineAbsorptionModifier", min: 0.25, max: 3, analyte: "caffeine" },
+    gastricEmptyingModifier: { label: "Gastric emptying multiplier", unit: "fold", section: "subject", key: "gastricEmptyingModifier", min: 0.25, max: 3, analyte: "ethanol" }
+  };
+  var emptyScience = () => ({ schemaVersion: SCIENCE_VERSION, modelProfile: MODEL_PROFILE.id, observations: [], observationSource: "User supplied; provenance not independently verified.", fit: { parameters: [{ id: "caffeineHalfLifeH", lower: 1, upper: 12 }], maxEvaluations: 120 }, uncertainty: { seed: 20261028, samples: 32, parameters: [{ id: "caffeineHalfLifeH", distribution: "triangular", lower: 3, upper: 8 }], correlation: [[1]], paired: false }, calibrations: [] });
+  function number(value, label) {
+    if (value === null || value === void 0 || typeof value === "boolean" || typeof value === "string" && !value.trim()) throw Error(label + " is required.");
+    const n2 = Number(value);
+    if (!Number.isFinite(n2)) throw Error(label + " must be finite.");
+    return n2;
+  }
+  var text = (value, label, max = 300) => {
+    if (typeof value !== "string" || value.length > max) throw Error(label + " is invalid.");
+    return value;
+  };
+  function validateObservation(row, index = 0) {
+    const analyte = String(row.analyte ?? "").toLowerCase();
+    if (!["ethanol", "caffeine"].includes(analyte)) throw Error("Observation " + (index + 1) + ": analyte must be ethanol or caffeine.");
+    const timeH = number(row.timeH, "Observation time");
+    if (timeH < 0 || timeH > 8760) throw Error("Observation times must be between 0 and 8760 elapsed hours.");
+    const value = number(row.value, "Observation value");
+    if (value < 0) throw Error("Observation values cannot be negative.");
+    const unit = String(row.unit ?? ""), matrix = String(row.matrix ?? "").toLowerCase(), qualifier = String(row.qualifier ?? "="), role = String(row.role ?? "evaluation");
+    const units = analyte === "ethanol" ? ["g/dL", "g/L", "mg/dL"] : ["mg/L", "ng/mL", "ug/mL"];
+    if (!units.includes(unit)) throw Error("Unsupported " + analyte + " unit. Use " + units.join(", ") + ".");
+    if (!["=", "<"].includes(qualifier)) throw Error("Observation qualifier must be = or <.");
+    if (!["calibration", "evaluation"].includes(role)) throw Error("Observation role must be calibration or evaluation.");
+    let matrixFactor = row.matrixFactor == null || row.matrixFactor === "" ? null : number(row.matrixFactor, "Matrix factor");
+    const canonicalMatrix = analyte === "ethanol" ? "whole-blood" : "plasma";
+    if (matrix !== canonicalMatrix) {
+      if (!["serum", "plasma", "whole-blood", "saliva"].includes(matrix) || matrixFactor === null) throw Error("Use " + canonicalMatrix + " for " + analyte + ", or supply an explicit matrix_factor for a supported alternative matrix. Breath alcohol requires a separate observation model.");
+    }
+    if (matrixFactor !== null && (matrixFactor <= 0 || matrixFactor > 10)) throw Error("Matrix factor must be positive and at most 10.");
+    const sd = row.sd == null || row.sd === "" ? null : number(row.sd, "Measurement SD");
+    if (sd !== null && sd <= 0) throw Error("Measurement SD must be positive.");
+    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160) };
+  }
+  function observationValue(row) {
+    const factor = row.analyte === "ethanol" ? row.unit === "g/L" ? 0.1 : row.unit === "mg/dL" ? 1e-3 : 1 : row.unit === "ng/mL" ? 1e-3 : 1;
+    return row.value * factor * (row.matrixFactor ?? 1);
+  }
+  function observationSD(row) {
+    return row.sd == null ? row.analyte === "ethanol" ? 2e-3 : 0.1 : observationValue({ ...row, value: row.sd });
+  }
+  function parameterValue(input, id) {
+    const p = PARAMETERS[id];
+    if (!p) throw Error("Unknown parameter " + id);
+    return input[p.section][p.key];
+  }
+  function setParameter(input, id, value) {
+    const p = PARAMETERS[id];
+    if (!p) throw Error("Unknown parameter " + id);
+    const n2 = number(value, p.label);
+    if (n2 < p.min || n2 > p.max) throw Error(p.label + " is outside " + p.min + " to " + p.max + " " + p.unit + ".");
+    input[p.section][p.key] = n2;
+  }
+  function activeParameter(input, id) {
+    if (id === "caffeineHalfLifeH" && input.subject.caffeineParameterMode !== "direct effective half-life") throw Error("Effective half-life is inactive in CYP1A2 covariate mode. Select direct effective half-life in Session inputs.");
+    const p = PARAMETERS[id];
+    if (!input.doseEvents.some((e) => (p.analyte === "caffeine" ? e.caffeineMg ?? e.caffeineMgPerServing ?? 0 : e.ethanolGrams ?? e.ethanolGramsPerServing ?? e.volumeMl ?? 0) > 0)) throw Error("No " + p.analyte + " intake is present for " + p.label + ".");
+  }
+  function cholesky(matrix, n2) {
+    if (!Array.isArray(matrix) || matrix.length !== n2 || matrix.some((row) => !Array.isArray(row) || row.length !== n2)) throw Error("Correlation matrix dimensions must match the selected parameters.");
+    const L = Array.from({ length: n2 }, () => Array(n2).fill(0));
+    for (let i = 0; i < n2; i++) for (let j = 0; j <= i; j++) {
+      const a = number(matrix[i][j], "Correlation"), mirror = number(matrix[j][i], "Correlation");
+      if (Math.abs(a) > 1 || Math.abs(a - mirror) > 1e-10 || i === j && Math.abs(a - 1) > 1e-10) throw Error("Correlation matrix must be symmetric with a diagonal of 1.");
+      let s = a;
+      for (let k = 0; k < j; k++) s -= L[i][k] * L[j][k];
+      if (i === j) {
+        if (s <= 1e-10) throw Error("Correlation matrix must be positive definite.");
+        L[i][j] = Math.sqrt(s);
+      } else L[i][j] = s / L[j][j];
+    }
+    return L;
+  }
+  function validateParameters(rows, max = 3) {
+    if (!Array.isArray(rows) || rows.length < 1 || rows.length > max) throw Error("Select between 1 and " + max + " parameters.");
+    const seen = /* @__PURE__ */ new Set();
+    return rows.map((row) => {
+      const p = PARAMETERS[row.id];
+      if (!p || seen.has(row.id)) throw Error("Parameters must be distinct registered quantities.");
+      seen.add(row.id);
+      const lower = number(row.lower, "Lower bound"), upper = number(row.upper, "Upper bound");
+      if (lower < p.min || upper > p.max || upper <= lower) throw Error(p.label + ": bounds must increase within " + p.min + " to " + p.max + " " + p.unit + ".");
+      return { id: row.id, lower, upper, ...row.distribution ? { distribution: row.distribution } : {}, ...row.cv != null ? { cv: number(row.cv, "CV") } : {} };
+    });
+  }
+  function validateScience(value) {
+    const d = v15Clone(value ?? emptyScience());
+    if (d.schemaVersion !== SCIENCE_VERSION || d.modelProfile !== MODEL_PROFILE.id) throw Error("Unsupported scientific document or model profile.");
+    if (!d.fit || !d.uncertainty) throw Error("Scientific fitting and uncertainty configurations are required.");
+    if (!Array.isArray(d.observations) || d.observations.length > 200) throw Error("An observation dataset supports at most 200 rows.");
+    d.observations = d.observations.map(validateObservation);
+    if (new Set(d.observations.map((o) => o.id)).size !== d.observations.length) throw Error("Observation IDs must be distinct.");
+    d.observationSource = text(d.observationSource, "Observation provenance", 2e3);
+    d.fit = { parameters: validateParameters(d.fit?.parameters, 2), maxEvaluations: number(d.fit?.maxEvaluations ?? 120, "Fit budget") };
+    if (!Number.isInteger(d.fit.maxEvaluations) || d.fit.maxEvaluations < 40 || d.fit.maxEvaluations > 320) throw Error("Fit budget must be an integer from 40 to 320.");
+    const u = d.uncertainty;
+    u.parameters = validateParameters(u.parameters);
+    for (const p of u.parameters) {
+      if (!["uniform", "triangular", "lognormal"].includes(p.distribution)) throw Error("Select uniform, triangular or lognormal sampling.");
+      if (p.distribution === "lognormal" && (p.cv == null || p.cv <= 0 || p.cv > 1)) throw Error("Lognormal CV must be between 0 and 1.");
+    }
+    u.seed = number(u.seed, "Random seed");
+    u.samples = number(u.samples, "Sample count");
+    if (!Number.isInteger(u.seed) || u.seed < 0 || u.seed > 4294967295) throw Error("Seed must be an unsigned 32-bit integer.");
+    if (!Number.isInteger(u.samples) || u.samples < 16 || u.samples > 256) throw Error("Use 16 to 256 samples.");
+    u.paired = !!u.paired;
+    cholesky(u.correlation, u.parameters.length);
+    if (!Array.isArray(d.calibrations) || d.calibrations.length > 12) throw Error("A scientific document supports up to 12 named calibration profiles.");
+    d.calibrations = d.calibrations.map((p) => {
+      text(p.name, "Calibration name", 160);
+      if (!p.values || Object.keys(p.values).length > 2) throw Error("Malformed calibration profile.");
+      for (const [id, value2] of Object.entries(p.values)) {
+        const def = PARAMETERS[id];
+        if (!def || !Number.isFinite(value2) || value2 < def.min || value2 > def.max) throw Error("Invalid calibrated parameter.");
+      }
+      return p;
+    });
+    return d;
+  }
+  function csvRows(text2) {
+    if (typeof text2 !== "string" || text2.length > 2e5) throw Error("Observation CSV is limited to 200,000 characters.");
+    const rows = [], row = [];
+    let field = "", quoted = false;
+    for (let i = 0; i <= text2.length; i++) {
+      const c = text2[i];
+      if (quoted) {
+        if (c === '"' && text2[i + 1] === '"') {
+          field += '"';
+          i++;
+        } else if (c === '"') quoted = false;
+        else if (c === void 0) throw Error("CSV has an unclosed quoted field.");
+        else field += c;
+      } else if (c === '"' && !field) quoted = true;
+      else if (c === "," || c === "\n" || c === void 0) {
+        row.push(field.trim());
+        field = "";
+        if (c !== ",") {
+          if (row.some((v) => v !== "")) rows.push(row.splice(0));
+          else row.length = 0;
+        }
+      } else if (c !== "\r") field += c;
+    }
+    return rows;
+  }
+  function parseObservations(text2, anchor) {
+    const rows = csvRows(text2.replace(/^\uFEFF/, "")), header = rows.shift()?.map((s) => s.toLowerCase());
+    if (!header || !["analyte", "value", "unit", "matrix"].every((k) => header.includes(k)) || !header.includes("time_h") && !header.includes("time_iso")) throw Error("CSV requires time_h (or time_iso), analyte, value, unit and matrix headers.");
+    if (new Set(header).size !== header.length) throw Error("CSV headers must be distinct.");
+    return rows.map((row, i) => {
+      if (row.length !== header.length) throw Error("CSV row " + (i + 2) + " has the wrong field count.");
+      const o = Object.fromEntries(header.map((k, j) => [k, row[j]]));
+      let timeH;
+      if (o.time_h) timeH = number(o.time_h, "Elapsed time");
+      else {
+        if (!/T.*(?:Z|[+-]\d\d:\d\d)$/.test(o.time_iso ?? "") || !Number.isFinite(Date.parse(o.time_iso)) || !Number.isFinite(Date.parse(anchor))) throw Error("Calendar observations require ISO timestamps with Z or an explicit UTC offset and a valid model-zero anchor.");
+        timeH = (Date.parse(o.time_iso) - Date.parse(anchor)) / 36e5;
+      }
+      return validateObservation({ id: "csv-" + i, timeH, analyte: o.analyte, value: o.value, unit: o.unit, matrix: o.matrix, role: o.role || "evaluation", sd: o.sd, qualifier: o.qualifier || "=", matrixFactor: o.matrix_factor, label: o.label ?? "" }, i);
+    });
+  }
+  var OBSERVATION_TEMPLATE = "time_h,analyte,value,unit,matrix,role,sd,qualifier,label\n1,caffeine,1.5,mg/L,plasma,calibration,0.1,=,Replace illustrative value\n2,caffeine,1.3,mg/L,plasma,evaluation,0.1,=,Replace illustrative value\n";
+  var scienceInputKey = (input, doc, comparison = null) => v15Stable({ input, science: doc, comparison, model: MODEL_PROFILE });
+
   // src/session/controller.mjs
   var V15_TIME_FIELDS = ["scenarioAnchorInstant", "scenarioTimeZone", "timeDisplayMode", "timeReferenceBasis", "selectedTimeH", "selectedTimeProvenance", "selectedLandmarkId", "followNow"];
   var V15Controller = class {
@@ -6588,6 +7211,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       this.comparison = null;
       this.comparisonKey = null;
       this.comparisonSerial = 0;
+      this.scienceDocument = emptyScience();
       this.history = new V15History(this.capture());
       this.installHistory();
       this.ready = this.initialise();
@@ -6599,7 +7223,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     capture() {
       const s = this.store.state, p = {};
       for (const key of V15_TIME_FIELDS) p[key] = s.presentation[key] ?? null;
-      return { document: v15Clone(s.document), presentation: p, markers: v15Clone(this.markers) };
+      return { document: v15Clone(s.document), presentation: p, markers: v15Clone(this.markers), science: v15Clone(this.scienceDocument) };
     }
     installHistory() {
       const store = this.store, originalField = store.field.bind(store), originalTransaction = store.transaction.bind(store);
@@ -6680,6 +7304,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       v15ValidateZone(frame.presentation.scenarioTimeZone);
       if (!Number.isFinite(frame.presentation.selectedTimeH) || frame.presentation.selectedTimeH < 0 || !allowInvalid && frame.presentation.selectedTimeH > frame.document.mainScenario.subject.simulationDurationH) throw Error("The inspection time must be inside the scenario horizon.");
       frame.markers = v15NormalizeMarkers(frame.markers ?? []);
+      frame.science = validateScience(frame.science ?? emptyScience());
       return frame;
     }
     restore(frame, label = "Restored session", record = true, allowInvalid = false) {
@@ -6687,6 +7312,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       this.suppress++;
       try {
         this.markers = safe.markers;
+        this.scienceDocument = safe.science;
         this.store.transaction(label, () => {
           const d = safe.document, map = {
             title: d.title,
@@ -6772,7 +7398,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       const frame = this.validateFrame(this.capture());
       const entries = this.history.entries.map((e) => ({ label: e.label, at: e.at, frame: v15Clone(e.frame) }));
       entries[this.history.index].frame = v15Clone(frame);
-      return {
+      const project = {
         schema: V15_PROJECT_SCHEMA,
         schemaVersion: V15_PROJECT_SCHEMA_VERSION,
         appVersion: V15_VERSION,
@@ -6781,16 +7407,19 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         exportedAt: (/* @__PURE__ */ new Date()).toISOString(),
         frame,
         history: includeHistory ? { index: this.history.index, entries } : void 0,
-        importedHistory: includeHistory ? this.importedHistory : void 0
+        importedHistory: includeHistory ? this.importedHistory : void 0,
+        scienceResults: this.scienceRuntime?.exportRecords() ?? []
       };
+      if (new TextEncoder().encode(JSON.stringify(project)).byteLength > V15_MAX_PROJECT_BYTES) throw Error("This session exceeds 8 MiB. Export without editing history or reduce the observation/result archive.");
+      return project;
     }
-    importText(text) {
-      return this.importObject(v15SafeParse(text), "Imported session");
+    importText(text2) {
+      return this.importObject(v15SafeParse(text2), "Imported session");
     }
     importObject(value, label = "Imported session") {
       let frame, archive = [];
       if (value?.schema === V15_PROJECT_SCHEMA) {
-        if (value.schemaVersion !== V15_PROJECT_SCHEMA_VERSION) throw Error("This session uses an unsupported document version.");
+        if (!["1.0.0", V15_PROJECT_SCHEMA_VERSION].includes(value.schemaVersion)) throw Error("This session uses an unsupported document version.");
         if (value.versions?.modelEngineVersion && value.versions.modelEngineVersion !== this.bridge.versions.modelEngineVersion) throw Error("This session requires engine " + value.versions.modelEngineVersion + ". Use the matching archived release to reproduce it.");
         frame = this.validateFrame(v15Clone(value.frame));
         if (value.history) {
@@ -6800,7 +7429,10 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
           if (v15Stable(archive[value.history.index].frame) !== v15Stable(frame)) throw Error("The history cursor does not match the exported working state.");
         }
       } else frame = this.validateFrame(this.bridge.importLegacy(value));
+      const records = value?.schema === V15_PROJECT_SCHEMA ? value.scienceResults ?? [] : [];
+      if (!Array.isArray(records) || records.length > 3 || records.some((r) => !r || !["fit", "evaluate", "uncertainty", "benchmarks"].includes(r.kind) || typeof r.sourceKey !== "string" || r.sourceKey.length > 3e5 || JSON.stringify(r).length > 6e5)) throw Error("Scientific result archive is invalid or exceeds its size limit.");
       this.restore(frame, label);
+      this.scienceRuntime?.importRecords(records);
       this.importedHistory = archive;
       this.emit();
       return frame;
@@ -7153,9 +7785,9 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     export() {
       return { schema: "pkpd-interface-profile", version: UI_VERSION, values: validatePreferences(this.values), scientificDepth: this.store.state.presentation.detailMode, display: validateDisplay(Object.fromEntries(Object.entries(displayDefaults).map(([key, value]) => [key, this.store.state.presentation[key] ?? value]))) };
     }
-    import(text) {
-      if (typeof text !== "string" || text.length > 65536) throw Error("Interface profiles are limited to 64 KiB.");
-      const data = JSON.parse(text, (k, v) => {
+    import(text2) {
+      if (typeof text2 !== "string" || text2.length > 65536) throw Error("Interface profiles are limited to 64 KiB.");
+      const data = JSON.parse(text2, (k, v) => {
         if (["__proto__", "prototype", "constructor"].includes(k)) throw Error("Unsupported profile key.");
         return v;
       });
@@ -7170,6 +7802,465 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     }
   };
 
+  // src/science/analysis.mjs
+  var quantile = (values, p) => {
+    if (!values.length) return null;
+    const a = [...values].sort((x, y) => x - y), i = (a.length - 1) * p, j = Math.floor(i);
+    return a[j] + (a[Math.min(a.length - 1, j + 1)] - a[j]) * (i - j);
+  };
+  function seededRandom(seed) {
+    let t = seed >>> 0;
+    return () => {
+      t += 1831565813;
+      let x = t;
+      x = Math.imul(x ^ x >>> 15, x | 1);
+      x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+      return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var normal = (r) => Math.sqrt(-2 * Math.log(Math.max(1e-15, r()))) * Math.cos(2 * Math.PI * r());
+  function normalCDF(x) {
+    const sign = x < 0 ? -1 : 1, z = Math.abs(x) / Math.SQRT2, t = 1 / (1 + 0.3275911 * z), erf = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-z * z);
+    return 0.5 * (1 + sign * erf);
+  }
+  function drawParameters(input, spec, random) {
+    const L = cholesky(spec.correlation, spec.parameters.length);
+    for (let attempt = 0; attempt < 256; attempt++) {
+      const z = spec.parameters.map(() => normal(random)), values = {};
+      let valid = true;
+      for (let i = 0; i < spec.parameters.length; i++) {
+        const p = spec.parameters[i], center = parameterValue(input, p.id), latent = L[i].reduce((s, a, j) => s + a * z[j], 0), u = normalCDF(latent);
+        let v;
+        if (p.distribution === "uniform") v = p.lower + (p.upper - p.lower) * u;
+        else if (p.distribution === "lognormal") v = center * Math.exp(Math.sqrt(Math.log(1 + p.cv * p.cv)) * latent);
+        else {
+          if (center < p.lower || center > p.upper) throw Error("The triangular mode must be inside its bounds: " + PARAMETERS[p.id].label);
+          const cut = (center - p.lower) / (p.upper - p.lower);
+          v = u < cut ? p.lower + Math.sqrt(u * (p.upper - p.lower) * (center - p.lower)) : p.upper - Math.sqrt((1 - u) * (p.upper - p.lower) * (p.upper - center));
+        }
+        if (v < p.lower || v > p.upper) {
+          valid = false;
+          break;
+        }
+        values[p.id] = v;
+      }
+      if (valid) return values;
+    }
+    throw Error("Truncated sampling rejected 256 consecutive draws. Widen bounds or reduce CV/correlation.");
+  }
+  function simulate(core, input) {
+    const result = core.Mr(v15Clone(input.subject), v15Clone(input.doseEvents), v15Clone(input.constants));
+    if (result.numericalValidity !== "valid" || !result.integrity?.massBalancePassed || !result.convergence?.converged) throw Error("The scientific job encountered a numerically invalid trajectory.");
+    return result;
+  }
+  function inputBudget(input, evaluations) {
+    const h2 = input.subject.simulationDurationH, step = input.subject.solverInternalStepMin ?? 0.5;
+    if (!Number.isFinite(h2) || !Number.isFinite(step) || h2 <= 0 || step <= 0 || h2 * 60 / step * evaluations > 25e5) throw Error("This job exceeds the numerical work budget. Reduce samples, fit evaluations, horizon or internal resolution.");
+  }
+  function assertActive(core, input, id) {
+    activeParameter({ ...input, doseEvents: input.doseEvents.map((e) => ({ ...e, ethanolGrams: core.Ta(e, input.constants), caffeineMg: core.Na(e) })) }, id);
+  }
+  function observationResiduals(result, rows) {
+    return rows.map((row) => {
+      const p = v15Interpolate(result.analysisPoints ?? result.points, row.timeH);
+      if (!p) throw Error("Observation " + row.id + " lies outside the calculated horizon. Extend the horizon or remove that observation.");
+      const predicted = row.analyte === "ethanol" ? p.bacGdL : p.caffeineMgL, observed = observationValue(row), sd = observationSD(row), residual = predicted - observed, penalty = row.qualifier === "<" ? Math.max(0, residual) : residual;
+      return { ...row, canonicalUnit: row.analyte === "ethanol" ? "g/dL" : "mg/L", observed, predicted, residual, weighted: penalty / sd, assumedSD: row.sd == null };
+    });
+  }
+  function residualMetrics(rows) {
+    const out = [];
+    for (const analyte of ["ethanol", "caffeine"]) for (const role of ["calibration", "evaluation"]) {
+      const all = rows.filter((o) => o.analyte === analyte && o.role === role), a = all.filter((o) => o.qualifier === "=");
+      if (all.length) out.push({ analyte, role, n: a.length, censored: all.length - a.length, unit: analyte === "ethanol" ? "g/dL" : "mg/L", bias: a.length ? a.reduce((s, o) => s + o.residual, 0) / a.length : null, mae: a.length ? a.reduce((s, o) => s + Math.abs(o.residual), 0) / a.length : null, rmse: a.length ? Math.sqrt(a.reduce((s, o) => s + o.residual ** 2, 0) / a.length) : null, weightedSSE: all.reduce((s, o) => s + o.weighted ** 2, 0) });
+    }
+    return out;
+  }
+  var compactPoints = (r) => (r.analysisPoints ?? r.points).filter((_, i, a) => i % Math.max(1, Math.ceil(a.length / 180)) === 0 || i === a.length - 1).map((p) => ({ tH: p.tH, bacGdL: p.bacGdL, caffeineMgL: p.caffeineMgL }));
+  async function evaluate(core, input, doc, context) {
+    const result = simulate(core, input), residuals = observationResiduals(result, doc.observations);
+    context.progress(1, 1);
+    return { kind: "evaluate", profile: MODEL_PROFILE, residuals, metrics: residualMetrics(residuals), points: compactPoints(result), summary: result.summary };
+  }
+  async function calibrate(core, input, doc, context) {
+    const spec = doc.fit, parameters = spec.parameters, rows = doc.observations.filter((o) => o.role === "calibration" && parameters.some((p) => PARAMETERS[p.id].analyte === o.analyte)), quantified = rows.filter((o) => o.qualifier === "=");
+    if (quantified.length < Math.max(4, parameters.length * 3) || new Set(quantified.map((o) => o.timeH)).size < 3) throw Error("Calibration requires at least " + Math.max(4, parameters.length * 3) + " quantified calibration observations at three distinct times.");
+    for (const p of parameters) {
+      assertActive(core, input, p.id);
+      if (!rows.some((o) => o.analyte === PARAMETERS[p.id].analyte)) throw Error("No calibration observations match " + PARAMETERS[p.id].label + ".");
+    }
+    inputBudget(input, spec.maxEvaluations + 20);
+    let count = 0, best = null;
+    const lower = parameters.map((p) => Math.log(p.lower)), upper = parameters.map((p) => Math.log(p.upper));
+    async function score(x) {
+      context.check();
+      if (count >= spec.maxEvaluations) return Infinity;
+      const candidate = v15Clone(input);
+      parameters.forEach((p, i) => setParameter(candidate, p.id, Math.exp(x[i])));
+      const result2 = simulate(core, candidate), residuals2 = observationResiduals(result2, rows), cost = residuals2.reduce((s, o) => s + o.weighted ** 2, 0);
+      count++;
+      if (!best || cost < best.cost) best = { x: [...x], cost, input: candidate };
+      if (count % 4 === 0) {
+        context.progress(count, spec.maxEvaluations);
+        await context.yield();
+      }
+      return cost;
+    }
+    const initial = parameters.map((p, i) => Math.log(Math.max(p.lower, Math.min(p.upper, parameterValue(input, p.id)))));
+    await score(initial);
+    const starts = [initial, lower.map((a, i) => a + (upper[i] - a) * 0.25), lower.map((a, i) => a + (upper[i] - a) * 0.75)];
+    let converged = false;
+    for (const start of starts) {
+      let x = [...start], previous = Infinity;
+      for (let cycle = 0; cycle < 8 && count < spec.maxEvaluations; cycle++) {
+        for (let j = 0; j < parameters.length && count < spec.maxEvaluations; j++) {
+          let a = lower[j], b = upper[j], c = b - (b - a) * 0.61803398875, d = a + (b - a) * 0.61803398875, xc = [...x], xd = [...x];
+          xc[j] = c;
+          xd[j] = d;
+          let fc = await score(xc), fd = await score(xd);
+          for (let k = 0; k < 12 && count < spec.maxEvaluations; k++) {
+            if (fc < fd) {
+              b = d;
+              d = c;
+              fd = fc;
+              c = b - (b - a) * 0.61803398875;
+              xc = [...x];
+              xc[j] = c;
+              fc = await score(xc);
+            } else {
+              a = c;
+              c = d;
+              fc = fd;
+              d = a + (b - a) * 0.61803398875;
+              xd = [...x];
+              xd[j] = d;
+              fd = await score(xd);
+            }
+          }
+          x[j] = fc < fd ? c : d;
+        }
+        const value = await score(x);
+        if (Number.isFinite(value) && Math.abs(previous - value) < 1e-6 * (1 + value)) {
+          converged = true;
+          break;
+        }
+        previous = value;
+      }
+    }
+    if (!best) throw Error("No finite calibration result.");
+    const result = simulate(core, best.input), residuals = observationResiduals(result, doc.observations), values = Object.fromEntries(parameters.map((p, i) => [p.id, Math.exp(best.x[i])])), columns = [], objectiveColumns = [];
+    for (const p of parameters) {
+      const value = values[p.id], delta = Math.max(value * 2e-3, 1e-6), a = v15Clone(best.input), b = v15Clone(best.input), lo = Math.max(p.lower, value - delta), hi = Math.min(p.upper, value + delta);
+      setParameter(a, p.id, lo);
+      setParameter(b, p.id, hi);
+      const ar = simulate(core, a), br = simulate(core, b), ra = observationResiduals(ar, quantified), rb = observationResiduals(br, quantified);
+      columns.push(ra.map((r, i) => (rb[i].predicted - r.predicted) / (hi - lo) / observationSD(quantified[i]) * value));
+      const aa = observationResiduals(ar, rows), bb = observationResiduals(br, rows);
+      objectiveColumns.push(aa.map((r, i) => (bb[i].weighted - r.weighted) / (hi - lo) * value));
+    }
+    const norms = columns.map((a) => Math.sqrt(a.reduce((s, x) => s + x * x, 0))), dot = columns.length === 2 ? columns[0].reduce((s, x, i) => s + x * columns[1][i], 0) / (norms[0] * norms[1]) : 0, identifiable = norms.every((n2) => Number.isFinite(n2) && n2 > 1e-5) && Math.abs(dot) < 0.995;
+    const weightedResiduals = observationResiduals(result, rows).map((o) => o.weighted), stationarity = Math.max(...objectiveColumns.map((a) => Math.abs(a.reduce((s, x, i) => s + x * weightedResiduals[i], 0)) / Math.max(1e-12, Math.sqrt(a.reduce((s, x) => s + x * x, 0)))));
+    converged = converged || Number.isFinite(stationarity) && stationarity < 0.05;
+    const atBounds = parameters.filter((p) => (values[p.id] - p.lower) / (p.upper - p.lower) < 0.01 || (p.upper - values[p.id]) / (p.upper - p.lower) < 0.01).map((p) => p.id);
+    const profile = [];
+    if (parameters.length === 1) {
+      const p = parameters[0];
+      for (let i = 0; i <= 20; i++) {
+        context.check();
+        const candidate = v15Clone(best.input), value = Math.exp(lower[0] + (upper[0] - lower[0]) * i / 20);
+        setParameter(candidate, p.id, value);
+        const cost = observationResiduals(simulate(core, candidate), rows).reduce((s, o) => s + o.weighted ** 2, 0);
+        profile.push({ value, cost });
+        if (i % 4 === 0) await context.yield();
+      }
+    }
+    const support = profile.filter((p) => p.cost - best.cost <= 3.841459), interval = profile.length && rows.every((r) => r.qualifier === "=" && r.sd !== null) && support.length ? { lower: support[0].value, upper: support.at(-1).value, method: "Coarse profile support: delta weighted SSE <= 3.841459, conditional on independent Gaussian errors with the supplied SDs. Grid endpoints can truncate support." } : null;
+    return { kind: "fit", profile: MODEL_PROFILE, values, cost: best.cost, evaluations: count, converged, identifiable, stationarity, sensitivityCorrelation: Number.isFinite(dot) ? dot : null, atBounds, applicable: identifiable && atBounds.length === 0 && converged, residuals, metrics: residualMetrics(residuals), profilePoints: profile, supportInterval: interval, points: compactPoints(result), summary: result.summary, assumptions: "Bounded log-parameter weighted least squares; independent supplied SD or explicit defaults (ethanol 0.002 g/dL; caffeine 0.1 mg/L). Upper limits use a one-sided squared penalty. Matrix factors are user supplied. Evaluation rows are excluded from fitting. Numerical stopping uses objective stabilization or residual projection below 0.05 weighted units along every local parameter sensitivity." };
+  }
+  function metric(r) {
+    return { peakBAC: r.summary.peakBACGdL, peakCaffeine: r.summary.peakCaffeineMgL, bacPeakTime: r.summary.timeOfPeakBACH, caffeinePeakTime: r.summary.timeOfPeakCaffeineH };
+  }
+  var summarize = (values) => ({ p05: quantile(values, 0.05), p50: quantile(values, 0.5), p95: quantile(values, 0.95) });
+  async function sample(core, input, doc, context, comparison = null) {
+    const spec = doc.uncertainty, n2 = spec.samples, paired = spec.paired;
+    if (paired && !comparison) throw Error("Enable and prepare an A/B comparison before requesting paired uncertainty.");
+    const a = paired ? comparison.A : input, b = paired ? comparison.B : null;
+    for (const p of spec.parameters) {
+      assertActive(core, a, p.id);
+      if (b) assertActive(core, b, p.id);
+    }
+    inputBudget(a, n2 * (paired ? 2 : 1));
+    if (b) inputBudget(b, n2 * 2);
+    const random = seededRandom(spec.seed), grid = Array.from({ length: 97 }, (_, i) => a.subject.simulationDurationH * i / 96), series = grid.map((tH) => ({ tH, bac: [], caffeine: [], exceed: 0 })), draws = [], summaries = [], deltas = [], returns = [];
+    let censored = 0, never = 0;
+    if (b && b.subject.simulationDurationH !== a.subject.simulationDurationH) throw Error("Paired uncertainty requires equal A/B horizons.");
+    if (b && spec.parameters.some((p) => parameterValue(a, p.id) !== parameterValue(b, p.id))) throw Error("Paired absolute-parameter sampling requires equal reference values for selected A/B parameters. Compare dose or timing changes, or use separate runs for different parameter baselines.");
+    for (let i = 0; i < n2; i++) {
+      context.check();
+      const values = drawParameters(a, spec, random), candidate = v15Clone(a);
+      for (const [id, value] of Object.entries(values)) setParameter(candidate, id, value);
+      const r = simulate(core, candidate);
+      draws.push(values);
+      summaries.push(metric(r));
+      for (const bucket of series) {
+        const p = v15Interpolate(r.analysisPoints ?? r.points, bucket.tH);
+        bucket.bac.push(p.bacGdL);
+        bucket.caffeine.push(p.caffeineMgL);
+        if (p.bacGdL >= a.subject.vehicleZeroToleranceThresholdGdL) bucket.exceed++;
+      }
+      const out = r.summary.vehicleThresholdOutcome;
+      if (out?.rightCensored) censored++;
+      else if (out?.status === "never-exceeded") {
+        never++;
+        returns.push(0);
+      } else if (Number.isFinite(out?.timeH)) returns.push(out.timeH);
+      if (b) {
+        const other = v15Clone(b);
+        for (const [id, value] of Object.entries(values)) setParameter(other, id, value);
+        const m = metric(simulate(core, other)), base = summaries.at(-1);
+        deltas.push(Object.fromEntries(Object.keys(m).map((k) => [k, m[k] - base[k]])));
+      }
+      context.progress(i + 1, n2);
+      await context.yield();
+    }
+    return { kind: "uncertainty", profile: MODEL_PROFILE, seed: spec.seed, samples: n2, paired, parameterDraws: draws, grid: series.map((p) => ({ tH: p.tH, bac: summarize(p.bac), caffeine: summarize(p.caffeine), thresholdExceedanceFraction: p.exceed / n2 })), metrics: Object.fromEntries(Object.keys(summaries[0]).map((k) => [k, summarize(summaries.map((s) => s[k]))])), deltas: paired ? Object.fromEntries(Object.keys(deltas[0]).map((k) => [k, summarize(deltas.map((s) => s[k]))])) : null, threshold: { value: a.subject.vehicleZeroToleranceThresholdGdL, unit: "g/dL", rightCensored: censored, neverExceeded: never, resolved: returns.length, returnTimeResolvedOnly: summarize(returns) }, assumptions: "P05/P50/P95 are sampled quantiles conditional on user-specified parameter distributions. Correlation is latent Gaussian-copula correlation before truncation. Whole-draw rejection enforces bounds. Lognormal reference values are medians. Population heterogeneity, model discrepancy and observation error are absent unless explicitly represented. Paired A/B uses identical absolute parameter draws." };
+  }
+  async function runScience(core, request, options = {}) {
+    const doc = validateScience(request.document), input = v15Clone(request.input), context = { check: () => {
+      if (options.cancelled?.()) throw Error("Scientific job cancelled.");
+    }, yield: options.yield ?? (() => new Promise((r) => setTimeout(r, 0))), progress: options.progress ?? (() => {
+    }) };
+    inputBudget(input, 1);
+    if (["fit", "evaluate"].includes(request.kind) && doc.observations.some((o) => o.timeH > input.subject.simulationDurationH)) throw Error("An observation lies outside the calculated horizon. Extend the horizon before analysis.");
+    let result;
+    if (request.kind === "fit") result = await calibrate(core, input, doc, context);
+    else if (request.kind === "uncertainty") result = await sample(core, input, doc, context, request.comparison);
+    else if (request.kind === "evaluate") result = await evaluate(core, input, doc, context);
+    else throw Error("Unsupported scientific job.");
+    context.check();
+    return { ...result, scenario: input, document: doc, comparison: request.comparison ?? null, inputKey: v15Stable({ input, document: doc, comparison: request.comparison ?? null }), scientificVersion: "1.0.0", computedAt: (/* @__PURE__ */ new Date()).toISOString() };
+  }
+
+  // src/science/evidence.mjs
+  var BENCHMARKS = [
+    { id: "laizure2017-male", study: "Laizure et al. 2017", cohort: "Male energy-drink cohort", n: 9, analyte: "caffeine", matrix: "plasma", unit: "mg/L", observed: 1.758, sd: 0.341, massKg: 87.2, age: 28.7, sex: "male default", caffeineMg: 100, durationMin: 5, food: "light meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5698589/", location: "Table 2 (actual male Cmax); Methods and Results (dose, consumption time, breakfast, mean body mass).", provenance: "Published group mean and SD, transcribed; nominal 100 mg dose. Assayed drink mean was 96.6 mg. Group-mean physiology is an approximation; baseline caffeine is set to zero.", metric: "peakCaffeineMgL" },
+    { id: "laizure2017-female", study: "Laizure et al. 2017", cohort: "Female energy-drink cohort", n: 8, analyte: "caffeine", matrix: "plasma", unit: "mg/L", observed: 2.142, sd: 0.208, massKg: 62.9, age: 26.3, sex: "female default", caffeineMg: 100, durationMin: 5, food: "light meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5698589/", location: "Table 2 (actual female Cmax); Methods and Results (dose, consumption time, breakfast, mean body mass).", provenance: "Published group mean and SD, transcribed; 100 mg nominal dose; participants using oral contraceptives were excluded. Zero baseline and reference half-life are application assumptions.", metric: "peakCaffeineMgL" },
+    { id: "jones1997-fasted", study: "Jones et al. 1997", cohort: "Fasted oral ethanol", n: 9, analyte: "ethanol", matrix: "whole-blood", unit: "g/dL", observed: 0.0308, sd: 43e-4, massKg: 75, sex: "male default", ethanolGPerKg: 0.3, durationMin: 10, food: "fasted", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2042884/", location: "Abstract: oral 0.30 g/kg; reported fasted peak 30.8 +/- 4.3 mg/dL, converted to g/dL.", provenance: "Published group mean and SD. A 75 kg reference, zero baseline and 10 minute intake are standardized application assumptions; individual anthropometry and drinking duration were not extracted. This is a descriptive transportability check.", metric: "peakBACGdL" },
+    { id: "jones1997-fat-meal", study: "Jones et al. 1997", cohort: "High-fat breakfast oral ethanol", n: 9, analyte: "ethanol", matrix: "whole-blood", unit: "g/dL", observed: 0.0166, sd: 4e-3, massKg: 75, sex: "male default", ethanolGPerKg: 0.3, durationMin: 10, food: "heavy meal", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2042884/", location: "Abstract: oral 0.30 g/kg; reported high-fat meal peak 16.6 +/- 4.0 mg/dL, converted to g/dL.", provenance: "Published group mean and SD. A 75 kg reference and 10 minute intake are standardized assumptions. Application heavy-meal rates approximate the published breakfast; meal macronutrients are not explicitly modeled.", metric: "peakBACGdL" }
+  ];
+  var EVIDENCE_NOTES = [
+    { id: "uncertainty-vmax", title: "Population parameter CI and interindividual variation", text: "The reference Vmax source reports 6.31 g/h and a 95% CI of 6.04-6.59 g/h for its estimated population parameter. That interval does not specify a distribution of individual elimination rates. User sampling bounds have their own declared meaning.", source: "https://pubmed.ncbi.nlm.nih.gov/36688276/" },
+    { id: "food-hypothesis", title: "Fed-state elimination hypothesis", text: "The 2023 two-compartment source estimates a feeding multiplier near 1.39. The optional benchmark comparator scales elimination by 1.39 for the fixed fed scenario. The retained model has a different structure. This comparator is exploratory and does not change the main scenario or defaults.", source: "https://pubmed.ncbi.nlm.nih.gov/36688276/" },
+    { id: "response-boundaries", title: "Endpoint-specific PD evidence", text: "Concentration calibration leaves the heuristic response transforms and behavioural coefficients unchanged. Controlled coadministration studies report endpoint- and protocol-dependent subjective and performance results.", source: "https://pubmed.ncbi.nlm.nih.gov/16573577/" },
+    { id: "caffeine-source", title: "Small reference population", text: "The retained caffeine and paraxanthine priors cite a six-man study. Its parameter estimates and the application-selected defaults require explicit population and model-structure qualifications.", source: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1401099/" }
+  ];
+  function benchmarkScenario(core, b) {
+    const subject = v15Clone(core.St);
+    subject.bodyMassKg = b.massKg;
+    subject.sexOrPhysiologyMode = b.sex;
+    subject.foodState = b.food;
+    subject.simulationDurationH = 12;
+    subject.timeStepMin = 5;
+    subject.solverInternalStepMin = 0.5;
+    subject.mealEvents = [];
+    if (b.age) subject.ageYears = b.age;
+    return { subject, constants: core.bt(b.massKg), doseEvents: [{ id: b.id, label: b.cohort, startTimeH: 0, durationMin: b.durationMin, ethanolGrams: (b.ethanolGPerKg ?? 0) * b.massKg, caffeineMg: b.caffeineMg ?? 0, servings: 1 }] };
+  }
+  async function runBenchmarks(core, options = {}) {
+    const rows = [];
+    for (let i = 0; i < BENCHMARKS.length; i++) {
+      if (options.cancelled?.()) throw Error("Benchmark run cancelled.");
+      const b = BENCHMARKS[i], input = benchmarkScenario(core, b), r = simulate(core, input), predicted = r.summary[b.metric];
+      let candidate = null;
+      if (b.analyte === "ethanol" && b.food !== "fasted") {
+        const changed = v15Clone(input);
+        changed.subject.ethanolClearanceModifier *= 1.39;
+        candidate = simulate(core, changed).summary[b.metric];
+      }
+      rows.push({ ...b, predicted, error: predicted - b.observed, standardizedError: (predicted - b.observed) / b.sd, withinTwoReportedSD: Math.abs(predicted - b.observed) <= 2 * b.sd, feedingHypothesis: candidate, feedingHypothesisError: candidate == null ? null : candidate - b.observed });
+      options.progress?.(i + 1, BENCHMARKS.length);
+      await (options.yield?.() ?? Promise.resolve());
+    }
+    return { kind: "benchmarks", rows, studies: 2, criteria: "Descriptive Cmax comparison against reported mean +/- 2 SD. This is a predeclared discrepancy screen for these summaries; individual predictive validity and full trajectory error are unevaluated. Cohort group means, standardized inputs and fixed retained priors are used; benchmarks are excluded from fitting.", computedAt: (/* @__PURE__ */ new Date()).toISOString(), profile: "reference-1.60", evidenceVersion: "2026-10-28.1" };
+  }
+
+  // src/science/controller.mjs
+  var ScienceController = class {
+    constructor(session, bridge2, environment = globalThis) {
+      __publicField(this, "subscribe", (f) => {
+        this.listeners.add(f);
+        return () => this.listeners.delete(f);
+      });
+      __publicField(this, "snapshot", () => this.revision);
+      this.session = session;
+      this.bridge = bridge2;
+      this.env = environment;
+      this.listeners = /* @__PURE__ */ new Set();
+      this.revision = 0;
+      this.status = "idle";
+      this.progress = null;
+      this.error = "";
+      this.result = null;
+      this.records = [];
+      this.serial = 0;
+      this.backend = "worker";
+      this.unsubscribe = session.subscribe(() => {
+        if (this.status === "running" && this.runningKey !== this.key()) {
+          this.cancel("Inputs changed; the scientific job was cancelled.");
+        }
+        this.emit();
+      });
+    }
+    emit() {
+      this.revision++;
+      for (const f of this.listeners) f();
+    }
+    get document() {
+      return this.session.scienceDocument ?? emptyScience();
+    }
+    input() {
+      return v15Clone(this.session.store.state.document.mainScenario);
+    }
+    comparison() {
+      return this.session.store.state.document.comparisonEnabled ? this.session.comparisonInput().scenarios : null;
+    }
+    key() {
+      return scienceInputKey(this.input(), this.document, this.document.uncertainty.paired ? this.comparison() : null);
+    }
+    get current() {
+      return this.result?.sourceKey === this.key();
+    }
+    edit(doc, label = "Edited scientific inputs") {
+      const frame = this.session.capture();
+      frame.science = validateScience(doc);
+      this.session.restore(frame, label);
+    }
+    importCSV(text2) {
+      const doc = v15Clone(this.document);
+      doc.observations = parseObservations(text2, this.session.store.state.presentation.scenarioAnchorInstant);
+      this.edit(doc, "Imported observation dataset");
+    }
+    cancel(message = "Scientific job cancelled.") {
+      this.serial++;
+      this.worker?.terminate();
+      this.worker = null;
+      this.finishReject?.(Error(message));
+      this.finishReject = null;
+      this.status = "cancelled";
+      this.error = message;
+      this.emit();
+    }
+    async run(kind) {
+      if (this.status === "running") this.cancel();
+      if (!this.session.canSave() || this.session.store.state.snapshots.relationToDraft !== "current") throw Error("Wait for a current accepted calculation and complete inputs before running scientific analysis.");
+      const id = ++this.serial, document2 = validateScience(this.document), input = this.input(), comparison = document2.uncertainty.paired ? this.comparison() : null, sourceKey = this.key(), request = { kind, input, document: document2, comparison };
+      this.runningKey = sourceKey;
+      this.status = "running";
+      this.progress = { done: 0, total: 1 };
+      this.error = "";
+      this.emit();
+      const progress = (done, total) => {
+        if (id === this.serial) {
+          this.progress = { done, total };
+          this.emit();
+        }
+      };
+      try {
+        let result;
+        if (this.env.Worker) {
+          try {
+            result = await new Promise((resolve, reject) => {
+              this.finishReject = reject;
+              const source = this.env.document.getElementById("pk-kernel-source").textContent + "\n" + this.env.document.getElementById("pk-science-worker-source").textContent, url = this.env.URL.createObjectURL(new Blob([source], { type: "text/javascript" })), worker = new this.env.Worker(url);
+              this.env.URL.revokeObjectURL(url);
+              this.worker = worker;
+              worker.onmessage = (e) => {
+                const d = e.data;
+                if (d.id !== id) return;
+                if (d.type === "progress") progress(d.done, d.total);
+                else if (d.type === "result") resolve(d.result);
+                else reject(Error(d.message));
+              };
+              worker.onerror = (e) => reject(Error(e.message || "Scientific worker could not start."));
+              worker.postMessage({ id, request });
+            });
+            this.backend = "worker";
+          } catch (error) {
+            if (id !== this.serial) throw error;
+            if (!/worker|content security|script|blob|network/i.test(error.message)) throw error;
+            this.worker?.terminate();
+            this.worker = null;
+            this.backend = "cooperative fallback";
+            result = await this.local(request, id, progress);
+          }
+        } else {
+          this.backend = "cooperative fallback";
+          result = await this.local(request, id, progress);
+        }
+        if (id !== this.serial || sourceKey !== this.key()) return null;
+        this.worker?.terminate();
+        this.worker = null;
+        this.finishReject = null;
+        this.result = { ...result, sourceKey, releaseFingerprint: this.bridge.versions.buildFingerprint, backend: this.backend, imported: false };
+        this.records = [this.result, ...this.records].slice(0, 3);
+        this.status = "complete";
+        this.emit();
+        return this.result;
+      } catch (error) {
+        if (id === this.serial) {
+          this.worker?.terminate();
+          this.worker = null;
+          this.finishReject = null;
+          this.status = "failed";
+          this.error = error.message;
+          this.emit();
+        }
+        throw error;
+      }
+    }
+    local(request, id, progress) {
+      return request.kind === "benchmarks" ? runBenchmarks(this.bridge.scienceCore, { cancelled: () => id !== this.serial, progress, yield: () => new Promise((r) => setTimeout(r, 0)) }) : runScience(this.bridge.scienceCore, request, { cancelled: () => id !== this.serial, progress });
+    }
+    loadSynthetic() {
+      const input = this.input(), r = simulate(this.bridge.scienceCore, input), doc = v15Clone(this.document), h2 = input.subject.simulationDurationH;
+      const points = r.analysisPoints ?? r.points, analyte = r.summary.peakCaffeineMgL > 0 ? "caffeine" : "ethanol", key = analyte === "caffeine" ? "caffeineMgL" : "bacGdL";
+      doc.observations = [];
+      for (let i = 1; i <= 8; i++) {
+        const p = points[Math.min(points.length - 1, Math.round(points.length * i / 10))];
+        doc.observations.push({ id: "synthetic-" + i, timeH: p.tH, analyte, value: p[key], unit: analyte === "caffeine" ? "mg/L" : "g/dL", matrix: analyte === "caffeine" ? "plasma" : "whole-blood", role: i % 3 === 0 ? "evaluation" : "calibration", sd: analyte === "caffeine" ? 0.05 : 1e-3, qualifier: "=", matrixFactor: null, label: "Synthetic exact model diagnostic" });
+      }
+      doc.observationSource = "SYNTHETIC: exact concentrations generated by the current reference scenario. This dataset checks software recovery; it supplies no empirical validation.";
+      if (analyte === "ethanol") doc.fit.parameters = [{ id: "ethanolClearanceModifier", lower: 0.4, upper: 2 }];
+      this.edit(doc, "Loaded synthetic recovery example");
+    }
+    applyFit(name) {
+      const result = this.result;
+      if (!this.current || result?.kind !== "fit" || !result.applicable || result.imported) throw Error("Apply requires a current, identifiable, interior fitted result computed in this session.");
+      if (typeof name !== "string" || !name.trim() || name.length > 160) throw Error("Enter a calibration profile name of up to 160 characters.");
+      const frame = this.session.capture();
+      for (const [id, value] of Object.entries(result.values)) setParameter(frame.document.mainScenario, id, value);
+      frame.science.calibrations.unshift({ name: name.trim(), values: v15Clone(result.values), model: MODEL_PROFILE.id, computedAt: result.computedAt, sourceFingerprint: result.releaseFingerprint, observationCount: result.residuals.length, assumptions: result.assumptions });
+      frame.science.calibrations = frame.science.calibrations.slice(0, 12);
+      this.session.restore(frame, "Applied calibration " + name.trim());
+      return result.values;
+    }
+    exportRecords() {
+      return this.records.map((r) => v15Clone(r));
+    }
+    importRecords(records) {
+      if (records === void 0) return;
+      this.records = (records ?? []).map((r) => ({ ...v15Clone(r), imported: true }));
+      this.result = null;
+      this.status = this.records.length ? "imported archive" : "idle";
+      this.emit();
+    }
+    dispose() {
+      this.cancel();
+      this.unsubscribe?.();
+      this.listeners.clear();
+    }
+  };
+
   // src/ui/runtime.mjs
   var React;
   var Fragment;
@@ -7177,15 +8268,22 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   var controller;
   var pwa;
   var preferences;
+  var science;
   var h = (...args) => React.createElement(...args);
   function v15InitUI(value) {
     bridge = value;
     React = value.React;
     Fragment = React.Fragment;
     controller = new V15Controller(value);
+    science = new ScienceController(controller, value);
+    controller.scienceRuntime = science;
     preferences = new InterfacePreferences(value.store);
     pwa = v15PWA(controller);
-    return { controller, pwa, preferences };
+    return { controller, pwa, preferences, science };
+  }
+  function useScience() {
+    React.useSyncExternalStore(science.subscribe, science.snapshot, science.snapshot);
+    return science;
   }
   function useSession() {
     React.useSyncExternalStore(controller.subscribe, controller.getRevision, controller.getRevision);
@@ -7202,8 +8300,8 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   function navigate(workspace, view = "") {
     window.location.hash = "#" + workspace + (view ? "/" + view : "");
   }
-  function announce(text, kind = "success") {
-    controller.notice = { text, kind };
+  function announce(text2, kind = "success") {
+    controller.notice = { text: text2, kind };
     controller.emit();
   }
   function action(fn, success) {
@@ -7243,9 +8341,9 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   function bacText(value, presentation, digits = 4) {
     if (!Number.isFinite(value)) return "Unavailable";
     const factor = presentation.bacDisplayUnit === "g/L" || presentation.bacDisplayUnit === "permille" ? 10 : 1;
-    const number = value * factor, places = Math.min(6, digits + (factor === 1 ? 0 : 0));
-    if (number > 0 && number < Math.pow(10, -places)) return "<" + Math.pow(10, -places).toFixed(places);
-    return number.toFixed(places);
+    const number2 = value * factor, places = Math.min(6, digits + (factor === 1 ? 0 : 0));
+    if (number2 > 0 && number2 < Math.pow(10, -places)) return "<" + Math.pow(10, -places).toFixed(places);
+    return number2.toFixed(places);
   }
   function parameterLabel(id) {
     const overrides = { "subject.bodyMassKg": "Body mass", "subject.simulationDurationH": "Observation horizon", "subject.caffeineHalfLifeH": "Effective caffeine half-life", "subject.referenceCaffeineHalfLifeH": "Reference caffeine half-life", "subject.ethanolVmaxGPerH": "Ethanol Vmax", "constants.ethanolVmaxGPerH": "Ethanol Vmax", "subject.solverInternalStepMin": "Internal solver step", "subject.timeStepMin": "Output sampling step" };
@@ -7314,12 +8412,36 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       const out = result.summary[key];
       if (!out) continue;
       if (!out.intervals.length) rows.push([label, bacText(out.threshold, presentation), "Never exceeded", "\u2014", "\u2014"]);
-      else out.intervals.forEach((i, n) => rows.push([label + " \xB7 " + (n + 1), bacText(out.threshold, presentation), v15TimeLabel(i.startH) + (i.leftCensored ? " \xB7 active at start" : ""), v15TimeLabel(i.endH) + (i.rightCensored ? " \xB7 open at horizon" : ""), out.finalReturnH == null ? "Not observed" : v15TimeLabel(out.finalReturnH)]));
+      else out.intervals.forEach((i, n2) => rows.push([label + " \xB7 " + (n2 + 1), bacText(out.threshold, presentation), v15TimeLabel(i.startH) + (i.leftCensored ? " \xB7 active at start" : ""), v15TimeLabel(i.endH) + (i.rightCensored ? " \xB7 open at horizon" : ""), out.finalReturnH == null ? "Not observed" : v15TimeLabel(out.finalReturnH)]));
     }
     return /* @__PURE__ */ h(Table, { headers: ["Reference / interval", unit, "Start", "End", "Final return in schedule"], rows });
   }
   function EmptyResult() {
     return /* @__PURE__ */ h(Panel, { title: "A calculation is required" }, /* @__PURE__ */ h("p", null, "Open Session inputs, finish the inputs and wait for an accepted result."), /* @__PURE__ */ h(Button, { primary: true, onClick: () => navigate("calculate") }, "Open Session inputs"));
+  }
+
+  // src/science/report.mjs
+  function scientificReport(frame, records = [], depth = "default") {
+    if (!records.length && !frame.science?.observations?.length) return "";
+    let out = "<h2>Scientific workbench</h2><p>Model profile: reference-1.60; engine 0.4.4; constants 0.3.0. Scientific records retain their captured input and evidence identity.</p>";
+    if (frame.science?.observations?.length) out += "<p>Observation dataset: " + frame.science.observations.length + " rows. " + v15Escape(frame.science.observationSource) + "</p>";
+    const key = frame.science ? scienceInputKey(frame.document.mainScenario, frame.science, frame.science.uncertainty.paired && frame.document.comparisonEnabled ? frame.document.comparisonScenarios : null) : "";
+    for (const r of records) {
+      out += "<h3>" + v15Escape(r.kind) + " - " + v15Escape(r.computedAt) + "</h3><p>Input relation: " + (r.sourceKey === key ? "matches the report scientific inputs" : "retained result with independently captured inputs") + ". Source fingerprint: " + v15Escape(r.releaseFingerprint) + ".</p>";
+      if (r.assumptions) out += "<p>" + v15Escape(r.assumptions) + "</p>";
+      if (r.kind === "fit") out += "<pre>" + v15Escape(JSON.stringify({ values: r.values, identifiable: r.identifiable, atBounds: r.atBounds, converged: r.converged, supportInterval: r.supportInterval }, null, 2)) + "</pre>";
+      if (r.metrics) out += "<pre>" + v15Escape(JSON.stringify(r.metrics, null, 2)) + "</pre>";
+      if (r.kind === "uncertainty" && r.grid) {
+        for (const [field, label, unit] of [["bac", "BAC", "g/dL"], ["caffeine", "Caffeine", "mg/L"]]) {
+          const max = Math.max(field === "bac" ? 1e-3 : 0.1, ...r.grid.map((p) => p[field].p95)) * 1.1, end = r.grid.at(-1).tH || 1, x = (t) => 60 + 820 * t / end, y = (v) => 145 - 120 * v / max, line = (q) => r.grid.map((p, i) => (i ? "L" : "M") + x(p.tH).toFixed(2) + "," + y(p[field][q]).toFixed(2)).join(" "), area = line("p95") + [...r.grid].reverse().map((p) => "L" + x(p.tH).toFixed(2) + "," + y(p[field].p05).toFixed(2)).join(" ") + "Z";
+          out += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 195" role="img" aria-label="Sampled ' + label + " P05-P95 band and P50 in " + unit + '"><title>' + label + " conditional quantiles in " + unit + '</title><text x="60" y="16">' + label + " " + unit + '; P50 line and P05-P95 band</text><path d="' + area + '" fill="#526f91" opacity=".18"/><path d="' + line("p50") + '" fill="none" stroke="#295776" stroke-width="2.5"/><text x="5" y="30">' + v15Number(max, 3) + '</text><text x="35" y="148">0</text><text x="60" y="180">0 h</text><text x="840" y="180">' + v15Number(end) + " h</text></svg>";
+        }
+        out += "<pre>" + v15Escape(JSON.stringify({ seed: r.seed, samples: r.samples, threshold: r.threshold, deltas: r.deltas }, null, 2)) + "</pre>";
+      }
+      if (r.kind === "benchmarks") out += "<p>" + v15Escape(r.criteria) + "</p><table><thead><tr><th>Cohort</th><th>Observed Cmax</th><th>Predicted Cmax</th><th>Units</th><th>Difference / SD</th></tr></thead><tbody>" + r.rows.map((b) => "<tr><td>" + v15Escape(b.cohort) + "</td><td>" + v15Number(b.observed, 5) + "</td><td>" + v15Number(b.predicted, 5) + "</td><td>" + v15Escape(b.unit) + "</td><td>" + v15Number(b.standardizedError, 3) + "</td></tr>").join("") + "</tbody></table>";
+      if (depth === "expert") out += "<h4>Captured scientific record</h4><pre>" + v15Escape(JSON.stringify(r, null, 2)) + "</pre>";
+    }
+    return out;
   }
 
   // src/ui/report.mjs
@@ -7352,7 +8474,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     }).join("");
   }
   function v15BuildReport(data) {
-    const { frame, result, snapshotId, versions, depth = "detailed", comparison = null, eventAmounts = null } = data;
+    const { frame, result, snapshotId, versions, depth = "detailed", comparison = null, eventAmounts = null, scienceResults = [] } = data;
     if (!result) throw Error("A current accepted calculation is required for a report.");
     const esc = v15Escape, num = v15Number, subject = frame.document.mainScenario.subject, constants = frame.document.mainScenario.constants, events = frame.document.mainScenario.doseEvents;
     const time = frame.presentation.selectedTimeH, point = v15Interpolate(result.analysisPoints ?? result.points, time), zone = frame.presentation.scenarioTimeZone, anchor = Date.parse(frame.presentation.scenarioAnchorInstant);
@@ -7384,6 +8506,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     if (comparison?.status === "valid") {
       parts.push("<h2>Accepted A/B comparison</h2>" + table([row("Scenario A", comparison.input.scenarios.A.label), row("Scenario B", comparison.input.scenarios.B.label), row("Comparison alignment", "Elapsed hours from each captured model zero"), row("A anchor", comparison.input.scenarios.A.calendarAnchorInstant ?? "Anchor not captured"), row("A time zone", comparison.input.scenarios.A.calendarTimeZone ?? "Not captured"), row("B anchor", comparison.input.scenarios.B.calendarAnchorInstant ?? "Anchor not captured"), row("B time zone", comparison.input.scenarios.B.calendarTimeZone ?? "Not captured"), row("A snapshot", comparison.A.snapshotId), row("B snapshot", comparison.B.snapshotId), row("A peak BAC", num(comparison.A.numerical.summary.peakBACGdL, 5) + " g/dL"), row("B peak BAC", num(comparison.B.numerical.summary.peakBACGdL, 5) + " g/dL"), row("A peak caffeine", num(comparison.A.numerical.summary.peakCaffeineMgL, 5) + " mg/L"), row("B peak caffeine", num(comparison.B.numerical.summary.peakCaffeineMgL, 5) + " mg/L")]));
     }
+    parts.push(scientificReport(frame, scienceResults, depth));
     if (depth === "expert") parts.push("<h2>Complete constants</h2>" + table(Object.entries(constants).map(([k, v]) => row(k, typeof v === "object" ? JSON.stringify(v) : v))) + "<h2>Numerical and summary metadata</h2><pre>" + esc(JSON.stringify(result.summary, null, 2)) + "</pre><h2>Reproducible input state</h2><pre>" + esc(JSON.stringify(frame, null, 2)) + "</pre>");
     parts.push("<h2>Interpretation and provenance</h2><p>Concentrations, compartment amounts and crossings are computed from the selected model and parameters. Functional and behavioural indices use their defined heuristic transformations. Sensitivity envelopes describe selected parameter perturbations. The report retains its snapshot and version identity.</p><p>Parameter sources and model diagnostics are available in the application Analysis \u2192 Diagnostics view and Model sources and release identity dialog. A separate exported session JSON preserves the editable document and history.</p></body></html>");
     return parts.join("\n");
@@ -7460,7 +8583,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       ["Perceived control proxy", "perceivedControlIndex", "Constructed response using the configured calibration and pharmacological terms. The retained no-exposure encoding is zero."],
       ["Mismatch proxy", "mismatchIndex", "Constructed coexistence of activation/perceived control and ethanol-related impairment."]
     ];
-    const evaluate = () => action(async () => {
+    const evaluate2 = () => action(async () => {
       if (!eventId) throw Error("Select an intake to remove.");
       setBusy(true);
       setCounter(null);
@@ -7486,7 +8609,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       ["Ethanol elimination", v15Number(flux.ethanolEliminationGPerH, 5), "g/h"],
       ["Systemic caffeine appearance", v15Number(flux.caffeineSystemicAppearanceMgPerH, 5), "mg/h"],
       ["Caffeine elimination", v15Number(flux.caffeineEliminationMgPerH, 5), "mg/h"]
-    ] }), /* @__PURE__ */ h("p", { className: "v15-note" }, flux.method, " Interval width: ", v15Number(flux.intervalH * 60, 4), " min.")), /* @__PURE__ */ h(Panel, { title: "Definitions of the functional indices" }, /* @__PURE__ */ h("p", null, "These are defined heuristic scales. The source model encodes no active exposure with zero-valued indices; the configured baseline terms operate inside the exposure-response calculation."), /* @__PURE__ */ h(Table, { headers: ["Index", "Value on a 0\u2013100 scale", "Meaning"], rows: pd.filter(([, key]) => p?.[key] !== void 0).map(([label, key, definition]) => [label, v15Number(p[key] * 100, 3), definition]) })), /* @__PURE__ */ h(Panel, { title: "Remove one intake counterfactual" }, /* @__PURE__ */ h("p", null, "Evaluate the original accepted schedule against the same schedule after one intake is removed. This conditional difference includes shared nonlinear dynamics."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Accepted intake", /* @__PURE__ */ h("select", { value: eventId, onChange: (e) => setEventId(e.target.value) }, /* @__PURE__ */ h("option", { value: "" }, "Select an intake"), input.doseEvents.map((e) => /* @__PURE__ */ h("option", { key: e.id, value: e.id }, e.label || e.id, " \xB7 ", v15TimeLabel(e.startTimeH))))), /* @__PURE__ */ h(Button, { primary: true, disabled: !current || busy || !eventId, onClick: evaluate }, busy ? "Evaluating\u2026" : "Evaluate removal")), !current && /* @__PURE__ */ h("p", null, "Wait for a current accepted result before evaluating a counterfactual."), counter?.status === "valid" && counter.inputKey === state.accepted?.numericalKey && /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h("p", null, "Removed: ", /* @__PURE__ */ h("strong", null, counter.event.label), ". Delta = remaining schedule minus original schedule."), /* @__PURE__ */ h(Table, { headers: ["Output", "Original", "Remaining schedule", "Delta", "Unit"], rows: v15MetricRows(counter.A.numerical, counter.B.numerical).map((x) => bacMetric(x, state.presentation)).map((x) => [x.label, v15Number(x.a, 5), v15Number(x.b, 5), v15Number(x.delta, 5), x.unit]) })), counter && counter.status !== "valid" && /* @__PURE__ */ h("p", { role: "alert" }, "Counterfactual status: ", counter.status, ". ", counter.message)), detail === "expert" && /* @__PURE__ */ h(Panel, { title: "Selected-time numerical provenance" }, /* @__PURE__ */ h("p", null, "Current inspection is interpolated from the accepted dense trajectory. The original Expert workspace retains complete diagnostics and coefficient provenance."), /* @__PURE__ */ h("pre", { className: "v15-code" }, JSON.stringify({ snapshotId: snapshot.snapshotId, solver: result.solver, convergence: result.convergence, integrity: result.integrity, selectedPoint: p }, null, 2))));
+    ] }), /* @__PURE__ */ h("p", { className: "v15-note" }, flux.method, " Interval width: ", v15Number(flux.intervalH * 60, 4), " min.")), /* @__PURE__ */ h(Panel, { title: "Definitions of the functional indices" }, /* @__PURE__ */ h("p", null, "These are defined heuristic scales. The source model encodes no active exposure with zero-valued indices; the configured baseline terms operate inside the exposure-response calculation."), /* @__PURE__ */ h(Table, { headers: ["Index", "Value on a 0\u2013100 scale", "Meaning"], rows: pd.filter(([, key]) => p?.[key] !== void 0).map(([label, key, definition]) => [label, v15Number(p[key] * 100, 3), definition]) })), /* @__PURE__ */ h(Panel, { title: "Remove one intake counterfactual" }, /* @__PURE__ */ h("p", null, "Evaluate the original accepted schedule against the same schedule after one intake is removed. This conditional difference includes shared nonlinear dynamics."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Accepted intake", /* @__PURE__ */ h("select", { value: eventId, onChange: (e) => setEventId(e.target.value) }, /* @__PURE__ */ h("option", { value: "" }, "Select an intake"), input.doseEvents.map((e) => /* @__PURE__ */ h("option", { key: e.id, value: e.id }, e.label || e.id, " \xB7 ", v15TimeLabel(e.startTimeH))))), /* @__PURE__ */ h(Button, { primary: true, disabled: !current || busy || !eventId, onClick: evaluate2 }, busy ? "Evaluating\u2026" : "Evaluate removal")), !current && /* @__PURE__ */ h("p", null, "Wait for a current accepted result before evaluating a counterfactual."), counter?.status === "valid" && counter.inputKey === state.accepted?.numericalKey && /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h("p", null, "Removed: ", /* @__PURE__ */ h("strong", null, counter.event.label), ". Delta = remaining schedule minus original schedule."), /* @__PURE__ */ h(Table, { headers: ["Output", "Original", "Remaining schedule", "Delta", "Unit"], rows: v15MetricRows(counter.A.numerical, counter.B.numerical).map((x) => bacMetric(x, state.presentation)).map((x) => [x.label, v15Number(x.a, 5), v15Number(x.b, 5), v15Number(x.delta, 5), x.unit]) })), counter && counter.status !== "valid" && /* @__PURE__ */ h("p", { role: "alert" }, "Counterfactual status: ", counter.status, ". ", counter.message)), detail === "expert" && /* @__PURE__ */ h(Panel, { title: "Selected-time numerical provenance" }, /* @__PURE__ */ h("p", null, "Current inspection is interpolated from the accepted dense trajectory. The original Expert workspace retains complete diagnostics and coefficient provenance."), /* @__PURE__ */ h("pre", { className: "v15-code" }, JSON.stringify({ snapshotId: snapshot.snapshotId, solver: result.solver, convergence: result.convergence, integrity: result.integrity, selectedPoint: p }, null, 2))));
   }
 
   // src/ui/projects.jsx
@@ -7502,7 +8625,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       }
       await action(async () => controller.importText(await file.text()), "Session imported and validated.");
     };
-    const exportSession = () => action(() => download("pkpd-session-v1.6.0.json", JSON.stringify(controller.project(includeHistory), null, 2)), "Session JSON prepared for download.");
+    const exportSession = () => action(() => download("pkpd-session-v2.0.0.json", JSON.stringify(controller.project(includeHistory), null, 2)), "Session JSON prepared for download.");
     return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Portable session documents", kicker: "Saved states and recovery" }, /* @__PURE__ */ h("p", null, "A session document contains the committed scenario, comparison state, absolute anchor, time zone, analysis markers and optional bounded editing history. Existing 0.8.2 scenario JSON files can also be imported."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: exportSession }, "Export session JSON"), /* @__PURE__ */ h(Button, { onClick: () => fileRef.current.click() }, "Import session or legacy scenario"), /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: includeHistory, onChange: (e) => setIncludeHistory(e.target.checked) }), "Include editing history"), /* @__PURE__ */ h("input", { ref: fileRef, type: "file", accept: ".json,application/json", hidden: true, onChange: imported })), !controller.canSave() && /* @__PURE__ */ h("p", null, "Finish or correct incomplete inputs before saving or exporting the current session.")), /* @__PURE__ */ h(Panel, { title: "Session recovery" }, /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: controller.recoveryEnabled, onChange: (e) => action(() => controller.setRecovery(e.target.checked)) }), "Enable session recovery in this browser"), /* @__PURE__ */ h("p", { role: "status" }, /* @__PURE__ */ h("strong", null, controller.storageStatus), " \xB7 ", controller.message || "Choose a recovery setting. Saved states and exported files are available separately."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { disabled: !controller.canSave(), onClick: () => action(() => controller.flushRecovery(true), "Recovery copy saved.") }, "Save recovery copy now"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.restoreRecovery(), "Recovery copy restored.") }, "Restore recovery copy"), /* @__PURE__ */ h(Button, { disabled: !controller.recovery, onClick: () => action(() => controller.clearRecovery(), "Recovery copy cleared.") }, "Clear recovery copy")), controller.recovery && /* @__PURE__ */ h("p", { className: "v15-note" }, "Available copy: ", new Date(controller.recovery.updatedAt).toLocaleString(), " \xB7 ", controller.recovery.project.frame.document.title || "Untitled scenario"), /* @__PURE__ */ h("p", { className: "v15-note" }, "Storage backend: ", controller.storage.mode, ". Keep an exported session file for restoration in another browser or device. Earlier scenario autosaves remain available through the compatibility control below.")), /* @__PURE__ */ h(Panel, { title: "Named saved states" }, /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Saved-state name", /* @__PURE__ */ h("input", { value: name, maxLength: "160", onChange: (e) => setName(e.target.value), placeholder: "Baseline before timing change" })), /* @__PURE__ */ h(Button, { primary: true, disabled: !controller.canSave(), onClick: () => action(async () => {
       await controller.saveNamed(name);
       setName("");
@@ -7556,8 +8679,8 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const ready = current && comparisonReady;
     const make = () => action(() => {
       if (!ready) throw Error("Wait for current accepted main and comparison results before generating the report.");
-      const frame = controller.validateFrame(controller.capture()), html = v15BuildReport({ frame, result, snapshotId: snapshot.snapshotId, versions: { ...bridge.versions }, depth, eventAmounts: Object.fromEntries(frame.document.mainScenario.doseEvents.map((e) => [e.id, { ethanolGrams: bridge.ethanolAmount(e, frame.document.mainScenario.constants), caffeineMg: bridge.caffeineAmount(e) }])), comparison: state.document.comparisonEnabled ? comparison : null });
-      download("pkpd-analysis-v1.6.0.html", html, "text/html;charset=utf-8");
+      const frame = controller.validateFrame(controller.capture()), html = v15BuildReport({ frame, result, snapshotId: snapshot.snapshotId, versions: { ...bridge.versions }, depth, scienceResults: science.exportRecords(), eventAmounts: Object.fromEntries(frame.document.mainScenario.doseEvents.map((e) => [e.id, { ethanolGrams: bridge.ethanolAmount(e, frame.document.mainScenario.constants), caffeineMg: bridge.caffeineAmount(e) }])), comparison: state.document.comparisonEnabled ? comparison : null });
+      download("pkpd-analysis-v2.0.0.html", html, "text/html;charset=utf-8");
       setGenerated({ snapshotId: snapshot.snapshotId, time: (/* @__PURE__ */ new Date()).toLocaleString(), bytes: new TextEncoder().encode(html).byteLength });
     }, "Analysis report prepared for download.");
     return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(SnapshotNotice, { state, snapshot }), /* @__PURE__ */ h(Panel, { title: "A frozen, readable analysis document", kicker: "Report" }, /* @__PURE__ */ h("p", null, "The report freezes the accepted calculation, chronology and provenance. Concentrations use explicitly labelled canonical units. Detailed and Expert depth add assumptions, compartments and numerical provenance."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Report depth", /* @__PURE__ */ h("select", { value: depth, onChange: (e) => setDepth(e.target.value) }, ["default", "detailed", "expert"].map((v) => /* @__PURE__ */ h("option", { key: v, value: v }, v[0].toUpperCase() + v.slice(1))))), /* @__PURE__ */ h(Button, { primary: true, disabled: !ready, onClick: make }, "Download analysis report"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "projects") }, "Export editable session")), !current && /* @__PURE__ */ h("p", null, "Finish input editing and wait for a Current accepted result."), !comparisonReady && /* @__PURE__ */ h("p", null, "Waiting for the enabled A/B comparison to finish."), /* @__PURE__ */ h("p", { className: "v15-note" }, "Open the downloaded HTML in a browser. Use the browser\u2019s Print command to produce a PDF. The separate session JSON preserves editable state and history."), generated && /* @__PURE__ */ h("p", { role: "status" }, "Prepared ", generated.time, " \xB7 ", v15Number(generated.bytes), " bytes \xB7 snapshot ", generated.snapshotId, ".")), /* @__PURE__ */ h(Panel, { title: "Report contents" }, /* @__PURE__ */ h(Table, { headers: ["Depth", "Included content"], rows: [
@@ -7698,6 +8821,33 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     ]
   };
 
+  // src/content/science-guide.mjs
+  var SCIENCE_GUIDES = {
+    default: [
+      ["Open the scientific workbench", "Choose Analysis, then Scientific workbench. Select Evaluation, Calibration, Uncertainty or Evidence inside that workspace.", "The main navigation remains in its familiar position. Each task has a distinct configuration and result.", "The ordinary Analysis overview continues to use the retained v1.60 reference equations."],
+      ["Enter observations", "Choose Session, then Observations. Download the CSV template. Replace its illustrative values with your measurements and enter the actual units, sampling matrix and elapsed times. Paste the CSV, enter its source and choose Validate and import observations.", "The committed dataset table shows every accepted measurement and its role.", "Rows default to evaluation. Calibration requires at least four quantified calibration rows at three distinct times."],
+      ["Evaluate a prediction", "Wait for Current calculation. Open Analysis, Scientific workbench, Evaluation. Choose Evaluate current observations.", "Lines show the model and circles show the measurements. The table reports error separately by analyte and dataset role.", "Residuals use the explicitly labelled canonical units. A synthetic example is a software diagnostic."],
+      ["Run a bounded uncertainty example", "Open Uncertainty. Select effective caffeine half-life, keep triangular sampling, inspect the lower and upper bounds, and use 32 samples with a recorded integer seed. Choose Run uncertainty sampling.", "The result shows a median line and P05-P95 shading for the chosen distribution.", "A caffeine intake and direct effective-half-life mode must be active. The bounds must contain the reference half-life."],
+      ["Keep an editable record", "Export Session JSON after the job completes. Save the file outside the browser.", "The document contains observations, model identity, configurations and the latest three scientific result records.", "Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias."]
+    ],
+    detailed: [
+      ["Separate calibration from evaluation", "In the observation CSV, assign calibration to rows used for estimation and evaluation to rows reserved for checking predictions. Include an SD in each row when its measurement error is known.", "Evaluation rows appear in error summaries and remain outside the fitting objective.", "Changing an evaluation value cannot change the estimated parameters. Reusing the same participants across roles still limits independence."],
+      ["Fit one active parameter", "Open Calibration. Select one parameter, enter increasing bounds inside the stated supported range, and choose Fit selected parameters.", "The application reports an estimate, objective value, residuals, boundary contact and a local identifiability assessment.", "The estimate is conditional on recorded doses, model structure, matrix factors and the chosen error scales."],
+      ["Apply a fitted profile explicitly", "Review residuals and diagnostics. Enter a profile name. Choose Apply fitted values when it is enabled.", "The main scenario changes in one undoable edit and retains an applied-profile record.", "Use Undo to recover the preceding parameter set. Imported result archives must be recomputed before application."],
+      ["Read conditional threshold outcomes", "After uncertainty sampling, inspect the counts of open intervals, never-exceeded trajectories and resolved final returns.", "Final-return quantiles explicitly use resolved trajectories. The unresolved count remains visible.", "An open interval at the horizon remains censored. Extend the horizon and rerun to investigate it."],
+      ["Evaluate published summaries", "Open Evaluation and choose Run published benchmarks. Open Cohort reconstruction and evidence limits.", "Four group-level Cmax comparisons from two studies show predictions, reported means and standardized discrepancies.", "The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated."]
+    ],
+    expert: [
+      ["Audit model and observation identity", "Open Evidence. Search the parameter registry and inspect source populations, application values, derivations and applicability limits. Inspect captured inputs in the scientific JSON export.", "Engine 0.4.4, constants 0.3.0, profile reference-1.60 and the evidence revision identify the scientific configuration.", "The population Vmax confidence interval is distinct from a distribution of individual elimination rates."],
+      ["Specify matrix and timing transforms", "Use time_iso with a Z suffix or UTC offset for absolute observations. Supply matrix_factor when converting a supported alternative matrix to whole-blood ethanol or plasma caffeine.", "The canonical observation values follow the declared unit and matrix transformations.", "Breath measurements require a separate model. Upper limits retain qualifier < and use an explicit one-sided squared penalty."],
+      ["Check parameter dependence", "For a two-parameter fit provide at least six quantified calibration observations. Review sensitivity correlation and boundary contact.", "Highly dependent local sensitivities disable application of the fit.", "A maximum elimination rate and its multiplier cannot be independently estimated from their effective product. The registered fit set avoids that redundant pair."],
+      ["Declare joint sampling assumptions", "In Uncertainty open Parameter dependence and sampling assumptions. Enter a symmetric positive-definite correlation matrix matching the selected parameter count. Record the seed and distributions.", "The sampler uses a Gaussian copula and rejects complete draws outside the declared bounds.", "Correlation is latent and precedes transformation and truncation. Lognormal reference values are medians. Other unrepresented uncertainty sources remain outside the band."],
+      ["Use paired A/B sampling", "Prepare A and B in Compare and enable the comparison. Set equal horizons. In Uncertainty select Paired A/B sampling and run.", "Both scenarios receive identical absolute parameter draws; the result includes B-minus-A metric quantiles.", "A and B must both activate every sampled parameter. Identical scenarios produce zero paired differences."],
+      ["Inspect coarse objective support", "For a one-parameter fit inspect the objective-support grid. A support interval is emitted only when all calibration rows are quantified and supply SD.", "The interval uses a stated delta-weighted-SSE criterion under independent Gaussian errors.", "Grid resolution and parameter bounds can truncate support. Missing SD or upper-limit penalties suppress the interval."],
+      ["Reproduce offline and archived results", "Save a portable session and a scientific result JSON. Reopen the standalone application or hosted application and import the session. Run the recorded configuration again.", "Seeds and captured inputs reproduce sampled draws and quantiles within the same implementation.", "Imported records remain archival until recomputed. Worker jobs can be cancelled; prior accepted results retain their captured inputs."]
+    ]
+  };
+
   // src/ui/help.jsx
   function V15Help() {
     const state = useSession(), route = window.location.hash.split("/")[1], level = ["default", "detailed", "expert"].includes(route) ? route : state.presentation.detailMode;
@@ -7706,7 +8856,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const load = () => {
       if (window.confirm("Load the worked example into the main scenario? The current committed state remains available through Undo.")) action(() => bridge.loadDemo(demo), "Worked example loaded. Open inputs or Session to inspect it.");
     };
-    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "How to use this application", kicker: "Explicit instructions by expertise and analytical scope" }, /* @__PURE__ */ h("p", null, "Read an instruction, perform its action, and check the expected result before continuing. The Scientific depth control changes the visible analytical depth. Reading preferences are independent. Each level uses the same numerical calculation authority."), /* @__PURE__ */ h("div", { className: "v15-tabs", role: "group", "aria-label": "Guide expertise level" }, ["default", "detailed", "expert"].map((x) => /* @__PURE__ */ h(Button, { key: x, "aria-pressed": level === x, onClick: () => navigate("help", x) }, x[0].toUpperCase() + x.slice(1)))), /* @__PURE__ */ h("h3", null, guide.title), /* @__PURE__ */ h("p", null, guide.scope), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, onClick: () => action(() => controller.setDetailMode(level), level[0].toUpperCase() + level.slice(1) + " detail mode selected.") }, "Use ", level[0].toUpperCase() + level.slice(1), " mode"), /* @__PURE__ */ h(Button, { onClick: () => navigate("calculate") }, "Open inputs"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "timeline") }, "Open schedule")), /* @__PURE__ */ h("label", { className: "v15-field" }, "Search this guide", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try duration, history, clock, half-life or report" })), /* @__PURE__ */ h("div", { className: "v15-guide-jumps" }, sections.map((s) => /* @__PURE__ */ h(Button, { key: s.id, onClick: () => document.getElementById("v15-guide-" + s.id)?.scrollIntoView({ block: "start" }) }, s.title)))), /* @__PURE__ */ h(Disclosure, { id: "worked-examples", title: "Worked examples" }, /* @__PURE__ */ h("p", null, "Each example is synthetic and uses documented reference inputs. Loading one creates an undoable scenario transaction."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Example", /* @__PURE__ */ h("select", { "aria-label": "Example", value: demo, onChange: (e) => setDemo(e.target.value) }, /* @__PURE__ */ h("option", { value: "coffee" }, "Single coffee: absorption and elimination"), /* @__PURE__ */ h("option", { value: "episodes" }, "Two ethanol episodes: repeated threshold crossings"), /* @__PURE__ */ h("option", { value: "overnight" }, "Overnight mixed scenario: calendar and markers"))), /* @__PURE__ */ h(Button, { onClick: load }, "Load worked example"))), !sections.length && /* @__PURE__ */ h(Panel, { title: "No walkthrough steps match" }, /* @__PURE__ */ h("p", null, "Try a shorter search term or clear the search field.")), sections.map((section) => /* @__PURE__ */ h(Panel, { key: section.id, id: "v15-guide-" + section.id, title: section.title, className: "v15-guide-section" }, section.steps.map(({ step, index }) => /* @__PURE__ */ h("article", { key: step[0], className: "v15-guide-step" }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(index + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, step[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", step[1]), /* @__PURE__ */ h("p", { className: "v15-expected" }, /* @__PURE__ */ h("strong", null, "Expected result."), " ", step[2]), step[3] && /* @__PURE__ */ h("p", { className: "v15-note" }, /* @__PURE__ */ h("strong", null, "Check."), " ", step[3])))))), /* @__PURE__ */ h(Panel, { title: "Offline installation and updates" }, V15_GUIDE_COMMON.offline.map((s, i) => /* @__PURE__ */ h("article", { className: "v15-guide-step", key: s[0] }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, s[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", s[1]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Expected result."), " ", s[2]))))), /* @__PURE__ */ h(Panel, { title: "Glossary" }, /* @__PURE__ */ h(Table, { headers: ["Term", "Meaning"], rows: V15_GUIDE_COMMON.glossary })), /* @__PURE__ */ h(Panel, { title: "Troubleshooting" }, V15_GUIDE_COMMON.troubleshooting.map(([title, text]) => /* @__PURE__ */ h("details", { className: "v15-details", key: title }, /* @__PURE__ */ h("summary", null, title), /* @__PURE__ */ h("p", null, text)))));
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "How to use this application", kicker: "Explicit instructions by expertise and analytical scope" }, /* @__PURE__ */ h("p", null, "Read an instruction, perform its action, and check the expected result before continuing. The Scientific depth control changes the visible analytical depth. Reading preferences are independent. Each level uses the same numerical calculation authority."), /* @__PURE__ */ h("div", { className: "v15-tabs", role: "group", "aria-label": "Guide expertise level" }, ["default", "detailed", "expert"].map((x) => /* @__PURE__ */ h(Button, { key: x, "aria-pressed": level === x, onClick: () => navigate("help", x) }, x[0].toUpperCase() + x.slice(1)))), /* @__PURE__ */ h("h3", null, guide.title), /* @__PURE__ */ h("p", null, guide.scope), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, onClick: () => action(() => controller.setDetailMode(level), level[0].toUpperCase() + level.slice(1) + " detail mode selected.") }, "Use ", level[0].toUpperCase() + level.slice(1), " mode"), /* @__PURE__ */ h(Button, { onClick: () => navigate("calculate") }, "Open inputs"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "timeline") }, "Open schedule")), /* @__PURE__ */ h("label", { className: "v15-field" }, "Search this guide", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try duration, history, clock, half-life or report" })), /* @__PURE__ */ h("div", { className: "v15-guide-jumps" }, sections.map((s) => /* @__PURE__ */ h(Button, { key: s.id, onClick: () => document.getElementById("v15-guide-" + s.id)?.scrollIntoView({ block: "start" }) }, s.title)))), /* @__PURE__ */ h(Panel, { title: "Scientific workbench walkthrough" }, SCIENCE_GUIDES[level].filter((step) => !q || step.join(" ").toLowerCase().includes(q)).map((step, i) => /* @__PURE__ */ h("article", { key: step[0], className: "v15-guide-step" }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, i + 1), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, step[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", step[1]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Expected result."), " ", step[2]), /* @__PURE__ */ h("p", { className: "v15-note" }, /* @__PURE__ */ h("strong", null, "Check."), " ", step[3]))))), /* @__PURE__ */ h(Disclosure, { id: "worked-examples", title: "Worked examples" }, /* @__PURE__ */ h("p", null, "Each example is synthetic and uses documented reference inputs. Loading one creates an undoable scenario transaction."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Example", /* @__PURE__ */ h("select", { "aria-label": "Example", value: demo, onChange: (e) => setDemo(e.target.value) }, /* @__PURE__ */ h("option", { value: "coffee" }, "Single coffee: absorption and elimination"), /* @__PURE__ */ h("option", { value: "episodes" }, "Two ethanol episodes: repeated threshold crossings"), /* @__PURE__ */ h("option", { value: "overnight" }, "Overnight mixed scenario: calendar and markers"))), /* @__PURE__ */ h(Button, { onClick: load }, "Load worked example"))), !sections.length && /* @__PURE__ */ h(Panel, { title: "No walkthrough steps match" }, /* @__PURE__ */ h("p", null, "Try a shorter search term or clear the search field.")), sections.map((section) => /* @__PURE__ */ h(Panel, { key: section.id, id: "v15-guide-" + section.id, title: section.title, className: "v15-guide-section" }, section.steps.map(({ step, index }) => /* @__PURE__ */ h("article", { key: step[0], className: "v15-guide-step" }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(index + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, step[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", step[1]), /* @__PURE__ */ h("p", { className: "v15-expected" }, /* @__PURE__ */ h("strong", null, "Expected result."), " ", step[2]), step[3] && /* @__PURE__ */ h("p", { className: "v15-note" }, /* @__PURE__ */ h("strong", null, "Check."), " ", step[3])))))), /* @__PURE__ */ h(Panel, { title: "Offline installation and updates" }, V15_GUIDE_COMMON.offline.map((s, i) => /* @__PURE__ */ h("article", { className: "v15-guide-step", key: s[0] }, /* @__PURE__ */ h("div", { className: "v15-step-number" }, String(i + 1).padStart(2, "0")), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("h3", null, s[0]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Action."), " ", s[1]), /* @__PURE__ */ h("p", null, /* @__PURE__ */ h("strong", null, "Expected result."), " ", s[2]))))), /* @__PURE__ */ h(Panel, { title: "Glossary" }, /* @__PURE__ */ h(Table, { headers: ["Term", "Meaning"], rows: V15_GUIDE_COMMON.glossary })), /* @__PURE__ */ h(Panel, { title: "Troubleshooting" }, V15_GUIDE_COMMON.troubleshooting.map(([title, text2]) => /* @__PURE__ */ h("details", { className: "v15-details", key: title }, /* @__PURE__ */ h("summary", null, title), /* @__PURE__ */ h("p", null, text2)))));
   }
 
   // src/ui/plots.jsx
@@ -7895,8 +9045,8 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     { label: "How to use", terms: "help walkthrough instructions example", route: ["help", "default"] }
   ];
   function parameterMatches(entry, query) {
-    const q = query.trim().toLowerCase(), name = parameterLabel(entry.id), text = [name, entry.id, entry.path, entry.unit, entry.applicability, entry.message].join(" ").toLowerCase();
-    return !q || q.split(/\s+/).every((word) => text.includes(word));
+    const q = query.trim().toLowerCase(), name = parameterLabel(entry.id), text2 = [name, entry.id, entry.path, entry.unit, entry.applicability, entry.message].join(" ").toLowerCase();
+    return !q || q.split(/\s+/).every((word) => text2.includes(word));
   }
   function SearchDialog({ onClose, onParameter, onAdd, onPerson }) {
     const [query, setQuery] = React.useState(""), q = query.trim().toLowerCase(), entries = bridge.parameters.filter((e) => parameterMatches(e, q)).slice(0, 20);
@@ -7922,13 +9072,134 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Parameters and assumptions" }, /* @__PURE__ */ h("p", { className: "v160-help" }, "Values are committed scenario inputs. The selected formulation determines which inputs are active. Changes are validated and recorded in Undo history."), /* @__PURE__ */ h("label", { className: "v15-field v160-search-field" }, "Filter parameters", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Name, field path or unit" })), /* @__PURE__ */ h("div", { className: "v160-section-heading" }, /* @__PURE__ */ h("span", null, entries.length, " matching parameters"), /* @__PURE__ */ h(Button, { onClick: () => navigate("expert") }, "Diagnostics and coefficient sources"))), subject.length > 0 && /* @__PURE__ */ h(Panel, { title: "Person, timing and model formulation" }, table(subject)), constants.length > 0 && /* @__PURE__ */ h(Panel, { title: "Model constants" }, table(constants)), !entries.length && /* @__PURE__ */ h(Panel, { title: "No matching parameters" }, /* @__PURE__ */ h("p", null, "Try a shorter name, an abbreviation or a unit.")));
   }
 
+  // src/ui/science.jsx
+  var n = (v, d = 4) => v == null ? "Unavailable" : v15Number(v, d);
+  function ScienceWorkspace({ view }) {
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h("nav", { className: "v2-workbench-tabs", "aria-label": "Scientific workbench views" }, [["Evaluation", "validation"], ["Calibration", "calibration"], ["Uncertainty", "uncertainty"], ["Evidence", "evidence"]].map(([label, key]) => /* @__PURE__ */ h("a", { key, href: "#session/" + key, "aria-current": view === key ? "page" : void 0 }, label))), view === "calibration" ? /* @__PURE__ */ h(Calibration, null) : view === "uncertainty" ? /* @__PURE__ */ h(Uncertainty, null) : view === "evidence" ? /* @__PURE__ */ h(Evidence, null) : /* @__PURE__ */ h(Validation, null));
+  }
+  function JobState() {
+    const api = useScience();
+    return /* @__PURE__ */ h("div", { className: "v2-job-state" }, /* @__PURE__ */ h("p", { role: "status" }, /* @__PURE__ */ h("strong", null, api.status === "running" ? "Scientific job running" : api.result ? api.current ? "Scientific result matches these inputs" : "Retained scientific result uses earlier inputs" : "Scientific analysis: " + api.status), api.progress && api.status === "running" ? " - " + api.progress.done + " / " + api.progress.total : ""), api.status === "running" && /* @__PURE__ */ h(Button, { onClick: () => api.cancel() }, "Cancel scientific job"), api.error && /* @__PURE__ */ h("p", { className: "v160-error", role: "alert" }, api.error), api.result && /* @__PURE__ */ h("p", { className: "v160-help" }, "Captured ", api.result.computedAt, " - ", api.result.backend, ". The result retains its own inputs and assumptions."), api.result && /* @__PURE__ */ h(Button, { onClick: () => download("pkpd-scientific-result.json", JSON.stringify(api.result, null, 2)) }, "Download scientific result"), api.records.some((r) => r.imported) && /* @__PURE__ */ h("p", { className: "v160-help" }, "Imported result records are preserved in session exports as an archive. Run the analysis again to produce an applicable current result."));
+  }
+  function useReady() {
+    const state = useSession();
+    return science.status !== "running" && controller.canSave() && state.snapshots.relationToDraft === "current";
+  }
+  function SciencePlot({ result, analyte, band = false }) {
+    const state = useSession(), ref = React.useRef(null), [width, setWidth] = React.useState(740);
+    React.useLayoutEffect(() => {
+      const obs = new ResizeObserver((e) => setWidth(Math.max(280, Math.round(e[0].contentRect.width))));
+      if (ref.current) obs.observe(ref.current);
+      return () => obs.disconnect();
+    }, []);
+    const ethanol = analyte === "ethanol", key = ethanol ? "bacGdL" : "caffeineMgL", series = band ? result.grid : result.points, rows = band ? [] : (result.residuals ?? []).filter((o) => o.analyte === analyte), unit = ethanol ? bacUnit(state.presentation) : "mg/L", convert = (v) => ethanol ? bacValue(v, state.presentation) : v;
+    if (!series?.length) return null;
+    const end = series.at(-1).tH || 1, maximum = Math.max(ethanol ? 1e-3 : 0.1, ...series.map((p) => band ? ethanol ? p.bac.p95 : p.caffeine.p95 : p[key]), ...rows.map((o) => o.observed)) * 1.12, L = 52, R = width - 18, T = 16, B = 140, x = (t) => L + (R - L) * t / end, y = (v) => B - (B - T) * v / maximum;
+    const line = (values2) => values2.map((p, i) => (i ? "L" : "M") + x(p.tH).toFixed(2) + "," + y(p.value).toFixed(2)).join(" "), values = (q) => series.map((p) => ({ tH: p.tH, value: band ? ethanol ? p.bac[q] : p.caffeine[q] : p[key] }));
+    const area = band ? line(values("p95")) + values("p05").reverse().map((p) => "L" + x(p.tH).toFixed(2) + "," + y(p.value).toFixed(2)).join(" ") + "Z" : "";
+    return /* @__PURE__ */ h("div", { ref, className: "v2-science-plot " + (ethanol ? "ethanol" : "caffeine") }, /* @__PURE__ */ h("h3", null, ethanol ? "BAC" : "Caffeine", " ", /* @__PURE__ */ h("small", null, unit)), /* @__PURE__ */ h("svg", { viewBox: "0 0 " + width + " 180", role: "img", "aria-label": (band ? "Sampled P05 to P95 band and median " : "Model curve and measured circles ") + (ethanol ? "BAC" : "caffeine") + " over elapsed hours" }, /* @__PURE__ */ h("title", null, band ? "Conditional sampled quantiles. A band represents the supplied parameter distributions." : "The line is the captured prediction. Circles are observations; observation details and residuals are available in the table."), [0, 0.5, 1].map((v) => /* @__PURE__ */ h("g", { key: v }, /* @__PURE__ */ h("line", { x1: L, x2: R, y1: y(maximum * v), y2: y(maximum * v), className: "v160-grid-line" }), /* @__PURE__ */ h("text", { x: L - 7, y: y(maximum * v) + 4, textAnchor: "end" }, n(convert(maximum * v), ethanol ? 3 : 2)))), [0, 0.25, 0.5, 0.75, 1].map((v) => /* @__PURE__ */ h("text", { key: v, x: x(end * v), y: "166", textAnchor: "middle" }, n(end * v, 1), " h")), band && /* @__PURE__ */ h("path", { d: area, fill: "currentColor", opacity: ".16" }), /* @__PURE__ */ h("path", { d: line(values("p50")), fill: "none", stroke: "currentColor", strokeWidth: "2.5", strokeDasharray: ethanol ? void 0 : "7 4" }), rows.map((o) => /* @__PURE__ */ h("circle", { key: o.id, cx: x(o.timeH), cy: y(o.observed), r: "3.5", fill: "var(--v160-surface)", stroke: "currentColor", strokeWidth: "2" }, /* @__PURE__ */ h("title", null, o.label || o.id, ": ", o.qualifier, " ", n(convert(o.observed)), " ", unit, " at ", n(o.timeH), " h")))), /* @__PURE__ */ h("p", { className: "v160-help" }, band ? "Line: P50. Shading: P05-P95 sampled quantiles." : "Line: model. Circles: observations. Upper-limit observations retain their < qualifier in the table."));
+  }
+  function ResidualResult({ result }) {
+    return /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h("div", { className: "v2-science-plots" }, ["ethanol", "caffeine"].map((a) => /* @__PURE__ */ h(SciencePlot, { key: a, result, analyte: a }))), /* @__PURE__ */ h(Table, { caption: "Observation evaluation by analyte and dataset role", headers: ["Analyte / role", "Quantified / censored", "Bias", "MAE", "RMSE", "Units"], rows: result.metrics.map((m) => [m.analyte + " / " + m.role, m.n + " / " + m.censored, n(m.bias), n(m.mae), n(m.rmse), m.unit]) }), /* @__PURE__ */ h(Disclosure, { id: "observation-residuals", title: "Observations and residuals" }, /* @__PURE__ */ h(Table, { headers: ["Time h", "Analyte / role", "Observed", "Predicted", "Residual", "Units", "SD assumption"], rows: result.residuals.map((o) => [n(o.timeH), o.analyte + " / " + o.role, o.qualifier + " " + n(o.observed), n(o.predicted), n(o.residual), o.canonicalUnit, o.assumedSD ? "Default error scale" : "Supplied measurement SD"]) })));
+  }
+  function Observations() {
+    const state = useSession();
+    useScience();
+    const doc = science.document, [csv, setCSV] = React.useState(""), [source, setSource] = React.useState(doc.observationSource), file = React.useRef(null), [limit, setLimit] = React.useState(20);
+    React.useEffect(() => setSource(doc.observationSource), [doc.observationSource]);
+    const commit = () => action(() => {
+      const next = v15Clone(doc);
+      next.observationSource = source;
+      next.observations = parseObservations(csv, state.presentation.scenarioAnchorInstant);
+      science.edit(next, "Imported observation dataset");
+    }, "Observation dataset imported.");
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Concentration observations", kicker: "Local measurements and provenance" }, /* @__PURE__ */ h("p", null, "Import measurements to compare with a prediction or calibrate selected parameters. Measurements remain in this browser and exported session files. The model-zero anchor is ", state.presentation.scenarioAnchorInstant, "."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { onClick: () => download("pkpd-observation-template.csv", OBSERVATION_TEMPLATE, "text/csv") }, "Download observation CSV template"), /* @__PURE__ */ h(Button, { onClick: () => file.current.click() }, "Choose observation CSV"), /* @__PURE__ */ h(Button, { onClick: () => action(() => science.loadSynthetic(), "Synthetic recovery example loaded.") }, "Load synthetic recovery example"), /* @__PURE__ */ h("input", { ref: file, hidden: true, type: "file", accept: ".csv,text/csv", onChange: (e) => {
+      const f = e.target.files?.[0];
+      e.target.value = "";
+      if (f) action(async () => {
+        if (f.size > 2e5) throw Error("CSV is limited to 200,000 bytes.");
+        setCSV(await f.text());
+      });
+    } })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Dataset source and assumptions", /* @__PURE__ */ h("textarea", { rows: "3", value: source, maxLength: "2000", onChange: (e) => setSource(e.target.value) })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Observation CSV", /* @__PURE__ */ h("textarea", { "aria-label": "Observation CSV", rows: "7", value: csv, onChange: (e) => setCSV(e.target.value), placeholder: "time_h,analyte,value,unit,matrix,role,sd,qualifier,label", spellCheck: "false" })), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, disabled: !csv.trim(), onClick: commit }, "Validate and import observations"), /* @__PURE__ */ h(Button, { onClick: () => action(() => {
+      const next = v15Clone(doc);
+      next.observationSource = source;
+      science.edit(next, "Updated observation provenance");
+    }, "Dataset provenance saved.") }, "Save dataset provenance"), /* @__PURE__ */ h(Button, { disabled: !doc.observations.length, onClick: () => action(() => {
+      const next = v15Clone(doc);
+      next.observations = [];
+      science.edit(next, "Cleared observations");
+    }, "Observations cleared; Undo restores them.") }, "Clear observations"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "calibration") }, "Open calibration")), /* @__PURE__ */ h("p", { className: "v160-help" }, "CSV requires time_h or time_iso, analyte, value, unit and matrix. Use ethanol with whole-blood and g/dL, g/L or mg/dL; caffeine with plasma and mg/L, ng/mL or ug/mL. time_iso requires Z or a UTC offset. Optional role is calibration or evaluation; default evaluation. Optional sd uses the input units; qualifier is = or <. An alternative supported matrix requires an explicit matrix_factor converting to the model matrix. Maximum 200 observations.")), /* @__PURE__ */ h(Panel, { title: "Committed dataset: " + doc.observations.length + " observations" }, /* @__PURE__ */ h("p", null, doc.observationSource), doc.observations.length ? /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h(Table, { headers: ["Label", "Elapsed h", "Analyte", "Value", "Unit / matrix", "Role", "SD"], rows: doc.observations.slice(0, limit).map((o) => [o.label || o.id, n(o.timeH), o.analyte, o.qualifier + " " + n(o.value), o.unit + " / " + o.matrix, o.role, o.sd ?? "Assumed"]) }), limit < doc.observations.length && /* @__PURE__ */ h(Button, { onClick: () => setLimit((v) => v + 40) }, "Show more observations")) : /* @__PURE__ */ h("p", null, "No observations are committed. The synthetic example is an explicitly labelled software diagnostic.")));
+  }
+  function ParameterRows({ rows, onChange, sampling = false }) {
+    return /* @__PURE__ */ h("div", { className: "v2-parameter-rows" }, rows.map((p, i) => /* @__PURE__ */ h("fieldset", { key: i }, /* @__PURE__ */ h("legend", null, "Parameter ", i + 1), /* @__PURE__ */ h("div", { className: "v2-science-fields" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Quantity", /* @__PURE__ */ h("select", { "aria-label": "Parameter " + (i + 1), value: p.id, onChange: (e) => {
+      const id = e.target.value, def = PARAMETERS[id];
+      onChange(rows.map((r, j) => j === i ? { id, lower: def.min, upper: def.max, ...sampling ? { distribution: "triangular" } : {} } : r));
+    } }, Object.entries(PARAMETERS).map(([id, d]) => /* @__PURE__ */ h("option", { key: id, value: id }, d.label, " (", d.unit, ")")))), ["lower", "upper"].map((k) => /* @__PURE__ */ h("label", { key: k, className: "v15-field" }, k === "lower" ? "Lower bound" : "Upper bound", " (", PARAMETERS[p.id]?.unit, ")", /* @__PURE__ */ h("input", { "aria-label": (k === "lower" ? "Lower" : "Upper") + " bound " + (i + 1), type: "number", step: "any", value: p[k], onChange: (e) => onChange(rows.map((r, j) => j === i ? { ...r, [k]: e.target.value } : r)) }))), sampling && /* @__PURE__ */ h("label", { className: "v15-field" }, "Distribution", /* @__PURE__ */ h("select", { "aria-label": "Distribution " + (i + 1), value: p.distribution, onChange: (e) => onChange(rows.map((r, j) => j === i ? { ...r, distribution: e.target.value, cv: 0.2 } : r)) }, /* @__PURE__ */ h("option", { value: "triangular" }, "Triangular; mode = reference value"), /* @__PURE__ */ h("option", { value: "uniform" }, "Uniform within bounds"), /* @__PURE__ */ h("option", { value: "lognormal" }, "Truncated lognormal; median = reference"))), sampling && p.distribution === "lognormal" && /* @__PURE__ */ h("label", { className: "v15-field" }, "Coefficient of variation", /* @__PURE__ */ h("input", { "aria-label": "CV " + (i + 1), type: "number", step: ".01", value: p.cv ?? 0.2, onChange: (e) => onChange(rows.map((r, j) => j === i ? { ...r, cv: e.target.value } : r)) }))), rows.length > 1 && /* @__PURE__ */ h(Button, { onClick: () => onChange(rows.filter((_, j) => j !== i)) }, "Remove parameter ", i + 1))));
+  }
+  function Calibration() {
+    const state = useSession(), ready = useReady();
+    useScience();
+    const doc = science.document, [rows, setRows] = React.useState(v15Clone(doc.fit.parameters)), [budget, setBudget] = React.useState(doc.fit.maxEvaluations), [name, setName] = React.useState("Fitted reference profile");
+    React.useEffect(() => {
+      setRows(v15Clone(doc.fit.parameters));
+      setBudget(doc.fit.maxEvaluations);
+    }, [v15Stable(doc.fit)]);
+    const run = () => action(async () => {
+      const next = v15Clone(doc);
+      next.fit = { parameters: rows, maxEvaluations: Number(budget) };
+      science.edit(next, "Updated calibration configuration");
+      await science.run("fit");
+    }, "Calibration job completed.");
+    const result = science.result?.kind === "fit" ? science.result : null;
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Constrained pharmacokinetic calibration", kicker: MODEL_PROFILE.name }, /* @__PURE__ */ h("p", null, "Fit one or two registered parameters to quantified calibration observations. Evaluation rows remain outside the fitting objective. A fit estimates parameters conditional on this model, dose schedule, matrix factors and measurement-error assumptions."), /* @__PURE__ */ h(ParameterRows, { rows, onChange: setRows }), /* @__PURE__ */ h("div", { className: "v15-actions" }, rows.length < 2 && /* @__PURE__ */ h(Button, { onClick: () => setRows([...rows, { id: rows[0].id === "caffeineVdLPerKg" ? "caffeineHalfLifeH" : "caffeineVdLPerKg", lower: rows[0].id === "caffeineVdLPerKg" ? 1 : 0.3, upper: rows[0].id === "caffeineVdLPerKg" ? 12 : 1.2 }]) }, "Add second fitted parameter"), /* @__PURE__ */ h("label", { className: "v15-field" }, "Maximum objective evaluations", /* @__PURE__ */ h("input", { type: "number", min: "40", max: "320", value: budget, onChange: (e) => setBudget(e.target.value) })), /* @__PURE__ */ h(Button, { primary: true, disabled: !ready || !doc.observations.length, onClick: run }, "Fit selected parameters"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "observations") }, "Edit observations")), /* @__PURE__ */ h("p", { className: "v160-help" }, "At least four quantified calibration observations at three times are required; two parameters require six observations. Bounds, sensitivity dependence and boundary solutions are checked. Effective caffeine half-life requires direct-half-life mode. Missing SD uses 0.002 g/dL ethanol or 0.1 mg/L caffeine as an explicit error scale."), /* @__PURE__ */ h(JobState, null)), result && /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h(Panel, { title: "Fitted result" }, /* @__PURE__ */ h(Table, { headers: ["Parameter", "Fitted value", "Unit"], rows: Object.entries(result.values).map(([id, value]) => [PARAMETERS[id].label, n(value, 6), PARAMETERS[id].unit]) }), /* @__PURE__ */ h("p", null, result.identifiable ? "Local sensitivity check passed." : "Parameters are poorly identified by these observations.", " ", result.atBounds.length ? "Boundary contact: " + result.atBounds.join(", ") + "." : "", " ", result.converged ? "Numerical stopping criterion satisfied." : "The finite search budget ended; inspect objective support and residuals.", " ", result.evaluations, " objective evaluations."), /* @__PURE__ */ h("p", null, result.assumptions), result.supportInterval && /* @__PURE__ */ h("p", null, "Profile support: ", n(result.supportInterval.lower), " to ", n(result.supportInterval.upper), ". ", result.supportInterval.method), /* @__PURE__ */ h("label", { className: "v15-field" }, "Calibration profile name", /* @__PURE__ */ h("input", { value: name, maxLength: "160", onChange: (e) => setName(e.target.value) })), /* @__PURE__ */ h(Button, { primary: true, disabled: !science.current || !result.applicable || result.imported, onClick: () => action(() => science.applyFit(name), "Calibration applied as one undoable edit.") }, "Apply fitted values"), /* @__PURE__ */ h("p", { className: "v160-help" }, "Applying changes the main scenario and creates a named calibration record. Undo restores the prior document. Imported archives must be recomputed before application.")), /* @__PURE__ */ h(ResidualResult, { result }), state.presentation.detailMode === "expert" && /* @__PURE__ */ h(Disclosure, { id: "fit-objective", title: "Objective support and fit provenance" }, /* @__PURE__ */ h("pre", null, JSON.stringify({ objective: result.cost, sensitivityCorrelation: result.sensitivityCorrelation, profile: result.profilePoints, sourceFingerprint: result.releaseFingerprint }, null, 2)))), doc.calibrations.length > 0 && /* @__PURE__ */ h(Panel, { title: "Applied calibration history" }, /* @__PURE__ */ h(Table, { headers: ["Name", "Captured", "Values"], rows: doc.calibrations.map((p) => [p.name, p.computedAt, Object.entries(p.values).map(([id, v]) => PARAMETERS[id].label + " = " + n(v)).join("; ")]) })));
+  }
+  function Uncertainty() {
+    const state = useSession(), ready = useReady();
+    useScience();
+    const doc = science.document, [draft, setDraft] = React.useState(v15Clone(doc.uncertainty)), [corr, setCorr] = React.useState(JSON.stringify(doc.uncertainty.correlation));
+    React.useEffect(() => {
+      setDraft(v15Clone(doc.uncertainty));
+      setCorr(JSON.stringify(doc.uncertainty.correlation));
+    }, [v15Stable(doc.uncertainty)]);
+    const parameters = (rows) => {
+      setDraft({ ...draft, parameters: rows });
+      if (rows.length !== draft.parameters.length) setCorr(JSON.stringify(rows.map((_, i) => rows.map((_2, j) => i === j ? 1 : 0))));
+    };
+    const run = () => action(async () => {
+      const next = v15Clone(doc);
+      next.uncertainty = { ...draft, seed: Number(draft.seed), samples: Number(draft.samples), correlation: JSON.parse(corr) };
+      science.edit(next, "Updated uncertainty configuration");
+      await science.run("uncertainty");
+    }, "Uncertainty sampling completed.");
+    const result = science.result?.kind === "uncertainty" ? science.result : null;
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Reproducible parameter uncertainty", kicker: "Conditional Monte Carlo sampling" }, /* @__PURE__ */ h("p", null, "Choose parameter distributions and a seed, then run an explicit ensemble. The reference calculation remains available independently. These distributions describe the assumptions supplied for this run."), /* @__PURE__ */ h(ParameterRows, { rows: draft.parameters, onChange: parameters, sampling: true }), /* @__PURE__ */ h("div", { className: "v15-actions" }, draft.parameters.length < 3 && /* @__PURE__ */ h(Button, { onClick: () => {
+      const id = Object.keys(PARAMETERS).find((k) => !draft.parameters.some((p2) => p2.id === k)), p = PARAMETERS[id];
+      parameters([...draft.parameters, { id, lower: p.min, upper: p.max, distribution: "triangular" }]);
+    } }, "Add uncertain parameter"), /* @__PURE__ */ h("label", { className: "v15-field" }, "Random seed", /* @__PURE__ */ h("input", { "aria-label": "Uncertainty seed", type: "number", min: "0", max: "4294967295", value: draft.seed, onChange: (e) => setDraft({ ...draft, seed: e.target.value }) })), /* @__PURE__ */ h("label", { className: "v15-field" }, "Samples", /* @__PURE__ */ h("input", { "aria-label": "Uncertainty samples", type: "number", min: "16", max: "256", value: draft.samples, onChange: (e) => setDraft({ ...draft, samples: e.target.value }) }))), /* @__PURE__ */ h("label", { className: "v15-checkbox" }, /* @__PURE__ */ h("input", { type: "checkbox", checked: draft.paired, onChange: (e) => setDraft({ ...draft, paired: e.target.checked }) }), "Paired A/B sampling using identical parameter draws"), draft.paired && /* @__PURE__ */ h("p", { className: "v160-help" }, "Prepare and enable A/B scenarios in Compare first. Both scenarios require equal horizons. Selected absolute parameter draws are shared across A and B."), /* @__PURE__ */ h(Disclosure, { id: "sampling-dependencies", title: "Parameter dependence and sampling assumptions" }, /* @__PURE__ */ h("label", { className: "v15-field" }, "Latent Gaussian correlation matrix (JSON)", /* @__PURE__ */ h("textarea", { "aria-label": "Sampling correlation matrix", rows: "3", value: corr, onChange: (e) => setCorr(e.target.value) })), /* @__PURE__ */ h("p", null, "Identity means independent latent draws. The matrix must be symmetric and positive definite, with diagonal 1. Correlation applies before distribution transformation and whole-draw truncation. A lognormal reference is its median. Triangular modes use the captured reference values.")), /* @__PURE__ */ h(Button, { primary: true, disabled: !ready, onClick: run }, "Run uncertainty sampling"), /* @__PURE__ */ h(JobState, null)), result && /* @__PURE__ */ h(Fragment, null, /* @__PURE__ */ h(Panel, { title: "Sampled exposure distributions" }, /* @__PURE__ */ h("p", null, result.assumptions), /* @__PURE__ */ h("div", { className: "v2-science-plots" }, ["ethanol", "caffeine"].map((a) => /* @__PURE__ */ h(SciencePlot, { key: a, result, analyte: a, band: true }))), /* @__PURE__ */ h(Table, { headers: ["Quantity", "P05", "P50", "P95", "Units"], rows: Object.entries(result.metrics).map(([k, v]) => {
+      const bac = k === "peakBAC", unit = bac ? bacUnit(state.presentation) : k === "peakCaffeine" ? "mg/L" : "h";
+      return [k, ...["p05", "p50", "p95"].map((q) => n(bac ? bacValue(v[q], state.presentation) : v[q])), unit];
+    }) }), /* @__PURE__ */ h("p", null, result.threshold.rightCensored, " / ", result.samples, " trajectories retain an open threshold interval at the horizon; ", result.threshold.neverExceeded, " never exceed ", bacText(result.threshold.value, state.presentation), " ", bacUnit(state.presentation), ". Final-return quantiles use the ", result.threshold.resolved, " resolved trajectories, with never-exceeded trajectories assigned 0 h."), result.threshold.resolved > 0 && /* @__PURE__ */ h("p", null, "Resolved final return: P05 ", n(result.threshold.returnTimeResolvedOnly.p05), " h; P50 ", n(result.threshold.returnTimeResolvedOnly.p50), " h; P95 ", n(result.threshold.returnTimeResolvedOnly.p95), " h."), result.deltas && /* @__PURE__ */ h(Table, { caption: "Paired B minus A metric differences", headers: ["Quantity", "P05", "P50", "P95"], rows: Object.entries(result.deltas).map(([k, v]) => [k, n(v.p05), n(v.p50), n(v.p95)]) })), /* @__PURE__ */ h(Disclosure, { id: "sampling-details", title: "Draws and time-specific threshold fractions" }, /* @__PURE__ */ h("p", null, "These are conditional sample fractions for the supplied parameter model."), /* @__PURE__ */ h(Table, { headers: ["Time h", "Fraction above reference"], rows: result.grid.filter((_, i) => i % 8 === 0).map((p) => [n(p.tH), n(p.thresholdExceedanceFraction)]) }), state.presentation.detailMode === "expert" && /* @__PURE__ */ h("pre", null, JSON.stringify({ seed: result.seed, draws: result.parameterDraws }, null, 2)))));
+  }
+  function Validation() {
+    const ready = useReady();
+    useScience();
+    const result = science.result;
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Empirical evaluation", kicker: "Observations and independent published summaries" }, /* @__PURE__ */ h("p", null, "The retained reference equations can be evaluated against your observations and four published group-level Cmax summaries from two independent studies. Published SD describes the study cohort. A mean +/- 2 SD discrepancy screen is descriptive; individual accuracy and full-trajectory agreement require individual time-series observations."), /* @__PURE__ */ h("div", { className: "v15-actions" }, /* @__PURE__ */ h(Button, { primary: true, disabled: !ready || !science.document.observations.length, onClick: () => action(() => science.run("evaluate"), "Observation evaluation completed.") }, "Evaluate current observations"), /* @__PURE__ */ h(Button, { disabled: !ready, onClick: () => action(() => science.run("benchmarks"), "Published benchmark evaluation completed.") }, "Run published benchmarks"), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "observations") }, "Edit observations")), /* @__PURE__ */ h(JobState, null)), result?.kind === "evaluate" && /* @__PURE__ */ h(ResidualResult, { result }), /* @__PURE__ */ h(Panel, { title: "Published benchmark definitions" }, /* @__PURE__ */ h(Table, { headers: ["Study / cohort", "n", "Reported Cmax +/- SD", "Matrix", "Source"], rows: BENCHMARKS.map((b) => [b.study + " / " + b.cohort, b.n, n(b.observed) + " +/- " + n(b.sd) + " " + b.unit, b.matrix, /* @__PURE__ */ h("a", { href: b.source, target: "_blank", rel: "noreferrer" }, "Primary publication")]) }), /* @__PURE__ */ h(Disclosure, { id: "benchmark-assumptions", title: "Cohort reconstruction and evidence limits" }, BENCHMARKS.map((b) => /* @__PURE__ */ h("article", { key: b.id }, /* @__PURE__ */ h("h3", null, b.cohort), /* @__PURE__ */ h("p", null, b.location), /* @__PURE__ */ h("p", null, b.provenance))))), result?.kind === "benchmarks" && /* @__PURE__ */ h(Panel, { title: "Published-summary discrepancies" }, /* @__PURE__ */ h("p", null, result.criteria), /* @__PURE__ */ h(Table, { headers: ["Cohort", "Observed", "Reference prediction", "Difference / SD", "Screen", "Fed hypothesis"], rows: result.rows.map((b) => [b.cohort, n(b.observed) + " " + b.unit, n(b.predicted) + " " + b.unit, n(b.standardizedError, 2), b.withinTwoReportedSD ? "Within 2 reported SD" : "Outside 2 reported SD", b.feedingHypothesis == null ? "Not applied" : n(b.feedingHypothesis) + " " + b.unit]) }), /* @__PURE__ */ h("p", null, "The feeding hypothesis scales elimination by 1.39 only in the fixed fed benchmark. This optional comparator leaves the main scenario and reference profile unchanged.")));
+  }
+  function Evidence() {
+    const [query, setQuery] = React.useState(""), q = query.toLowerCase(), entries = bridge.scienceCore.ny.filter((e) => [e.label, e.parameterId, e.evidenceClass, e.population, e.derivationNote].join(" ").toLowerCase().includes(q));
+    return /* @__PURE__ */ h("div", { className: "v15-stack" }, /* @__PURE__ */ h(Panel, { title: "Model identity and evidence", kicker: MODEL_PROFILE.name }, /* @__PURE__ */ h("p", null, "Engine ", MODEL_PROFILE.engineVersion, "; constants ", MODEL_PROFILE.constantsVersion, "; evidence revision ", MODEL_PROFILE.evidenceVersion, ". The scientific workbench wraps the retained equations. Pharmacokinetic fitting, PD transforms and behavioural overlays retain separate evidence status."), /* @__PURE__ */ h("p", null, MODEL_PROFILE.status), /* @__PURE__ */ h("label", { className: "v15-field" }, "Search evidence", /* @__PURE__ */ h("input", { type: "search", value: query, onChange: (e) => setQuery(e.target.value), placeholder: "Try absorption, half-life, population or heuristic" })), /* @__PURE__ */ h(Table, { headers: ["Quantity", "Application value", "Evidence class", "Population / applicability", "Source and derivation"], rows: entries.map((e) => [e.label, typeof e.value === "object" ? JSON.stringify(e.value) : String(e.value) + " " + e.units, e.evidenceClass, e.population + "; " + e.applicabilityLimits, /* @__PURE__ */ h(Fragment, null, e.sourceUrl && /* @__PURE__ */ h("a", { href: e.sourceUrl, target: "_blank", rel: "noreferrer" }, "Source"), /* @__PURE__ */ h("p", null, e.derivationNote), e.plausibleRange && /* @__PURE__ */ h("p", null, "Reported range: ", e.plausibleRange))]) })), /* @__PURE__ */ h(Panel, { title: "Interpretation of scientific evidence" }, EVIDENCE_NOTES.map((e) => /* @__PURE__ */ h("article", { key: e.id }, /* @__PURE__ */ h("h3", null, e.title), /* @__PURE__ */ h("p", null, e.text), /* @__PURE__ */ h("a", { href: e.source, target: "_blank", rel: "noreferrer" }, "Supporting publication")))));
+  }
+
   // src/ui/index.jsx
-  var analysisRoutes = [["Overview", "session", "overview"], ["Explain", "session", "explain"], ["Behaviour", "behaviour", ""], ["Parameters", "session", "parameters"], ["Diagnostics", "expert", ""], ["Numerical data", "results", "data"]];
+  var analysisRoutes = [["Overview", "session", "overview"], ["Explain", "session", "explain"], ["Behaviour", "behaviour", ""], ["Scientific workbench", "session", "validation"], ["Parameters", "session", "parameters"], ["Diagnostics", "expert", ""], ["Numerical data", "results", "data"]];
   function locationFor(state) {
     const r = state.presentation.selectedWorkspace, v = state.presentation.selectedSubview || "timeline";
     if (r === "help") return { group: "help", title: "How to use", view: "help", native: true };
     if (r === "session") {
       if (v === "timeline") return { group: "session", title: "Session", view: v, native: true };
+      if (v === "observations") return { group: "session", title: "Concentration observations", view: v, native: true };
+      if (["calibration", "uncertainty", "validation", "evidence"].includes(v)) return { group: "analysis", title: "Scientific workbench", view: v, native: true };
       if (v === "compare") return { group: "compare", title: "Compare scenarios", view: v, native: true };
       if (v === "projects") return { group: "saved", title: "Saved sessions", view: v, native: true };
       if (v === "report") return { group: "document", title: "Analysis report", view: v, native: true };
@@ -7947,7 +9218,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   function createV15UI(value) {
     const integration = v15InitUI(value);
     function Shell({ legacy }) {
-      const state = useSession(), offline = usePWA(), prefs = usePreferences(), place = locationFor(state), [dialog, setDialog] = React.useState(null), [parameter, setParameter] = React.useState(null), [event, setEvent] = React.useState(null), [systemDark, setSystemDark] = React.useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
+      const state = useSession(), offline = usePWA(), prefs = usePreferences(), place = locationFor(state), [dialog, setDialog] = React.useState(null), [parameter, setParameter2] = React.useState(null), [event, setEvent] = React.useState(null), [systemDark, setSystemDark] = React.useState(() => window.matchMedia("(prefers-color-scheme: dark)").matches);
       const native = place.native, depth = state.presentation.detailMode;
       React.useEffect(() => {
         if (!window.location.hash) window.location.replace("#session/overview");
@@ -7974,7 +9245,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         document.body.dataset.v160Legacy = String(!native);
         document.body.dataset.v160Page = place.view;
         delete document.body.dataset.v15Workspace;
-        document.title = place.title + " \xB7 PK/PD Sandbox v1.6.0";
+        document.title = place.title + " \xB7 PK/PD Sandbox v2.0.0";
       }, [prefs, systemDark, native, place.view, place.title]);
       React.useEffect(() => {
         const fn = (e) => {
@@ -8002,7 +9273,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       }, []);
       const close = () => {
         setDialog(null);
-        setParameter(null);
+        setParameter2(null);
         setEvent(null);
       };
       const add = () => {
@@ -8012,24 +9283,24 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         setEvent(e);
         setDialog("intake");
       }, param = (e) => {
-        setParameter(e);
+        setParameter2(e);
         setDialog("parameter");
       };
-      const exportSession = () => action(() => download("pkpd-session-v1.6.0.json", JSON.stringify(controller.project(true), null, 2)), "Session JSON prepared.");
+      const exportSession = () => action(() => download("pkpd-session-v2.0.0.json", JSON.stringify(controller.project(true), null, 2)), "Session JSON prepared.");
       const status = offline.status === "ready" ? offline.online ? "Offline ready" : "Offline \xB7 cached release" : offline.status === "standalone" ? "Standalone build" : offline.status === "failed" ? "Offline setup unavailable" : "Preparing offline cache";
       const notification = controller.notice, showNotification = notification && (notification.kind === "error" || prefs.notifications === "all");
-      const subnav = place.group === "session" ? [["Inputs", "calculate", ""], ["Schedule", "session", "timeline"]] : place.group === "analysis" ? analysisRoutes : place.group === "compare" ? [["Comparison", "session", "compare"], ["Full editor", "explore", "compare"], ["Sensitivity", "explore", "sweep"]] : [];
+      const subnav = place.group === "session" ? [["Inputs", "calculate", ""], ["Schedule", "session", "timeline"], ["Observations", "session", "observations"]] : place.group === "analysis" ? analysisRoutes : place.group === "compare" ? [["Comparison", "session", "compare"], ["Full editor", "explore", "compare"], ["Sensitivity", "explore", "sweep"]] : [];
       return /* @__PURE__ */ h("div", { className: "v160-app" }, /* @__PURE__ */ h("a", { className: "v160-skip", href: "#main-content", onClick: (e) => {
         e.preventDefault();
         document.getElementById("main-content")?.focus();
-      } }, "Skip to workspace"), /* @__PURE__ */ h("header", { className: "v160-header" }, /* @__PURE__ */ h("div", { className: "v160-brand" }, /* @__PURE__ */ h("a", { href: "#session/overview", "aria-label": "PK/PD Sandbox analysis home" }, /* @__PURE__ */ h("span", { className: "v160-mark", "aria-hidden": "true" }, "pk"), /* @__PURE__ */ h("span", null, "PK/PD Sandbox ", /* @__PURE__ */ h("small", null, "1.60"))), /* @__PURE__ */ h("span", { className: "v160-session-name", title: state.document.title }, state.document.title || "Untitled session")), /* @__PURE__ */ h("div", { className: "v160-header-actions" }, /* @__PURE__ */ h(Button, { "aria-label": "Find a control or parameter", onClick: () => setDialog("search") }, /* @__PURE__ */ h("span", { "aria-hidden": "true" }, "\u2315"), " Find control ", /* @__PURE__ */ h("kbd", null, "Ctrl K")), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "report") }, "Report"), /* @__PURE__ */ h("details", { className: "v160-document-menu" }, /* @__PURE__ */ h("summary", null, "Export"), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("button", { type: "button", disabled: !controller.canSave(), onClick: exportSession }, "Session JSON"), /* @__PURE__ */ h("a", { href: "#export" }, "Analytical data"), /* @__PURE__ */ h("a", { href: "./standalone-v1.6.0.html", download: true }, "Standalone HTML"))), /* @__PURE__ */ h(Button, { onClick: () => navigate("help", depth) }, "Help"), /* @__PURE__ */ h(Button, { onClick: () => setDialog("settings") }, "Settings"))), /* @__PURE__ */ h("div", { className: "v160-navigation" }, /* @__PURE__ */ h("nav", { "aria-label": "Main workspaces" }, [["Session", "session", "#calculate"], ["Analysis", "analysis", "#session/overview"], ["Compare", "compare", "#session/compare"], ["Saved sessions", "saved", "#session/projects"]].map(([label, key, href]) => /* @__PURE__ */ h("a", { key, href, "aria-current": place.group === key ? "page" : void 0 }, label))), /* @__PURE__ */ h("div", { className: "v160-view-controls" }, /* @__PURE__ */ h("div", { className: "v160-undo-controls", role: "group", "aria-label": "Editing history" }, /* @__PURE__ */ h(Button, { "aria-label": "Undo committed scenario edit", "aria-disabled": !controller.history.canUndo, onClick: () => {
+      } }, "Skip to workspace"), /* @__PURE__ */ h("header", { className: "v160-header" }, /* @__PURE__ */ h("div", { className: "v160-brand" }, /* @__PURE__ */ h("a", { href: "#session/overview", "aria-label": "PK/PD Sandbox analysis home" }, /* @__PURE__ */ h("span", { className: "v160-mark", "aria-hidden": "true" }, "pk"), /* @__PURE__ */ h("span", null, "PK/PD Sandbox ", /* @__PURE__ */ h("small", null, "2.0"))), /* @__PURE__ */ h("span", { className: "v160-session-name", title: state.document.title }, state.document.title || "Untitled session")), /* @__PURE__ */ h("div", { className: "v160-header-actions" }, /* @__PURE__ */ h(Button, { "aria-label": "Find a control or parameter", onClick: () => setDialog("search") }, /* @__PURE__ */ h("span", { "aria-hidden": "true" }, "\u2315"), " Find control ", /* @__PURE__ */ h("kbd", null, "Ctrl K")), /* @__PURE__ */ h(Button, { onClick: () => navigate("session", "report") }, "Report"), /* @__PURE__ */ h("details", { className: "v160-document-menu" }, /* @__PURE__ */ h("summary", null, "Export"), /* @__PURE__ */ h("div", null, /* @__PURE__ */ h("button", { type: "button", disabled: !controller.canSave(), onClick: exportSession }, "Session JSON"), /* @__PURE__ */ h("a", { href: "#export" }, "Analytical data"), /* @__PURE__ */ h("a", { href: "./standalone-v2.0.0.html", download: true }, "Standalone HTML"))), /* @__PURE__ */ h(Button, { onClick: () => navigate("help", depth) }, "Help"), /* @__PURE__ */ h(Button, { onClick: () => setDialog("settings") }, "Settings"))), /* @__PURE__ */ h("div", { className: "v160-navigation" }, /* @__PURE__ */ h("nav", { "aria-label": "Main workspaces" }, [["Session", "session", "#calculate"], ["Analysis", "analysis", "#session/overview"], ["Compare", "compare", "#session/compare"], ["Saved sessions", "saved", "#session/projects"]].map(([label, key, href]) => /* @__PURE__ */ h("a", { key, href, "aria-current": place.group === key ? "page" : void 0 }, label))), /* @__PURE__ */ h("div", { className: "v160-view-controls" }, /* @__PURE__ */ h("div", { className: "v160-undo-controls", role: "group", "aria-label": "Editing history" }, /* @__PURE__ */ h(Button, { "aria-label": "Undo committed scenario edit", "aria-disabled": !controller.history.canUndo, onClick: () => {
         if (controller.history.canUndo) action(() => controller.undo());
       } }, "\u21B6 ", /* @__PURE__ */ h("span", null, "Undo")), /* @__PURE__ */ h(Button, { "aria-label": "Redo committed scenario edit", "aria-disabled": !controller.history.canRedo, onClick: () => {
         if (controller.history.canRedo) action(() => controller.redo());
       } }, "\u21B7 ", /* @__PURE__ */ h("span", null, "Redo"))), /* @__PURE__ */ h("label", null, "Scientific depth", /* @__PURE__ */ h("select", { "aria-label": "Scientific depth", value: depth, onChange: (e) => controller.setDetailMode(e.target.value) }, /* @__PURE__ */ h("option", { value: "default" }, "Default"), /* @__PURE__ */ h("option", { value: "detailed" }, "Detailed"), /* @__PURE__ */ h("option", { value: "expert" }, "Expert"))))), /* @__PURE__ */ h("main", { id: "main-content", tabIndex: "-1" }, /* @__PURE__ */ h("div", { className: "v160-page-heading" }, /* @__PURE__ */ h("h1", null, place.title), subnav.length > 0 && /* @__PURE__ */ h("nav", { "aria-label": place.group === "session" ? "Session views" : place.group === "compare" ? "Comparison views" : "Analysis views" }, subnav.map(([label, route, view]) => /* @__PURE__ */ h("a", { key: label, href: "#" + route + (view ? "/" + view : ""), "aria-current": state.presentation.selectedWorkspace === route && (view ? state.presentation.selectedSubview === view : route !== "session") ? "page" : void 0 }, label)))), /* @__PURE__ */ h(CalculationState, { state }), showNotification && /* @__PURE__ */ h("div", { className: "v160-feedback " + notification.kind, role: notification.kind === "error" ? "alert" : "status" }, /* @__PURE__ */ h("span", null, notification.text), /* @__PURE__ */ h("button", { type: "button", "aria-label": "Dismiss message", onClick: () => {
         controller.notice = null;
         controller.emit();
-      } }, "\xD7")), !showNotification && notification && /* @__PURE__ */ h("span", { className: "v160-sr", role: "status" }, notification.text), offline.waiting && /* @__PURE__ */ h("div", { className: "v160-update" }, /* @__PURE__ */ h("span", null, "An application update is ready."), /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.activate()) }, "Save session and update")), native && /* @__PURE__ */ h("div", { className: "v160-workspace v15-main", "data-detail-mode": depth }, place.view === "overview" ? /* @__PURE__ */ h(Overview, { onAdd: add, onEditPerson: person, onEditIntake: edit }) : place.view === "timeline" ? /* @__PURE__ */ h(V15Timeline, null) : place.view === "explain" ? /* @__PURE__ */ h(V15Explain, null) : place.view === "compare" ? /* @__PURE__ */ h(V15Comparison, null) : place.view === "projects" ? /* @__PURE__ */ h(V15Projects, null) : place.view === "report" ? /* @__PURE__ */ h(V15Report, null) : place.view === "parameters" ? /* @__PURE__ */ h(Parameters, { onParameter: param }) : /* @__PURE__ */ h(V15Help, null)), /* @__PURE__ */ h("div", { className: "v160-legacy-slot", hidden: native }, legacy)), /* @__PURE__ */ h("footer", { className: "v160-footer" }, /* @__PURE__ */ h("span", null, "Educational model \xB7 modelled concentrations and heuristic response indices"), /* @__PURE__ */ h("span", null, status, controller.recoveryEnabled ? " \xB7 recovery " + controller.storageStatus : ""), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => bridge.openSurface("about") }, "Model sources and release identity")), dialog === "search" && /* @__PURE__ */ h(SearchDialog, { onClose: close, onParameter: param, onAdd: add, onPerson: person }), dialog === "settings" && /* @__PURE__ */ h(PreferencesDialog, { onClose: close }), dialog === "intake" && /* @__PURE__ */ h(IntakeDialog, { event, onClose: close }), dialog === "person" && /* @__PURE__ */ h(PersonDialog, { onClose: close }), dialog === "parameter" && parameter && /* @__PURE__ */ h(ParameterDialog, { entry: parameter, onClose: close }));
+      } }, "\xD7")), !showNotification && notification && /* @__PURE__ */ h("span", { className: "v160-sr", role: "status" }, notification.text), offline.waiting && /* @__PURE__ */ h("div", { className: "v160-update" }, /* @__PURE__ */ h("span", null, "An application update is ready."), /* @__PURE__ */ h(Button, { onClick: () => action(() => pwa.activate()) }, "Save session and update")), native && /* @__PURE__ */ h("div", { className: "v160-workspace v15-main", "data-detail-mode": depth }, place.view === "overview" ? /* @__PURE__ */ h(Overview, { onAdd: add, onEditPerson: person, onEditIntake: edit }) : place.view === "timeline" ? /* @__PURE__ */ h(V15Timeline, null) : place.view === "observations" ? /* @__PURE__ */ h(Observations, null) : ["calibration", "uncertainty", "validation", "evidence"].includes(place.view) ? /* @__PURE__ */ h(ScienceWorkspace, { view: place.view }) : place.view === "explain" ? /* @__PURE__ */ h(V15Explain, null) : place.view === "compare" ? /* @__PURE__ */ h(V15Comparison, null) : place.view === "projects" ? /* @__PURE__ */ h(V15Projects, null) : place.view === "report" ? /* @__PURE__ */ h(V15Report, null) : place.view === "parameters" ? /* @__PURE__ */ h(Parameters, { onParameter: param }) : /* @__PURE__ */ h(V15Help, null)), /* @__PURE__ */ h("div", { className: "v160-legacy-slot", hidden: native }, legacy)), /* @__PURE__ */ h("footer", { className: "v160-footer" }, /* @__PURE__ */ h("span", null, "Educational model \xB7 modelled concentrations and heuristic response indices"), /* @__PURE__ */ h("span", null, status, controller.recoveryEnabled ? " \xB7 recovery " + controller.storageStatus : ""), /* @__PURE__ */ h("button", { type: "button", className: "v160-link", onClick: () => bridge.openSurface("about") }, "Model sources and release identity")), dialog === "search" && /* @__PURE__ */ h(SearchDialog, { onClose: close, onParameter: param, onAdd: add, onPerson: person }), dialog === "settings" && /* @__PURE__ */ h(PreferencesDialog, { onClose: close }), dialog === "intake" && /* @__PURE__ */ h(IntakeDialog, { event, onClose: close }), dialog === "person" && /* @__PURE__ */ h(PersonDialog, { onClose: close }), dialog === "parameter" && parameter && /* @__PURE__ */ h(ParameterDialog, { entry: parameter, onClose: close }));
     }
     return { ...integration, Shell };
   }
@@ -55336,7 +56607,7 @@ function Ane() {
         label: "a",
         timeH: -2
       }
-    })?.timeH === -.5 && Date.parse(zB("2026-01-01T10:00:00Z", 2, -1)) === Date.parse("2026-01-01T13:00:00Z"), "Elapsed historical reference and preserved first-instant rebinding."), Se("v0.8.5 horizon and shortcuts", () => Oj(-.1, 24).status === "before" && Oj(24.1, 24).status === "after" && Vf(2, 2.04, .1) && !Vf(2, 2.06, .1), "Outside-horizon status is explicit; pressed tolerance is half the output interval."), Se("v0.8.5 structured account", () => !!(B?.pkStateSentence && B.subjectiveSentence && B.functionalSentence && B.expressionSentence && B.trajectorySentence && B.selectedClauseIds.includes(`presentation.severity.${B.severityTierId}`)), B?.compactAccount ?? "no presentation"), Se("v0.8.4 presentation numerical invariance", () => JSON.stringify(l.analysisPoints) === f, "Selected-time composition leaves canonical numerical arrays unchanged."), Se("v1.0 release identity", () => Vi === "1.6.0" && qt.appVersion === Vi && (typeof document > "u" || document.title.includes(Vi)) && (typeof document > "u" || !document.querySelector(".metadata-panel .status-pill") || document.querySelector(".metadata-panel .status-pill").textContent.trim() === `v${qt.appVersion}`), `app ${qt.appVersion}; title ${typeof document > "u" ? "unavailable" : document.title}`), Se("v1.0 scope declaration", () => iN.toString().includes("Scope and intended use") && iN.toString().includes("A modelled BAC threshold crossing represents a numerical property of the simulated trajectory."), "Canonical educational/sandbox scope is present in About."), Se("v1.0 BAC-reference vocabulary", () => kJ(0, .01) === "Below vehicle reference threshold" && kJ(.02, .01) === "At or above vehicle reference threshold" && !kJ.toString().includes(["vehicle", "warning"].join("-")) && !PJ.toString().includes(["vehicle", "warning"].join(" ")), `${kJ(0, .01)} / ${kJ(.02, .01)}`), Se("v1.0.1 retained scientific contracts", () => qt.scenarioSchemaVersion === "0.8.2" && qt.modelEngineVersion === "0.4.4" && qt.constantsVersion === "0.3.0" && qt.presetSetVersion === "0.4.2" && qt.behaviouralModelVersion === "0.6.0" && qt.behaviouralCoefficientVersion === "0.6.0" && qt.behaviouralAxisRegistryVersion === "0.6.0" && qt.behaviouralInteractionRegistryVersion === "0.6.0" && qt.behaviouralCoefficientRegistryVersion === "0.6.0" && qt.behaviouralNarrativeVersion === "0.6.0" && qt.bacPhenotypeRegistryVersion === "0.3.0" && qt.bacSeverityRegistryVersion === "0.3.1", `schema ${qt.scenarioSchemaVersion}; engine ${qt.modelEngineVersion}; constants ${qt.constantsVersion}; behaviour ${qt.behaviouralModelVersion}`), Se("v1.0 release copy excludes affirmative clearance", () => { const q = [kJ(0, .01), kJ(.02, .01), PJ(0, .08), PJ(.1, .08), iN.toString()].join(" ").toLowerCase(), Ne = [["safe", "to", "drive"], ["legal", "to", "drive"], ["fit", "to", "drive"]].map(ce => ce.join(" ")); return Ne.every(ce => !q.includes(ce)); }, "No affirmative driving-clearance phrase is emitted by the audited release surfaces.")],
+    })?.timeH === -.5 && Date.parse(zB("2026-01-01T10:00:00Z", 2, -1)) === Date.parse("2026-01-01T13:00:00Z"), "Elapsed historical reference and preserved first-instant rebinding."), Se("v0.8.5 horizon and shortcuts", () => Oj(-.1, 24).status === "before" && Oj(24.1, 24).status === "after" && Vf(2, 2.04, .1) && !Vf(2, 2.06, .1), "Outside-horizon status is explicit; pressed tolerance is half the output interval."), Se("v0.8.5 structured account", () => !!(B?.pkStateSentence && B.subjectiveSentence && B.functionalSentence && B.expressionSentence && B.trajectorySentence && B.selectedClauseIds.includes(`presentation.severity.${B.severityTierId}`)), B?.compactAccount ?? "no presentation"), Se("v0.8.4 presentation numerical invariance", () => JSON.stringify(l.analysisPoints) === f, "Selected-time composition leaves canonical numerical arrays unchanged."), Se("v1.0 release identity", () => Vi === "2.0.0" && qt.appVersion === Vi && (typeof document > "u" || document.title.includes(Vi)) && (typeof document > "u" || !document.querySelector(".metadata-panel .status-pill") || document.querySelector(".metadata-panel .status-pill").textContent.trim() === `v${qt.appVersion}`), `app ${qt.appVersion}; title ${typeof document > "u" ? "unavailable" : document.title}`), Se("v1.0 scope declaration", () => iN.toString().includes("Scope and intended use") && iN.toString().includes("A modelled BAC threshold crossing represents a numerical property of the simulated trajectory."), "Canonical educational/sandbox scope is present in About."), Se("v1.0 BAC-reference vocabulary", () => kJ(0, .01) === "Below vehicle reference threshold" && kJ(.02, .01) === "At or above vehicle reference threshold" && !kJ.toString().includes(["vehicle", "warning"].join("-")) && !PJ.toString().includes(["vehicle", "warning"].join(" ")), `${kJ(0, .01)} / ${kJ(.02, .01)}`), Se("v1.0.1 retained scientific contracts", () => qt.scenarioSchemaVersion === "0.8.2" && qt.modelEngineVersion === "0.4.4" && qt.constantsVersion === "0.3.0" && qt.presetSetVersion === "0.4.2" && qt.behaviouralModelVersion === "0.6.0" && qt.behaviouralCoefficientVersion === "0.6.0" && qt.behaviouralAxisRegistryVersion === "0.6.0" && qt.behaviouralInteractionRegistryVersion === "0.6.0" && qt.behaviouralCoefficientRegistryVersion === "0.6.0" && qt.behaviouralNarrativeVersion === "0.6.0" && qt.bacPhenotypeRegistryVersion === "0.3.0" && qt.bacSeverityRegistryVersion === "0.3.1", `schema ${qt.scenarioSchemaVersion}; engine ${qt.modelEngineVersion}; constants ${qt.constantsVersion}; behaviour ${qt.behaviouralModelVersion}`), Se("v1.0 release copy excludes affirmative clearance", () => { const q = [kJ(0, .01), kJ(.02, .01), PJ(0, .08), PJ(.1, .08), iN.toString()].join(" ").toLowerCase(), Ne = [["safe", "to", "drive"], ["legal", "to", "drive"], ["fit", "to", "drive"]].map(ce => ce.join(" ")); return Ne.every(ce => !q.includes(ce)); }, "No affirmative driving-clearance phrase is emitted by the audited release surfaces.")],
     L = In.filter(q => q.passed).length,
     Pe = In.length - L;
   return {
@@ -57168,8 +58439,9 @@ Dee.unshift({version:'0.9.0',summary:'Rebuilt calculation orchestration around a
 Dee.unshift({version:'0.9.1',summary:'Hardened snapshot presentation, persistence and standalone release packaging.',bullets:['Compare keeps pending, failed and accepted results distinct and cancels obsolete view requests.','Presentation autosave, storage-denied contexts, pending saves and browser lifecycle handling are hardened.','A single reproducible build produces identical standalone HTML files and verifies the shipped artifact.','Corrected primary-control contrast and added regression coverage for standalone and embedded operation.']});
 Dee.unshift({version:'1.0.0',summary:'Established the first stable standalone release contract, formalised educational/sandbox intended use, hardened BAC-reference semantics, and completed release-verification infrastructure without changing the numerical or behavioural engines.',bullets:['Added a formal Scope and intended use surface plus a compact persistent educational-sandbox declaration.','Reframed vehicle-facing BAC outputs as reference-threshold comparisons while preserving numerical thresholds, internal identifiers, and scenario compatibility.','Defined the top-level standalone deployment contract and release-specific regression assertions.','Retained the frozen scenario schema, numerical engine, constants, presets, behavioural model, registries, and coefficient versions.']});
 Dee.unshift({version:'1.0.1',summary:'Corrected endpoint dose accounting, dense numerical summaries, tied peaks, episode chronology, result state, persistence feedback and responsive intake filtering.',bullets:['Canonical exact event/horizon boundaries and complete threshold intervals.','Bounded-argument reductions and explicit tied-peak convergence.','Shared terminal/recovery status and accepted-snapshot provenance.','Schedule-aware curves, rolling-window intake warnings and immediate autosave feedback.']});
+const V2_VERSIONS=Object.freeze({...qt,scientificWorkbenchVersion:'1.0.0',referenceModelProfile:'reference-1.60',evidenceVersion:'2026-10-28.1',sessionSchemaVersion:'1.1.0'});
 const V15Integration=PKPDV15.createV15UI({
- React:M,store:canonicalStore,runtime:simulationRuntime,versions:qt,
+ React:M,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS,scienceCore:PKCore,
  parameters:[...XJ,...QJ].filter(p=>/^(subject|constants)\./.test(p.id)),
  ethanolAmount:(event,constants)=>Ta(event,constants),caffeineAmount:event=>Na(event),
  openSurface:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface}})),
@@ -57184,7 +58456,7 @@ const V15Integration=PKPDV15.createV15UI({
    supersededPresetId:flat.supersededPresetId,comparisonTemplateId:flat.comparisonTemplateId,mainScenario:{subject:flat.subject,doseEvents:flat.doseEvents,constants:flat.constants},
    comparisonScenarios:flat.comparisonScenarios,comparisonEnabled:flat.comparisonEnabled,behaviourProfile:flat.behaviourProfile,useSeparateBehaviourProfiles:flat.useSeparateBehaviourProfiles,comparisonBehaviourProfiles:flat.comparisonBehaviourProfiles,sweepConfiguration:flat.sweepConfig,autosaveEnabled:frame.document.autosaveEnabled};
   for(const key of ['scenarioAnchorInstant','scenarioTimeZone','timeDisplayMode','selectedTimeH','selectedTimeProvenance','selectedLandmarkId','followNow'])frame.presentation[key]=flat.settings[key];
-  frame.markers=[];return frame;
+  frame.markers=[];delete frame.science;return frame;
  },
  loadDemo(kind){
   const frame=V15Integration.controller.capture(),subject=It(St),constants=bt(St.bodyMassKg);
@@ -57200,12 +58472,14 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-const V160_PUBLIC=Object.freeze({version:'1.6.0',releaseLabel:'1.60',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,store:canonicalStore,runtime:simulationRuntime,versions:qt});
+const V160_PUBLIC=Object.freeze({version:'2.0.0',releaseLabel:'2.0',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
 Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});
+Object.defineProperty(window,'__PK_SANDBOX_V2__',{value:V160_PUBLIC,enumerable:false});
 
 Dee.unshift({version:'1.5.0',summary:'Added calendar sessions, history, recovery, comparisons, reports, offline delivery and three-level operating guides.',bullets:['Stable model-zero chronology and explicit clock-change handling.','Portable session documents and named states.','Accepted-state explanation, counterfactuals and captured comparisons.']});
 Dee.unshift({version:'1.6.0',summary:'Redesigned navigation, analysis hierarchy and interface accessibility.',bullets:['One task-based application shell with stable scientific-depth controls.','Aligned BAC and caffeine plots with a shared inspection cursor.','Independent explanation, density, text, contrast and motion preferences.','Searchable and directly editable model parameters.','Unified document actions and updated operating instructions.']});
+Dee.unshift({version:'2.0.0',summary:'Added an evidence and inference workbench around the retained reference PK equations.',bullets:['Timestamped concentration observations with matrix, error and dataset-role semantics.','Bounded one/two-parameter calibration, residuals, identifiability and undoable application.','Seeded joint uncertainty, paired A/B draws and censored threshold summaries.','Published group-level benchmarks, source inspection and three-level scientific walkthroughs.','Portable scientific inputs and result archives; official deployment at pkpd.goturbo.one.']});
 
 let appRoot=null;function mountApplication(){if(appRoot)return;appRoot=sR.createRoot(document.getElementById("root"));appRoot.render(r.jsx(IN.StrictMode, {
   children: r.jsx(IQ, {
