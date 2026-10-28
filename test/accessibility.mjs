@@ -23,9 +23,37 @@ async function axe(label){
 }
 try{
  await page.goto(url,{waitUntil:'networkidle'});await current();
- await check('Initial route exposes one application shell and separate concentration plots',async()=>{
-  assert.ok(page.url().endsWith('#session/overview'));assert.equal(await page.getByRole('main').count(),1);assert.equal(await page.getByRole('heading',{level:1}).count(),1);assert.equal(await main().getByRole('link').count(),4);assert.equal(await page.locator('.v160-plot').count(),2);
+ await check('Fresh browser and installed-app launches open Session Inputs',async()=>{
+  assert.ok(page.url().endsWith('#calculate'));assert.equal(await main().getByRole('link',{name:'Session',exact:true}).getAttribute('aria-current'),'page');assert.equal(await page.getByRole('navigation',{name:'Session views'}).getByRole('link',{name:'Inputs',exact:true}).getAttribute('aria-current'),'page');
+  await page.getByRole('heading',{name:'Session inputs',exact:true}).waitFor();assert.ok(await page.locator('#calculator-person').isVisible());assert.ok(await page.locator('#calculator-drinks').isVisible());assert.ok(await page.locator('#calculator-estimate').isVisible());await axe('inputs-empty-default');
+  const manifest=JSON.parse(fs.readFileSync(path.join(root,'public/manifest.webmanifest'),'utf8'));assert.equal(manifest.start_url,'./#calculate');
+ });
+ await check('Analysis retains one application shell and separate concentration plots',async()=>{
+  await overview();assert.equal(await page.getByRole('main').count(),1);assert.equal(await page.getByRole('heading',{level:1}).count(),1);assert.equal(await main().getByRole('link').count(),4);assert.equal(await page.locator('.v160-plot').count(),2);
   const y=await page.locator('.v160-plot.caffeine').boundingBox();assert.ok(y.y+y.height<930,'Both concentration plots must be visible near the first desktop viewport.');await axe('overview-default-light');const route=page.url();await page.getByRole('link',{name:'Skip to workspace',exact:true}).focus();await page.keyboard.press('Enter');assert.equal(page.url(),route);assert.equal(await page.evaluate(()=>document.activeElement.id),'main-content');
+ });
+ await check('Input BAC ring and graph remain interactive at every depth and responsive layout',async()=>{
+  const original=await page.evaluate(()=>window.__PK_SANDBOX_V2__.controller.capture());
+  try{
+   await main().getByRole('link',{name:'Session',exact:true}).click();
+   await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,f=a.controller.capture();f.document.mainScenario.doseEvents=[{id:'preview-proof',label:'Mixed preview proof',startTimeH:0,durationMin:30,ethanolGrams:30,caffeineMg:95,servings:1}];f.presentation.selectedTimeH=2;a.controller.restore(f,'Input preview fixture');});await current();
+   const preview=page.locator('#calculator-estimate'),ring=preview.locator('.bac-severity-ring'),graph=preview.locator('.timeline-svg');
+   for(const depth of ['default','detailed','expert']){
+    await page.getByRole('combobox',{name:'Scientific depth',exact:true}).selectOption(depth);assert.ok(await ring.isVisible());assert.ok(await graph.isVisible());await axe('inputs-mixed-'+depth);
+   }
+   await page.getByRole('combobox',{name:'Scientific depth',exact:true}).selectOption('default');
+   const slider=preview.getByRole('slider',{name:'Inspect modeled time',exact:true});await slider.focus();await slider.press('Home');await page.waitForFunction(()=>window.__PK_SANDBOX_V2__.store.state.presentation.selectedTimeH===0);await slider.press('ArrowRight');await page.waitForFunction(()=>window.__PK_SANDBOX_V2__.store.state.presentation.selectedTimeH>0);assert.ok(await ring.isVisible());
+   await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:path.join(artifacts,engine+'-inputs-restored-desktop.png')});
+   for(const width of [320,390,768,900,1024,1180,1280,1440]){
+    await page.setViewportSize({width,height:1000});assert.ok(await ring.isVisible());assert.ok(await graph.isVisible());
+    const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,areas:getComputedStyle(document.querySelector('.calculate-workbench')).gridTemplateAreas,boxes:[...document.querySelectorAll('.calculate-workbench>div')].map(e=>e.getBoundingClientRect().toJSON())}));
+    assert.ok(layout.scroll<=layout.width+1,JSON.stringify(layout));const [person,intake,estimate]=layout.boxes;assert.ok(person.right<=intake.left+1||person.bottom<=intake.top+1);assert.ok(intake.right<=estimate.left+1||Math.max(person.bottom,intake.bottom)<=estimate.top+1);assert.ok(estimate.width>0);
+    if(width===1440)assert.equal(layout.areas,'"person intake estimate"');if(width===1024)assert.equal(layout.areas,'"person intake" "estimate estimate"');if(width===320)assert.equal(layout.areas,'"person" "intake" "estimate"');
+   }
+   await page.setViewportSize({width:390,height:844});await preview.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(artifacts,engine+'-inputs-restored-mobile.png')});
+   await page.goto(url+'/#session/calibration');await current();assert.ok(page.url().endsWith('#session/calibration'));await page.getByRole('heading',{name:'Scientific workbench',exact:true}).waitFor();
+   await page.getByRole('link',{name:'PK/PD Sandbox session home',exact:true}).click();await preview.waitFor({state:'visible'});assert.ok(page.url().endsWith('#calculate'));
+  }finally{await page.evaluate(f=>window.__PK_SANDBOX_V2__.controller.restore(f,'Restore test fixture'),original);await current();await page.setViewportSize({width:1440,height:1000});await overview();}
  });
  await check('Direct intake dialog focuses the first field, commits once and preserves Undo',async()=>{
   const before=await page.evaluate(()=>window.__PK_SANDBOX_V160__.controller.history.entries.length);
