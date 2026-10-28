@@ -1,5 +1,6 @@
+const V2_VERSIONS=Object.freeze({...qt,scientificWorkbenchVersion:'1.0.0',referenceModelProfile:'reference-1.60',evidenceVersion:'2026-10-28.1',sessionSchemaVersion:'1.1.0'});
 const V15Integration=PKPDV15.createV15UI({
- React:M,store:canonicalStore,runtime:simulationRuntime,versions:qt,
+ React:M,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS,scienceCore:PKCore,
  parameters:[...XJ,...QJ].filter(p=>/^(subject|constants)\./.test(p.id)),
  ethanolAmount:(event,constants)=>Ta(event,constants),caffeineAmount:event=>Na(event),
  openSurface:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface}})),
@@ -14,7 +15,7 @@ const V15Integration=PKPDV15.createV15UI({
    supersededPresetId:flat.supersededPresetId,comparisonTemplateId:flat.comparisonTemplateId,mainScenario:{subject:flat.subject,doseEvents:flat.doseEvents,constants:flat.constants},
    comparisonScenarios:flat.comparisonScenarios,comparisonEnabled:flat.comparisonEnabled,behaviourProfile:flat.behaviourProfile,useSeparateBehaviourProfiles:flat.useSeparateBehaviourProfiles,comparisonBehaviourProfiles:flat.comparisonBehaviourProfiles,sweepConfiguration:flat.sweepConfig,autosaveEnabled:frame.document.autosaveEnabled};
   for(const key of ['scenarioAnchorInstant','scenarioTimeZone','timeDisplayMode','selectedTimeH','selectedTimeProvenance','selectedLandmarkId','followNow'])frame.presentation[key]=flat.settings[key];
-  frame.markers=[];return frame;
+  frame.markers=[];delete frame.science;return frame;
  },
  loadDemo(kind){
   const frame=V15Integration.controller.capture(),subject=It(St),constants=bt(St.bodyMassKg);
@@ -30,6 +31,7 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-const V160_PUBLIC=Object.freeze({version:'1.6.0',releaseLabel:'1.60',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,store:canonicalStore,runtime:simulationRuntime,versions:qt});
+const V160_PUBLIC=Object.freeze({version:'2.0.0',releaseLabel:'2.0',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
 Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});
+Object.defineProperty(window,'__PK_SANDBOX_V2__',{value:V160_PUBLIC,enumerable:false});

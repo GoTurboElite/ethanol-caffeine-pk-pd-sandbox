@@ -8,7 +8,7 @@ export function V15Projects(){
   if(file.size>V15_MAX_PROJECT_BYTES){announce('Session files are limited to 8 MiB.','error');return;}
   await action(async()=>controller.importText(await file.text()),'Session imported and validated.');
  };
- const exportSession=()=>action(()=>download('pkpd-session-v1.6.0.json',JSON.stringify(controller.project(includeHistory),null,2)),'Session JSON prepared for download.');
+ const exportSession=()=>action(()=>download('pkpd-session-v2.0.0.json',JSON.stringify(controller.project(includeHistory),null,2)),'Session JSON prepared for download.');
  return <div className="v15-stack">
   <Panel title="Portable session documents" kicker="Saved states and recovery">
    <p>A session document contains the committed scenario, comparison state, absolute anchor, time zone, analysis markers and optional bounded editing history. Existing 0.8.2 scenario JSON files can also be imported.</p>

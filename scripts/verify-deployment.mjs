@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 const expected=JSON.parse(fs.readFileSync(new URL('../public/build.json',import.meta.url),'utf8'));
-const base=new URL(process.env.DEPLOYMENT_URL??'https://ethanol-caffeine-pk-pd-sandbox.pages.dev/');
+const base=new URL(process.env.DEPLOYMENT_URL??'https://pkpd.goturbo.one/');
 if(base.protocol!=='https:'&&base.hostname!=='127.0.0.1')throw Error('Deployment verification requires HTTPS.');
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function get(file){const response=await fetch(new URL(file,base),{cache:'no-store',signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error(file+': HTTP '+response.status);return Buffer.from(await response.arrayBuffer());}

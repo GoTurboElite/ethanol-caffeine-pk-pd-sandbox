@@ -1,19 +1,20 @@
-import {V15_VERSION,V15_PROJECT_SCHEMA,V15_PROJECT_SCHEMA_VERSION,V15History,v15Clone,v15Stable,v15SafeParse,v15Id,v15NormalizeMarkers,v15ValidateZone,v15HistoryLabel,v15ShiftFrame,v15Reanchor} from './core.mjs';
+import {V15_VERSION,V15_PROJECT_SCHEMA,V15_PROJECT_SCHEMA_VERSION,V15_MAX_PROJECT_BYTES,V15History,v15Clone,v15Stable,v15SafeParse,v15Id,v15NormalizeMarkers,v15ValidateZone,v15HistoryLabel,v15ShiftFrame,v15Reanchor} from './core.mjs';
 import {V15Storage} from './storage.mjs';
+import {emptyScience,validateScience} from '../science/schema.mjs';
 export const V15_TIME_FIELDS=['scenarioAnchorInstant','scenarioTimeZone','timeDisplayMode','timeReferenceBasis','selectedTimeH','selectedTimeProvenance','selectedLandmarkId','followNow'];
 export class V15Controller {
  constructor(bridge,environment=globalThis){
   this.bridge=bridge;this.env=environment;this.store=bridge.store;this.storage=new V15Storage(environment);
   this.markers=[];this.listeners=new Set();this.revision=0;this.suppress=0;this.timer=null;this.writeSerial=0;this.writeChain=Promise.resolve();
   this.importedHistory=[];this.projects=[];this.recovery=null;this.recoveryEnabled=false;this.storageStatus='opening';this.message='';this.comparison=null;this.comparisonKey=null;this.comparisonSerial=0;
-  this.history=new V15History(this.capture());this.installHistory();this.ready=this.initialise();
+  this.scienceDocument=emptyScience();this.history=new V15History(this.capture());this.installHistory();this.ready=this.initialise();
  }
  subscribe=listener=>{this.listeners.add(listener);return()=>this.listeners.delete(listener);};
  getRevision=()=>this.revision;
  emit(){this.revision++;for(const fn of this.listeners)fn();}
  capture(){
   const s=this.store.state,p={};for(const key of V15_TIME_FIELDS)p[key]=s.presentation[key]??null;
-  return {document:v15Clone(s.document),presentation:p,markers:v15Clone(this.markers)};
+  return {document:v15Clone(s.document),presentation:p,markers:v15Clone(this.markers),science:v15Clone(this.scienceDocument)};
  }
  installHistory(){
   const store=this.store,originalField=store.field.bind(store),originalTransaction=store.transaction.bind(store);
@@ -68,6 +69,7 @@ export class V15Controller {
   v15ValidateZone(frame.presentation.scenarioTimeZone);
   if(!Number.isFinite(frame.presentation.selectedTimeH)||frame.presentation.selectedTimeH<0||(!allowInvalid&&frame.presentation.selectedTimeH>frame.document.mainScenario.subject.simulationDurationH))throw Error('The inspection time must be inside the scenario horizon.');
   frame.markers=v15NormalizeMarkers(frame.markers??[]);
+  frame.science=validateScience(frame.science??emptyScience());
   return frame;
  }
  restore(frame,label='Restored session',record=true,allowInvalid=false){
@@ -75,6 +77,7 @@ export class V15Controller {
   this.suppress++;
   try{
    this.markers=safe.markers;
+   this.scienceDocument=safe.science;
    this.store.transaction(label,()=>{
     const d=safe.document,map={title:d.title,notes:d.notes,preset:d.activePresetMetadata??null,supersededPreset:d.supersededPresetId??null,comparisonTemplate:d.comparisonTemplateId??null,
       subject:d.mainScenario.subject,doses:d.mainScenario.doseEvents,constants:d.mainScenario.constants,comparisons:d.comparisonScenarios,comparisonEnabled:!!d.comparisonEnabled,
@@ -120,15 +123,17 @@ export class V15Controller {
   if(!this.canSave())throw Error('Finish or correct the current input before saving or exporting a session.');
   const frame=this.validateFrame(this.capture());
   const entries=this.history.entries.map(e=>({label:e.label,at:e.at,frame:v15Clone(e.frame)}));entries[this.history.index].frame=v15Clone(frame);
-  return {schema:V15_PROJECT_SCHEMA,schemaVersion:V15_PROJECT_SCHEMA_VERSION,appVersion:V15_VERSION,scenarioSchemaVersion:'0.8.2',
+  const project={schema:V15_PROJECT_SCHEMA,schemaVersion:V15_PROJECT_SCHEMA_VERSION,appVersion:V15_VERSION,scenarioSchemaVersion:'0.8.2',
    versions:{...this.bridge.versions},exportedAt:new Date().toISOString(),frame,
-   history:includeHistory?{index:this.history.index,entries}:undefined,importedHistory:includeHistory?this.importedHistory:undefined};
+   history:includeHistory?{index:this.history.index,entries}:undefined,importedHistory:includeHistory?this.importedHistory:undefined,scienceResults:this.scienceRuntime?.exportRecords()??[]};
+  if(new TextEncoder().encode(JSON.stringify(project)).byteLength>V15_MAX_PROJECT_BYTES)throw Error('This session exceeds 8 MiB. Export without editing history or reduce the observation/result archive.');
+  return project;
  }
  importText(text){return this.importObject(v15SafeParse(text),'Imported session');}
  importObject(value,label='Imported session'){
   let frame,archive=[];
   if(value?.schema===V15_PROJECT_SCHEMA){
-   if(value.schemaVersion!==V15_PROJECT_SCHEMA_VERSION)throw Error('This session uses an unsupported document version.');
+   if(!['1.0.0',V15_PROJECT_SCHEMA_VERSION].includes(value.schemaVersion))throw Error('This session uses an unsupported document version.');
    if(value.versions?.modelEngineVersion&&value.versions.modelEngineVersion!==this.bridge.versions.modelEngineVersion)throw Error('This session requires engine '+value.versions.modelEngineVersion+'. Use the matching archived release to reproduce it.');
    frame=this.validateFrame(v15Clone(value.frame));
    if(value.history){
@@ -138,7 +143,10 @@ export class V15Controller {
     if(v15Stable(archive[value.history.index].frame)!==v15Stable(frame))throw Error('The history cursor does not match the exported working state.');
    }
   }else frame=this.validateFrame(this.bridge.importLegacy(value));
+  const records=value?.schema===V15_PROJECT_SCHEMA?(value.scienceResults??[]):[];
+  if(!Array.isArray(records)||records.length>3||records.some(r=>!r||!['fit','evaluate','uncertainty','benchmarks'].includes(r.kind)||typeof r.sourceKey!=='string'||r.sourceKey.length>300000||JSON.stringify(r).length>600000))throw Error('Scientific result archive is invalid or exceeds its size limit.');
   this.restore(frame,label);
+  this.scienceRuntime?.importRecords(records);
   this.importedHistory=archive;this.emit();
   return frame;
  }

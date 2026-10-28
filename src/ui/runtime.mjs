@@ -1,12 +1,14 @@
 import {V15Controller} from '../session/controller.mjs';
 import {v15PWA} from '../session/pwa.mjs';
 import {InterfacePreferences} from '../session/preferences.mjs';
-export let React,Fragment,bridge,controller,pwa,preferences;
+import {ScienceController} from '../science/controller.mjs';
+export let React,Fragment,bridge,controller,pwa,preferences,science;
 export const h=(...args)=>React.createElement(...args);
 export function v15InitUI(value){
- bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);preferences=new InterfacePreferences(value.store);pwa=v15PWA(controller);
- return{controller,pwa,preferences};
+ bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);science=new ScienceController(controller,value);controller.scienceRuntime=science;preferences=new InterfacePreferences(value.store);pwa=v15PWA(controller);
+ return{controller,pwa,preferences,science};
 }
+export function useScience(){React.useSyncExternalStore(science.subscribe,science.snapshot,science.snapshot);return science;}
 export function useSession(){
  React.useSyncExternalStore(controller.subscribe,controller.getRevision,controller.getRevision);
  return React.useSyncExternalStore(bridge.store.subscribe,bridge.store.getState,bridge.store.getState);

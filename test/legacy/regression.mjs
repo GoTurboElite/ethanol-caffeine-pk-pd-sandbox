@@ -13,7 +13,7 @@ const clone=x=>structuredClone(x);
 const simulate=(input,engine=core)=>engine.Mr(input.subject,input.doseEvents,input.constants);
 function valid(result){assert.equal(result.numericalValidity,'valid');assert.equal(result.integrity.massBalancePassed,true);assert.equal(result.convergence.converged,true);}
 function event(changes={}){return {...clone(fixture.doseEvents[0]),id:'test',label:'Synthetic regression',startTimeH:0,durationMin:0,ethanolGrams:0,caffeineMg:0,...changes};}
-check('versions and unchanged scientific constants',()=>{assert.equal(core.Vi,'1.6.0');assert.equal(core.Pj,'0.4.4');assert.equal(core.Vv,baseline.Vv);assert.deepEqual(core.bt(90),baseline.bt(90));assert.deepEqual(core.St,baseline.St);return {app:core.Vi,engine:core.Pj,constants:core.Vv};});
+check('versions and unchanged scientific constants',()=>{assert.equal(core.Vi,'2.0.0');assert.equal(core.Pj,'0.4.4');assert.equal(core.Vv,baseline.Vv);assert.deepEqual(core.bt(90),baseline.bt(90));assert.deepEqual(core.St,baseline.St);return {app:core.Vi,engine:core.Pj,constants:core.Vv};});
 for(const step of [.25,.5,1,2])check('exact-horizon bolus and adjacent instants, step '+step,()=>{
  const anchor=clone(fixture);anchor.subject.solverInternalStepMin=step;
  const cases=[0,24,24-1e-9,24+1e-9,24-Number.EPSILON*24,24+Number.EPSILON*24];

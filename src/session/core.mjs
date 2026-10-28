@@ -1,6 +1,6 @@
-export const V15_VERSION = '1.6.0';
+export const V15_VERSION = '2.0.0';
 export const V15_PROJECT_SCHEMA = 'ethanol-caffeine-session';
-export const V15_PROJECT_SCHEMA_VERSION = '1.0.0';
+export const V15_PROJECT_SCHEMA_VERSION = '1.1.0';
 export const V15_HISTORY_LIMIT = 60;
 export const V15_MAX_PROJECT_BYTES = 8 * 1024 * 1024;
 export const v15Clone = value => JSON.parse(JSON.stringify(value));

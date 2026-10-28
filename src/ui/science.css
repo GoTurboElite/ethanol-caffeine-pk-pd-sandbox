@@ -1,0 +1,9 @@
+.v2-workbench-tabs{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem 0;border-bottom:1px solid var(--v160-line)}
+.v2-workbench-tabs a{display:inline-block;padding:.5rem .8rem;border-radius:.45rem;text-decoration:none;color:var(--v160-text);border:1px solid var(--v160-line)}
+.v2-workbench-tabs a[aria-current=page]{font-weight:750;box-shadow:inset 0 -3px var(--v160-accent)}
+.v2-science-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:.75rem;align-items:start}
+.v2-parameter-rows{display:grid;gap:.75rem;margin:1rem 0}.v2-parameter-rows fieldset{min-width:0;border:1px solid var(--v160-line);border-radius:.65rem;padding:.8rem}.v2-parameter-rows legend{font-weight:650;padding:0 .4rem}
+.v2-science-plots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.v2-science-plot{min-width:0;border:1px solid var(--v160-line);border-radius:.65rem;padding:.8rem;color:var(--v160-text)}.v2-science-plot svg{display:block;width:100%;height:auto;min-height:180px;overflow:visible}.v2-science-plot svg text{fill:var(--v160-text);font-size:12px}.v2-science-plot h3{margin:.2rem 0}.v2-science-plot.caffeine{color:var(--v160-caf,#295fb1)}.v2-science-plot.ethanol{color:var(--v160-bac,#945324)}
+.v2-job-state{margin-top:1rem;padding-top:.6rem;border-top:1px solid var(--v160-line);overflow-wrap:anywhere}.v2-job-state p{margin:.4rem 0}.v2-job-state button{margin:.3rem .4rem .3rem 0}
+.v160-app textarea{box-sizing:border-box;max-width:100%;min-width:0;overflow-wrap:anywhere}.v160-app .v15-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:28rem;overflow:auto;padding:.8rem;border:1px solid var(--v160-line)}
+@media(max-width:900px){.v2-science-plots{grid-template-columns:1fr}}@media(max-width:480px){.v2-workbench-tabs a{flex:1 1 40%;text-align:center}.v2-parameter-rows fieldset{padding:.55rem}}

@@ -24,7 +24,7 @@ jobs:
       - run: git diff --exit-code -- public
       - run: npm test
   browser:
-    timeout-minutes: 15
+    timeout-minutes: 22
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -51,13 +51,22 @@ jobs:
         if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
+      - run: node test/science-browser.mjs
+        if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
       - run: node test/live-browser.mjs
         if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
-          DEPLOYMENT_URL: ${{ github.event_name == 'push' && 'https://ethanol-caffeine-pk-pd-sandbox.pages.dev/' || '' }}
+          DEPLOYMENT_URL: ${{ github.event_name == 'push' && 'https://pkpd.goturbo.one/' || '' }}
           DEPLOYMENT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
           GITHUB_TOKEN: ${{ github.token }}
+      - run: node test/live-browser.mjs
+        if: ${{ github.event_name == 'push' && !cancelled() && steps.browsers.outcome == 'success' }}
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
+          DEPLOYMENT_URL: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
@@ -74,3 +83,6 @@ jobs:
         with:
           node-version: '24'
       - run: node scripts/verify-deployment.mjs
+      - run: node scripts/verify-deployment.mjs
+        env:
+          DEPLOYMENT_URL: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/

@@ -1,6 +1,7 @@
 import {h,React,Fragment,bridge,controller,action,useSession,navigate} from './runtime.mjs';
 import {Panel,Button,Table,Disclosure} from './common.jsx';
 import {V15_GUIDES,V15_GUIDE_COMMON} from '../content/guide.mjs';
+import {SCIENCE_GUIDES} from '../content/science-guide.mjs';
 export function V15Help(){
  const state=useSession(),route=window.location.hash.split('/')[1],level=['default','detailed','expert'].includes(route)?route:state.presentation.detailMode;
  const [query,setQuery]=React.useState(''),[demo,setDemo]=React.useState('coffee'),guide=V15_GUIDES[level],q=query.trim().toLowerCase();
@@ -15,6 +16,7 @@ export function V15Help(){
    <label className="v15-field">Search this guide<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try duration, history, clock, half-life or report"/></label>
    <div className="v15-guide-jumps">{sections.map(s=><Button key={s.id} onClick={()=>document.getElementById('v15-guide-'+s.id)?.scrollIntoView({block:'start'})}>{s.title}</Button>)}</div>
   </Panel>
+  <Panel title="Scientific workbench walkthrough">{SCIENCE_GUIDES[level].filter(step=>!q||step.join(' ').toLowerCase().includes(q)).map((step,i)=><article key={step[0]} className="v15-guide-step"><div className="v15-step-number">{i+1}</div><div><h3>{step[0]}</h3><p><strong>Action.</strong> {step[1]}</p><p><strong>Expected result.</strong> {step[2]}</p><p className="v15-note"><strong>Check.</strong> {step[3]}</p></div></article>)}</Panel>
   <Disclosure id="worked-examples" title="Worked examples"><p>Each example is synthetic and uses documented reference inputs. Loading one creates an undoable scenario transaction.</p><div className="v15-actions"><label className="v15-field">Example<select aria-label="Example" value={demo} onChange={e=>setDemo(e.target.value)}><option value="coffee">Single coffee: absorption and elimination</option><option value="episodes">Two ethanol episodes: repeated threshold crossings</option><option value="overnight">Overnight mixed scenario: calendar and markers</option></select></label><Button onClick={load}>Load worked example</Button></div></Disclosure>
   {!sections.length&&<Panel title="No walkthrough steps match"><p>Try a shorter search term or clear the search field.</p></Panel>}
   {sections.map(section=><Panel key={section.id} id={'v15-guide-'+section.id} title={section.title} className="v15-guide-section">
