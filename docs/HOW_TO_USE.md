@@ -102,9 +102,9 @@ Check. Session JSON stores analytical inputs and history separately. Restore int
 
 #### 1. Open Session inputs
 
-Action. Choose Session, then Inputs. Set Scientific depth to Default.
+Action. The application opens Session, Inputs. To return here, choose Session, then Inputs. Set Scientific depth to Default.
 
-Expected result. The person and intake controls are visible.
+Expected result. The person and intake controls are visible. After adding an intake, the live result includes the concentration graph and, for ethanol, the BAC ring.
 
 Check. Scientific depth changes analytical controls. Explanation support and spacing are separate settings.
 

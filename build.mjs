@@ -16,7 +16,6 @@ if(!/Vi\s*=\s*"2\.0\.0"/.test(engine))throw Error('Application version patch did
 let app=read('src/legacy/app.js');
 const replace=(from,to)=>{if(!app.includes(from))throw Error('Missing integration seam: '+from.slice(0,90));app=app.replace(from,to);};
 replace('const tne = ["calculate", "results", "behaviour", "explore", "expert", "export"];','const tne = ["calculate", "results", "behaviour", "explore", "expert", "export", "session", "help"];');
-replace('window.location.hash || window.history.replaceState(null, "", "#calculate")','window.location.hash || window.history.replaceState(null, "", "#session/overview")');
 replace('settings: this.state.presentation,',"settings: {...this.state.presentation,selectedWorkspace:['calculate','results','behaviour','explore','expert','export'].includes(this.state.presentation.selectedWorkspace)?this.state.presentation.selectedWorkspace:'calculate',selectedSubview:this.state.presentation.selectedWorkspace==='session'||this.state.presentation.selectedWorkspace==='help'?'':this.state.presentation.selectedSubview},");
 const anchorStart=app.indexOf('    const _ = Ar.current;'),anchorEnd=app.indexOf('  }, [ct]),',anchorStart);
 if(anchorStart<0||anchorEnd<0)throw Error('Missing fixed-anchor integration seam.');
@@ -43,6 +42,6 @@ const manifest={appVersion:'2.0.0',releaseLabel:'2.0',engineVersion:'0.4.4',cons
 fs.writeFileSync(path.join(output,'build.json'),JSON.stringify(manifest,null,2)+'\n');
 for(const n of files('src/assets')){const dest=path.join(output,n.slice('src/assets/'.length));fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(root,n),dest);}
 fs.writeFileSync(path.join(output,'sw.js'),read('src/sw.js').replaceAll('__CACHE_VERSION__',fingerprint.slice(0,20)));
-fs.writeFileSync(path.join(output,'manifest.webmanifest'),JSON.stringify({id:'/',name:'Ethanol + Caffeine PK/PD Sandbox',short_name:'PK/PD Sandbox',description:'Local exposure sessions, model inspection and reproducible analysis.',start_url:'./#session/timeline',scope:'./',display:'standalone',background_color:'#f4f6fa',theme_color:'#216b61',icons:[{src:'./icons/icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'./icons/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},{src:'./icons/icon.svg',sizes:'any',type:'image/svg+xml',purpose:'any'}]},null,2)+'\n');
+fs.writeFileSync(path.join(output,'manifest.webmanifest'),JSON.stringify({id:'/',name:'Ethanol + Caffeine PK/PD Sandbox',short_name:'PK/PD Sandbox',description:'Local exposure sessions, model inspection and reproducible analysis.',start_url:'./#calculate',scope:'./',display:'standalone',background_color:'#f4f6fa',theme_color:'#216b61',icons:[{src:'./icons/icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},{src:'./icons/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},{src:'./icons/icon.svg',sizes:'any',type:'image/svg+xml',purpose:'any'}]},null,2)+'\n');
 fs.writeFileSync(path.join(output,'_headers'),read('src/headers.txt'));
 console.log(JSON.stringify({appVersion:'2.0.0',bytes:Buffer.byteLength(hosted),fingerprint,output},null,2));

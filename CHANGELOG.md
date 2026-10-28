@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0 interface restoration - 2026-10-28
+
+Restored the input workspace's live BAC rings and concentration graph, including responsive three-column, two-column and stacked layouts. Fresh browser and installed-app launches now open Session → Inputs. Explicit analysis and scientific links remain directly accessible.
+
 ## 2.0.0 — 2026-10-28
 
 Added a local scientific workbench with timestamped observations, explicit matrices/error scales and held-out evaluation. Added bounded one/two-parameter calibration with sensitivity checks, objective support and undoable named application. Added seeded joint uncertainty, paired A/B draws, conditional threshold fractions and censored final-return summaries.
