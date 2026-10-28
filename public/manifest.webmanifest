@@ -3,7 +3,7 @@
   "name": "Ethanol + Caffeine PK/PD Sandbox",
   "short_name": "PK/PD Sandbox",
   "description": "Local exposure sessions, model inspection and reproducible analysis.",
-  "start_url": "./#session/timeline",
+  "start_url": "./#calculate",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f4f6fa",
