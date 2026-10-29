@@ -1,0 +1,32 @@
+import {h,React,Fragment,bridge,controller,useSession,usePreferences,accepted,navigate} from './runtime.mjs';
+import {Button,Disclosure} from './common.jsx';
+import {ParameterDialog} from './editors.jsx';
+import {v15Number} from '../session/core.mjs';
+import {bacText,bacUnit} from './units.mjs';
+import {SCIENTIFIC_TASKS} from './routes.mjs';
+export function ParameterButton({path,children}){
+ const [open,setOpen]=React.useState(false),entry=bridge.parameters.find(e=>e.path===path||e.id===path);
+ return <><button type="button" className="v160-link" onClick={()=>entry?setOpen(true):navigate('session','parameters')}>{children}</button>{open&&entry&&<ParameterDialog entry={entry} onClose={()=>setOpen(false)}/>}</>;
+}
+export function ModelContext({inputMode=false}){
+ const state=useSession(),prefs=usePreferences(),{input,current,snapshot}=accepted(),draft=state.document.mainScenario,model=input??draft,s=model.subject,c=model.constants,depth=state.presentation.detailMode;
+ const direct=s.caffeineParameterMode==='direct effective half-life',half=direct?s.caffeineHalfLifeH:s.referenceCaffeineHalfLifeH;
+ return <section className="v21-model-context" aria-label="Model assumptions and next steps">
+  <div className="v21-context-values"><span><b>{direct?'Caffeine half-life':'Caffeine reference half-life'}</b> {v15Number(half)} h</span><span><b>Observation horizon</b> {v15Number(s.simulationDurationH)} h</span><span className={'v21-source '+(!current?'previous':'')}>{snapshot?(current?'Accepted inputs':'Previous accepted inputs'):'Committed inputs'}</span></div>
+  {inputMode&&<nav className="v21-context-links" aria-label="Explore these inputs"><a href="#session/overview">Inspect in Analysis</a><a href="#session/explain">Explain concentrations</a><a href="#session/compare">Compare scenarios</a>{depth!=='default'&&<a href="#session/parameters">Parameters</a>}{depth==='expert'&&<><a href="#session/calibration">Calibration</a><a href="#session/uncertainty">Uncertainty</a><a href="#results/data">Numerical data</a></>}</nav>}
+  <Disclosure id={inputMode?'input-assumptions':'analysis-definitions'} title={depth==='expert'?'Definitions, assumptions and provenance':'What do these values mean?'} defaultOpen={prefs.explanations==='expanded'&&!prefs.focus}>
+   <dl className="v21-definitions"><div><dt>BAC</dt><dd>Modelled ethanol concentration in whole blood. In g/dL, 0.080 g/dL equals 80 mg/dL. Severity names are interpretive concentration bands; individual effects remain uncertain.</dd></div><div><dt>Caffeine concentration</dt><dd>Modelled plasma concentration in mg/L, determined by the dose, absorption, distribution and elimination assumptions.</dd></div><div><dt>Half-life and horizon</dt><dd>{direct?'The effective caffeine half-life governs elimination in this formulation.':'The reference caffeine half-life is adjusted by the selected CYP1A2 covariates.'} The horizon is the calculated time window; a curve still above a reference at its end has an unresolved return time.</dd></div></dl>
+   <div className="v21-context-links"><ParameterButton path={direct?'subject.caffeineHalfLifeH':'subject.referenceCaffeineHalfLifeH'}>Inspect half-life: {v15Number(half)} h</ParameterButton><ParameterButton path="constants.caffeineVdLPerKg">Caffeine distribution: {v15Number(c.caffeineVdLPerKg)} L/kg</ParameterButton>{depth!=='default'&&<><ParameterButton path="subject.caffeineAbsorptionModifier">Caffeine absorption: {v15Number(s.caffeineAbsorptionModifier)}×</ParameterButton><ParameterButton path="subject.gastricEmptyingModifier">Gastric emptying: {v15Number(s.gastricEmptyingModifier)}×</ParameterButton></>}</div>
+   {depth!=='default'&&<p>Absorption adds drug to the central compartment while elimination removes it; their balance determines the rise, peak and decline. Peak concentration and time depend on the complete intake schedule and food/distribution assumptions. A half-life describes exponential elimination under fixed conditions, after absorption and further input are accounted for.</p>}
+   {depth==='expert'&&<p>Values above use {snapshot?'snapshot '+snapshot.snapshotId:'the committed draft'}. Engine {bridge.versions.modelEngineVersion}; constants {bridge.versions.constantsVersion}. Inspection interpolates the dense accepted trajectory. Scientific observations and sampled quantiles are shown in the workbench with their own captured inputs and assumptions.</p>}
+   <p className="v160-help">PD and behavioural outputs are heuristic response classifications. Parameter uncertainty is conditional on the supplied distributions. Empirical validation applies to the evaluated endpoints and populations.</p>
+  </Disclosure>
+ </section>;
+}
+export function ScientificTasks(){
+ const state=useSession();return <section className="v21-scientific-tasks" aria-label="Scientific tools"><h2>Scientific tools</h2><div>{SCIENTIFIC_TASKS.map(([label,view,description])=><a key={view} href={'#session/'+view}><b>{label}</b>{state.presentation.detailMode!=='expert'&&<span>{description}</span>}</a>)}</div><p><a href="#session/observations">Manage concentration observations</a><span> → evaluation or calibration → inspect results</span></p></section>;
+}
+export function RingGuide(){
+ const state=useSession(),unit=bacUnit(state.presentation);return <div className="v21-ring-guide"><p><b>Ring quantity: modelled BAC.</b> The outer ring fills from zero to {bacText(.25,state.presentation)} {unit}; the inner ring spans {bacText(.25,state.presentation)}–{bacText(.4,state.presentation)} {unit}.</p><p>Severity names describe interpretive concentration bands. Ring fill represents a concentration scale; it conveys no probability of impairment or safety.</p>{state.presentation.detailMode!=='default'&&<p>Normalisation: outer = clamp(BAC / 0.25, 0, 1); inner = clamp((BAC − 0.25) / 0.15, 0, 1), with BAC in g/dL. Band boundaries and the reference equations are retained.</p>}</div>;
+}
+export function PreviewCaption(){const state=useSession();return <p className="v21-preview-caption">Modelled BAC and caffeine at the shared inspection time. <a href="#session/overview">Open aligned plots</a>{state.presentation.detailMode!=='default'&&<> · <a href="#session/parameters">Inspect parameters</a></>}</p>;}

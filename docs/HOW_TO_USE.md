@@ -1,4 +1,4 @@
-# How to use v2.0
+# How to use v2.1
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -16,19 +16,27 @@ Expected result. The main navigation remains in its familiar position. Each task
 
 Check. The ordinary Analysis overview continues to use the retained v1.60 reference equations.
 
-#### Enter observations
+#### Enter one observation
 
-Action. Choose Session, then Observations. Download the CSV template. Replace its illustrative values with your measurements and enter the actual units, sampling matrix and elapsed times. Paste the CSV, enter its source and choose Validate and import observations.
+Action. Choose Session, then Observations. Enter Dataset source and assumptions. Open Structured observation entry. Choose the analyte; enter elapsed hours and measured concentration; verify the unit and matrix. Choose the dataset role and qualifier, enter SD if known, then choose Add observation.
 
-Expected result. The committed dataset table shows every accepted measurement and its role.
+Expected result. The committed dataset table shows the accepted row. Errors identify fields without committing an invalid row.
 
-Check. Rows default to evaluation. Calibration requires at least four quantified calibration rows at three distinct times.
+Check. Rows default to evaluation. Ethanol defaults to whole-blood g/dL; caffeine to plasma mg/L. Alternative matrices require an explicit factor and source assumptions.
+
+#### Import a bulk dataset
+
+Action. Download the CSV template and replace its illustrative values with measured data. Open Bulk import: observation CSV. Paste CSV or use Choose observation CSV, then choose Validate and import observations.
+
+Expected result. Import replaces the dataset as one undoable edit. The synthetic example remains explicitly labelled.
+
+Check. CSV supports time_h or explicit-offset time_iso. Calibration requires at least four quantified calibration rows at three distinct times.
 
 #### Evaluate a prediction
 
-Action. Wait for Current calculation. Open Analysis, Scientific workbench, Evaluation. Choose Evaluate current observations.
+Action. Wait for Current calculation. From Observations choose Evaluate observations, then Evaluate current observations.
 
-Expected result. Lines show the model and circles show the measurements. The table reports error separately by analyte and dataset role.
+Expected result. Lines show predictions, open circles quantified measurements and open triangles upper limits. Error summaries separate analytes and dataset roles.
 
 Check. Residuals use the explicitly labelled canonical units. A synthetic example is a software diagnostic.
 
@@ -110,19 +118,19 @@ Check. Scientific depth changes analytical controls. Explanation support and spa
 
 #### 2. Set the person
 
-Action. For body mass and horizon, choose Analysis, then Edit person. Enter kilograms and hours, then choose Apply person and horizon. For physiology and composition, use Full person editor and finish its input controls.
+Action. In Session, Inputs, enter Body mass (kg), choose physiology and Food state. Use Refine person for further settings. For a short body-mass/horizon form choose Analysis, then Edit person and Apply person and horizon.
 
-Expected result. The person summary reflects your committed values.
+Expected result. The person summary reflects committed values. Caffeine half-life and observation horizon are visible above the input editor.
 
 Check. Use measured values where available. An empty optional composition field leaves the selected fallback model active.
 
 #### 3. Define an intake
 
-Action. Choose Analysis, then + Add intake. Enter a label, ethanol grams per serving, caffeine milligrams per serving and the number of servings. For beverage-volume recipes or presets, choose Full intake editor.
+Action. In Session, Inputs, choose Add drink or caffeine. Choose a category, then a beverage template. Review the resulting row and choose Edit to adjust it. For known direct doses, choose Analysis, then + Add intake; enter grams ethanol, milligrams caffeine and Number of servings.
 
-Expected result. The intake appears in the intake list.
+Expected result. The intake appears in the list. Quantity controls, timing, duration and composition remain editable.
 
-Check. Ethanol is recorded as grams; caffeine is recorded as milligrams. Presets convert their volume and composition into those amounts.
+Check. Check the dose and assumed serving size of each preset. Ethanol is calculated in grams and caffeine in milligrams.
 
 #### 4. Set its start
 
@@ -166,13 +174,29 @@ Check. The wall-clock labels derive from the saved anchor and time zone.
 
 #### 9. Inspect one time
 
-Action. Move Inspection time or enter an elapsed hour value inside the horizon.
+Action. Use the input graph slider, or choose Inspect in Analysis. In Analysis tap or drag a curve, move Inspection time, enter elapsed hours, or focus a graph and press arrow keys. Choose Inspect peak for a peak time.
 
-Expected result. The inspection line and selected-time concentrations move together.
+Expected result. The shared cursor and both selected-time concentrations move together.
 
-Check. The current-time marker is a separate clock reference. It may fall outside this hypothetical scenario.
+Check. The current-time marker is a separate clock reference, available under Clock reference and current estimate in Inputs. It may lie outside this hypothetical scenario.
 
-#### 10. Read the units
+#### 10. Understand the BAC ring
+
+Action. In Inputs expand BAC bands and ring scale. Read the concentration units and the normalisation reference. Open Effects and interpretation for the longer interpretation.
+
+Expected result. The ring and input graph remain attached to the accepted simulation.
+
+Check. Outer fill spans 0 to 0.25 g/dL; inner fill spans 0.25 to 0.40 g/dL. Severity labels are interpretive concentration bands; the ring is not an individual impairment probability.
+
+#### 11. Use Analysis on a small screen
+
+Action. Open Analysis. Read the compact scenario summary above the graphs. Use + Add intake, Edit person, Full input editor or Schedule from that region.
+
+Expected result. Primary input actions remain available above the concentration display.
+
+Check. Full input editing remains in Session, Inputs. The accepted-result label identifies results retained while an edit is pending or invalid.
+
+#### 12. Read the units
 
 Action. Choose Analysis → Overview. Read BAC and caffeine in the units written beside each plot. Read the selected-time value above each plot and the whole-session peak below it. To change BAC units, choose Settings → Units.
 
@@ -180,7 +204,7 @@ Expected result. You can identify the concentration at the selected time and the
 
 Check. A peak time and a selected time refer to different questions.
 
-#### 11. Read repeated exposure
+#### 13. Read repeated exposure
 
 Action. Under the concentration plots, expand Threshold intervals and horizon coverage. Read every interval and its final return with the schedule and horizon labels.
 
@@ -188,7 +212,7 @@ Expected result. Later re-exposure remains visible.
 
 Check. An interval open at the horizon has no observed final return within this calculation.
 
-#### 12. Save a portable copy
+#### 14. Save a portable copy
 
 Action. Open Saved sessions. Enter a name and choose Save named state. Choose Export session JSON to retain an external copy.
 
@@ -238,11 +262,19 @@ Use this level for meal and physiology assumptions, compartment interpretation, 
 
 #### Separate calibration from evaluation
 
-Action. In the observation CSV, assign calibration to rows used for estimation and evaluation to rows reserved for checking predictions. Include an SD in each row when its measurement error is known.
+Action. In structured entry choose Observation dataset role, or set role in CSV: calibration for estimation; evaluation for held-out checking. Supply measurement SD when known. In the committed table choose Edit to change a row, or Remove to delete it.
 
-Expected result. Evaluation rows appear in error summaries and remain outside the fitting objective.
+Expected result. Evaluation rows appear in error summaries and remain outside the fitting objective. Row edits and removals can be undone.
 
 Check. Changing an evaluation value cannot change the estimated parameters. Reusing the same participants across roles still limits independence.
+
+#### Relate parameters to concentrations
+
+Action. Open Analysis and expand What do these values mean? Use Inspect half-life or the absorption/distribution parameter links. Apply a valid change and wait for Current calculation. Use Inspect peak or focus a graph and press arrow keys.
+
+Expected result. The shared cursor and both selected concentrations follow the same accepted trajectory.
+
+Check. The overlay uses independent BAC and caffeine vertical scales. Matching trace heights compare neither concentration magnitude nor pharmacological potency.
 
 #### Fit one active parameter
 
@@ -431,6 +463,14 @@ Check. The current sensitivity envelopes are deterministic explorations. A proba
 Use this level for numerical configuration, model assumptions, provenance, conservation, structural comparisons and reproducibility. The same accepted calculation authority serves every expertise level.
 
 ### Scientific workbench
+
+#### Orient scientific tasks quickly
+
+Action. Use Find control (Ctrl+K or Command+K) and search calibration, uncertainty, observations, evidence or a parameter name. Analysis keeps Scientific workbench active across its four child views. Use the Observations link above those tabs to return to datasets.
+
+Expected result. Direct task routes, active navigation and dataset-role counts identify the current analytical location.
+
+Check. Scientific depth changes presentation independently of explanation level, density and focus. It preserves the analytical document and numerical result.
 
 #### Audit model and observation identity
 

@@ -31,7 +31,7 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-const V160_PUBLIC=Object.freeze({version:'2.0.0',releaseLabel:'2.0',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
+const V160_PUBLIC=Object.freeze({version:'2.1.0',releaseLabel:'2.1',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
 Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V2__',{value:V160_PUBLIC,enumerable:false});

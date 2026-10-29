@@ -7,7 +7,7 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function get(file){const response=await fetch(new URL(file,base),{cache:'no-store',signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error(file+': HTTP '+response.status);return Buffer.from(await response.arrayBuffer());}
 async function verify(){
  const manifest=JSON.parse((await get('build.json')).toString());
- for(const key of ['appVersion','engineVersion','constantsVersion','schemaVersion','sessionSchemaVersion','buildFingerprint','htmlSha256','standaloneSha256'])if(manifest[key]!==expected[key])throw Error('Deployment is not current: '+key);
+ for(const key of ['appVersion','engineVersion','constantsVersion','schemaVersion','sessionSchemaVersion','scientificWorkbenchVersion','modelProfile','evidenceVersion','buildFingerprint','htmlSha256','standaloneSha256'])if(manifest[key]!==expected[key])throw Error('Deployment is not current: '+key);
  const hosted=await get('index.html'),standalone=await get('standalone-v'+expected.appVersion+'.html'),sw=await get('sw.js');
  if(hash(hosted)!==expected.htmlSha256)throw Error('Hosted HTML hash differs from the checked release.');
  if(hash(standalone)!==expected.standaloneSha256)throw Error('Standalone HTML hash differs from the checked release.');

@@ -15,6 +15,12 @@ const tasks=[
  {label:'Model diagnostics and sources',terms:'diagnostics integrity conservation provenance formula references',route:['expert','']},
  {label:'Sensitivity analysis',terms:'sweep sensitivity perturbation',route:['explore','sweep']},
  {label:'Behavioural interpretation',terms:'traits temperament personality effects behaviour PD',route:['behaviour','']},
+ {label:'Concentration observations',terms:'manual measurement observations dataset CSV import SD matrix',route:['session','observations']},
+ {label:'Evaluate observations',terms:'evaluation residual RMSE bias held out scientific workbench',route:['session','validation']},
+ {label:'Calibrate parameters',terms:'calibration fit fitting scientific workbench',route:['session','calibration']},
+ {label:'Parameter uncertainty',terms:'uncertainty seed sampling Monte Carlo distributions scientific workbench',route:['session','uncertainty']},
+ {label:'Evidence and provenance',terms:'evidence sources model profile population scientific workbench',route:['session','evidence']},
+ {label:'Parameter configuration',terms:'parameter configuration assumptions',route:['session','parameters']},
  {label:'How to use',terms:'help walkthrough instructions example',route:['help','default']}
 ];
 export function parameterMatches(entry,query){
@@ -23,15 +29,15 @@ export function parameterMatches(entry,query){
 }
 export function SearchDialog({onClose,onParameter,onAdd,onPerson}){
  const [query,setQuery]=React.useState(''),q=query.trim().toLowerCase(),entries=bridge.parameters.filter(e=>parameterMatches(e,q)).slice(0,20);
- const results=tasks.filter(t=>!q||(t.label+' '+t.terms).toLowerCase().includes(q));
- const go=t=>{onClose();if(t.action==='intake')onAdd();else if(t.action==='person')onPerson();else{if(t.route[0]==='explore'&&t.route[1]==='sweep')controller.setDetailMode('detailed');navigate(...t.route);}};
+ const results=tasks.filter(t=>!q||q.split(/\s+/).every(word=>(t.label+' '+t.terms).toLowerCase().includes(word)));
+ const go=t=>{onClose();if(t.action==='intake')onAdd();else if(t.action==='person')onPerson();else{navigate(...t.route);}};
  return <Dialog title="Find a control or parameter" onClose={onClose} wide><label className="v15-field">Search by name, abbreviation or unit<input autoFocus type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try Vmax, half-life, body mass, g/h or recovery"/></label><p className="v160-help">Select a parameter to inspect its value, unit and validation limits. Apply a valid change to record one Undo operation.</p>
-  <div className="v160-search-results">{results.length>0&&<section><h3>Tasks</h3>{results.map(t=><button key={t.label} className="v160-search-result" type="button" onClick={()=>go(t)}><b>{t.label}</b><span>Open task →</span></button>)}</section>}{entries.length>0&&<section><h3>Parameters</h3>{entries.map(e=><button key={e.id} type="button" className="v160-search-result" onClick={()=>{onClose();onParameter(e);}}><span><b>{parameterLabel(e.id)}</b><small>{e.path}</small></span><span>{e.unit||e.type} →</span></button>)}</section>}{!entries.length&&!results.length&&<p>No matching controls. Try a shorter parameter name or its unit.</p>}</div>
+  <div className="v160-search-results">{results.length>0&&<section><h3>Tasks</h3>{results.map(t=><button key={t.label} className="v160-search-result" type="button" aria-label={t.label} onClick={()=>go(t)}><b>{t.label}</b><span>Open task →</span></button>)}</section>}{entries.length>0&&<section><h3>Parameters</h3>{entries.map(e=><button key={e.id} type="button" className="v160-search-result" onClick={()=>{onClose();onParameter(e);}}><span><b>{parameterLabel(e.id)}</b><small>{e.path}</small></span><span>{e.unit||e.type} →</span></button>)}</section>}{!entries.length&&!results.length&&<p>No matching controls. Try a shorter parameter name or its unit.</p>}</div>
  </Dialog>;
 }
 export function Parameters({onParameter}){
  const state=useSession(),[query,setQuery]=React.useState(''),frame=controller.capture();
  const entries=bridge.parameters.filter(e=>parameterMatches(e,query)),subject=entries.filter(e=>e.path.startsWith('subject.')),constants=entries.filter(e=>e.path.startsWith('constants.'));
  const table=rows=><Table headers={['Parameter','Committed value','Unit','Range / choices','Action']} rows={rows.map(e=>[parameterLabel(e.id),String(readParameter(frame,e.path)??'Model default'),e.unit||'—',e.hard?e.hard.min+' to '+e.hard.max:e.allowed?e.allowed.join(', '):'See parameter details',<Button onClick={()=>onParameter(e)} aria-label={'Edit '+parameterLabel(e.id)}>Inspect / edit</Button>])}/>;
- return <div className="v15-stack"><Panel title="Parameters and assumptions"><p className="v160-help">Values are committed scenario inputs. The selected formulation determines which inputs are active. Changes are validated and recorded in Undo history.</p><label className="v15-field v160-search-field">Filter parameters<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Name, field path or unit"/></label><div className="v160-section-heading"><span>{entries.length} matching parameters</span><Button onClick={()=>navigate('expert')}>Diagnostics and coefficient sources</Button></div></Panel>{subject.length>0&&<Panel title="Person, timing and model formulation">{table(subject)}</Panel>}{constants.length>0&&<Panel title="Model constants">{table(constants)}</Panel>}{!entries.length&&<Panel title="No matching parameters"><p>Try a shorter name, an abbreviation or a unit.</p></Panel>}</div>;
+ return <div className="v15-stack"><Panel title="Search the parameter registry"><p className="v160-help">Values are committed scenario inputs. The selected formulation determines which inputs are active. Changes are validated and recorded in Undo history.</p><label className="v15-field v160-search-field">Filter parameters<input type="search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Name, field path or unit"/></label><div className="v160-section-heading"><span>{entries.length} matching parameters</span><Button onClick={()=>navigate('expert')}>Diagnostics and coefficient sources</Button></div></Panel>{subject.length>0&&<Panel title="Person, timing and model formulation">{table(subject)}</Panel>}{constants.length>0&&<Panel title="Model constants">{table(constants)}</Panel>}{!entries.length&&<Panel title="No matching parameters"><p>Try a shorter name, an abbreviation or a unit.</p></Panel>}</div>;
 }
