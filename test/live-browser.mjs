@@ -35,11 +35,14 @@ assert.ok(ready,'Hosted build did not match the checked commit.');
 execFileSync(process.execPath,[path.join(root,'scripts/verify-deployment.mjs')],{env:{...process.env,DEPLOYMENT_URL:base.href},stdio:'inherit'});
 const playwright=process.env.PLAYWRIGHT_MODULE_PATH?await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE_PATH)):await import('playwright');
 const engine=process.env.TEST_BROWSER??'chromium',browser=await playwright[engine].launch({headless:true});
-const errors=[],failedRequests=[];
+const errors=[],failedRequests=[],pendingRequests=new Set(),navigationResponses=[];let activePage;
 try{
- const context=await browser.newContext(),page=await context.newPage();
+ const context=await browser.newContext(),page=await context.newPage();activePage=page;
+ page.on('request',request=>pendingRequests.add(request.url()));
+ page.on('requestfinished',request=>pendingRequests.delete(request.url()));
+ page.on('response',response=>{if(response.request().isNavigationRequest())navigationResponses.push({url:response.url(),status:response.status()});});
  page.on('pageerror',error=>errors.push(error.message));
- page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}));
+ page.on('requestfailed',request=>{pendingRequests.delete(request.url());failedRequests.push({url:request.url(),error:request.failure()?.errorText});});
  const current=()=>page.waitForFunction(fp=>window.__PK_SANDBOX_V15__?.versions.buildFingerprint===fp&&window.__PK_SANDBOX_V15__.store.state.snapshots.relationToDraft==='current',expected.buildFingerprint,{timeout:90000});
  const inputs=async()=>{assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.version),expected.appVersion);assert.ok(await page.getByRole('region',{name:'Model assumptions and next steps'}).isVisible());assert.equal(new URL(page.url()).hash,'#calculate');assert.equal(await page.getByRole('navigation',{name:'Main workspaces'}).getByRole('link',{name:'Session',exact:true}).getAttribute('aria-current'),'page');assert.ok(await page.locator('#calculator-drinks').isVisible());assert.ok(await page.locator('#calculator-estimate').isVisible());};
  await page.goto(base.href,{waitUntil:'networkidle'});await current();assert.equal(new URL(page.url()).hostname,base.hostname,'Deployment origin must remain independently accessible.');
@@ -63,4 +66,4 @@ try{
  assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
  assert.deepEqual(errors,[]);assert.deepEqual(failedRequests,[]);
  console.log(JSON.stringify({browser:engine,url:base.href,buildFingerprint:expected.buildFingerprint,cachedReloads:2,indexAlias:true,standaloneAlias:true,csvReview:true,observationProvenance:true,sessionRoundTrip:true,errors,failedRequests,verifiedAt:new Date().toISOString()},null,2));
-}finally{await browser.close();}
+}catch(error){console.error(JSON.stringify({browser:engine,url:base.href,currentURL:activePage?.url(),navigationResponses,pendingRequests:[...pendingRequests],errors,failedRequests},null,2));throw error;}finally{await browser.close();}
