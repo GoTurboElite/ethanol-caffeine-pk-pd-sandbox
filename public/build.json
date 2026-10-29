@@ -8,9 +8,9 @@
   "scientificWorkbenchVersion": "1.0.0",
   "modelProfile": "reference-1.60",
   "evidenceVersion": "2026-10-28.1",
-  "buildFingerprint": "61d2a8bd7c1cdcf2f78297c787a66bde01b746b39dfe5075d8b2643dd11cd06c",
-  "htmlSha256": "5f4950f7920668c89302148ec280cc141503461f8f6eadb8e2ad98ed75ca350c",
-  "standaloneSha256": "74fbe7f7c30388a9e167a7610345b32daeeb9fa551a6a47e8b1c4e6b3e5cd7f1",
+  "buildFingerprint": "09eb44facff56083637d86c7062d2c18785bad8687ba634d7fab184aee95d1bd",
+  "htmlSha256": "4a34f2c3e4520f4bb1ff976d83fe7570a16827c2ec8be283d095981e0fd65b53",
+  "standaloneSha256": "50cb47f14944abe7dc11b9e72a2b9c8f77a5961e21de8767e59e71ee151e58f0",
   "sourceDeployment": "https://pkpd.goturbo.one/",
   "deploymentAlias": "https://ethanol-caffeine-pk-pd-sandbox.pages.dev/"
 }
