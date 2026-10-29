@@ -166,6 +166,7 @@ body[data-v21-state=pending] .calculation-preview-column>.result-preview,body[da
 .v21-scientific-tasks{padding:16px;border:1px solid var(--v160-line);border-radius:9px;background:var(--v160-surface);margin:16px 0}.v21-scientific-tasks h2{font-size:16px;margin:0 0 12px}.v21-scientific-tasks>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.v21-scientific-tasks>div>a{display:flex;flex-direction:column;gap:6px;min-height:42px;font-size:13px;text-decoration:none;line-height:1.5}.v21-scientific-tasks>div>a:hover b{text-decoration:underline}.v21-scientific-tasks span{font-size:12px;color:var(--v160-muted)}.v21-scientific-tasks p{font-size:12px;margin:12px 0 0}
 .v21-inspection-dot{fill:var(--v160-surface);stroke-width:2.5}.v21-inspection-dot.bac{stroke:var(--v160-bac)}.v21-inspection-dot.caffeine{stroke:var(--v160-caf)}.v21-threshold-line{stroke:var(--v160-muted);stroke-dasharray:2 5;stroke-width:1.2}.v21-graph-help{font-size:11px;color:var(--v160-muted);line-height:1.6;margin:10px 0 0}.v160-plot svg{touch-action:pan-y}.v21-overlay-peaks{margin-top:10px;display:grid;gap:6px}.v21-overlay-peaks footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px}.v21-overlay-peaks footer .v160-link{font-size:12px!important}
 .v21-preview-caption{font-size:12px;line-height:1.55;margin:0;color:var(--muted)}.v21-ring-guide p{font-size:12px;line-height:1.6;margin:8px 0}.v21-ring-reference,.v21-clock-reference,.v21-preview-interpretation{border-top:1px solid var(--line);padding-top:8px;font-size:12px;min-width:0}.v21-ring-reference>summary,.v21-clock-reference>summary,.v21-preview-interpretation>summary{cursor:pointer;min-height:36px;display:flex;align-items:center;font-weight:550}.v21-ring-reference>summary:before,.v21-clock-reference>summary:before,.v21-preview-interpretation>summary:before{content:'▸';margin-right:8px}.v21-ring-reference[open]>summary:before,.v21-clock-reference[open]>summary:before,.v21-preview-interpretation[open]>summary:before{content:'▾'}
+@container preview (min-width:350px){.calculation-preview-column .selected-bac-principal{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px;align-items:center}.calculation-preview-column .selected-bac-principal .bac-severity-ring{width:112px;height:112px;min-width:0}.calculation-preview-column .selected-bac-value strong{font-size:calc(32px * var(--v160-scale))}.calculation-preview-column .selected-bac-value h3{font-size:calc(16px * var(--v160-scale));line-height:1.4}}
 .v21-workbench-location,.v21-observation-route{display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap;font-size:13px;min-width:0}.v21-workbench-location a{min-height:36px;display:inline-flex;align-items:center}.v21-workbench-location small{font-size:11px;color:var(--v160-muted)}.v21-observation-route{padding:10px 12px;border:1px solid var(--v160-line);border-radius:7px;background:var(--v160-soft);margin:12px 0}
 .v21-observation-form{margin-top:8px}.v21-observation-form h3{margin:0}.v21-observation-form .v15-field small{font-size:11px;font-weight:400;color:var(--v160-muted)}.v21-observation-form .v15-field{align-content:start}.v21-observation-form [aria-invalid=true]{border:2px solid var(--v160-danger)}.v21-row-actions{display:flex;gap:7px;flex-wrap:wrap;min-width:130px}.v21-observation-form .v15-field input{font-size:14px}
 @media(max-width:900px){.v160-analysis-grid{display:flex;flex-direction:column}.v160-analysis-grid>.v160-input-rail{display:none}.v21-mobile-actions{display:block;order:0;width:100%;padding:13px 15px;background:var(--v160-surface);border:1px solid var(--v160-line);border-radius:9px}.v160-analysis-main{order:1;width:100%}.v21-mobile-actions .v21-context-links{gap:5px 14px}.v21-mobile-actions .v21-context-links a,.v21-mobile-actions button{min-height:42px}.v21-scientific-tasks>div{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -4650,7 +4651,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "95fb1eb70625e08feb994f972b47660d9f80f69cafcfbf290dc101fd097c6a82",
+  buildFingerprint: "61d2a8bd7c1cdcf2f78297c787a66bde01b746b39dfe5075d8b2643dd11cd06c",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -9060,7 +9061,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
   }
   function routeActive(state, route, view) {
     if (route === "session" && view === "validation") return state.presentation.selectedWorkspace === "session" && SCIENTIFIC_VIEWS.includes(state.presentation.selectedSubview);
-    return state.presentation.selectedWorkspace === route && (view ? state.presentation.selectedSubview === view : route !== "session");
+    return state.presentation.selectedWorkspace === route && (view ? (state.presentation.selectedSubview || "timeline") === view : route !== "session");
   }
   function calculationState(state) {
     const snapshot = state.snapshots.currentSnapshotId;
@@ -9262,7 +9263,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         if (editing) onDone();
         else setDraft((d) => ({ ...d, time: "", value: "", label: "" }));
       });
-      else requestAnimationFrame(() => document.getElementById(uid + "-" + Object.keys(result.errors)[0])?.focus());
+      else document.getElementById(uid + "-" + Object.keys(result.errors)[0])?.focus();
     };
     return /* @__PURE__ */ h("form", { className: "v21-observation-form", "aria-label": "Structured observation entry", noValidate: true, onSubmit: submit }, /* @__PURE__ */ h("h3", null, editing ? "Edit observation" : "Add one observation"), /* @__PURE__ */ h("p", { className: "v160-help" }, "Use measured concentrations. Model zero: ", state.presentation.scenarioAnchorInstant, ". CSV below is intended for bulk datasets."), /* @__PURE__ */ h("div", { className: "v2-science-fields" }, /* @__PURE__ */ h("label", { className: "v15-field", htmlFor: uid + "-analyte" }, "Observation analyte", /* @__PURE__ */ h("select", { "aria-label": "Observation analyte", id: uid + "-analyte", value: draft.analyte, onChange: (e) => {
       const d = observationDefaults(e.target.value);
