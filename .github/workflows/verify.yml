@@ -59,6 +59,10 @@ jobs:
         if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:
           TEST_BROWSER: ${{ matrix.browser }}
+      - run: node test/integrity-browser.mjs
+        if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
       - run: node test/live-browser.mjs
         if: ${{ !cancelled() && steps.browsers.outcome == 'success' }}
         env:

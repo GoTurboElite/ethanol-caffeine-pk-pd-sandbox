@@ -11,7 +11,7 @@ export function V15Report(){
  const make=()=>action(()=>{
   if(!ready)throw Error('Wait for current accepted main and comparison results before generating the report.');
   const frame=controller.validateFrame(controller.capture()),html=v15BuildReport({frame,result,snapshotId:snapshot.snapshotId,versions:{...bridge.versions},depth,scienceResults:science.exportRecords(),eventAmounts:Object.fromEntries(frame.document.mainScenario.doseEvents.map(e=>[e.id,{ethanolGrams:bridge.ethanolAmount(e,frame.document.mainScenario.constants),caffeineMg:bridge.caffeineAmount(e)}])),comparison:state.document.comparisonEnabled?comparison:null});
-  download('pkpd-analysis-v2.1.0.html',html,'text/html;charset=utf-8');
+  download('pkpd-analysis-v2.1.1.html',html,'text/html;charset=utf-8');
   setGenerated({snapshotId:snapshot.snapshotId,time:new Date().toLocaleString(),bytes:new TextEncoder().encode(html).byteLength});
  },'Analysis report prepared for download.');
  return <div className="v15-stack"><SnapshotNotice state={state} snapshot={snapshot}/>

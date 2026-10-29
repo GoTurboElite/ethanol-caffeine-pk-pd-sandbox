@@ -2,6 +2,7 @@ import {V15Controller} from '../session/controller.mjs';
 import {v15PWA} from '../session/pwa.mjs';
 import {InterfacePreferences} from '../session/preferences.mjs';
 import {ScienceController} from '../science/controller.mjs';
+import {acceptedState} from '../session/accepted.mjs';
 export let React,Fragment,bridge,controller,pwa,preferences,science;
 export const h=(...args)=>React.createElement(...args);
 export function v15InitUI(value){
@@ -29,6 +30,5 @@ export function download(name,content,type='application/json'){
  a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
 export function accepted(){
- const state=bridge.store.state,snapshot=bridge.snapshot();
- return{state,snapshot,result:snapshot?.numerical??null,input:state.accepted?.canonicalScenario??null,current:!!snapshot&&state.snapshots.relationToDraft==='current'&&!state.editingInvalidCount};
+ return acceptedState(bridge.store.state,bridge.snapshot());
 }

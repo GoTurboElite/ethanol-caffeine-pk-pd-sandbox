@@ -26,7 +26,7 @@ Check. Rows default to evaluation. Ethanol defaults to whole-blood g/dL; caffein
 
 #### Import a bulk dataset
 
-Action. Download the CSV template and replace its illustrative values with measured data. Open Bulk import: observation CSV. Paste CSV or use Choose observation CSV, then choose Validate and import observations.
+Action. Download the CSV template and replace its illustrative values with measured data. Open Bulk import: observation CSV. Paste CSV or use Choose observation CSV, then choose Validate CSV for review. Inspect counts, roles, times, units, matrices, SDs, censoring, conversion assumptions and the intended replacement. Choose Confirm replacement with the displayed observation count.
 
 Expected result. Import replaces the dataset as one undoable edit. The synthetic example remains explicitly labelled.
 
@@ -636,7 +636,7 @@ Action. Choose Export session JSON in Saved sessions. Retain its schema, version
 
 Expected result. The exported session can reconstruct its committed state in a compatible release.
 
-Check. Session wrapper schema 1.0.0 is separate from the retained 0.8.2 scenario schema.
+Check. Session wrapper schema 1.1.0 is separate from the retained 0.8.2 scenario schema.
 
 #### 2. Import a legacy scenario
 
@@ -734,7 +734,7 @@ Expected result. You can explicitly restore the desired committed state.
 
 **Right-censored interval.** An above-threshold interval that remains open when the horizon ends.
 
-**Session JSON.** The schema-1.0.0 document containing committed scenario state, calendar information, markers and bounded history.
+**Session JSON.** The schema-1.1.0 document containing committed scenario state, calendar information, markers and bounded history.
 
 ## Troubleshooting
 
@@ -754,3 +754,6 @@ Expected result. You can explicitly restore the desired committed state.
 
 **An import is rejected** Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message.
 
+
+
+The v2.1.1 in-application guides begin with accepted-result attribution, safe CSV replacement and observation-level provenance instructions at every scientific depth. See V2.1.1-DESIGN.md for migration and scientific-state semantics.

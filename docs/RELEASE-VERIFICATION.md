@@ -1,6 +1,6 @@
-# v2.1 release verification
+# v2.1.1 release verification
 
-Application 2.1.0 retains PK engine 0.4.4, constants 0.3.0 and scenario schema 0.8.2. Session wrapper 1.1.0 adds the scientific document and result archives. Reference profile reference-1.60 preserves the earlier equations.
+Application 2.1.1 retains PK engine 0.4.4, constants 0.3.0 and scenario schema 0.8.2. Session wrapper 1.1.0 adds the scientific document and result archives. Reference profile reference-1.60 preserves the earlier equations.
 
 ## Automated release gates
 
@@ -29,3 +29,7 @@ Sampling intervals are conditional on the supplied parameter distributions and l
 ## Deployment contract
 
 The project retains production branch main, blank root directory, exit 0 build command and public output. pkpd.goturbo.one is the official hostname; the pages.dev alias remains accessible. Domain registration, nameservers, routes and custom-domain configuration are unchanged by this release. A revert of the release merge restores previous committed output through the same connection.
+
+## v2.1.1 integrity coverage
+
+Additional Node and three-browser gates cover snapshot-derived scenario attribution, shorter draft horizons, accepted-horizon numeric/keyboard inspection, zero/low exposure and closely spaced events, nonmutating CSV review, preview invalidation, upload/text races and limits, replacement confirmation, row conversion-source edits, native-matrix reset/deletion, concurrent-edit feedback, individual scientific Undo entries, editor-only configuration changes, task result continuity and scientific schema migration/history/archives. Screenshots capture stale Analysis, desktop CSV review and narrow CSV review. Manual touch-device, assistive-technology task sessions and measured first-use comprehension remain separate validation.
