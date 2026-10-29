@@ -50,7 +50,7 @@ try{
  const initialDataset=await page.evaluate(()=>JSON.stringify(window.__PK_SANDBOX_V2__.science.document));
  await page.getByLabel('Observation CSV',{exact:true}).fill('time_h,analyte,value,unit,matrix,matrix_factor,conversion_source,label\n1,caffeine,1,mg/L,saliva,2,Hosted conversion source,Hosted measured sample');
  await page.getByRole('button',{name:'Validate CSV for review',exact:true}).click();assert.equal(await page.evaluate(()=>JSON.stringify(window.__PK_SANDBOX_V2__.science.document)),initialDataset);
- assert.ok(await page.getByRole('region',{name:'Observation CSV review'}).isVisible());await page.getByRole('button',{name:'Confirm replacement with 1 observations',exact:true}).click();
+ assert.ok(await page.getByRole('region',{name:'Observation CSV review'}).isVisible());await page.getByRole('button',{name:'Confirm replacement with 1 observation',exact:true}).click();
  await page.waitForFunction(()=>window.__PK_SANDBOX_V2__.science.document.observations.length===1);assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].conversionSource),'Hosted conversion source');
  await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,p=a.controller.project(true);a.controller.importObject(p);});await current();assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.schemaVersion),'1.1.0');assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].matrixFactor),2);
  await page.evaluate(()=>{location.hash='#calculate';});
