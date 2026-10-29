@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
+import {execFileSync} from 'node:child_process';
 import {root} from './helpers.mjs';
 const expected=JSON.parse(fs.readFileSync(path.join(root,'public/build.json'),'utf8'));
 const productionHost='pkpd.goturbo.one',projectHost='ethanol-caffeine-pk-pd-sandbox.pages.dev';
@@ -30,6 +31,8 @@ for(let attempt=0;attempt<36;attempt++){
  await pause(5000);
 }
 assert.ok(ready,'Hosted build did not match the checked commit.');
+// Verify the exact preview or production bytes before exercising hosted behaviour.
+execFileSync(process.execPath,[path.join(root,'scripts/verify-deployment.mjs')],{env:{...process.env,DEPLOYMENT_URL:base.href},stdio:'inherit'});
 const playwright=process.env.PLAYWRIGHT_MODULE_PATH?await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE_PATH)):await import('playwright');
 const engine=process.env.TEST_BROWSER??'chromium',browser=await playwright[engine].launch({headless:true});
 const errors=[],failedRequests=[];
