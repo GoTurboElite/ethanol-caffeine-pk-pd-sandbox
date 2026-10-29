@@ -24,7 +24,7 @@ export function validateObservation(row,index=0){
  if(matrix!==canonicalMatrix){if(!['serum','plasma','whole-blood','saliva'].includes(matrix)||matrixFactor===null)throw Error('Use '+canonicalMatrix+' for '+analyte+', or supply an explicit matrix_factor for a supported alternative matrix. Breath alcohol requires a separate observation model.');}
  if(matrixFactor!==null&&(matrixFactor<=0||matrixFactor>10))throw Error('Matrix factor must be positive and at most 10.');
  const sd=row.sd==null||row.sd===''?null:number(row.sd,'Measurement SD');if(sd!==null&&sd<=0)throw Error('Measurement SD must be positive.');
- return{id:text(String(row.id??'observation-'+index),'Observation ID',100),timeH,analyte,value,unit,matrix,qualifier,role,sd,matrixFactor,label:text(String(row.label??''),'Observation label',160),conversionSource:text(row.conversionSource??'','Observation conversion source',1000)};
+ return{id:text(String(row.id??'observation-'+index),'Observation ID',100),timeH,analyte,value,unit,matrix,qualifier,role,sd,matrixFactor,label:text(String(row.label??''),'Observation label',160),conversionSource:text(row.conversionSource??'','Observation conversion source',2000)};
 }
 export function observationValue(row){const factor=row.analyte==='ethanol'?(row.unit==='g/L'?.1:row.unit==='mg/dL'?.001:1):(row.unit==='ng/mL'?.001:1);return row.value*factor*(row.matrixFactor??1);}
 export function observationSD(row){return row.sd==null?(row.analyte==='ethanol'?.002:.1):observationValue({...row,value:row.sd});}

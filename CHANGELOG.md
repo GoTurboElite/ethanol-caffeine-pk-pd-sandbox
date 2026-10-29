@@ -4,7 +4,7 @@
 
 Separated accepted-result scenario summaries from the current editing draft and retained inspection over the accepted horizon. Added staged CSV validation/review/confirmation with invalidation on changed source, anchor or committed dataset. Added proportionate dataset confirmations and visible observation-edit identity, role and conversion assumptions.
 
-Scientific document schema 1.1.0 stores validated observation-level conversion sources and preserves recognised old generated notes in explicit history. Existing scientific/session documents migrate on validation; numerical measurements, fitting/sampling mathematics, model profile, constants, thresholds and evidence remain unchanged. Scientific task summaries expose dataset identity, captured-result validity, editor changes and archived results. Confirmed scientific edits retain distinct Undo entries; repeated session imports preserve validated provenance archives.
+Scientific document schema 1.1.0 stores validated observation-level conversion sources and preserves recognised old generated notes in explicit history. Existing scientific/session documents migrate on validation, including conversion provenance at the previous 2,000-character dataset-source boundary; numerical measurements, fitting/sampling mathematics, model profile, constants, thresholds and evidence remain unchanged. Scientific task summaries expose dataset identity, captured-result validity, editor changes and archived results. Confirmed scientific edits retain distinct Undo entries; repeated session imports preserve validated provenance archives.
 
 ## 2.1.0 — 2026-10-29
 
