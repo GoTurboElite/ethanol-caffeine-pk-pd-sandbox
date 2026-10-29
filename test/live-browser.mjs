@@ -45,10 +45,19 @@ try{
  for(let i=0;i<2;i++){await page.reload({waitUntil:'networkidle'});await current();await inputs();assert.ok(await page.evaluate(()=>!!navigator.serviceWorker.controller));}
  await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,f=a.controller.capture();f.document.mainScenario.doseEvents=[{id:'hosted-preview-proof',label:'Hosted input preview',startTimeH:0,durationMin:30,ethanolGrams:30,caffeineMg:95,servings:1}];a.controller.restore(f,'Hosted input preview verification');});await current();
  assert.ok(await page.locator('#calculator-estimate .bac-severity-ring').isVisible());assert.ok(await page.locator('#calculator-estimate .timeline-svg').isVisible());
+ await page.evaluate(()=>{location.hash='#session/observations';});
+ const bulk=page.locator('#observation-csv');await bulk.waitFor();if(await bulk.getAttribute('open')===null)await bulk.locator(':scope > summary').click();
+ const initialDataset=await page.evaluate(()=>JSON.stringify(window.__PK_SANDBOX_V2__.science.document));
+ await page.getByLabel('Observation CSV',{exact:true}).fill('time_h,analyte,value,unit,matrix,matrix_factor,conversion_source,label\n1,caffeine,1,mg/L,saliva,2,Hosted conversion source,Hosted measured sample');
+ await page.getByRole('button',{name:'Validate CSV for review',exact:true}).click();assert.equal(await page.evaluate(()=>JSON.stringify(window.__PK_SANDBOX_V2__.science.document)),initialDataset);
+ assert.ok(await page.getByRole('region',{name:'Observation CSV review'}).isVisible());await page.getByRole('button',{name:'Confirm replacement with 1 observations',exact:true}).click();
+ await page.waitForFunction(()=>window.__PK_SANDBOX_V2__.science.document.observations.length===1);assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].conversionSource),'Hosted conversion source');
+ await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,p=a.controller.project(true);a.controller.importObject(p);});await current();assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.schemaVersion),'1.1.0');assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].matrixFactor),2);
+ await page.evaluate(()=>{location.hash='#calculate';});
  await page.goto(new URL('index.html',base).href,{waitUntil:'networkidle'});await current();
- await page.goto(new URL('standalone-v2.1.0.html',base).href,{waitUntil:'networkidle'});await current();
+ await page.goto(new URL('standalone-v2.1.1.html',base).href,{waitUntil:'networkidle'});await current();
  await inputs();
  assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
  assert.deepEqual(errors,[]);assert.deepEqual(failedRequests,[]);
- console.log(JSON.stringify({browser:engine,url:base.href,buildFingerprint:expected.buildFingerprint,cachedReloads:2,indexAlias:true,standaloneAlias:true,errors,failedRequests,verifiedAt:new Date().toISOString()},null,2));
+ console.log(JSON.stringify({browser:engine,url:base.href,buildFingerprint:expected.buildFingerprint,cachedReloads:2,indexAlias:true,standaloneAlias:true,csvReview:true,observationProvenance:true,sessionRoundTrip:true,errors,failedRequests,verifiedAt:new Date().toISOString()},null,2));
 }finally{await browser.close();}

@@ -1,6 +1,7 @@
 import {V15_VERSION,V15_PROJECT_SCHEMA,V15_PROJECT_SCHEMA_VERSION,V15_MAX_PROJECT_BYTES,V15History,v15Clone,v15Stable,v15SafeParse,v15Id,v15NormalizeMarkers,v15ValidateZone,v15HistoryLabel,v15ShiftFrame,v15Reanchor} from './core.mjs';
 import {V15Storage} from './storage.mjs';
 import {emptyScience,validateScience} from '../science/schema.mjs';
+import {acceptedState,portableInspection} from './accepted.mjs';
 export const V15_TIME_FIELDS=['scenarioAnchorInstant','scenarioTimeZone','timeDisplayMode','timeReferenceBasis','selectedTimeH','selectedTimeProvenance','selectedLandmarkId','followNow'];
 export class V15Controller {
  constructor(bridge,environment=globalThis){
@@ -53,7 +54,7 @@ export class V15Controller {
   this.emit();
  }
  canSave(){return this.store.state.draft?.validation?.status==='valid'&&!this.store.state.editingInvalidCount;}
- validateFrame(frame,allowInvalid=false){
+ validateFrame(frame,allowInvalid=false,inspectionHorizon=frame.document.mainScenario.subject.simulationDurationH){
   if(!frame?.document?.mainScenario||typeof frame.document.title!=='string'||typeof frame.document.notes!=='string')throw Error('The session document is incomplete.');
   if(frame.document.title.length>500||frame.document.notes.length>20000)throw Error('The session title or notes exceed the supported length.');
   const valid=this.bridge.validate(frame.document.mainScenario);
@@ -67,13 +68,13 @@ export class V15Controller {
   }
   if(!frame.presentation||!Number.isFinite(Date.parse(frame.presentation.scenarioAnchorInstant)))throw Error('The session requires a valid absolute calendar anchor.');
   v15ValidateZone(frame.presentation.scenarioTimeZone);
-  if(!Number.isFinite(frame.presentation.selectedTimeH)||frame.presentation.selectedTimeH<0||(!allowInvalid&&frame.presentation.selectedTimeH>frame.document.mainScenario.subject.simulationDurationH))throw Error('The inspection time must be inside the scenario horizon.');
+  if(!Number.isFinite(frame.presentation.selectedTimeH)||frame.presentation.selectedTimeH<0||(!allowInvalid&&frame.presentation.selectedTimeH>inspectionHorizon))throw Error('The inspection time must be inside the scenario horizon.');
   frame.markers=v15NormalizeMarkers(frame.markers??[]);
   frame.science=validateScience(frame.science??emptyScience());
   return frame;
  }
- restore(frame,label='Restored session',record=true,allowInvalid=false){
-  const safe=this.validateFrame(v15Clone(frame),allowInvalid);
+ restore(frame,label='Restored session',record=true,allowInvalid=false,atomic=false){
+  const safe=this.validateFrame(v15Clone(frame),allowInvalid,Math.max(frame.document.mainScenario.subject.simulationDurationH,acceptedState(this.store.state,this.bridge.snapshot?.()).horizon));
   this.suppress++;
   try{
    this.markers=safe.markers;
@@ -86,7 +87,7 @@ export class V15Controller {
     this.store.field('settings',{...this.store.state.presentation,...safe.presentation,followNow:false,scenarioAnchorDraft:null,scenarioClockError:''});
    });
   }finally{this.suppress--;}
-  if(record)this.history.push(this.capture(),label);
+  if(record)this.history.push(this.capture(),label,undefined,{coalesce:!atomic});
   this.changed();return this.capture();
  }
  undo(){
@@ -108,8 +109,8 @@ export class V15Controller {
  }
  removeMarker(id){const next=this.capture();next.markers=next.markers.filter(m=>m.id!==id);this.restore(next,'Removed analysis marker');}
  inspect(timeH){
-  const end=this.store.state.document.mainScenario.subject.simulationDurationH;
-  if(!Number.isFinite(timeH)||timeH<0||timeH>end)throw Error('The requested time is outside the observation window. Extend the horizon in Calculator before inspecting it.');
+  const end=acceptedState(this.store.state,this.bridge.snapshot?.()).horizon;
+  if(!Number.isFinite(timeH)||timeH<0||timeH>end)throw Error('The requested time is outside the accepted calculation horizon (0 to '+end+' h).');
   this.store.field('settings',{...this.store.state.presentation,selectedTimeH:timeH,selectedTimeProvenance:'manual',selectedLandmarkId:null,followNow:false});
  }
  setDetailMode(mode){
@@ -121,8 +122,8 @@ export class V15Controller {
  }
  project(includeHistory=true){
   if(!this.canSave())throw Error('Finish or correct the current input before saving or exporting a session.');
-  const frame=this.validateFrame(this.capture());
-  const entries=this.history.entries.map(e=>({label:e.label,at:e.at,frame:v15Clone(e.frame)}));entries[this.history.index].frame=v15Clone(frame);
+  const frame=this.validateFrame(portableInspection(this.capture()));
+  const entries=this.history.entries.map(e=>({label:e.label,at:e.at,frame:portableInspection(v15Clone(e.frame))}));entries[this.history.index].frame=v15Clone(frame);
   const project={schema:V15_PROJECT_SCHEMA,schemaVersion:V15_PROJECT_SCHEMA_VERSION,appVersion:V15_VERSION,scenarioSchemaVersion:'0.8.2',
    versions:{...this.bridge.versions},exportedAt:new Date().toISOString(),frame,
    history:includeHistory?{index:this.history.index,entries}:undefined,importedHistory:includeHistory?this.importedHistory:undefined,scienceResults:this.scienceRuntime?.exportRecords()??[]};
@@ -142,6 +143,11 @@ export class V15Controller {
     if(value.history.index<0||value.history.index>=archive.length)throw Error('The supplied history cursor is invalid.');
     if(v15Stable(archive[value.history.index].frame)!==v15Stable(frame))throw Error('The history cursor does not match the exported working state.');
    }
+   const prior=value.importedHistory??[];
+   if(!Array.isArray(prior)||prior.length>120)throw Error('Imported editing history exceeds 120 entries or is malformed.');
+   const previous=prior.map(e=>({label:String(e.label??'Imported edit').slice(0,200),at:new Date(e.at).toISOString(),frame:this.validateFrame(v15Clone(e.frame),true)})),seen=new Set();
+   archive=[...previous,...archive].filter(e=>{const key=v15Stable(e);if(seen.has(key))return false;seen.add(key);return true;});
+   if(archive.length>120)throw Error('Combined imported editing history exceeds 120 entries. Export without history to import only the working state.');
   }else frame=this.validateFrame(this.bridge.importLegacy(value));
   const records=value?.schema===V15_PROJECT_SCHEMA?(value.scienceResults??[]):[];
   if(!Array.isArray(records)||records.length>3||records.some(r=>!r||!['fit','evaluate','uncertainty','benchmarks'].includes(r.kind)||typeof r.sourceKey!=='string'||r.sourceKey.length>300000||JSON.stringify(r).length>600000))throw Error('Scientific result archive is invalid or exceeds its size limit.');

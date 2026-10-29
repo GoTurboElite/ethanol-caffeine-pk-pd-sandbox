@@ -1,10 +1,16 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.1
+# Ethanol + Caffeine PK/PD Sandbox 2.1.1
 
 Official public application: https://pkpd.goturbo.one/
 
 Retained deployment alias: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
 
 Version 2.1 consolidates scenario construction, concentration inspection and scientific task navigation around the retained v2.0 workbench. Fresh launches open Session → Inputs with the original BAC rings and input graph. Default, Detailed and Expert remain the three scientific-depth settings, independent of reading and accessibility preferences.
+
+## v2.1.1 integrity and workflow refinement
+
+Accepted-result context identifies captured inputs separately from the committed editing draft; inspection uses the accepted horizon. Bulk CSV import requires validation, review and explicit replacement confirmation. The review reports roles, analytes, times, matrices, error assumptions, censoring and conversion provenance. Clear/synthetic replacement actions identify the entire affected dataset and preserve Undo.
+
+Scientific document schema 1.1.0 adds validated observation-level conversionSource and dataset-level legacyConversionNotes. Existing scientific documents migrate without changing their numerical measurements or model inputs. Recognised generated conversion lines are preserved as historical notes, with matching active assumptions copied to their row. The session wrapper remains 1.1.0; engine 0.4.4, constants 0.3.0, scenario schema 0.8.2 and workbench algorithms 1.0.0 are unchanged. See [docs/V2.1.1-DESIGN.md](docs/V2.1.1-DESIGN.md).
 
 ## UX consolidation
 
@@ -28,7 +34,7 @@ Help provides action/result/check walkthroughs at Default, Detailed and Expert l
 
 ## Reproducibility and compatibility
 
-Application 2.1.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench schema 1.0.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
+Application 2.1.1 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench algorithms 1.0.0, scientific document schema 1.1.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
 
 Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 

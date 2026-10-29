@@ -1,13 +1,14 @@
 import {h,React,Fragment,bridge,controller,action,announce,useSession,accepted} from './runtime.mjs';
 import {Panel,Button,Table,Metric,SnapshotNotice,Inspector,EmptyResult} from './common.jsx';
 import {v15Fluxes,v15Number,v15MetricRows,v15Diff,v15TimeLabel} from '../session/core.mjs';
+import {ResultOrigin} from './context.jsx';
 import {bacText,bacUnit,bacValue,bacMetric} from './units.mjs';
 export function V15Explain(){
- const state=useSession(),{snapshot,result,input,current}=accepted(),[eventId,setEventId]=React.useState(''),[counter,setCounter]=React.useState(null),[busy,setBusy]=React.useState(false);
+ const state=useSession(),{snapshot,result,input,current,time}=accepted(),[eventId,setEventId]=React.useState(''),[counter,setCounter]=React.useState(null),[busy,setBusy]=React.useState(false);
  const identity=state.accepted?.numericalKey;
  React.useEffect(()=>{setCounter(null);setBusy(false);},[identity]);
  if(!result)return <EmptyResult/>;
- const flux=v15Fluxes(result,state.presentation.selectedTimeH),p=flux?.point,detail=state.presentation.detailMode;
+ const flux=v15Fluxes(result,time),p=flux?.point,detail=state.presentation.detailMode;
  const rows=[['Gastric ethanol','gastricEthanolG','g'],['Intestinal ethanol','intestinalEthanolG','g'],['Central ethanol','centralEthanolG','g'],['Caffeine in gut','caffeineGutMg','mg'],['Central caffeine','caffeineCentralMg','mg'],['Central paraxanthine','paraxanthineCentralMg','mg']].filter(([,k])=>p?.[k]!==undefined).map(([label,k,u])=>[label,v15Number(p[k],5),u]);
  const pd=[
   ['Ethanol impairment proxy','ethanolImpairmentIndex','Exposure-related BAC response transform. Zero denotes the no-exposure baseline.'],
@@ -21,7 +22,7 @@ export function V15Explain(){
   setBusy(true);setCounter(null);
   try{const value=await controller.counterfactual(eventId);setCounter(value);}finally{setBusy(false);}
  });
- return <div className="v15-stack"><SnapshotNotice state={state} snapshot={snapshot}/>
+ return <div className="v15-stack"><ResultOrigin/>
   <Panel title="Why the model has this state" kicker="Selected-time explanation"><Inspector state={state} result={result}/>
    <div className="v15-metrics"><Metric label="BAC" value={bacText(p?.bacGdL,state.presentation)} unit={bacUnit(state.presentation)}/><Metric label="Caffeine" value={v15Number(p?.caffeineMgL,4)} unit="mg/L"/><Metric label="BAC trajectory slope" value={v15Number(bacValue(p?.bacRateGdLPerH,state.presentation),5)} unit={bacUnit(state.presentation)+'/h'}/></div>
    <p>Compartment amounts, distribution assumptions and the accepted trajectory determine these concentrations. Response indices add the separately defined PD and behavioural transformations.</p>

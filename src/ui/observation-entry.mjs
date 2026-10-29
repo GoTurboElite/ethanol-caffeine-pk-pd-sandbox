@@ -1,7 +1,7 @@
 import {validateObservation,validateScience} from '../science/schema.mjs';
 import {v15Clone} from '../session/core.mjs';
 export const observationDefaults=(analyte='caffeine')=>({analyte,timeBasis:'elapsed',time:'',value:'',unit:analyte==='ethanol'?'g/dL':'mg/L',matrix:analyte==='ethanol'?'whole-blood':'plasma',role:'evaluation',sd:'',qualifier:'=',matrixFactor:'',label:'',conversionSource:''});
-export function manualObservationChange(document,draft,anchor,{id,source=document.observationSource}={}){
+export function manualObservationChange(document,draft,anchor,{id,source}={}){
  const errors={},finite=(key,label,required=true)=>{const raw=draft[key];if(raw==null||!String(raw).trim()){if(required)errors[key]=label+' is required.';return null;}const n=Number(raw);if(!Number.isFinite(n)){errors[key]=label+' must be a finite number.';return null;}return n;};
  let timeH;
  if(draft.timeBasis==='calendar'){
@@ -18,10 +18,9 @@ export function manualObservationChange(document,draft,anchor,{id,source=documen
  if(alternative&&!draft.conversionSource?.trim())errors.conversionSource='State the source and assumptions for this matrix conversion.';
  if(Object.keys(errors).length)return {errors};
  try{
-  const row=validateObservation({id,timeH,analyte:draft.analyte,value,unit:draft.unit,matrix:draft.matrix,role:draft.role,sd,qualifier:draft.qualifier,matrixFactor,label:draft.label});
-  const next=v15Clone(document),index=next.observations.findIndex(o=>o.id===id);if(index>=0)next.observations[index]=row;else next.observations.push(row);
-  next.observationSource=source;
-  if(alternative){const provenance='Matrix conversion for '+id+': '+draft.matrix+' × '+matrixFactor+' → '+canonical+'. '+draft.conversionSource.trim();if(!next.observationSource.includes(provenance))next.observationSource+='\n'+provenance;}
+  const row=validateObservation({id,timeH,analyte:draft.analyte,value,unit:draft.unit,matrix:draft.matrix,role:draft.role,sd,qualifier:draft.qualifier,matrixFactor:alternative?matrixFactor:null,label:draft.label,conversionSource:alternative?draft.conversionSource.trim():''});
+  const next=validateScience(document),index=next.observations.findIndex(o=>o.id===id);if(index>=0)next.observations[index]=row;else next.observations.push(row);
+  next.observationSource=source??next.observationSource;
   return {errors:{},document:validateScience(next),row};
  }catch(e){return {errors:{form:e.message}};}
 }

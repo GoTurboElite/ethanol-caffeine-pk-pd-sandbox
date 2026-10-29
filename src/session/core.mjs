@@ -1,4 +1,4 @@
-export const V15_VERSION = '2.1.0';
+export const V15_VERSION = '2.1.1';
 export const V15_PROJECT_SCHEMA = 'ethanol-caffeine-session';
 export const V15_PROJECT_SCHEMA_VERSION = '1.1.0';
 export const V15_HISTORY_LIMIT = 60;
@@ -108,9 +108,9 @@ export function v15Reanchor(frame,instant,zone,preserve='elapsed') {
 }
 export class V15History {
   constructor(initial,limit=V15_HISTORY_LIMIT){this.limit=limit;this.entries=[{label:'Session opened',at:new Date().toISOString(),frame:v15Clone(initial)}];this.index=0;this.lastKey=v15Stable(initial);}
-  push(frame,label='Scenario edited',now=Date.now()){
+ push(frame,label='Scenario edited',now=Date.now(),{coalesce:allowCoalesce=true}={}){
     const key=v15Stable(frame);if(key===this.lastKey)return false;
-    const previous=this.entries[this.index],coalesce=this.index===this.entries.length-1&&this.index>0&&previous.label===label&&now-Date.parse(previous.at)<700;
+  const previous=this.entries[this.index],coalesce=allowCoalesce&&this.index===this.entries.length-1&&this.index>0&&previous.label===label&&now-Date.parse(previous.at)<700;
     this.entries=this.entries.slice(0,this.index+1);
     const entry={label,at:new Date(now).toISOString(),frame:v15Clone(frame)};
     if(coalesce)this.entries[this.index]=entry;

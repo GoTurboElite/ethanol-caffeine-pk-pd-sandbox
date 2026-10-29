@@ -1,3 +1,4 @@
+import {v15Number} from '../session/core.mjs';
 export function bacUnit(presentation){return presentation.bacDisplayUnit==='permille'?'‰':presentation.bacDisplayUnit??'g/dL';}
 export function bacValue(value,presentation){return value*(presentation.bacDisplayUnit==='g/L'||presentation.bacDisplayUnit==='permille'?10:1);}
 export function bacText(value,presentation,digits=4){
@@ -18,3 +19,5 @@ export function bacMetric(row,presentation){
  const unit=row.unit==='g/dL'?bacUnit(presentation):({'g/dL':'g·h/dL','g/L':'g·h/L','% BAC':'% BAC·h','permille':'‰·h'}[presentation.bacDisplayUnit]??'g·h/dL');
  return {...row,unit,a:bacValue(row.a,presentation),b:bacValue(row.b,presentation),delta:bacValue(row.delta,presentation)};
 }
+
+export function caffeineText(value,digits=2){if(value>0&&value<10**-digits)return '<'+(10**-digits).toFixed(digits);return v15Number(value,digits);}
