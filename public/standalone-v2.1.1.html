@@ -4662,7 +4662,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "a1371b6063ad60eb6660a74e4e35a31b281eb4b6b5debec980165557edb85b54",
+  buildFingerprint: "b79275eab16afb6a3ffdc12cfda66116c6f87d5d6fb43afed22b3d142b130fd9",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -6270,7 +6270,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     if (matrixFactor !== null && (matrixFactor <= 0 || matrixFactor > 10)) throw Error("Matrix factor must be positive and at most 10.");
     const sd = row.sd == null || row.sd === "" ? null : number(row.sd, "Measurement SD");
     if (sd !== null && sd <= 0) throw Error("Measurement SD must be positive.");
-    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160), conversionSource: text(row.conversionSource ?? "", "Observation conversion source", 1e3) };
+    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160), conversionSource: text(row.conversionSource ?? "", "Observation conversion source", 2e3) };
   }
   function observationValue(row) {
     const factor = row.analyte === "ethanol" ? row.unit === "g/L" ? 0.1 : row.unit === "mg/dL" ? 1e-3 : 1 : row.unit === "ng/mL" ? 1e-3 : 1;
@@ -7101,7 +7101,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     if (matrixFactor !== null && (matrixFactor <= 0 || matrixFactor > 10)) throw Error("Matrix factor must be positive and at most 10.");
     const sd = row.sd == null || row.sd === "" ? null : number(row.sd, "Measurement SD");
     if (sd !== null && sd <= 0) throw Error("Measurement SD must be positive.");
-    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160), conversionSource: text(row.conversionSource ?? "", "Observation conversion source", 1e3) };
+    return { id: text(String(row.id ?? "observation-" + index), "Observation ID", 100), timeH, analyte, value, unit, matrix, qualifier, role, sd, matrixFactor, label: text(String(row.label ?? ""), "Observation label", 160), conversionSource: text(row.conversionSource ?? "", "Observation conversion source", 2e3) };
   }
   function observationValue(row) {
     const factor = row.analyte === "ethanol" ? row.unit === "g/L" ? 0.1 : row.unit === "mg/dL" ? 1e-3 : 1 : row.unit === "ng/mL" ? 1e-3 : 1;
@@ -9395,7 +9395,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
       setErrors((e) => ({ ...e, [key]: void 0, form: void 0 }));
       setSuccess("");
     };
-    const field = (key, label, options = null, optional = false) => /* @__PURE__ */ h("label", { className: "v15-field", key, htmlFor: uid + "-" + key }, label, optional && /* @__PURE__ */ h("small", null, "Optional"), options ? /* @__PURE__ */ h("select", { "aria-label": label, id: uid + "-" + key, value: draft[key], onChange: (e) => change(key, e.target.value), "aria-invalid": !!errors[key], "aria-describedby": errors[key] ? uid + "-" + key + "-error" : void 0 }, options.map(([value, text2]) => /* @__PURE__ */ h("option", { key: value, value }, text2))) : /* @__PURE__ */ h("input", { "aria-label": label, id: uid + "-" + key, value: draft[key] ?? "", inputMode: ["time", "value", "sd", "matrixFactor"].includes(key) && !(key === "time" && draft.timeBasis === "calendar") ? "decimal" : "text", onChange: (e) => change(key, e.target.value), "aria-invalid": !!errors[key], "aria-describedby": errors[key] ? uid + "-" + key + "-error" : void 0, maxLength: key === "conversionSource" ? 1e3 : key === "label" ? 160 : 300 }), errors[key] && /* @__PURE__ */ h("span", { id: uid + "-" + key + "-error", className: "v160-error" }, errors[key]));
+    const field = (key, label, options = null, optional = false) => /* @__PURE__ */ h("label", { className: "v15-field", key, htmlFor: uid + "-" + key }, label, optional && /* @__PURE__ */ h("small", null, "Optional"), options ? /* @__PURE__ */ h("select", { "aria-label": label, id: uid + "-" + key, value: draft[key], onChange: (e) => change(key, e.target.value), "aria-invalid": !!errors[key], "aria-describedby": errors[key] ? uid + "-" + key + "-error" : void 0 }, options.map(([value, text2]) => /* @__PURE__ */ h("option", { key: value, value }, text2))) : /* @__PURE__ */ h("input", { "aria-label": label, id: uid + "-" + key, value: draft[key] ?? "", inputMode: ["time", "value", "sd", "matrixFactor"].includes(key) && !(key === "time" && draft.timeBasis === "calendar") ? "decimal" : "text", onChange: (e) => change(key, e.target.value), "aria-invalid": !!errors[key], "aria-describedby": errors[key] ? uid + "-" + key + "-error" : void 0, maxLength: key === "conversionSource" ? 2e3 : key === "label" ? 160 : 300 }), errors[key] && /* @__PURE__ */ h("span", { id: uid + "-" + key + "-error", className: "v160-error" }, errors[key]));
     const alternative = draft.matrix !== (draft.analyte === "ethanol" ? "whole-blood" : "plasma");
     const submit = (e) => {
       e.preventDefault();
