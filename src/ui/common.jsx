@@ -20,9 +20,9 @@ function InspectionNumber({time,end}){
  return <label className="v15-field">Elapsed hours<input aria-label="Inspection elapsed hours" inputMode="decimal" value={draft} onChange={e=>setDraft(e.target.value)} onBlur={commit} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}}} aria-invalid={!!error}/>{error&&<span className="v160-error" role="alert">{error}</span>}</label>;
 }
 export function Inspector({state,result}){
- const t=state.presentation.selectedTimeH,end=state.document.mainScenario.subject.simulationDurationH,p=result?v15Interpolate(result.analysisPoints??result.points,t):null;
+ const t=state.presentation.selectedTimeH,end=Math.min(result?.summary?.horizonH??state.document.mainScenario.subject.simulationDurationH,state.document.mainScenario.subject.simulationDurationH),p=result?v15Interpolate(result.analysisPoints??result.points,t):null;
  return <div className="v15-inspector">
-  <label className="v15-field v15-slider">Inspection time<input aria-label="Inspection time slider" type="range" min="0" max={end} step=".01" value={Math.min(end,Math.max(0,t))} onChange={e=>action(()=>controller.inspect(Number(e.target.value)))}/></label>
+  <label className="v15-field v15-slider">Inspection time<input aria-label="Inspection time slider" aria-valuetext={v15TimeLabel(t)+(p?'; BAC '+bacText(p.bacGdL,state.presentation)+' '+bacUnit(state.presentation)+'; caffeine '+v15Number(p.caffeineMgL,2)+' mg/L':' outside accepted coverage')} type="range" min="0" max={end} step=".01" value={Math.min(end,Math.max(0,t))} onChange={e=>action(()=>controller.inspect(Number(e.target.value)))}/></label>
   <InspectionNumber time={t} end={end}/>
   <div className="v15-inspection-time"><strong>Selected {v15TimeLabel(t)}</strong>{state.presentation.timeDisplayMode==='clock'&&<span>{v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant)+t*3600000,state.presentation.scenarioTimeZone)}</span>}</div>
  </div>;

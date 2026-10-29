@@ -38,7 +38,7 @@ try{
  page.on('pageerror',error=>errors.push(error.message));
  page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}));
  const current=()=>page.waitForFunction(fp=>window.__PK_SANDBOX_V15__?.versions.buildFingerprint===fp&&window.__PK_SANDBOX_V15__.store.state.snapshots.relationToDraft==='current',expected.buildFingerprint,{timeout:90000});
- const inputs=async()=>{assert.equal(new URL(page.url()).hash,'#calculate');assert.equal(await page.getByRole('navigation',{name:'Main workspaces'}).getByRole('link',{name:'Session',exact:true}).getAttribute('aria-current'),'page');assert.ok(await page.locator('#calculator-drinks').isVisible());assert.ok(await page.locator('#calculator-estimate').isVisible());};
+ const inputs=async()=>{assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.version),expected.appVersion);assert.ok(await page.getByRole('region',{name:'Model assumptions and next steps'}).isVisible());assert.equal(new URL(page.url()).hash,'#calculate');assert.equal(await page.getByRole('navigation',{name:'Main workspaces'}).getByRole('link',{name:'Session',exact:true}).getAttribute('aria-current'),'page');assert.ok(await page.locator('#calculator-drinks').isVisible());assert.ok(await page.locator('#calculator-estimate').isVisible());};
  await page.goto(base.href,{waitUntil:'networkidle'});await current();assert.equal(new URL(page.url()).hostname,base.hostname,'Deployment origin must remain independently accessible.');
  await inputs();
  await page.waitForFunction(()=>navigator.serviceWorker.controller&&window.__PK_SANDBOX_V15__.pwa.state.status==='ready',null,{timeout:60000});
@@ -46,7 +46,7 @@ try{
  await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,f=a.controller.capture();f.document.mainScenario.doseEvents=[{id:'hosted-preview-proof',label:'Hosted input preview',startTimeH:0,durationMin:30,ethanolGrams:30,caffeineMg:95,servings:1}];a.controller.restore(f,'Hosted input preview verification');});await current();
  assert.ok(await page.locator('#calculator-estimate .bac-severity-ring').isVisible());assert.ok(await page.locator('#calculator-estimate .timeline-svg').isVisible());
  await page.goto(new URL('index.html',base).href,{waitUntil:'networkidle'});await current();
- await page.goto(new URL('standalone-v2.0.0.html',base).href,{waitUntil:'networkidle'});await current();
+ await page.goto(new URL('standalone-v2.1.0.html',base).href,{waitUntil:'networkidle'});await current();
  await inputs();
  assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
  assert.deepEqual(errors,[]);assert.deepEqual(failedRequests,[]);

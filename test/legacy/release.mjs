@@ -13,7 +13,7 @@ check('deterministic self-contained HTML and embedded build identity',()=>{
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'public','build.json'),'utf8'));
  assert.equal(crypto.createHash('sha256').update(first).digest('hex'),manifest.htmlSha256);
  const html=first.toString('utf8'),scripts=[...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)];assert.equal(scripts.length,3);assert.ok(!/<script\b[^>]*\bsrc=/.test(html));
- const embedded=new Function(scripts[0][2]+';return PKCore;')();assert.equal(embedded.qt.buildFingerprint,manifest.buildFingerprint);assert.equal(embedded.Vi,'2.0.0');new vm.Script(scripts[1][2]);new vm.Script(scripts[2][2]);
+ const embedded=new Function(scripts[0][2]+';return PKCore;')();assert.equal(embedded.qt.buildFingerprint,manifest.buildFingerprint);assert.equal(embedded.Vi,'2.1.0');new vm.Script(scripts[1][2]);new vm.Script(scripts[2][2]);
  return {bytes:first.length,htmlSha256:manifest.htmlSha256,buildFingerprint:manifest.buildFingerprint};
 });
 check('existing schema 0.8.2 scenario remains importable',()=>{const text=fs.readFileSync(path.join(root,'test','legacy','two-episodes.json'),'utf8'),h=makeHost({inputText:text});const parsed=h.run('Dte(inputText)');assert.equal(parsed.ok,true,JSON.stringify(parsed.errors));return {keys:Object.keys(parsed)};});

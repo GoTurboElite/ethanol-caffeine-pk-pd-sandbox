@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0 — 2026-10-29
+
+Consolidated the input-first workflow with retained BAC rings and graph, accepted-state feedback, visible half-life/horizon context and direct routes to analysis. Added consistent scientific navigation/search, mobile input actions above graphs, cursor dots, keyboard/drag/peak inspection and explicit overlay scales. Added depth-sensitive definitions and methodology through the existing Default, Detailed and Expert views.
+
+Added structured observation creation, editing and removal through the existing scientific validators and session history, including per-field errors and explicit alternative-matrix conversion provenance. Preserved CSV bulk import and synthetic examples. Scientific figures distinguish quantified measurements from upper limits.
+
+Fixed quantity editing of direct-mass intakes with absent optional volume metadata and stabilised the primary body-mass accessible name after validation errors. Retained all reference equations, constants, thresholds, calibration/sampling algorithms, evidence and document schemas. Added numerical compatibility, UX, accessibility and visual regression coverage; updated operating guides and standalone delivery.
+
 ## 2.0 interface restoration - 2026-10-28
 
 Restored the input workspace's live BAC rings and concentration graph, including responsive three-column, two-column and stacked layouts. Fresh browser and installed-app launches now open Session → Inputs. Explicit analysis and scientific links remain directly accessible.

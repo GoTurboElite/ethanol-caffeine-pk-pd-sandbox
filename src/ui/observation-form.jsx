@@ -1,0 +1,31 @@
+import {h,React,Fragment,science,action,useSession} from './runtime.mjs';
+import {Button,Disclosure} from './common.jsx';
+import {v15Id} from '../session/core.mjs';
+import {observationDefaults,manualObservationChange} from './observation-entry.mjs';
+export function ObservationForm({source,editing,onDone}){
+ const state=useSession(),uid=React.useId(),[draft,setDraft]=React.useState(observationDefaults()),[errors,setErrors]=React.useState({}),[success,setSuccess]=React.useState('');
+ React.useEffect(()=>{setErrors({});setSuccess('');setDraft(editing?{...observationDefaults(editing.analyte),...editing,timeBasis:'elapsed',time:String(editing.timeH),value:String(editing.value),sd:editing.sd==null?'':String(editing.sd),matrixFactor:editing.matrixFactor==null?'':String(editing.matrixFactor)}:observationDefaults());},[editing?.id]);
+ const change=(key,value)=>{setDraft(d=>({...d,[key]:value,...(key==='matrix'?{matrixFactor:'',conversionSource:''}:{})}));setErrors(e=>({...e,[key]:undefined,form:undefined}));setSuccess('');};
+ const field=(key,label,options=null,optional=false)=><label className="v15-field" key={key} htmlFor={uid+'-'+key}>{label}{optional&&<small>Optional</small>}{options?<select aria-label={label} id={uid+'-'+key} value={draft[key]} onChange={e=>change(key,e.target.value)} aria-invalid={!!errors[key]} aria-describedby={errors[key]?uid+'-'+key+'-error':undefined}>{options.map(([value,text])=><option key={value} value={value}>{text}</option>)}</select>:<input aria-label={label} id={uid+'-'+key} value={draft[key]??''} inputMode={['time','value','sd','matrixFactor'].includes(key)&&!(key==='time'&&draft.timeBasis==='calendar')?'decimal':'text'} onChange={e=>change(key,e.target.value)} aria-invalid={!!errors[key]} aria-describedby={errors[key]?uid+'-'+key+'-error':undefined} maxLength={key==='conversionSource'?1000:key==='label'?160:300}/>}{errors[key]&&<span id={uid+'-'+key+'-error'} className="v160-error">{errors[key]}</span>}</label>;
+ const alternative=draft.matrix!==(draft.analyte==='ethanol'?'whole-blood':'plasma');
+ const submit=e=>{e.preventDefault();const result=manualObservationChange(science.document,draft,state.presentation.scenarioAnchorInstant,{id:editing?.id??v15Id('observation'),source});setErrors(result.errors);if(result.document)action(()=>{science.edit(result.document,editing?'Edited concentration observation':'Added concentration observation');setSuccess(editing?'Observation updated.':'Observation added to the committed dataset.');if(editing)onDone();else setDraft(d=>({...d,time:'',value:'',label:''}));});else document.getElementById(uid+'-'+Object.keys(result.errors)[0])?.focus();};
+ return <form className="v21-observation-form" aria-label="Structured observation entry" noValidate onSubmit={submit}>
+  <h3>{editing?'Edit observation':'Add one observation'}</h3><p className="v160-help">Use measured concentrations. Model zero: {state.presentation.scenarioAnchorInstant}. CSV below is intended for bulk datasets.</p>
+  <div className="v2-science-fields">
+   <label className="v15-field" htmlFor={uid+'-analyte'}>Observation analyte<select aria-label="Observation analyte" id={uid+'-analyte'} value={draft.analyte} onChange={e=>{const d=observationDefaults(e.target.value);setDraft(old=>({...old,analyte:d.analyte,unit:d.unit,matrix:d.matrix,value:'',sd:'',matrixFactor:'',conversionSource:''}));setErrors({});}}><option value="caffeine">Caffeine</option><option value="ethanol">Ethanol</option></select></label>
+   {field('timeBasis','Observation time basis',[['elapsed','Elapsed hours'],['calendar','ISO with UTC offset']])}
+   {field('time',draft.timeBasis==='calendar'?'Observation ISO time':'Observation elapsed hours')}
+   {field('value','Measured concentration')}
+   {field('unit','Measurement unit',(draft.analyte==='ethanol'?['g/dL','g/L','mg/dL']:['mg/L','ng/mL','ug/mL']).map(u=>[u,u]))}
+   {field('matrix','Measurement matrix',['plasma','whole-blood','serum','saliva'].map(m=>[m,m]))}
+   {field('role','Observation dataset role',[['evaluation','Evaluation (held out)'],['calibration','Calibration (fit)']])}
+   {field('qualifier','Measurement qualifier',[['=','Quantified value (=)'],['<','Upper limit (<)']])}
+   {field('sd','Measurement SD in selected units',null,true)}
+   {field('label','Observation label',null,true)}
+   {alternative&&<>{field('matrixFactor','Matrix conversion factor')}{field('conversionSource','Matrix conversion source and assumptions')}</>}
+  </div>
+  {Object.values(errors).filter(Boolean).length>0&&<p className="v160-error" role="alert">Observation has not been committed. {errors.form??'Correct the indicated fields.'}</p>}
+  <div className="v15-actions"><Button type="submit" primary>{editing?'Save observation changes':'Add observation'}</Button>{editing&&<Button onClick={onDone}>Cancel observation edit</Button>}{success&&<span role="status">{success}</span>}</div>
+  <Disclosure id="manual-observation-semantics" title="Observation fields and error assumptions" defaultOpen={state.presentation.detailMode==='detailed'}><p>SD is the measurement error scale in the displayed unit and matrix. A missing SD uses the existing explicit error scale: 0.002 g/dL ethanol or 0.1 mg/L caffeine after unit/matrix conversion. Evaluation rows remain outside the calibration objective. The &lt; qualifier denotes an upper limit, treated by the existing one-sided penalty. Alternative matrices require a positive conversion factor and recorded source assumptions.</p>{state.presentation.detailMode==='expert'&&<p>The committed row uses scientific schema 1.0.0, with timeH relative to the session anchor, the supplied unit/matrix, qualifier, role and SD. Editing and removal participate in the same session history as CSV import.</p>}</Disclosure>
+ </form>;
+}

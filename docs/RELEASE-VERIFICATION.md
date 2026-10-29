@@ -1,6 +1,6 @@
-# v2.0 release verification
+# v2.1 release verification
 
-Application 2.0.0 retains PK engine 0.4.4, constants 0.3.0 and scenario schema 0.8.2. Session wrapper 1.1.0 adds the scientific document and result archives. Reference profile reference-1.60 preserves the earlier equations.
+Application 2.1.0 retains PK engine 0.4.4, constants 0.3.0 and scenario schema 0.8.2. Session wrapper 1.1.0 adds the scientific document and result archives. Reference profile reference-1.60 preserves the earlier equations.
 
 ## Automated release gates
 
@@ -13,6 +13,12 @@ Browser verification runs Chromium, Firefox and WebKit. Existing mounted workflo
 Hosted checks test the exact Cloudflare preview before promotion and both production hostnames after promotion. They require a matching fingerprint, worker control, two successful cached reloads, hosted and standalone aliases, and absence of page/request failures. Byte verification compares hosted HTML, standalone HTML and the service worker against the checked release on each production hostname.
 
 Machine-readable results and screenshots are generated under test/artifacts and attached to CI jobs. The release PR and completed main-branch workflow provide final measured counts and deployment evidence. Local Chromium scientific workflows and sampled accessibility checks passed before preview promotion.
+
+## UX release coverage
+
+New Node checks verify structured/CSV equivalence, explicit-offset times, per-field validation, conversion-source provenance, atomic row edits, dataset limits, navigation active states and exact v2.0 trajectory/default/threshold equality. All existing scientific algorithms and evidence modules remain unchanged.
+
+New three-browser UX groups exercise the existing Default, Detailed and Expert views: direct-mass quantity edits, current/invalid/previous-state preview continuity, data/output invariance under depth changes, active navigation and Back/Forward, direct parameter editing, structured observation add/edit/remove/evaluation, scientific search, shared graph inspection, explicit overlay axes, mobile/tablet input actions, modal containment, v2.0 session imports and preference persistence. Ring/graph raster comparisons use whole-pixel capture origins and a fixed component backdrop to exclude unrelated ancestor decoration. Screenshots are retained with the machine-readable results.
 
 ## Scientific interpretation limits
 

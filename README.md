@@ -1,14 +1,20 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.0
+# Ethanol + Caffeine PK/PD Sandbox 2.1
 
 Official public application: https://pkpd.goturbo.one/
 
 Retained deployment alias: https://ethanol-caffeine-pk-pd-sandbox.pages.dev/
 
-Version 2.0 adds a local scientific workbench around the retained v1.60 reference PK equations. The four main workspaces and independent scientific-depth, explanation, density and appearance settings remain available.
+Version 2.1 consolidates scenario construction, concentration inspection and scientific task navigation around the retained v2.0 workbench. Fresh launches open Session → Inputs with the original BAC rings and input graph. Default, Detailed and Expert remain the three scientific-depth settings, independent of reading and accessibility preferences.
+
+## UX consolidation
+
+Analysis provides keyboard/pointer inspection, shared cursor values, direct peaks and explicitly labelled overlay scales. A compact scenario/action region precedes graphs on mobile/tablet. Input context exposes accepted half-life and horizon values, contextual parameter editing and routes to deeper analysis. Scientific navigation, search and dataset-role counts connect Observations with Evaluation, Calibration, Uncertainty and Evidence. Structured observation add/edit/remove uses the existing scientific schema, error semantics, validation and Undo; CSV remains the bulk path. Ring normalisation and heuristic interpretation are explained contextually.
+
+See [docs/V2.1-DESIGN.md](docs/V2.1-DESIGN.md) for the audit, implementation decisions, verification scope and prioritised follow-up backlog.
 
 ## Scientific workbench
 
-Session > Observations imports concentration measurements from CSV with elapsed or absolute timestamps, analyte, units, matrix, dataset role, optional measurement SD and censoring qualifier. Supported alternative matrices require an explicit conversion factor. Data remain local to the browser and portable session files.
+Session > Observations accepts structured rows and imports bulk concentration measurements from CSV with elapsed or absolute timestamps, analyte, units, matrix, dataset role, optional measurement SD and censoring qualifier. Supported alternative matrices require an explicit conversion factor. Data remain local to the browser and portable session files.
 
 Analysis > Scientific workbench provides Evaluation, Calibration, Uncertainty and Evidence. Evaluation separates calibration and held-out rows and reports canonical-unit bias, MAE and RMSE. The built-in published corpus contains four group-level Cmax summaries from two studies. It reports cohort reconstruction assumptions and descriptive discrepancies. Individual predictive validity and full empirical trajectory validation remain unevaluated by that summary corpus.
 
@@ -22,15 +28,15 @@ Help provides action/result/check walkthroughs at Default, Detailed and Expert l
 
 ## Reproducibility and compatibility
 
-Application 2.0.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench schema 1.0.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
+Application 2.1.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench schema 1.0.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
 
 Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 
-Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.0.0.html provides local operation; archived standalone releases remain available.
+Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.1.0.html provides local operation; archived standalone releases remain available.
 
 ## Development and tests
 
-Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs and node test/science-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
+Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs node test/science-browser.mjs and node test/ux-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
 
 Regenerate the portable guide with node scripts/export-guide.mjs after changing guide content. Run node test/live-browser.mjs with DEPLOYMENT_URL for hosted checks. CI discovers the exact Cloudflare preview for a PR and verifies both production hostnames after promotion. Generated test evidence is under test/artifacts and excluded from git.
 

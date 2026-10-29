@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {V15_GUIDES,V15_GUIDE_COMMON} from '../src/content/guide.mjs';
 import {SCIENCE_GUIDES} from '../src/content/science-guide.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-let text='# How to use v2.0\n\nThis is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.\n\n';
+let text='# How to use v2.1\n\nThis is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.\n\n';
 for(const [key,guide]of Object.entries(V15_GUIDES)){
  text+='## '+key[0].toUpperCase()+key.slice(1)+'\n\n'+guide.scope+'\n\n';
  text+='### Scientific workbench\n\n';for(const step of SCIENCE_GUIDES[key])text+='#### '+step[0]+'\n\nAction. '+step[1]+'\n\nExpected result. '+step[2]+'\n\nCheck. '+step[3]+'\n\n';

@@ -33007,7 +33007,7 @@ function wB({
     "aria-labelledby": t,
     children: [r.jsx("title", {
       id: t,
-      children: `${n}. Exact BAC ${ke(e, 3)} g/dL; ordinary severity tier ${s.label}. ${c}.${l ? ` Extraordinary output cue: ${l.cue}.` : ""}`
+      children: `${n}. Modelled BAC ${Number(e).toPrecision(5)} g/dL; interpretive severity tier ${s.label}. ${c}. Outer scale 0 to 0.25 g/dL; inner scale 0.25 to 0.40 g/dL. Concentration bands are heuristic, with individual effects uncertain.${l ? ` Extraordinary output cue: ${l.cue}.` : ""}`
     }), r.jsx(nee, {
       sentinel: l
     }), r.jsx("circle", {
@@ -39163,7 +39163,7 @@ function CN({
             ethanolVolumeMl: ct
           };
         }
-        const st = Math.max(0, ce.servingVolumeMl ?? ce.ethanolVolumeMl);
+        const st = Math.max(0, ce.servingVolumeMl ?? ce.ethanolVolumeMl ?? 0);
         return {
           ...ce,
           servingVolumeMl: st,
@@ -40219,6 +40219,7 @@ function wN({
         className: "field",
         children: ["Body mass (kg)", r.jsx(De, {
           id: "subject-body-mass",
+          "aria-label": "Body mass (kg)",
           parameterId: "subject.bodyMassKg",
           value: e.bodyMassKg,
           onCommit: S => S !== void 0 && f("bodyMassKg", S)
@@ -40991,7 +40992,7 @@ function vte({
         className: "status-chip warning",
         children: "Inputs changed"
       })]
-    }), p, v, r.jsxs("article", {
+    }), v, r.jsx(V15Integration.PreviewCaption, {}), r.jsxs("article", {
       className: `selected-state-hero${b ? " caffeine-only" : ""} state-${t.bacBand.id} tier-${x.id}${g}`,
       "data-content-owner": `selected-state:${t.selectedTimeH}`,
       "data-bac-tier": x.id,
@@ -41063,7 +41064,7 @@ function vte({
             })]
           })]
         })]
-      }), h && r.jsx("p", {
+      }), h && r.jsxs("details", {className:"v21-preview-interpretation",children:[r.jsx("summary",{children:"Effects and interpretation"}),r.jsx("p", {
         className: "selected-state-narrative",
         children: t.stateNarrative
       }), h && c && r.jsx("button", {
@@ -41071,10 +41072,7 @@ function vte({
         className: "text-button selected-effects-link",
         onClick: c,
         children: "Effects"
-      })]
-    }), !b && r.jsx(pte, {
-      current: t.bacValueGdL,
-      peak: t.peakBAC.valueGdL
+      })]})]
     }), r.jsx(DM, {
       result: e,
       doseEvents: n,
@@ -41087,7 +41085,7 @@ function vte({
       showInspector: !1,
       title: "Selected-time concentration preview",
       detail: f
-    }), r.jsx("p", {
+    }), !b && r.jsxs("details",{className:"v21-ring-reference",children:[r.jsx("summary",{children:"BAC bands and ring scale"}),r.jsx(V15Integration.RingGuide,{}),r.jsx(pte,{current:t.bacValueGdL,peak:t.peakBAC.valueGdL})]}), r.jsxs("details",{className:"v21-clock-reference",children:[r.jsx("summary",{children:"Clock reference and current estimate"}),p]}), r.jsx("p", {
       className: "sr-only",
       role: "status",
       "aria-live": "polite",
@@ -41097,7 +41095,7 @@ function vte({
       type: "button",
       className: "primary-button open-results-button",
       onClick: l,
-      children: "View full results"
+      children: "Inspect in Analysis"
     })]
   });
 }
@@ -45183,7 +45181,7 @@ function hne() {
         }), r.jsx("div", {
           className: "calculation-preview-column",
           id: "calculator-estimate",
-          children: Zr ? r.jsxs("section", {
+          children: Zr && !ce ? r.jsxs("section", {
             className: "result-preview invalid-preview",
             children: [r.jsx("p", {
               className: "panel-kicker",
@@ -45199,9 +45197,9 @@ function hne() {
             doseEvents: Ve.doseEvents,
             mealEvents: Ve.subject.mealEvents,
             onSelectedTimeChange: nn,
-            onOpenResults: () => ln("results"),
+            onOpenResults: () => { window.location.hash="#session/overview"; },
             onOpenEffects: () => ln("behaviour"),
-            stale: !1,
+            stale: q || Zr,
             detail: Kn,
             showBehavioralInterpretation: g.showBehavioralInterpretation,
             timeReference: vd,
