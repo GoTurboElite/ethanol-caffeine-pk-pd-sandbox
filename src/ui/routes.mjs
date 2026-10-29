@@ -25,7 +25,7 @@ export function locationFor(state){
 }
 export function routeActive(state,route,view){
  if(route==='session'&&view==='validation')return state.presentation.selectedWorkspace==='session'&&SCIENTIFIC_VIEWS.includes(state.presentation.selectedSubview);
- return state.presentation.selectedWorkspace===route&&(view?state.presentation.selectedSubview===view:route!=='session');
+ return state.presentation.selectedWorkspace===route&&(view?(state.presentation.selectedSubview||'timeline')===view:route!=='session');
 }
 export function calculationState(state){
  const snapshot=state.snapshots.currentSnapshotId;

@@ -33,7 +33,7 @@ check('Manual entry retains authoritative scientific row and dataset limits',()=
 });
 check('Scientific child routes preserve primary and contextual active states',()=>{
  for(const view of SCIENTIFIC_VIEWS){const s={presentation:{selectedWorkspace:'session',selectedSubview:view}};assert.equal(locationFor(s).group,'analysis');assert.ok(routeActive(s,'session','validation'));assert.equal(locationFor(s).view,view);assert.ok(!routeActive(s,'session','parameters'));}
- assert.equal(locationFor({presentation:{selectedWorkspace:'calculate'}}).view,'inputs');
+ assert.equal(locationFor({presentation:{selectedWorkspace:'calculate'}}).view,'inputs');assert.ok(routeActive({presentation:{selectedWorkspace:'session',selectedSubview:''}},'session','timeline'));
 });
 check('Current, pending, invalid, failed and previous calculation states remain distinct',()=>{
  const s={presentation:{},snapshots:{currentSnapshotId:'proof',relationToDraft:'current'},execution:{status:'complete'},draft:{validation:{status:'valid'}},editingInvalidCount:0};assert.equal(calculationState(s).kind,'current');s.execution.status='running';assert.equal(calculationState(s).kind,'pending');s.editingInvalidCount=1;assert.equal(calculationState(s).kind,'invalid');s.editingInvalidCount=0;s.execution.status='failed';assert.equal(calculationState(s).kind,'failed');s.execution.status='cancelled';s.snapshots.relationToDraft='stale';assert.equal(calculationState(s).kind,'previous');
