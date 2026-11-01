@@ -1,4 +1,8 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.1.1
+# Ethanol + Caffeine PK/PD Sandbox 2.1.2
+
+## v2.1.2 maintenance patch
+
+Corrects native-matrix conversion validation while preserving historical rows for explicit review, shows canonical concentrations and error scales, exposes benchmark discrepancies, clarifies heuristic interpretation, repairs historical intake bars and initial loading feedback, and refines narrow-screen controls. PK equations, reference profile and default parameters are retained. Scientific validation/workbench revision is 1.0.1; scientific document schema remains 1.1.0. See [docs/V2.1.2-PATCH.md](docs/V2.1.2-PATCH.md) for compatibility, validation and release scope.
 
 Official public application: https://pkpd.goturbo.one/
 
@@ -34,15 +38,15 @@ Help provides action/result/check walkthroughs at Default, Detailed and Expert l
 
 ## Reproducibility and compatibility
 
-Application 2.1.1 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench algorithms 1.0.0, scientific document schema 1.1.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
+Application 2.1.2 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench/validation 1.0.1, scientific document schema 1.1.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
 
 Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 
-Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.1.0.html provides local operation; archived standalone releases remain available.
+Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.1.2.html provides local operation; archived standalone releases remain available.
 
 ## Development and tests
 
-Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs node test/science-browser.mjs and node test/ux-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
+Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs node test/science-browser.mjs and node test/ux-browser.mjs and node test/patch-212-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
 
 Regenerate the portable guide with node scripts/export-guide.mjs after changing guide content. Run node test/live-browser.mjs with DEPLOYMENT_URL for hosted checks. CI discovers the exact Cloudflare preview for a PR and verifies both production hostnames after promotion. Generated test evidence is under test/artifacts and excluded from git.
 

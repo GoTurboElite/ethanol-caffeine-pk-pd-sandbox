@@ -31580,7 +31580,7 @@ function Sj({
             })]
           }), Object.keys(e.initialConditions).map(A => r.jsxs("label", {
             className: "field",
-            children: [A, r.jsx(De, {
+            children: [({gastricEthanolG:'Gastric ethanol (g)',intestinalEthanolG:'Intestinal ethanol (g)',centralEthanolG:'Central ethanol (g)',caffeineGutMg:'Caffeine in gut (mg)',caffeineCentralMg:'Central caffeine (mg)',paraxanthineCentralMg:'Central paraxanthine (mg)'})[A] ?? A, r.jsx(De, {
               parameterId: `subject.initialConditions.${A}`,
               draftKey: `${c}.initialConditions.${A}`,
               value: e.initialConditions[A],
@@ -31726,7 +31726,7 @@ function Sj({
       }), !f && r.jsxs(r.Fragment, {
         children: [r.jsxs("label", {
           className: "field",
-          children: ["Vehicle reference threshold (g/dL)", r.jsx(De, {
+          children: ["Configured BAC reference threshold (g/dL)", r.jsx(De, {
             parameterId: "subject.vehicleZeroToleranceThresholdGdL",
             draftKey: `${c}.vehicleZeroToleranceThresholdGdL`,
             value: e.vehicleZeroToleranceThresholdGdL,
@@ -33139,7 +33139,7 @@ function Aj({
       children: [r.jsx("span", {
         children: d ?? (a === "peak" ? "Peak BAC" : a === "selected" ? "Selected BAC" : "End BAC")
       }), r.jsxs("b", {
-        children: [x.label, " severity"]
+        children: ["Heuristic band: ", x.label]
       })]
     }), r.jsxs("div", {
       className: "bac-ring-layout",
@@ -33221,7 +33221,7 @@ function see({
       sub: Ce(a.timeOfPeakCaffeineH),
       kind: "caffeine"
     }, {
-      label: "Vehicle-reference threshold outcome",
+      label: "Configured BAC reference outcome",
       value: Ql(a.vehicleThresholdOutcome),
       sub: "threshold outcome after peak",
       kind: "threshold"
@@ -35370,7 +35370,7 @@ function _B(e, t, n) {
   const a = jn(e.summary.peakBACGdL),
     s = Qa(e.summary.peakBACGdL),
     l = t?.status === "valid" ? ea(t.summary.episodes.find(c => c.id === t.summary.dominantEpisodeId)?.stateSignatureId ?? t.points[0]?.stateSignatureId ?? "baseline") : n?.label;
-  return [["Scheduled ethanol", `${ke(e.summary.scheduledEthanolG, 1)} g`], ["In-horizon delivered ethanol", `${ke(e.summary.inHorizonEthanolG, 1)} g`], ["Pre-horizon historical ethanol", `${ke(e.summary.preHorizonEthanolG, 1)} g`], ["Post-horizon excluded ethanol", `${ke(e.summary.postHorizonEthanolG, 1)} g`], ["Systemically absorbed ethanol", `${ke(e.summary.systemicallyAbsorbedEthanolG, 1)} g`], ["First-pass removed ethanol", `${ke(e.summary.firstPassRemovedEthanolG, 1)} g`], ["Eliminated ethanol", `${ke(e.summary.eliminatedEthanolG, 1)} g`], ["Current ethanol burden", `${ke(e.summary.currentEthanolBurdenG, 1)} g`], ["UK units", ke(e.summary.totalUkUnits, 1)], ["Total caffeine", `${ke(e.summary.totalCaffeineMg, 0)} mg`], ["Peak BAC", `${ke(e.summary.peakBACGdL, 3)} g/dL at ${Ce(e.summary.timeOfPeakBACH)}`], ["Peak BAC severity and phenotype", `${s.label} severity - ${a.range} g/dL - ${a.label}`], ["Peak caffeine", `${ke(e.summary.peakCaffeineMgL, 2)} mg/L at ${Ce(e.summary.timeOfPeakCaffeineH)}`], ["Max impairment", `${Cn(e.summary.maxImpairmentIndex)}/100`], ["Max alertness", `${Cn(e.summary.maxAlertnessIndex)}/100`], ["Max mismatch", `${Cn(e.summary.maxMismatchIndex)}/100`], ["Final BAC", `${ke(e.summary.finalBACGdL, 3)} g/dL`], ["Final caffeine", `${ke(e.summary.finalCaffeineMgL, 2)} mg/L`], ["Vehicle-reference threshold outcome", Ql(e.summary.vehicleThresholdOutcome)], ["Configured comparison-threshold outcome", Ql(e.summary.legalThresholdOutcome)], ...(l ? [["Behavioural state signature", l]] : [])];
+  return [["Scheduled ethanol", `${ke(e.summary.scheduledEthanolG, 1)} g`], ["In-horizon delivered ethanol", `${ke(e.summary.inHorizonEthanolG, 1)} g`], ["Pre-horizon historical ethanol", `${ke(e.summary.preHorizonEthanolG, 1)} g`], ["Post-horizon excluded ethanol", `${ke(e.summary.postHorizonEthanolG, 1)} g`], ["Systemically absorbed ethanol", `${ke(e.summary.systemicallyAbsorbedEthanolG, 1)} g`], ["First-pass removed ethanol", `${ke(e.summary.firstPassRemovedEthanolG, 1)} g`], ["Eliminated ethanol", `${ke(e.summary.eliminatedEthanolG, 1)} g`], ["Current ethanol burden", `${ke(e.summary.currentEthanolBurdenG, 1)} g`], ["UK units", ke(e.summary.totalUkUnits, 1)], ["Total caffeine", `${ke(e.summary.totalCaffeineMg, 0)} mg`], ["Peak BAC", `${ke(e.summary.peakBACGdL, 3)} g/dL at ${Ce(e.summary.timeOfPeakBACH)}`], ["Peak BAC severity and phenotype", `${s.label} severity - ${a.range} g/dL - ${a.label}`], ["Peak caffeine", `${ke(e.summary.peakCaffeineMgL, 2)} mg/L at ${Ce(e.summary.timeOfPeakCaffeineH)}`], ["Max impairment", `${Cn(e.summary.maxImpairmentIndex)}/100`], ["Max alertness", `${Cn(e.summary.maxAlertnessIndex)}/100`], ["Max mismatch", `${Cn(e.summary.maxMismatchIndex)}/100`], ["Final BAC", `${ke(e.summary.finalBACGdL, 3)} g/dL`], ["Final caffeine", `${ke(e.summary.finalCaffeineMgL, 2)} mg/L`], ["Configured BAC reference outcome", Ql(e.summary.vehicleThresholdOutcome)], ["Configured comparison-threshold outcome", Ql(e.summary.legalThresholdOutcome)], ...(l ? [["Behavioural state signature", l]] : [])];
 }
 function Bee(e) {
   const t = DB(e.behavioural, e.behaviourProfile, e.subject, e.presentation),
@@ -40625,7 +40625,7 @@ function AN({
       }), x("subject.caffeineHalfLifeH", "caffeineHalfLifeH", "Effective half-life (h)"), x("subject.referenceCaffeineHalfLifeH", "referenceCaffeineHalfLifeH", "Reference half-life (h)"), x("subject.cyp1a2ActivityModifier", "cyp1a2ActivityModifier", "CYP1A2 activity modifier"), x("subject.caffeineAbsorptionModifier", "caffeineAbsorptionModifier", "Absorption modifier"), x("subject.caffeineToleranceModifier", "caffeineToleranceModifier", "Alertness tolerance")]
     }) : h.id === "response" ? r.jsxs("div", {
       className: "refinement-form-grid",
-      children: [x("subject.baselineAlertnessIndex", "baselineAlertnessIndex", "Baseline alertness"), x("subject.perceivedControlCalibration", "perceivedControlCalibration", "Perceived-control calibration"), x("subject.sleepDebtModifier", "sleepDebtModifier", "Sleep debt modifier"), x("subject.legalBACThresholdGdL", "legalBACThresholdGdL", "BAC comparison threshold (g/dL)"), x("subject.vehicleZeroToleranceThresholdGdL", "vehicleZeroToleranceThresholdGdL", "Vehicle reference threshold (g/dL)")]
+      children: [x("subject.baselineAlertnessIndex", "baselineAlertnessIndex", "Baseline alertness"), x("subject.perceivedControlCalibration", "perceivedControlCalibration", "Perceived-control calibration"), x("subject.sleepDebtModifier", "sleepDebtModifier", "Sleep debt modifier"), x("subject.legalBACThresholdGdL", "legalBACThresholdGdL", "BAC comparison threshold (g/dL)"), x("subject.vehicleZeroToleranceThresholdGdL", "vehicleZeroToleranceThresholdGdL", "Configured BAC reference threshold (g/dL)")]
     }) : h.id === "simulation" ? r.jsxs("div", {
       className: "refinement-form-grid",
       children: [x("subject.simulationDurationH", "simulationDurationH", "Simulation horizon (h)"), r.jsxs("label", {
@@ -41006,7 +41006,7 @@ function vte({
         }), r.jsx("span", {
           children: t.exposureRelationship
         }), !b && r.jsxs("b", {
-          children: [x.label, " severity"]
+          children: ["Heuristic band: ", x.label]
         })]
       }), b ? r.jsxs("div", {
         className: "caffeine-state-principal",
@@ -44879,7 +44879,7 @@ function hne() {
         })]
       }), r.jsxs("section", {
         className: "invalid-run-banner",
-        role: "alert",
+        role: Ne.status === "pending" ? "status" : "alert",
         "aria-labelledby": "invalid-run-title",
         children: [r.jsx("p", {
           className: "panel-kicker",
@@ -44888,13 +44888,15 @@ function hne() {
           id: "invalid-run-title",
           children: Ne.status === "pending" ? "Preparing your calculation" : "Resolve the highlighted model inputs"
         }), r.jsx("p", {
-          children: "No results, behavioural interpretation, comparison deltas, or modeled-result exports are generated from this attempted state."
+          children: Ne.status === "pending" ? "Preparing the first accepted calculation. Results will appear when it completes." : "No results, behavioural interpretation, comparison deltas, or modeled-result exports are generated from this attempted state."
         }), r.jsx("ul", {
           children: _.map(xe => r.jsx("li", {
             children: xe.message
           }, xe.code))
         }), r.jsxs("div", {
           className: "button-row",
+          hidden: Ne.status === "pending",
+          style: {display: Ne.status === "pending" ? "none" : undefined},
           children: [r.jsx("button", {
             type: "button",
             className: "primary-button",
@@ -44917,7 +44919,7 @@ function hne() {
           distribution: Ra,
           detail: Kn,
           unitDisplay: g.unitDisplay,
-          stepState: "error",
+          stepState: Ne.status === "pending" ? "ready" : "error",
           modifiedCount: ac,
           onRefine: () => pe(!0)
         }), r.jsx(CN, {
@@ -44927,7 +44929,7 @@ function hne() {
           detail: Kn,
           expandedId: Me,
           onExpandedChange: Re,
-          stepState: "error",
+          stepState: Ne.status === "pending" ? "ready" : "error",
           mealEvents: v.mealEvents,
           onOpenTimeline: () => Qe(!0),
           ...re
@@ -49147,7 +49149,7 @@ let appRoot=null;function mountApplication(){if(appRoot)return;appRoot=sR.create
 function unmountApplication(){appRoot?.unmount();appRoot=null;}
 Ene();mountApplication();window.addEventListener("pagehide",event=>{canonicalStore.flushAutosave();unmountApplication();if(!event.persisted)simulationRuntime.dispose();});window.addEventListener("pageshow",event=>{if(event.persisted)mountApplication();});document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")canonicalStore.flushAutosave();});
 function maintenanceChronologyTable({result}){
-  const outcomes=[['Vehicle reference',result.summary.vehicleThresholdOutcome],['Comparison reference',result.summary.legalThresholdOutcome],['Negligible BAC',result.summary.negligibleThresholdOutcome]];
+  const outcomes=[['Configured BAC reference',result.summary.vehicleThresholdOutcome],['Comparison reference',result.summary.legalThresholdOutcome],['Negligible BAC',result.summary.negligibleThresholdOutcome]];
   const rows=outcomes.flatMap(([label,outcome])=>(outcome?.intervals??[]).map((interval,i)=>({label:label+' '+(i+1),threshold:outcome.threshold,...interval})));
   if(!rows.length)return null;
   return r.jsxs('section',{className:'threshold-intervals',children:[r.jsx('h3',{children:'Above-threshold intervals'}),r.jsx('p',{children:'Complete intervals within the configured schedule and horizon. Open intervals continue beyond the observation window.'}),r.jsx('div',{className:'table-scroll',children:r.jsxs('table',{children:[r.jsx('thead',{children:r.jsxs('tr',{children:['Reference / episode','Threshold (g/dL)','Start','End'].map(x=>r.jsx('th',{children:x},x))})}),r.jsx('tbody',{children:rows.map(row=>r.jsxs('tr',{children:[r.jsx('td',{children:row.label}),r.jsx('td',{children:row.threshold.toFixed(3)}),r.jsx('td',{children:Ce(row.startH)+(row.leftCensored?' (active at start)':'')}),r.jsx('td',{children:Ce(row.endH)+(row.rightCensored?' (open at horizon)':'')})]},row.label))})]})}),result.summary.futureScheduledInput&&r.jsx('p',{children:'Additional intake is scheduled beyond the horizon; final returns apply only to this observation window.'})]});

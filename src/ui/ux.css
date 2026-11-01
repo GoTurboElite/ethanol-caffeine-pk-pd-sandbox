@@ -27,3 +27,8 @@ body[data-v21-state=pending] .calculation-preview-column>.result-preview,body[da
 @media(forced-colors:active){tr[data-editing=true]{outline-color:Highlight}.v211-result-context.previous,.v211-result-origin.previous,.v211-conversion-note{border-color:CanvasText}}
 
 .v211-result-context:not(.previous){display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding:6px 12px;margin-bottom:8px}
+
+/* v2.1.2 maintenance: compact controls retain text labels and focus visibility. */
+.v212-model-limit{font-size:.875rem;line-height:1.5;margin:0 0 .75rem}
+.v212-depth-help{font-size:.8rem;margin:0 0 .5rem;color:var(--v160-muted)}
+@media(max-width:600px){.v160-header{gap:.4rem;padding-top:.6rem;padding-bottom:.6rem}.v160-header-actions{gap:.25rem;flex-wrap:wrap}.v160-header-actions .v15-button,.v160-document-menu>summary{padding:.4rem .5rem;min-height:36px}.v160-navigation{padding-top:.4rem;padding-bottom:.4rem;gap:.4rem}.v160-page-heading nav{border-bottom:2px solid var(--v160-muted);padding-bottom:.25rem}.v160-page-heading nav:after{content:'More views →';font-size:.75rem;white-space:nowrap;align-self:center;padding:.4rem}.v21-mobile-actions{padding:.8rem}.v160-page-heading{margin-bottom:.5rem}}

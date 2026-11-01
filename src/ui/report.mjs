@@ -1,5 +1,6 @@
 import {v15Escape,v15Number,v15ChartSamples,v15Interpolate,v15FormatInstant,V15_VERSION} from '../session/core.mjs';
 import {scientificReport} from '../science/report.mjs';
+import {visibleIntakeInterval} from './plot-interval.mjs';
 export function v15CurveSVG(result,{selectedTimeH=0,markers=[],events=[],points=null}={}){
  const data=points??v15ChartSamples(result.analysisPoints??result.points),end=result.analysisPoints?.at(-1)?.tH??result.points.at(-1).tH;
  const width=920,height=195,left=65,right=890,top=29,bottom=143,x=h=>left+(right-left)*h/(end||1);
@@ -10,7 +11,7 @@ export function v15CurveSVG(result,{selectedTimeH=0,markers=[],events=[],points=
   for(let i=0;i<=2;i++){const value=max*i/2,yy=y(value);svg+='<path d="M'+left+','+yy+'H'+right+'" stroke="#d9dfe8"/><text x="56" y="'+(yy+4)+'" text-anchor="end" fill="#3f4f66" font-size="12">'+(key==='bacGdL'?value.toFixed(3):v15Number(value,1))+'</text>';}
   for(let i=0;i<=6;i++){const h=end*i/6;svg+='<text x="'+x(h)+'" y="176" text-anchor="middle" fill="#3f4f66" font-size="12">'+v15Number(h,1)+' h</text>';}
   svg+='<path d="'+path+'" fill="none" stroke="'+colour+'" stroke-width="2.5"'+(dashed?' stroke-dasharray="7 4"':'')+'/>';
-  for(const event of events){if(event.startTimeH<0||event.startTimeH>end)continue;svg+='<rect x="'+x(event.startTimeH)+'" y="150" width="'+Math.max(2,x(Math.min(end,event.startTimeH+(event.durationMin??0)/60))-x(event.startTimeH))+'" height="5" rx="2" fill="#526375"><title>'+v15Escape(event.label||'Intake')+'</title></rect>';}
+  for(const event of events){const interval=visibleIntakeInterval(event,end);if(!interval)continue;svg+='<rect x="'+x(interval.start)+'" y="150" width="'+Math.max(2,x(interval.end)-x(interval.start))+'" height="5" rx="2" fill="#526375"><title>'+v15Escape(event.label||'Intake')+'</title></rect>';}
   for(const m of markers){if(m.timeH<0||m.timeH>end)continue;svg+='<path d="M'+x(m.timeH)+','+top+'V'+bottom+'" stroke="#6d7789" stroke-dasharray="3 5"><title>'+v15Escape(m.label)+'</title></path>';}
   if(selectedTimeH>=0&&selectedTimeH<=end)svg+='<path d="M'+x(selectedTimeH)+','+top+'V'+bottom+'" stroke="#142b45" stroke-width="1.5" stroke-dasharray="6 3"/>';
   return svg+'</svg>';
@@ -24,13 +25,13 @@ export function v15BuildReport(data){
  const row=(a,b)=>'<tr><th>'+esc(a)+'</th><td>'+esc(b)+'</td></tr>';
  const table=rows=>'<table><tbody>'+rows.join('')+'</tbody></table>';
  const intervals=[];
- for(const [name,key]of[['Vehicle reference','vehicleThresholdOutcome'],['Comparison reference','legalThresholdOutcome'],['Negligible BAC','negligibleThresholdOutcome']]){
+ for(const [name,key]of[['Configured BAC reference','vehicleThresholdOutcome'],['Comparison reference','legalThresholdOutcome'],['Negligible BAC','negligibleThresholdOutcome']]){
   const out=result.summary[key];if(out)for(const [i,v]of out.intervals.entries())intervals.push('<tr><td>'+esc(name+' '+(i+1))+'</td><td>'+num(out.threshold,4)+'</td><td>'+num(v.startH,4)+'</td><td>'+num(v.endH,4)+(v.rightCensored?' · open at horizon':'')+'</td></tr>');
  }
  const label=frame.document.title||'Untitled scenario',generated=new Date().toISOString();
  const parts=['<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(label)+' — analysis report</title><style>body{font:15px/1.55 system-ui,sans-serif;color:#193047;background:#fff;max-width:1000px;margin:36px auto;padding:0 24px}h1{font-size:30px;line-height:1.2}h2{font-size:21px;margin-top:30px}h3{font-size:17px}small,.meta{color:#526477}table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #dce2e9;padding:8px;overflow-wrap:anywhere}th{font-weight:600}svg{width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;background:#f4f6f9;padding:15px}.note{border-left:3px solid #6552bc;padding-left:14px}@media print{body{margin:0;max-width:none;padding:0}h2,h3{break-after:avoid}tr{break-inside:avoid}svg{max-height:230px}pre{font-size:9px}}@page{margin:16mm}</style></head><body>'];
  parts.push('<p class="meta">Ethanol + Caffeine PK/PD Sandbox · v'+V15_VERSION+' · '+esc(depth)+' report</p><h1>'+esc(label)+'</h1><p>'+esc(frame.document.notes||'')+'</p>');
- parts.push('<p class="note">Model-derived concentrations and defined heuristic response indices. Threshold intervals apply to the supplied schedule and observation horizon.</p>');
+ parts.push('<p class="note">Simulated concentrations and heuristic response indices. Individual concentrations and impairment are not established by this model. Heuristic interpretations are not individually validated. Threshold intervals apply to the supplied schedule and observation horizon; a crossing does not establish recovery or fitness for any activity.</p>');
  parts.push('<h2>Calculation identity</h2>'+table([row('Generated',generated),row('Accepted snapshot',snapshotId),row('Calendar anchor',v15FormatInstant(anchor,zone)),row('Anchor instant',frame.presentation.scenarioAnchorInstant),row('Time zone',zone),row('Horizon',num(subject.simulationDurationH)+' h'),row('Inspection time',num(time,4)+' h · '+v15FormatInstant(anchor+time*3600000,zone)),row('Engine',versions.modelEngineVersion),row('Constants',versions.constantsVersion),row('Scenario schema',versions.scenarioSchemaVersion),row('Source fingerprint',versions.buildFingerprint)]));
  parts.push('<h2>Full-horizon concentration curves</h2>'+v15CurveSVG(result,{selectedTimeH:time,markers:frame.markers,events})+'<p class="meta">The plotted curve is reduced for display. Summary values and interval crossings use the accepted numerical trajectory.</p>');
  parts.push(table([row('Peak BAC',num(result.summary.peakBACGdL,5)+' g/dL'),row('BAC peak time',num(result.summary.timeOfPeakBACH,4)+' h'),row('Peak caffeine',num(result.summary.peakCaffeineMgL,5)+' mg/L'),row('Caffeine peak time',num(result.summary.timeOfPeakCaffeineH,4)+' h'),row('Selected BAC',num(point?.bacGdL,5)+' g/dL'),row('Selected caffeine',num(point?.caffeineMgL,5)+' mg/L')]));

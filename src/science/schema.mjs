@@ -1,6 +1,6 @@
 import {v15Clone,v15Stable} from '../session/core.mjs';
 export const SCIENCE_VERSION='1.1.0';
-export const MODEL_PROFILE={id:'reference-1.60',name:'v1.60 reference model',engineVersion:'0.4.4',constantsVersion:'0.3.0',evidenceVersion:'2026-10-28.1',status:'Retained equations; empirical evaluation is endpoint-specific.'};
+export const MODEL_PROFILE={id:'reference-1.60',name:'v1.60 reference model',engineVersion:'0.4.4',constantsVersion:'0.3.0',evidenceVersion:'2026-10-28.1',validationVersion:'1.0.1',status:'Retained equations; empirical evaluation is endpoint-specific.'};
 export const PARAMETERS={
  caffeineHalfLifeH:{label:'Effective caffeine half-life',unit:'h',section:'subject',key:'caffeineHalfLifeH',min:1,max:30,analyte:'caffeine'},
  ethanolClearanceModifier:{label:'Ethanol elimination multiplier',unit:'fold',section:'subject',key:'ethanolClearanceModifier',min:.25,max:3,analyte:'ethanol'},
@@ -11,7 +11,7 @@ export const PARAMETERS={
 export const emptyScience=()=>({schemaVersion:SCIENCE_VERSION,modelProfile:MODEL_PROFILE.id,observations:[],observationSource:'User supplied; provenance not independently verified.',legacyConversionNotes:'',fit:{parameters:[{id:'caffeineHalfLifeH',lower:1,upper:12}],maxEvaluations:120},uncertainty:{seed:20261028,samples:32,parameters:[{id:'caffeineHalfLifeH',distribution:'triangular',lower:3,upper:8}],correlation:[[1]],paired:false},calibrations:[]});
 export function number(value,label){if(value===null||value===undefined||typeof value==='boolean'||(typeof value==='string'&&!value.trim()))throw Error(label+' is required.');const n=Number(value);if(!Number.isFinite(n))throw Error(label+' must be finite.');return n;}
 const text=(value,label,max=300)=>{if(typeof value!=='string'||value.length>max)throw Error(label+' is invalid.');return value;};
-export function validateObservation(row,index=0){
+export function validateObservation(row,index=0,{allowLegacyNativeFactor=false}={}){
  const analyte=String(row.analyte??'').toLowerCase();if(!['ethanol','caffeine'].includes(analyte))throw Error('Observation '+(index+1)+': analyte must be ethanol or caffeine.');
  const timeH=number(row.timeH,'Observation time');if(timeH<0||timeH>8760)throw Error('Observation times must be between 0 and 8760 elapsed hours.');
  const value=number(row.value,'Observation value');if(value<0)throw Error('Observation values cannot be negative.');
@@ -23,9 +23,13 @@ export function validateObservation(row,index=0){
  const canonicalMatrix=analyte==='ethanol'?'whole-blood':'plasma';
  if(matrix!==canonicalMatrix){if(!['serum','plasma','whole-blood','saliva'].includes(matrix)||matrixFactor===null)throw Error('Use '+canonicalMatrix+' for '+analyte+', or supply an explicit matrix_factor for a supported alternative matrix. Breath alcohol requires a separate observation model.');}
  if(matrixFactor!==null&&(matrixFactor<=0||matrixFactor>10))throw Error('Matrix factor must be positive and at most 10.');
+ if(!allowLegacyNativeFactor&&matrix===canonicalMatrix&&matrixFactor!==null&&matrixFactor!==1)throw Error('A measurement already in '+canonicalMatrix+' must have no matrix_factor or a factor of 1. Correct the matrix or remove the factor explicitly.');
  const sd=row.sd==null||row.sd===''?null:number(row.sd,'Measurement SD');if(sd!==null&&sd<=0)throw Error('Measurement SD must be positive.');
  return{id:text(String(row.id??'observation-'+index),'Observation ID',100),timeH,analyte,value,unit,matrix,qualifier,role,sd,matrixFactor,label:text(String(row.label??''),'Observation label',160),conversionSource:text(row.conversionSource??'','Observation conversion source',2000)};
 }
+// Preserve historical documents exactly; require an explicit correction before new analysis.
+export function observationIssues(document){return document.observations.filter(o=>o.matrix===(o.analyte==='ethanol'?'whole-blood':'plasma')&&o.matrixFactor!=null&&o.matrixFactor!==1);}
+export function assertObservationAnalysis(document){const rows=observationIssues(document);if(rows.length)throw Error('Resolve canonical-matrix conversion factors in Observations before analysis: '+rows.map(o=>o.label||o.id).join(', ')+'. Original values and factors are preserved; edit each affected row explicitly.');}
 export function observationValue(row){const factor=row.analyte==='ethanol'?(row.unit==='g/L'?.1:row.unit==='mg/dL'?.001:1):(row.unit==='ng/mL'?.001:1);return row.value*factor*(row.matrixFactor??1);}
 export function observationSD(row){return row.sd==null?(row.analyte==='ethanol'?.002:.1):observationValue({...row,value:row.sd});}
 export function parameterValue(input,id){const p=PARAMETERS[id];if(!p)throw Error('Unknown parameter '+id);return input[p.section][p.key];}
@@ -53,7 +57,7 @@ export function migrateScience(value){
 export function validateScience(value){
  const d=migrateScience(value);if(d.schemaVersion!==SCIENCE_VERSION||d.modelProfile!==MODEL_PROFILE.id)throw Error('Unsupported scientific document or model profile.');
  if(!d.fit||!d.uncertainty)throw Error('Scientific fitting and uncertainty configurations are required.');
- if(!Array.isArray(d.observations)||d.observations.length>200)throw Error('An observation dataset supports at most 200 rows.');d.observations=d.observations.map(validateObservation);if(new Set(d.observations.map(o=>o.id)).size!==d.observations.length)throw Error('Observation IDs must be distinct.');
+ if(!Array.isArray(d.observations)||d.observations.length>200)throw Error('An observation dataset supports at most 200 rows.');d.observations=d.observations.map((row,i)=>validateObservation(row,i,{allowLegacyNativeFactor:true}));if(new Set(d.observations.map(o=>o.id)).size!==d.observations.length)throw Error('Observation IDs must be distinct.');
  d.observationSource=text(d.observationSource,'Observation provenance',2000);
  d.legacyConversionNotes=text(d.legacyConversionNotes??'','Historical conversion notes',2000);
  d.fit={parameters:validateParameters(d.fit?.parameters,2),maxEvaluations:number(d.fit?.maxEvaluations??120,'Fit budget')};if(!Number.isInteger(d.fit.maxEvaluations)||d.fit.maxEvaluations<40||d.fit.maxEvaluations>320)throw Error('Fit budget must be an integer from 40 to 320.');
@@ -70,6 +74,7 @@ export function csvRows(text){
 }
 export function parseObservations(text,anchor){
  const rows=csvRows(text.replace(/^\uFEFF/,'')),header=rows.shift()?.map(s=>s.toLowerCase());if(!header||!['analyte','value','unit','matrix'].every(k=>header.includes(k))||(!header.includes('time_h')&&!header.includes('time_iso')))throw Error('CSV requires time_h (or time_iso), analyte, value, unit and matrix headers.');if(new Set(header).size!==header.length)throw Error('CSV headers must be distinct.');
+ const allowed=['time_h','time_iso','analyte','value','unit','matrix','role','sd','qualifier','label','matrix_factor','conversion_source'],unknown=header.filter(h=>!allowed.includes(h));if(unknown.length)throw Error('Unrecognized CSV columns: '+unknown.join(', ')+'. Correct the header or remove these columns before review; no fields have been imported.');
  return rows.map((row,i)=>{try{if(row.length!==header.length)throw Error('Observation has the wrong field count.');const o=Object.fromEntries(header.map((k,j)=>[k,row[j]]));let timeH;
  if(o.time_h)timeH=number(o.time_h,'Elapsed time');else{if(!/T.*(?:Z|[+-]\d\d:\d\d)$/.test(o.time_iso??'')||!Number.isFinite(Date.parse(o.time_iso))||!Number.isFinite(Date.parse(anchor)))throw Error('Calendar observations require ISO timestamps with Z or an explicit UTC offset and a valid model-zero anchor.');timeH=(Date.parse(o.time_iso)-Date.parse(anchor))/3600000;}
  return validateObservation({id:'csv-'+i,timeH,analyte:o.analyte,value:o.value,unit:o.unit,matrix:o.matrix,role:o.role||'evaluation',sd:o.sd,qualifier:o.qualifier||'=',matrixFactor:o.matrix_factor,label:o.label??'',conversionSource:o.conversion_source??''},i);}catch(error){throw Error('CSV row '+(i+2)+': '+error.message);}});

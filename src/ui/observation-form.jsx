@@ -22,7 +22,8 @@ export function ObservationForm({source,editing,onDone,onReload}){
    {field('qualifier','Measurement qualifier',[['=','Quantified value (=)'],['<','Upper limit (<)']])}
    {field('sd','Measurement SD in selected units',null,true)}
    {field('label','Observation label',null,true)}
-   {alternative&&<>{field('matrixFactor','Matrix conversion factor')}{field('conversionSource','Matrix conversion source and assumptions')}</>}
+   {!alternative&&draft.matrixFactor!==''&&Number(draft.matrixFactor)!==1&&<p role="status">Historical matrix factor {draft.matrixFactor} is preserved. This measurement is already in the model matrix. Clear the factor or enter 1 to confirm a correction; Undo restores the original row.</p>}
+   {(alternative||draft.matrixFactor!=='')&&<>{field('matrixFactor','Matrix conversion factor')}{alternative&&field('conversionSource','Matrix conversion source and assumptions')}</>}
   </div>
   {Object.values(errors).filter(Boolean).length>0&&<p className="v160-error" role="alert">Observation has not been committed. {errors.form??'Correct the indicated fields.'}</p>}
   <div className="v15-actions"><Button type="submit" primary>{editing?'Save observation changes':'Add observation'}</Button>{editing&&<><Button onClick={onDone}>Cancel observation edit</Button>{errors.form&&<Button onClick={onReload}>Reload committed observation</Button>}</>}{success&&<span role="status">{success}</span>}</div>

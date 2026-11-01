@@ -1,4 +1,4 @@
-# How to use v2.1
+# How to use v2.1.2
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -7,6 +7,14 @@ This is the portable copy of the instructions included in How to use inside the 
 Use this level for intake entry, the concentration timeline, selected-time inspection and saving. The model calculates the same trajectories at every detail level.
 
 ### Scientific workbench
+
+#### Review canonical-matrix factors
+
+Action. Open Observations. Resolve any historical conversion warning by editing the named row. A measurement already in whole-blood ethanol or plasma caffeine needs no matrix factor; clear a historical factor or enter 1 explicitly. Review canonical concentration and error scale before saving.
+
+Expected result. Original rows remain preserved and exportable until an explicit correction; Undo restores them. New analysis is blocked while a questionable native-matrix factor remains.
+
+Check. Alternative matrices require a declared factor. Supplied SD follows the conversion; missing SD uses a canonical default error scale. Simulated concentrations and heuristic interpretations are not individual measurements or validated impairment estimates.
 
 #### Open the scientific workbench
 
@@ -26,11 +34,11 @@ Check. Rows default to evaluation. Ethanol defaults to whole-blood g/dL; caffein
 
 #### Import a bulk dataset
 
-Action. Download the CSV template and replace its illustrative values with measured data. Open Bulk import: observation CSV. Paste CSV or use Choose observation CSV, then choose Validate CSV for review. Inspect counts, roles, times, units, matrices, SDs, censoring, conversion assumptions and the intended replacement. Choose Confirm replacement with the displayed observation count.
+Action. Download the CSV template and replace its illustrative values with measured data. Open Bulk import: observation CSV. Paste CSV or use Choose observation CSV, then choose Validate CSV for review. Inspect raw and canonical concentrations, effective error scales, roles and provenance, then choose Confirm replacement with the displayed count.
 
-Expected result. Import replaces the dataset as one undoable edit. The synthetic example remains explicitly labelled.
+Expected result. Import replaces the dataset as one undoable edit only after confirmation. Cancel review leaves it unchanged.
 
-Check. CSV supports time_h or explicit-offset time_iso. Calibration requires at least four quantified calibration rows at three distinct times.
+Check. Unrecognized headers must be corrected or removed. CSV supports time_h or explicit-offset time_iso. Calibration requires at least four quantified calibration rows at three distinct times.
 
 #### Evaluate a prediction
 
@@ -55,6 +63,48 @@ Action. Export Session JSON after the job completes. Save the file outside the b
 Expected result. The document contains observations, model identity, configurations and the latest three scientific result records.
 
 Check. Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias.
+
+### Accepted results and safe observation replacement
+
+#### 1. Read the result source
+
+Action. Open Analysis, Overview. Read Calculation input provenance above the plots. Editing controls identify the current committed draft.
+
+Expected result. Previous accepted inputs identifies the scenario used for retained concentrations, dose bars, peaks and reference thresholds.
+
+Check. Open Compare accepted inputs with the committed draft to inspect differences. Inspection remains available over the accepted horizon.
+
+#### 2. Validate CSV without changing data
+
+Action. Open Session, Observations, Bulk import: observation CSV. Choose a CSV file or paste text. Enter Dataset source and assumptions. Choose Validate CSV for review.
+
+Expected result. Review reports row counts, calibration/evaluation roles, analytes, elapsed times, units, matrices, SDs, censoring and conversion sources.
+
+Check. No observations are committed during validation. A changed CSV, source, model-zero anchor or committed dataset invalidates the preview.
+
+#### 3. Confirm the replacement
+
+Action. Inspect the parsed rows, matrix factors and source assumptions. Choose Confirm replacement with the displayed observation count.
+
+Expected result. The complete previous dataset is replaced in one Undo operation. Cancel CSV review leaves it unchanged.
+
+Check. Use Undo to restore the previous observations. Clear observations and replacement by the synthetic example also identify the whole affected dataset before confirmation.
+
+#### 4. Maintain conversion provenance
+
+Action. In a row choose Edit. For an alternative matrix enter the conversion factor and its source/assumptions. Save observation changes.
+
+Expected result. The active source is stored with that observation. Editing its factor/source replaces the active pair; deleting the row removes its active source.
+
+Check. Historical conversion notes from older releases remain explicitly labelled. Each separately confirmed scientific edit has its own Undo entry.
+
+#### 5. Check scientific result validity
+
+Action. Open Analysis, Scientific workbench. Read the dataset reference, role allocation, model profile and Evaluation/Calibration/Uncertainty statuses.
+
+Expected result. Matches committed inputs identifies a result whose full captured input key matches. Previous inputs and imported archives require recomputation.
+
+Check. Changing a local fit or sampling configuration flags the displayed result for recomputation. Dataset references are compact display checksums; full source keys remain in scientific result exports.
 
 ### Orient the interface before editing
 
@@ -260,6 +310,14 @@ Use this level for meal and physiology assumptions, compartment interpretation, 
 
 ### Scientific workbench
 
+#### Review canonical-matrix factors
+
+Action. Open Observations. Resolve any historical conversion warning by editing the named row. A measurement already in whole-blood ethanol or plasma caffeine needs no matrix factor; clear a historical factor or enter 1 explicitly. Review canonical concentration and error scale before saving.
+
+Expected result. Original rows remain preserved and exportable until an explicit correction; Undo restores them. New analysis is blocked while a questionable native-matrix factor remains.
+
+Check. Alternative matrices require a declared factor. Supplied SD follows the conversion; missing SD uses a canonical default error scale. Simulated concentrations and heuristic interpretations are not individual measurements or validated impairment estimates.
+
 #### Separate calibration from evaluation
 
 Action. In structured entry choose Observation dataset role, or set role in CSV: calibration for estimation; evaluation for held-out checking. Supply measurement SD when known. In the committed table choose Edit to change a row, or Remove to delete it.
@@ -307,6 +365,48 @@ Action. Open Evaluation and choose Run published benchmarks. Open Cohort reconst
 Expected result. Four group-level Cmax comparisons from two studies show predictions, reported means and standardized discrepancies.
 
 Check. The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated.
+
+### Accepted results and safe observation replacement
+
+#### 1. Read the result source
+
+Action. Open Analysis, Overview. Read Calculation input provenance above the plots. Editing controls identify the current committed draft.
+
+Expected result. Previous accepted inputs identifies the scenario used for retained concentrations, dose bars, peaks and reference thresholds.
+
+Check. Open Compare accepted inputs with the committed draft to inspect differences. Inspection remains available over the accepted horizon.
+
+#### 2. Validate CSV without changing data
+
+Action. Open Session, Observations, Bulk import: observation CSV. Choose a CSV file or paste text. Enter Dataset source and assumptions. Choose Validate CSV for review.
+
+Expected result. Review reports row counts, calibration/evaluation roles, analytes, elapsed times, units, matrices, SDs, censoring and conversion sources.
+
+Check. No observations are committed during validation. A changed CSV, source, model-zero anchor or committed dataset invalidates the preview.
+
+#### 3. Confirm the replacement
+
+Action. Inspect the parsed rows, matrix factors and source assumptions. Choose Confirm replacement with the displayed observation count.
+
+Expected result. The complete previous dataset is replaced in one Undo operation. Cancel CSV review leaves it unchanged.
+
+Check. Use Undo to restore the previous observations. Clear observations and replacement by the synthetic example also identify the whole affected dataset before confirmation.
+
+#### 4. Maintain conversion provenance
+
+Action. In a row choose Edit. For an alternative matrix enter the conversion factor and its source/assumptions. Save observation changes.
+
+Expected result. The active source is stored with that observation. Editing its factor/source replaces the active pair; deleting the row removes its active source.
+
+Check. Historical conversion notes from older releases remain explicitly labelled. Each separately confirmed scientific edit has its own Undo entry.
+
+#### 5. Check scientific result validity
+
+Action. Open Analysis, Scientific workbench. Read the dataset reference, role allocation, model profile and Evaluation/Calibration/Uncertainty statuses.
+
+Expected result. Matches committed inputs identifies a result whose full captured input key matches. Previous inputs and imported archives require recomputation.
+
+Check. Changing a local fit or sampling configuration flags the displayed result for recomputation. Dataset references are compact display checksums; full source keys remain in scientific result exports.
 
 ### Calendar and schedule operations
 
@@ -464,6 +564,14 @@ Use this level for numerical configuration, model assumptions, provenance, conse
 
 ### Scientific workbench
 
+#### Review canonical-matrix factors
+
+Action. Open Observations. Resolve any historical conversion warning by editing the named row. A measurement already in whole-blood ethanol or plasma caffeine needs no matrix factor; clear a historical factor or enter 1 explicitly. Review canonical concentration and error scale before saving.
+
+Expected result. Original rows remain preserved and exportable until an explicit correction; Undo restores them. New analysis is blocked while a questionable native-matrix factor remains.
+
+Check. Alternative matrices require a declared factor. Supplied SD follows the conversion; missing SD uses a canonical default error scale. Simulated concentrations and heuristic interpretations are not individual measurements or validated impairment estimates.
+
 #### Orient scientific tasks quickly
 
 Action. Use Find control (Ctrl+K or Command+K) and search calibration, uncertainty, observations, evidence or a parameter name. Analysis keeps Scientific workbench active across its four child views. Use the Observations link above those tabs to return to datasets.
@@ -527,6 +635,48 @@ Action. Save a portable session and a scientific result JSON. Reopen the standal
 Expected result. Seeds and captured inputs reproduce sampled draws and quantiles within the same implementation.
 
 Check. Imported records remain archival until recomputed. Worker jobs can be cancelled; prior accepted results retain their captured inputs.
+
+### Accepted results and safe observation replacement
+
+#### 1. Read the result source
+
+Action. Open Analysis, Overview. Read Calculation input provenance above the plots. Editing controls identify the current committed draft.
+
+Expected result. Previous accepted inputs identifies the scenario used for retained concentrations, dose bars, peaks and reference thresholds.
+
+Check. Open Compare accepted inputs with the committed draft to inspect differences. Inspection remains available over the accepted horizon.
+
+#### 2. Validate CSV without changing data
+
+Action. Open Session, Observations, Bulk import: observation CSV. Choose a CSV file or paste text. Enter Dataset source and assumptions. Choose Validate CSV for review.
+
+Expected result. Review reports row counts, calibration/evaluation roles, analytes, elapsed times, units, matrices, SDs, censoring and conversion sources.
+
+Check. No observations are committed during validation. A changed CSV, source, model-zero anchor or committed dataset invalidates the preview.
+
+#### 3. Confirm the replacement
+
+Action. Inspect the parsed rows, matrix factors and source assumptions. Choose Confirm replacement with the displayed observation count.
+
+Expected result. The complete previous dataset is replaced in one Undo operation. Cancel CSV review leaves it unchanged.
+
+Check. Use Undo to restore the previous observations. Clear observations and replacement by the synthetic example also identify the whole affected dataset before confirmation.
+
+#### 4. Maintain conversion provenance
+
+Action. In a row choose Edit. For an alternative matrix enter the conversion factor and its source/assumptions. Save observation changes.
+
+Expected result. The active source is stored with that observation. Editing its factor/source replaces the active pair; deleting the row removes its active source.
+
+Check. Historical conversion notes from older releases remain explicitly labelled. Each separately confirmed scientific edit has its own Undo entry.
+
+#### 5. Check scientific result validity
+
+Action. Open Analysis, Scientific workbench. Read the dataset reference, role allocation, model profile and Evaluation/Calibration/Uncertainty statuses.
+
+Expected result. Matches committed inputs identifies a result whose full captured input key matches. Previous inputs and imported archives require recomputation.
+
+Check. Changing a local fit or sampling configuration flags the displayed result for recomputation. Dataset references are compact display checksums; full source keys remain in scientific result exports.
 
 ### Define the calculation contract
 
@@ -753,7 +903,3 @@ Expected result. You can explicitly restore the desired committed state.
 **The installed app shows an older release** Reconnect, choose Settings → Interaction → Check for update, then use Save session and update when offered. Read the active release beside PK/PD Sandbox in the top-left corner.
 
 **An import is rejected** Check its schema, file size and required engine version. Keep the original file and inspect the exact validation message.
-
-
-
-The v2.1.1 in-application guides begin with accepted-result attribution, safe CSV replacement and observation-level provenance instructions at every scientific depth. See V2.1.1-DESIGN.md for migration and scientific-state semantics.
