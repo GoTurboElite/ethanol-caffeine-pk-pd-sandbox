@@ -30,11 +30,11 @@ export function Inspector({state,result}){
 export function Intervals({result}){
  const presentation=bridge.store.state.presentation,unit=bacUnit(presentation);
  const rows=[];
- for(const [label,key]of[['Vehicle reference','vehicleThresholdOutcome'],['Comparison reference','legalThresholdOutcome'],['Negligible BAC','negligibleThresholdOutcome']]){
+ for(const [label,key]of[['Configured BAC reference','vehicleThresholdOutcome'],['Comparison reference','legalThresholdOutcome'],['Negligible BAC','negligibleThresholdOutcome']]){
   const out=result.summary[key];if(!out)continue;
   if(!out.intervals.length)rows.push([label,bacText(out.threshold,presentation),'Never exceeded','—','—']);
   else out.intervals.forEach((i,n)=>rows.push([label+' · '+(n+1),bacText(out.threshold,presentation),v15TimeLabel(i.startH)+(i.leftCensored?' · active at start':''),v15TimeLabel(i.endH)+(i.rightCensored?' · open at horizon':''),out.finalReturnH==null?'Not observed':v15TimeLabel(out.finalReturnH)]));
  }
- return <Table headers={['Reference / interval',unit,'Start','End','Final return in schedule']} rows={rows}/>;
+ return <Table headers={['Reference / interval',unit,'Start','End','Last downward crossing in schedule']} rows={rows}/>;
 }
 export function EmptyResult(){return <Panel title="A calculation is required"><p>Open Session inputs, finish the inputs and wait for an accepted result.</p><Button primary onClick={()=>navigate('calculate')}>Open Session inputs</Button></Panel>;}

@@ -14,6 +14,7 @@ export function manualObservationChange(document,draft,anchor,{id,source}={}){
  if(sd!=null&&sd<=0)errors.sd='Measurement SD must be positive.';
  if(matrixFactor!=null&&(matrixFactor<=0||matrixFactor>10))errors.matrixFactor='Matrix factor must be positive and at most 10.';
  const canonical=draft.analyte==='ethanol'?'whole-blood':'plasma',alternative=draft.matrix!==canonical;
+ if(!alternative&&matrixFactor!=null&&matrixFactor!==1)errors.matrixFactor='This measurement is already in '+canonical+'. Remove the matrix factor or enter 1 explicitly.';
  if(alternative&&matrixFactor==null)errors.matrixFactor='An alternative matrix requires an explicit conversion factor to '+canonical+'.';
  if(alternative&&!draft.conversionSource?.trim())errors.conversionSource='State the source and assumptions for this matrix conversion.';
  if(Object.keys(errors).length)return {errors};

@@ -1,3 +1,13 @@
+# 2.1.2 — 2026-11-01
+
+- Reject non-unit native-matrix factors for new observations and unrecognized CSV headers.
+- Preserve historical factors, expose explicit correction and block analysis until resolved.
+- Display canonical observation concentrations/error scales and benchmark absolute/relative errors.
+- Clarify simulated concentration and heuristic interpretation across UI and reports.
+- Correct historical intake-bar clipping, initial pending feedback and Expert compartment labels.
+- Refine compact controls and depth explanations; update build, standalone and offline identity.
+- Retain PK engine 0.4.4, constants 0.3.0 and reference-1.60; record scientific validation 1.0.1.
+
 # Changelog
 
 ## 2.1.1 - 2026-10-29

@@ -1,5 +1,5 @@
 import {v15Clone,v15Interpolate,v15Stable} from '../session/core.mjs';
-import {MODEL_PROFILE,PARAMETERS,validateScience,parameterValue,setParameter,activeParameter,observationValue,observationSD,cholesky} from './schema.mjs';
+import {MODEL_PROFILE,PARAMETERS,validateScience,parameterValue,setParameter,activeParameter,observationValue,observationSD,cholesky,assertObservationAnalysis} from './schema.mjs';
 export const quantile=(values,p)=>{if(!values.length)return null;const a=[...values].sort((x,y)=>x-y),i=(a.length-1)*p,j=Math.floor(i);return a[j]+(a[Math.min(a.length-1,j+1)]-a[j])*(i-j);};
 export function seededRandom(seed){let t=seed>>>0;return()=>{t+=0x6D2B79F5;let x=t;x=Math.imul(x^(x>>>15),x|1);x^=x+Math.imul(x^(x>>>7),x|61);return((x^(x>>>14))>>>0)/4294967296;};}
 const normal=r=>Math.sqrt(-2*Math.log(Math.max(1e-15,r())))*Math.cos(2*Math.PI*r());
@@ -70,10 +70,10 @@ export async function sample(core,input,doc,context,comparison=null){
 }
 export async function runScience(core,request,options={}){
  const doc=validateScience(request.document),input=v15Clone(request.input),context={check:()=>{if(options.cancelled?.())throw Error('Scientific job cancelled.');},yield:options.yield??(()=>new Promise(r=>setTimeout(r,0))),progress:options.progress??(()=>{})};
- inputBudget(input,1);if(['fit','evaluate'].includes(request.kind)&&doc.observations.some(o=>o.timeH>input.subject.simulationDurationH))throw Error('An observation lies outside the calculated horizon. Extend the horizon before analysis.');let result;
+ assertObservationAnalysis(doc);inputBudget(input,1);if(['fit','evaluate'].includes(request.kind)&&doc.observations.some(o=>o.timeH>input.subject.simulationDurationH))throw Error('An observation lies outside the calculated horizon. Extend the horizon before analysis.');let result;
  if(request.kind==='fit')result=await calibrate(core,input,doc,context);
  else if(request.kind==='uncertainty')result=await sample(core,input,doc,context,request.comparison);
  else if(request.kind==='evaluate')result=await evaluate(core,input,doc,context);
  else throw Error('Unsupported scientific job.');
- context.check();return{...result,scenario:input,document:doc,comparison:request.comparison??null,inputKey:v15Stable({input,document:doc,comparison:request.comparison??null}),scientificVersion:'1.0.0',computedAt:new Date().toISOString()};
+ context.check();return{...result,scenario:input,document:doc,comparison:request.comparison??null,inputKey:v15Stable({input,document:doc,comparison:request.comparison??null}),scientificVersion:'1.0.1',computedAt:new Date().toISOString()};
 }
