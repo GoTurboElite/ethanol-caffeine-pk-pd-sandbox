@@ -4,15 +4,18 @@ import {InterfacePreferences} from '../session/preferences.mjs';
 import {ScienceController} from '../science/controller.mjs';
 import {acceptedState} from '../session/accepted.mjs';
 import {SurfaceActivation} from '../session/surfaces.mjs';
-export let React,Fragment,bridge,controller,pwa,preferences,science,surfaces;
+import {ExperimentController} from '../session/experiment.mjs';
+export let React,Fragment,bridge,controller,pwa,preferences,science,surfaces,experiments;
 export const h=(...args)=>React.createElement(...args);
 export function v15InitUI(value){
  bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);science=new ScienceController(controller,value);controller.scienceRuntime=science;preferences=new InterfacePreferences(value.store);pwa=v15PWA(controller);
  surfaces=new SurfaceActivation({navigate:hash=>{window.location.hash=hash;},open:surface=>bridge.openSurface(surface),close:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface,action:'close'}})),restore:(origin,surface)=>{const node=origin?.isConnected&&origin.getClientRects().length?origin:surface==='person'?document.getElementById('subject-body-mass'):document.getElementById('main-content');node?.focus({preventScroll:true});}});
  window.addEventListener('hashchange',()=>surfaces.location(window.location.hash));
  window.addEventListener('pkpd-modal-settled',()=>{if(surfaces.active)surfaces.closed(surfaces.active.surface);else if(document.activeElement===document.body||!document.activeElement?.getClientRects().length)document.querySelector('#main-content > .v160-page-heading h1')?.focus();});
- return{controller,pwa,preferences,science,surfaces};
+ experiments=new ExperimentController(controller,value);controller.experimentRuntime=experiments;
+ return{controller,pwa,preferences,science,surfaces,experiments};
 }
+export function useExperiment(){React.useSyncExternalStore(experiments.subscribe,experiments.snapshot,experiments.snapshot);return experiments;}
 export function useScience(){React.useSyncExternalStore(science.subscribe,science.snapshot,science.snapshot);return science;}
 export function useSession(){
  React.useSyncExternalStore(controller.subscribe,controller.getRevision,controller.getRevision);

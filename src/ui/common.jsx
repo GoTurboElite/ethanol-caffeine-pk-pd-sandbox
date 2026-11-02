@@ -14,17 +14,17 @@ export function SnapshotNotice({state,snapshot}){
  const relation=state.snapshots.relationToDraft;
  return <div className={'v15-snapshot '+(relation==='current'?'current':'stale')} role="status"><strong>{relation==='current'?'Current accepted result':snapshot?'Previous accepted result':'Calculation pending'}</strong><span>{snapshot?'Snapshot '+snapshot.snapshotId:'Enter valid inputs and run the calculation.'}</span>{relation!=='current'&&<span>Committed draft changes are awaiting a matching accepted calculation.</span>}</div>;
 }
-function InspectionNumber({time,end}){
- const [draft,setDraft]=React.useState(String(Number(time.toFixed(4)))),[error,setError]=React.useState(''),uid=React.useId();
- React.useEffect(()=>{setDraft(String(Number(time.toFixed(4))));setError('');},[time]);
- const commit=()=>{try{if(!draft.trim())throw Error('Enter an inspection time.');controller.inspect(Number(draft));setError('');const info=accepted();if(info.result)announce('Selected '+inspectionValue(info.result,info.time,bridge.store.state.presentation));}catch(e){setError(e.message);}};
+function InspectionNumber({time,end,onInspect}){
+ const [draft,setDraft]=React.useState(String(Number(time.toPrecision(12)))),[error,setError]=React.useState(''),uid=React.useId();
+ React.useEffect(()=>{setDraft(String(Number(time.toPrecision(12))));setError('');},[time]);
+ const commit=()=>{try{if(!draft.trim())throw Error('Enter an inspection time.');if(onInspect)onInspect(Number(draft));else controller.inspect(Number(draft));setError('');if(!onInspect){const info=accepted();if(info.result)announce('Selected '+inspectionValue(info.result,info.time,bridge.store.state.presentation));}}catch(e){setError(e.message);}};
  return <label className="v15-field">Elapsed hours<input aria-label="Inspection elapsed hours" inputMode="decimal" value={draft} onChange={e=>setDraft(e.target.value)} onBlur={commit} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}}} aria-invalid={!!error} aria-describedby={error?uid:undefined}/>{error&&<span id={uid} className="v160-error" role="alert">{error}</span>}</label>;
 }
-export function Inspector({state,result}){
- const info=accepted(),t=info.time,end=result?.summary?.horizonH??info.horizon,p=result?v15Interpolate(result.analysisPoints??result.points,t):null;
+export function Inspector({state,result,time,onInspect,horizon}){
+ const info=accepted(),t=time??info.time,end=horizon??result?.summary?.horizonH??info.horizon,p=result?v15Interpolate(result.analysisPoints??result.points,t):null;
  return <div className="v15-inspector">
-  <label className="v15-field v15-slider">Inspection time<input aria-label="Inspection time slider" aria-valuetext={v15TimeLabel(t)+(p?'; BAC '+bacText(p.bacGdL,state.presentation)+' '+bacUnit(state.presentation)+'; caffeine '+caffeineText(p.caffeineMgL,2)+' mg/L':' outside accepted coverage')} type="range" min="0" max={end} step=".01" value={Math.min(end,Math.max(0,t))} onChange={e=>action(()=>controller.inspect(Number(e.target.value)))}/></label>
-  <InspectionNumber time={t} end={end}/>
+  <label className="v15-field v15-slider">Inspection time<input aria-label="Inspection time slider" aria-valuetext={v15TimeLabel(t)+(p?'; BAC '+bacText(p.bacGdL,state.presentation)+' '+bacUnit(state.presentation)+'; caffeine '+caffeineText(p.caffeineMgL,2)+' mg/L':' outside accepted coverage')} type="range" min="0" max={end} step=".01" value={Math.min(end,Math.max(0,t))} onChange={e=>action(()=>onInspect?onInspect(Number(e.target.value)):controller.inspect(Number(e.target.value)))}/></label>
+  <InspectionNumber time={t} end={end} onInspect={onInspect}/>
   <div className="v15-inspection-time" aria-label="Selected concentration values"><strong>Selected {v15TimeLabel(t)}</strong>{p&&<span className="v160-sr">BAC {bacText(p.bacGdL,state.presentation)} {bacUnit(state.presentation)}; caffeine {caffeineText(p.caffeineMgL,2)} mg/L.</span>}{state.presentation.timeDisplayMode==='clock'&&<span>Current session clock: {v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant)+t*3600000,state.presentation.scenarioTimeZone)}</span>}</div>
  </div>;
 }

@@ -1,3 +1,13 @@
+# 2.3.0 — 2026-11-02
+
+- Add protected accepted-reference experiments, independent validated drafts, explicit calculation, restore/application, Undo and portable provenance.
+- Share time-window zoom/pan, automatic/fixed/custom axes, interactive trajectory comparison and dense exposure metrics across analytical workflows.
+- Add bounded one/two-axis sweeps, member promotion, finite-range effects and interaction contrasts.
+- Extend observation alignment/residual diagnostics, parameter support/conditional objective surfaces and paired uncertainty with per-draw AUC and time-wise differences.
+- Add reviewed external dataset packages and a qualified Tanaka 2014 group trajectory with explicit population, SEM and reconstruction limits.
+- Advance session/scientific documents to 1.2.0 with tested migration; retain reference-1.60, PK engine 0.4.4, constants 0.3.0 and all historical standalone files.
+- Extend mathematical, compatibility, browser, accessibility, offline and hosted release gates. See docs/V2.3-DESIGN.md.
+
 # 2.1.3 — 2026-11-02
 
 - Enumerate grouped accepted/draft scalar, nested, intake, meal, horizon and constant differences without changing calculations.

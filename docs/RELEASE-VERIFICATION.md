@@ -1,3 +1,7 @@
+# v2.3 release verification
+
+The integrated analytical release adds mathematical/state tests in test/analytical.mjs and complete three-depth workflows/performance records in test/analytical-browser.mjs. Retained numerical, scientific, history, compatibility, accessibility, browser and offline suites remain required. CI runs the new browser suite in Chromium, Firefox and WebKit, verifies the exact preview before merge, then both production hostnames and asset bytes. The actual archived v2.1.3 exporter supplies a compatibility fixture with observations, history and a scientific archive. Manual assistive-technology/device assessments remain separate. See [V2.3-DESIGN.md](V2.3-DESIGN.md); final run outcomes are recorded in CI and the release engineering report.
+
 # v2.1.3 interaction refinement verification
 
 See [V2.1.3-DESIGN.md](V2.1.3-DESIGN.md) for baseline evidence, new regression scenarios, task counters and validation limits. Four new Node groups and nine browser groups cover accepted/draft recursion, route-driven surfaces, 200-row observation continuity, CSV review, inspection semantics and keyboard workflows. All retained release gates below remain required in addition to these groups. Final outcomes and deployment identity are recorded in the release PR/engineering report.

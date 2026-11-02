@@ -1,5 +1,5 @@
 import {v15Clone,v15Stable} from '../session/core.mjs';
-export const SCIENCE_VERSION='1.1.0';
+export const SCIENCE_VERSION='1.2.0';
 export const MODEL_PROFILE={id:'reference-1.60',name:'v1.60 reference model',engineVersion:'0.4.4',constantsVersion:'0.3.0',evidenceVersion:'2026-10-28.1',validationVersion:'1.0.1',status:'Retained equations; empirical evaluation is endpoint-specific.'};
 export const PARAMETERS={
  caffeineHalfLifeH:{label:'Effective caffeine half-life',unit:'h',section:'subject',key:'caffeineHalfLifeH',min:1,max:30,analyte:'caffeine'},
@@ -8,7 +8,7 @@ export const PARAMETERS={
  caffeineAbsorptionModifier:{label:'Caffeine absorption multiplier',unit:'fold',section:'subject',key:'caffeineAbsorptionModifier',min:.25,max:3,analyte:'caffeine'},
  gastricEmptyingModifier:{label:'Gastric emptying multiplier',unit:'fold',section:'subject',key:'gastricEmptyingModifier',min:.25,max:3,analyte:'ethanol'}
 };
-export const emptyScience=()=>({schemaVersion:SCIENCE_VERSION,modelProfile:MODEL_PROFILE.id,observations:[],observationSource:'User supplied; provenance not independently verified.',legacyConversionNotes:'',fit:{parameters:[{id:'caffeineHalfLifeH',lower:1,upper:12}],maxEvaluations:120},uncertainty:{seed:20261028,samples:32,parameters:[{id:'caffeineHalfLifeH',distribution:'triangular',lower:3,upper:8}],correlation:[[1]],paired:false},calibrations:[]});
+export const emptyScience=()=>({schemaVersion:SCIENCE_VERSION,modelProfile:MODEL_PROFILE.id,observations:[],observationSource:'User supplied; provenance not independently verified.',legacyConversionNotes:'',datasetContext:null,fit:{parameters:[{id:'caffeineHalfLifeH',lower:1,upper:12}],maxEvaluations:120},uncertainty:{seed:20261028,samples:32,parameters:[{id:'caffeineHalfLifeH',distribution:'triangular',lower:3,upper:8}],correlation:[[1]],paired:false},calibrations:[]});
 export function number(value,label){if(value===null||value===undefined||typeof value==='boolean'||(typeof value==='string'&&!value.trim()))throw Error(label+' is required.');const n=Number(value);if(!Number.isFinite(n))throw Error(label+' must be finite.');return n;}
 const text=(value,label,max=300)=>{if(typeof value!=='string'||value.length>max)throw Error(label+' is invalid.');return value;};
 export function validateObservation(row,index=0,{allowLegacyNativeFactor=false}={}){
@@ -45,12 +45,13 @@ export function validateParameters(rows,max=3){
 }
 export function migrateScience(value){
  const d=v15Clone(value??emptyScience());
+ if(d.schemaVersion==='1.1.0'){d.schemaVersion=SCIENCE_VERSION;d.datasetContext=null;}
  if(d.schemaVersion==='1.0.0'){
   const notes=[],authored=[];const converted=[];
   for(const line of text(d.observationSource,'Observation provenance',2000).split('\n')){const m=line.match(/^Matrix conversion for (.+): (plasma|whole-blood|serum|saliva) × ([0-9.eE+-]+) → (plasma|whole-blood)\. (.*)$/);if(m){notes.push(line);converted.push({id:m[1],matrix:m[2],factor:Number(m[3]),canonical:m[4],source:m[5]});}else authored.push(line);}
   d.observationSource=authored.join('\n');d.legacyConversionNotes=notes.join('\n');
   if(Array.isArray(d.observations))d.observations=d.observations.map(row=>({...row,conversionSource:converted.filter(p=>p.id===row.id&&p.matrix===row.matrix&&p.factor===Number(row.matrixFactor)&&p.canonical===(row.analyte==='ethanol'?'whole-blood':'plasma')).at(-1)?.source??''}));
-  d.schemaVersion=SCIENCE_VERSION;
+  d.schemaVersion=SCIENCE_VERSION;d.datasetContext=null;
  }
  return d;
 }
@@ -60,6 +61,7 @@ export function validateScience(value){
  if(!Array.isArray(d.observations)||d.observations.length>200)throw Error('An observation dataset supports at most 200 rows.');d.observations=d.observations.map((row,i)=>validateObservation(row,i,{allowLegacyNativeFactor:true}));if(new Set(d.observations.map(o=>o.id)).size!==d.observations.length)throw Error('Observation IDs must be distinct.');
  d.observationSource=text(d.observationSource,'Observation provenance',2000);
  d.legacyConversionNotes=text(d.legacyConversionNotes??'','Historical conversion notes',2000);
+ if(d.datasetContext!=null){const c=d.datasetContext;if(typeof c!=='object'||Array.isArray(c)||c.schemaVersion!=='1.0.0')throw Error('Unsupported dataset context version.');for(const [key,max]of [['id',160],['title',500],['citation',1000],['source',2000],['dataSource',2000],['population',2000],['administration',2000],['assumptions',4000],['statistics',500],['dataKey',100000]])text(c[key],'Dataset '+key,max);for(const key of ['source','dataSource'])if(!/^https:\/\//.test(c[key]))throw Error('Dataset sources require HTTPS URLs.');if(!Number.isInteger(c.participants)||c.participants<1||c.participants>1000000||!c.scenario?.subject||!Array.isArray(c.scenario.doseEvents)||JSON.stringify(c.scenario).length>200000)throw Error('Malformed dataset population or reconstructed scenario.');}
  d.fit={parameters:validateParameters(d.fit?.parameters,2),maxEvaluations:number(d.fit?.maxEvaluations??120,'Fit budget')};if(!Number.isInteger(d.fit.maxEvaluations)||d.fit.maxEvaluations<40||d.fit.maxEvaluations>320)throw Error('Fit budget must be an integer from 40 to 320.');
  const u=d.uncertainty;u.parameters=validateParameters(u.parameters);for(const p of u.parameters){if(!['uniform','triangular','lognormal'].includes(p.distribution))throw Error('Select uniform, triangular or lognormal sampling.');if(p.distribution==='lognormal'&&(p.cv==null||p.cv<=0||p.cv>1))throw Error('Lognormal CV must be between 0 and 1.');}
  u.seed=number(u.seed,'Random seed');u.samples=number(u.samples,'Sample count');if(!Number.isInteger(u.seed)||u.seed<0||u.seed>4294967295)throw Error('Seed must be an unsigned 32-bit integer.');if(!Number.isInteger(u.samples)||u.samples<16||u.samples>256)throw Error('Use 16 to 256 samples.');u.paired=!!u.paired;cholesky(u.correlation,u.parameters.length);
