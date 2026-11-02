@@ -1,6 +1,6 @@
-const CACHE='pkpd-v15-c0d8f49c08044a8c4213';
+const CACHE='pkpd-v15-3a32f7e65a68f8fe0665';
 const PREFIX='pkpd-v15-';
-const ASSETS=['./index.html','./standalone-v2.1.2.html','./build.json','./manifest.webmanifest','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png'];
+const ASSETS=['./index.html','./standalone-v2.1.3.html','./build.json','./manifest.webmanifest','./icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil((async()=>{const cache=await caches.open(CACHE);await cache.addAll(ASSETS.map(url=>new Request(url,{cache:'reload'})));})()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys(),old=keys.filter(k=>k.startsWith(PREFIX)&&k!==CACHE);for(const key of old.slice(0,Math.max(0,old.length-1)))await caches.delete(key);await self.clients.claim();})()));
 self.addEventListener('message',event=>{if(event.data?.type==='PKPD_ACTIVATE_UPDATE')self.skipWaiting();});
@@ -18,7 +18,7 @@ async function cacheOrNetwork(request,key){
 }
 self.addEventListener('fetch',event=>{
  const req=event.request,url=new URL(req.url);if(req.method!=='GET'||url.origin!==self.location.origin)return;
- const standalone=['./standalone-v2.1.2.html','./standalone-v2.1.2'].some(asset=>new URL(asset,self.location.href).pathname===url.pathname);
- if(req.mode==='navigate'&&(standalone||['./','./index.html'].some(asset=>new URL(asset,self.location.href).pathname===url.pathname)))event.respondWith(cacheOrNetwork(req,standalone?'./standalone-v2.1.2.html':'./index.html'));
+ const standalone=['./standalone-v2.1.3.html','./standalone-v2.1.3'].some(asset=>new URL(asset,self.location.href).pathname===url.pathname);
+ if(req.mode==='navigate'&&(standalone||['./','./index.html'].some(asset=>new URL(asset,self.location.href).pathname===url.pathname)))event.respondWith(cacheOrNetwork(req,standalone?'./standalone-v2.1.3.html':'./index.html'));
  else if(ASSETS.some(asset=>new URL(asset,self.location.href).pathname===url.pathname))event.respondWith(cacheOrNetwork(req,req));
 });

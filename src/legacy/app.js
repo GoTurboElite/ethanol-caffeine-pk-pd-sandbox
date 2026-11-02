@@ -34494,17 +34494,21 @@ function bee(e, t) {
     a.inert = !0, a.setAttribute("aria-hidden", "true");
   });
 }
+// Settle after the current React commit, including modal-to-modal transfers.
+// Focus restoration must follow removal of root inertness, never race a timer.
 function xee(e) {
-  eg.delete(e), Ff = window.setTimeout(() => {
-    Ff = null, !(eg.size > 0) && (document.body.classList.remove("modal-open"), Hf.forEach(({
-      element: t,
-      inert: n,
-      ariaHidden: a
-    }) => {
-      t.inert = n, a === null ? t.removeAttribute("aria-hidden") : t.setAttribute("aria-hidden", a);
-    }), Hf = [], su && document.contains(su) && su.getClientRects().length > 0 && su.focus(), su = null);
-  }, 0);
+  eg.delete(e);
+  queueMicrotask(() => {
+    if (eg.size > 0) return;
+    document.body.classList.remove("modal-open");
+    Hf.forEach(({element:t,inert:n,ariaHidden:a})=>{t.inert=n;if(a===null)t.removeAttribute("aria-hidden");else t.setAttribute("aria-hidden",a);});
+    Hf=[];
+    if(su&&document.contains(su)&&su.getClientRects().length>0)su.focus();
+    su=null;
+    window.dispatchEvent(new CustomEvent('pkpd-modal-settled'));
+  });
 }
+
 function Wa({
   open: e,
   title: t,
@@ -34540,7 +34544,7 @@ function Wa({
     const g = f.current,
       C = () => Array.from(g?.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? []).filter(E => !E.hasAttribute("hidden") && E.getClientRects().length > 0),
       S = l ? g?.querySelector(l) : null;
-    window.setTimeout(() => (S ?? C()[0] ?? g)?.focus(), 0);
+    queueMicrotask(() => {if(g?.isConnected && eg.has(x))(S ?? C()[0] ?? g)?.focus();});
     const k = E => {
       if (E.key === "Escape") {
         E.preventDefault(), p.current();

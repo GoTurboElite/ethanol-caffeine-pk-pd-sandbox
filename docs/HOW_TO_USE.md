@@ -1,4 +1,4 @@
-# How to use v2.1.2
+# How to use v2.1.3
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -63,6 +63,40 @@ Action. Export Session JSON after the job completes. Save the file outside the b
 Expected result. The document contains observations, model identity, configurations and the latest three scientific result records.
 
 Check. Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias.
+
+### Inspect changes and continue scientific tasks
+
+#### 1. Inspect pending changes
+
+Action. Open Compare accepted inputs with the committed draft. Read the pending categories, then expand the changed values.
+
+Expected result. Accepted and draft values are grouped into physiology, PK, intake, meals, horizon and constants. Default begins with a concise summary; details are optional.
+
+Check. Pending edits have not changed the retained concentration trajectory. Invalid uncommitted text is identified separately from the committed draft.
+
+#### 2. Inspect an observation
+
+Action. In Observations or CSV review, use Details on the required record. Use Rows needing review to locate conversion assumptions, missing SDs or historical issues.
+
+Expected result. The compact row identifies the measurement and role. Details expose its ID, qualifier, original/canonical values, uncertainty, matrix factor, source and review status.
+
+Check. A review flag can identify a declared assumption rather than a rejected row. Full metadata remain available before CSV confirmation.
+
+#### 3. Return from editing
+
+Action. Choose Edit on the required observation, save or cancel, then continue reviewing its row. Use Show more when the dataset extends beyond the initial page.
+
+Expected result. Editing identifies the selected record. Saving returns focus to its Edit action and restores the previous scroll position. Additional rows receive focus when revealed.
+
+Check. Continue to Evaluation or Calibration from the dataset. Check the dataset reference, accepted simulation identity and prior-result status before running analysis.
+
+#### 4. Inspect concentrations accessibly
+
+Action. Focus a concentration graph or the shared time slider. Use arrows, Page Up/Down and Home/End; use the numeric time control or peak buttons as alternatives.
+
+Expected result. Each inspection control identifies the accepted time and both simulated concentrations. Horizontal touch movement inspects; vertical movement remains available for page scrolling.
+
+Check. The graphs retain the full accepted horizon. BAC and caffeine use independent, explicitly labelled scales.
 
 ### Accepted results and safe observation replacement
 
@@ -366,6 +400,40 @@ Expected result. Four group-level Cmax comparisons from two studies show predict
 
 Check. The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated.
 
+### Inspect changes and continue scientific tasks
+
+#### 1. Inspect pending changes
+
+Action. Open Compare accepted inputs with the committed draft. Read the pending categories, then expand the changed values.
+
+Expected result. Accepted and draft values are grouped into physiology, PK, intake, meals, horizon and constants. Detailed exposes explicit parameter and event information.
+
+Check. Pending edits have not changed the retained concentration trajectory. Invalid uncommitted text is identified separately from the committed draft.
+
+#### 2. Inspect an observation
+
+Action. In Observations or CSV review, use Details on the required record. Use Rows needing review to locate conversion assumptions, missing SDs or historical issues.
+
+Expected result. The compact row identifies the measurement and role. Details expose its ID, qualifier, original/canonical values, uncertainty, matrix factor, source and review status.
+
+Check. A review flag can identify a declared assumption rather than a rejected row. Full metadata remain available before CSV confirmation.
+
+#### 3. Return from editing
+
+Action. Choose Edit on the required observation, save or cancel, then continue reviewing its row. Use Show more when the dataset extends beyond the initial page.
+
+Expected result. Editing identifies the selected record. Saving returns focus to its Edit action and restores the previous scroll position. Additional rows receive focus when revealed.
+
+Check. Continue to Evaluation or Calibration from the dataset. Check the dataset reference, accepted simulation identity and prior-result status before running analysis.
+
+#### 4. Inspect concentrations accessibly
+
+Action. Focus a concentration graph or the shared time slider. Use arrows, Page Up/Down and Home/End; use the numeric time control or peak buttons as alternatives.
+
+Expected result. Each inspection control identifies the accepted time and both simulated concentrations. Horizontal touch movement inspects; vertical movement remains available for page scrolling.
+
+Check. The graphs retain the full accepted horizon. BAC and caffeine use independent, explicitly labelled scales.
+
 ### Accepted results and safe observation replacement
 
 #### 1. Read the result source
@@ -635,6 +703,40 @@ Action. Save a portable session and a scientific result JSON. Reopen the standal
 Expected result. Seeds and captured inputs reproduce sampled draws and quantiles within the same implementation.
 
 Check. Imported records remain archival until recomputed. Worker jobs can be cancelled; prior accepted results retain their captured inputs.
+
+### Inspect changes and continue scientific tasks
+
+#### 1. Inspect pending changes
+
+Action. Open Compare accepted inputs with the committed draft. Read the pending categories, then expand the changed values.
+
+Expected result. Accepted and draft values are grouped into physiology, PK, intake, meals, horizon and constants. Expert also exposes input paths.
+
+Check. Pending edits have not changed the retained concentration trajectory. Invalid uncommitted text is identified separately from the committed draft.
+
+#### 2. Inspect an observation
+
+Action. In Observations or CSV review, use Details on the required record. Use Rows needing review to locate conversion assumptions, missing SDs or historical issues.
+
+Expected result. The compact row identifies the measurement and role. Details expose its ID, qualifier, original/canonical values, uncertainty, matrix factor, source and review status.
+
+Check. A review flag can identify a declared assumption rather than a rejected row. Full metadata remain available before CSV confirmation.
+
+#### 3. Return from editing
+
+Action. Choose Edit on the required observation, save or cancel, then continue reviewing its row. Use Show more when the dataset extends beyond the initial page.
+
+Expected result. Editing identifies the selected record. Saving returns focus to its Edit action and restores the previous scroll position. Additional rows receive focus when revealed.
+
+Check. Continue to Evaluation or Calibration from the dataset. Check the dataset reference, accepted simulation identity and prior-result status before running analysis.
+
+#### 4. Inspect concentrations accessibly
+
+Action. Focus a concentration graph or the shared time slider. Use arrows, Page Up/Down and Home/End; use the numeric time control or peak buttons as alternatives.
+
+Expected result. Each inspection control identifies the accepted time and both simulated concentrations. Horizontal touch movement inspects; vertical movement remains available for page scrolling.
+
+Check. The graphs retain the full accepted horizon. BAC and caffeine use independent, explicitly labelled scales.
 
 ### Accepted results and safe observation replacement
 

@@ -1,6 +1,6 @@
 {
-  "appVersion": "2.1.2",
-  "releaseLabel": "2.1.2",
+  "appVersion": "2.1.3",
+  "releaseLabel": "2.1.3",
   "engineVersion": "0.4.4",
   "constantsVersion": "0.3.0",
   "schemaVersion": "0.8.2",
@@ -9,9 +9,9 @@
   "scientificDocumentSchemaVersion": "1.1.0",
   "modelProfile": "reference-1.60",
   "evidenceVersion": "2026-10-28.1",
-  "buildFingerprint": "c0d8f49c08044a8c4213c3bc9ecf50260cde6773086941a4cd8ff4fb72d36fe6",
-  "htmlSha256": "50a8472080a6ac19d0910af4c1fe3ce238ba0f1b4f8ae175a65753a9a6e3423c",
-  "standaloneSha256": "64858373a889c893998bb5a4da044aa88d1774d71518aaf065e038b11da41cbf",
+  "buildFingerprint": "3a32f7e65a68f8fe0665f90215e3a4477029e8b9ba7b9154935a7c98aa2a4a8f",
+  "htmlSha256": "af557f90e6c0be1d13f56363d0cb1e1b35c23e1ba100d0939af643d2acc842a1",
+  "standaloneSha256": "c399140723895ad187ed7ecddb23086e6058a8259f75715502f72f5ff4416a45",
   "sourceDeployment": "https://pkpd.goturbo.one/",
   "deploymentAlias": "https://ethanol-caffeine-pk-pd-sandbox.pages.dev/"
 }

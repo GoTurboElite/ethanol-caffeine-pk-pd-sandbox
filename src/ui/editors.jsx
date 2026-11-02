@@ -1,4 +1,4 @@
-import {h,React,Fragment,bridge,controller,action,navigate} from './runtime.mjs';
+import {h,React,Fragment,bridge,controller,action,navigate,requestSurface} from './runtime.mjs';
 import {Button} from './common.jsx';
 import {Dialog} from './dialog.jsx';
 import {v15Clone,v15Finite,v15Id} from '../session/core.mjs';
@@ -24,7 +24,7 @@ export function PersonDialog({onClose}){
  const subject=bridge.store.state.document.mainScenario.subject;
  const [mass,setMass]=React.useState(String(subject.bodyMassKg)),[horizon,setHorizon]=React.useState(String(subject.simulationDurationH)),[error,setError]=React.useState('');
  const submit=e=>{e.preventDefault();try{const f=controller.capture();f.document.mainScenario.subject.bodyMassKg=v15Finite(mass,'Body mass');f.document.mainScenario.subject.simulationDurationH=v15Finite(horizon,'Observation horizon');f.presentation.selectedTimeH=Math.min(f.presentation.selectedTimeH,f.document.mainScenario.subject.simulationDurationH);controller.restore(f,'Edited reference person and horizon');onClose();}catch(e){setError(e.message);}};
- return <Dialog title="Person and observation window" onClose={onClose}><form onSubmit={submit}><div className="v15-form-grid"><label className="v15-field">Body mass, kg<input autoFocus inputMode="decimal" value={mass} onChange={e=>setMass(e.target.value)} required/></label><label className="v15-field">Observation horizon, h<input inputMode="decimal" value={horizon} onChange={e=>setHorizon(e.target.value)} required/></label></div><p className="v160-help">Composition, physiology, food and initial conditions are available in the full person editor.</p><ErrorText error={error}/><div className="v15-actions"><Button primary type="submit">Apply person and horizon</Button><Button onClick={onClose}>Cancel</Button><Button onClick={()=>{onClose();navigate('calculate');setTimeout(()=>bridge.openSurface('person'),80);}}>Full person editor</Button></div></form></Dialog>;
+ return <Dialog title="Person and observation window" onClose={onClose}><form onSubmit={submit}><div className="v15-form-grid"><label className="v15-field">Body mass, kg<input autoFocus inputMode="decimal" value={mass} onChange={e=>setMass(e.target.value)} required/></label><label className="v15-field">Observation horizon, h<input inputMode="decimal" value={horizon} onChange={e=>setHorizon(e.target.value)} required/></label></div><p className="v160-help">Composition, physiology, food and initial conditions are available in the full person editor.</p><ErrorText error={error}/><div className="v15-actions"><Button primary type="submit">Apply person and horizon</Button><Button onClick={onClose}>Cancel</Button><Button onClick={()=>{onClose();requestSurface('person');}}>Full person editor</Button></div></form></Dialog>;
 }
 export function readParameter(frame,path){return path.split('.').reduce((obj,k)=>obj?.[k],frame.document.mainScenario);}
 export function ParameterDialog({entry,onClose}){
