@@ -4669,7 +4669,7 @@ const qt = {
   scenarioSchemaVersion: Cr,
   modelEngineVersion: Pj,
   maintenanceRelease: "1.0.1",
-  buildFingerprint: "3a32f7e65a68f8fe0665f90215e3a4477029e8b9ba7b9154935a7c98aa2a4a8f",
+  buildFingerprint: "1970961f893b740a2088e66260b63c1f66f6e83e698ea16d253d22f2b6d3a25d",
   engineCompatibility: Pj,
   constantsVersion: TB,
   presetSetVersion: NB,
@@ -9712,8 +9712,13 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
         const el = restoreFocus.current;
         restoreFocus.current = null;
         if (el.isConnected) {
-          el.focus({ preventScroll: true });
-          window.scrollTo({ top: returnScroll.current, behavior: "instant" });
+          if (el.id === "committed-observation-title") {
+            el.focus();
+            el.scrollIntoView({ block: "nearest" });
+          } else {
+            el.focus({ preventScroll: true });
+            window.scrollTo({ top: returnScroll.current, behavior: "instant" });
+          }
         } else document.getElementById("committed-observation-title")?.focus();
       }
     }, [editing, doc.observations]);
@@ -9737,6 +9742,7 @@ return {maintenanceMax,maintenanceMin,maintenanceThresholdIntervals,maintenanceR
     const commit = () => {
       try {
         const next = confirmObservationImport(science.document, preview, csv, controller.store.state.presentation.scenarioAnchorInstant, source);
+        restoreFocus.current = document.getElementById("committed-observation-title");
         science.edit(next, "Confirmed CSV observation replacement");
         setEditing(null);
         setSelectedId(null);
