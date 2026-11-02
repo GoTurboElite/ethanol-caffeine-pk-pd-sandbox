@@ -1,3 +1,5 @@
+import {AnalyticalPlot} from './analytical-plot.jsx';
+import {ExposureComparison} from './experiment.jsx';
 import {h,React,Fragment,bridge,controller,action,useSession,accepted,navigate} from './runtime.mjs';
 import {Panel,Button,Table,Metric,Inspector,Intervals} from './common.jsx';
 import {v15Stable,v15Diff,v15MetricRows,v15Number,v15Interpolate,v15TimeLabel,v15FormatInstant} from '../session/core.mjs';
@@ -18,12 +20,12 @@ export function V15Comparison(){
  const differences=ready?v15Diff(value.input.scenarios.A,value.input.scenarios.B).filter(x=>!['id','label','notes'].includes(x.path)):[];
  return <div className="v15-stack">
   <Panel title="Compare explicit input states" kicker="A/B analysis">
-   <p>Build A from a saved state and B from the current main scenario. The comparison aligns elapsed time from each scenario’s model zero. Each captured calendar anchor is retained separately. Refresh B when you want to copy a subsequent main-scenario edit.</p>
+   <p><a href="#session/experiment">Open controlled experiments, trajectory comparison and parameter sweeps</a></p><p>Build A from a saved state and B from the current main scenario. The comparison aligns elapsed time from each scenario’s model zero. Each captured calendar anchor is retained separately. Refresh B when you want to copy a subsequent main-scenario edit.</p>
    <div className="v15-actions"><label className="v15-field">Baseline for A<select value={baseline} onChange={e=>setBaseline(e.target.value)}><option value="current">Current main scenario</option>{controller.projects.map(p=><option key={p.id} value={p.id}>{p.label}</option>)}</select></label><Button primary disabled={!controller.canSave()} onClick={()=>action(()=>controller.setBaseline(baseline),'Comparison inputs prepared.')}>Build comparison</Button><Button disabled={!enabled||!controller.canSave()} onClick={refreshB}>Refresh B from current</Button><Button onClick={()=>navigate('explore','compare')}>Open full comparison editor</Button></div>
   </Panel>
   {!enabled&&<Panel title="Choose a baseline"><p>Save a named state before changing an assumption, then build the comparison here.</p><Button onClick={()=>navigate('session','projects')}>Open Saved states</Button></Panel>}
   {enabled&&!ready&&<Panel title="Comparison calculation"><p role="status">{value?.status==='failed'?'Comparison failed: '+value.message:'Waiting for accepted A and B calculations.'}</p><Button onClick={()=>{controller.comparisonKey=null;action(()=>controller.requestComparison());}}>Retry comparison</Button></Panel>}
-  {ready&&<><Panel title="Accepted comparison outputs"><p>A: <strong>{value.input.scenarios.A.label}</strong> · B: <strong>{value.input.scenarios.B.label}</strong></p><p className="v15-note">Delta = B minus A. Snapshots: {value.A.snapshotId} / {value.B.snapshotId}.</p><Table headers={['Output','A','B','Delta','Unit']} rows={v15MetricRows(value.A.numerical,value.B.numerical).concat([
+  {ready&&<><AnalyticalPlot state={state} result={value.A.numerical} comparison={value.B.numerical} input={value.input.scenarios.A} local label="Reference A" identity={value.key}/><ExposureComparison reference={value.A.numerical} experimental={value.B.numerical}/><Panel title="Accepted comparison outputs"><p>A: <strong>{value.input.scenarios.A.label}</strong> · B: <strong>{value.input.scenarios.B.label}</strong></p><p className="v15-note">Delta = B minus A. Snapshots: {value.A.snapshotId} / {value.B.snapshotId}.</p><Table headers={['Output','A','B','Delta','Unit']} rows={v15MetricRows(value.A.numerical,value.B.numerical).concat([
     {label:'BAC area under curve',unit:'g·h/dL',a:value.A.numerical.summary.bacAucGdLH,b:value.B.numerical.summary.bacAucGdLH,delta:value.B.numerical.summary.bacAucGdLH-value.A.numerical.summary.bacAucGdLH},
     {label:'Caffeine area under curve',unit:'mg·h/L',a:value.A.numerical.summary.caffeineAucMgHL,b:value.B.numerical.summary.caffeineAucMgHL,delta:value.B.numerical.summary.caffeineAucMgHL-value.A.numerical.summary.caffeineAucMgHL}
    ]).map(x=>bacMetric(x,state.presentation)).map(x=>[x.label,v15Number(x.a,5),v15Number(x.b,5),v15Number(x.delta,5),x.unit])}/></Panel>

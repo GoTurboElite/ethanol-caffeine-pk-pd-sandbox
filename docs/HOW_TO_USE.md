@@ -1,4 +1,4 @@
-# How to use v2.1.3
+# How to use v2.3.0
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -63,6 +63,64 @@ Action. Export Session JSON after the job completes. Save the file outside the b
 Expected result. The document contains observations, model identity, configurations and the latest three scientific result records.
 
 Check. Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias.
+
+### Controlled experiments and quantitative analysis
+
+#### 1. Capture a protected reference
+
+Action. Construct a scenario in Inputs and wait for Current calculation. In Analysis open Create a controlled experiment, then Create experiment from accepted simulation.
+
+Expected result. The accepted scenario becomes a protected reference. Main scenario feedback and experimental status are labelled separately.
+
+Check. A new reference replaces the active experiment; export it first when needed.
+
+#### 2. Perturb and calculate
+
+Action. Choose Experimental quantity, enter a valid value and choose Set experimental parameter. For dose/timing or meals open the corresponding experimental schedule. Choose Calculate experiment.
+
+Expected result. Reference and experimental traces share an inspection time. Unapplied fields block calculation and saving; failed or pending jobs retain their captured results.
+
+Check. Main inputs remain unchanged. Restore reference inputs resets the experimental draft; Apply experiment to main scenario is explicit and undoable.
+
+#### 3. Inspect exposure over a window
+
+Action. Open Time window and axes. Enter increasing start/end hours, use zoom/pan or a preset, and choose automatic, locked full-horizon or custom axes. Open Window exposure and extrema.
+
+Expected result. AUC and extrema use accepted dense trajectories, with explicit units and coverage. Zero references have no relative percentage; threshold contacts and open episodes remain distinct.
+
+Check. Zoom does not increase solver resolution. When horizons differ, use Trajectory coverage to inspect either complete horizon; comparisons use common coverage.
+
+#### 4. Explore parameter response
+
+Action. Choose Detailed or Expert to expose Parameter sweeps and interactions, or change one experimental parameter directly.
+
+Expected result. Each member is a direct simulation. Response tables show units, finite-range effects and the selected ranges. Promote a member, then calculate its explicit experiment.
+
+Check. Sweeps are not parameter uncertainty. At most 21 values on one axis or 49 combinations on two axes are allowed.
+
+#### 5. Evaluate independent measurements
+
+Action. Open Evaluation and review an external dataset package or add observations. Confirm a published reconstruction only after reading its population, source and assumptions. Run evaluation and inspect residual patterns.
+
+Expected result. Measured roles, matrices, qualifiers, supplied/default errors and provenance remain inspectable. Calibration and held-out errors are separated.
+
+Check. Group means and SEM are not individual measurement accuracy. The Tanaka example has four participants and assumed body mass/food/timing inputs; discrepancies are conditional on those assumptions.
+
+#### 6. Inspect support and uncertainty
+
+Action. Inspect Calibration support and identifiability after fitting; optionally prepare fitted values as an experiment. In Uncertainty inspect captured distributions and paired differences.
+
+Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
+
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+
+#### 7. Preserve the investigation
+
+Action. Export session JSON for the main document and active experiment, Export experiment for a separate input record, and Export analytical view for the current window/axes/inspection.
+
+Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
+
+Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
 
 ### Inspect changes and continue scientific tasks
 
@@ -400,6 +458,64 @@ Expected result. Four group-level Cmax comparisons from two studies show predict
 
 Check. The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated.
 
+### Controlled experiments and quantitative analysis
+
+#### 1. Capture a protected reference
+
+Action. Construct a scenario in Inputs and wait for Current calculation. In Analysis open Create a controlled experiment, then Create experiment from accepted simulation.
+
+Expected result. The accepted scenario becomes a protected reference. Main scenario feedback and experimental status are labelled separately.
+
+Check. A new reference replaces the active experiment; export it first when needed.
+
+#### 2. Perturb and calculate
+
+Action. Choose Experimental quantity, enter a valid value and choose Set experimental parameter. For dose/timing or meals open the corresponding experimental schedule. Choose Calculate experiment.
+
+Expected result. Reference and experimental traces share an inspection time. Unapplied fields block calculation and saving; failed or pending jobs retain their captured results.
+
+Check. Main inputs remain unchanged. Restore reference inputs resets the experimental draft; Apply experiment to main scenario is explicit and undoable.
+
+#### 3. Inspect exposure over a window
+
+Action. Open Time window and axes. Enter increasing start/end hours, use zoom/pan or a preset, and choose automatic, locked full-horizon or custom axes. Open Window exposure and extrema.
+
+Expected result. AUC and extrema use accepted dense trajectories, with explicit units and coverage. Zero references have no relative percentage; threshold contacts and open episodes remain distinct.
+
+Check. Zoom does not increase solver resolution. When horizons differ, use Trajectory coverage to inspect either complete horizon; comparisons use common coverage.
+
+#### 4. Explore parameter response
+
+Action. Open Parameter sweeps and interactions. Choose one axis or add a second, set domain-valid bounds and run the grid.
+
+Expected result. Each member is a direct simulation. Response tables show units, finite-range effects and the selected ranges. Promote a member, then calculate its explicit experiment.
+
+Check. Sweeps are not parameter uncertainty. At most 21 values on one axis or 49 combinations on two axes are allowed.
+
+#### 5. Evaluate independent measurements
+
+Action. Open Evaluation and review an external dataset package or add observations. Confirm a published reconstruction only after reading its population, source and assumptions. Run evaluation and inspect residual patterns.
+
+Expected result. Measured roles, matrices, qualifiers, supplied/default errors and provenance remain inspectable. Calibration and held-out errors are separated.
+
+Check. Group means and SEM are not individual measurement accuracy. The Tanaka example has four participants and assumed body mass/food/timing inputs; discrepancies are conditional on those assumptions.
+
+#### 6. Inspect support and uncertainty
+
+Action. Inspect Calibration support and identifiability after fitting; optionally prepare fitted values as an experiment. In Uncertainty inspect captured distributions and paired differences.
+
+Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
+
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+
+#### 7. Preserve the investigation
+
+Action. Export session JSON for the main document and active experiment, Export experiment for a separate input record, and Export analytical view for the current window/axes/inspection.
+
+Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
+
+Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
+
 ### Inspect changes and continue scientific tasks
 
 #### 1. Inspect pending changes
@@ -703,6 +819,64 @@ Action. Save a portable session and a scientific result JSON. Reopen the standal
 Expected result. Seeds and captured inputs reproduce sampled draws and quantiles within the same implementation.
 
 Check. Imported records remain archival until recomputed. Worker jobs can be cancelled; prior accepted results retain their captured inputs.
+
+### Controlled experiments and quantitative analysis
+
+#### 1. Capture a protected reference
+
+Action. Construct a scenario in Inputs and wait for Current calculation. In Analysis open Create a controlled experiment, then Create experiment from accepted simulation.
+
+Expected result. The accepted scenario becomes a protected reference. Main scenario feedback and experimental status are labelled separately.
+
+Check. A new reference replaces the active experiment; export it first when needed.
+
+#### 2. Perturb and calculate
+
+Action. Choose Experimental quantity, enter a valid value and choose Set experimental parameter. For dose/timing or meals open the corresponding experimental schedule. Choose Calculate experiment.
+
+Expected result. Reference and experimental traces share an inspection time. Unapplied fields block calculation and saving; failed or pending jobs retain their captured results.
+
+Check. Main inputs remain unchanged. Restore reference inputs resets the experimental draft; Apply experiment to main scenario is explicit and undoable.
+
+#### 3. Inspect exposure over a window
+
+Action. Open Time window and axes. Enter increasing start/end hours, use zoom/pan or a preset, and choose automatic, locked full-horizon or custom axes. Open Window exposure and extrema.
+
+Expected result. AUC and extrema use accepted dense trajectories, with explicit units and coverage. Zero references have no relative percentage; threshold contacts and open episodes remain distinct.
+
+Check. Zoom does not increase solver resolution. When horizons differ, use Trajectory coverage to inspect either complete horizon; comparisons use common coverage.
+
+#### 4. Explore parameter response
+
+Action. Open Parameter sweeps and interactions. Choose one axis or add a second, set domain-valid bounds and run the grid.
+
+Expected result. Each member is a direct simulation. Response tables show units, finite-range effects and the selected ranges. Promote a member, then calculate its explicit experiment.
+
+Check. Sweeps are not parameter uncertainty. At most 21 values on one axis or 49 combinations on two axes are allowed.
+
+#### 5. Evaluate independent measurements
+
+Action. Open Evaluation and review an external dataset package or add observations. Confirm a published reconstruction only after reading its population, source and assumptions. Run evaluation and inspect residual patterns.
+
+Expected result. Measured roles, matrices, qualifiers, supplied/default errors and provenance remain inspectable. Calibration and held-out errors are separated.
+
+Check. Group means and SEM are not individual measurement accuracy. The Tanaka example has four participants and assumed body mass/food/timing inputs; discrepancies are conditional on those assumptions.
+
+#### 6. Inspect support and uncertainty
+
+Action. Inspect Calibration support and identifiability after fitting; optionally prepare fitted values as an experiment. In Uncertainty inspect captured distributions and paired differences.
+
+Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
+
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+
+#### 7. Preserve the investigation
+
+Action. Export session JSON for the main document and active experiment, Export experiment for a separate input record, and Export analytical view for the current window/axes/inspection.
+
+Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
+
+Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
 
 ### Inspect changes and continue scientific tasks
 

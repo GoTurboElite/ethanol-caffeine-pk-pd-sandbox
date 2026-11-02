@@ -2,20 +2,21 @@ import {V15_VERSION,V15_PROJECT_SCHEMA,V15_PROJECT_SCHEMA_VERSION,V15_MAX_PROJEC
 import {V15Storage} from './storage.mjs';
 import {emptyScience,validateScience} from '../science/schema.mjs';
 import {acceptedState,portableInspection} from './accepted.mjs';
+import {validateExperiment} from './experiment.mjs';
 export const V15_TIME_FIELDS=['scenarioAnchorInstant','scenarioTimeZone','timeDisplayMode','timeReferenceBasis','selectedTimeH','selectedTimeProvenance','selectedLandmarkId','followNow'];
 export class V15Controller {
  constructor(bridge,environment=globalThis){
   this.bridge=bridge;this.env=environment;this.store=bridge.store;this.storage=new V15Storage(environment);
   this.markers=[];this.listeners=new Set();this.revision=0;this.suppress=0;this.timer=null;this.writeSerial=0;this.writeChain=Promise.resolve();
   this.importedHistory=[];this.projects=[];this.recovery=null;this.recoveryEnabled=false;this.storageStatus='opening';this.message='';this.comparison=null;this.comparisonKey=null;this.comparisonSerial=0;
-  this.scienceDocument=emptyScience();this.history=new V15History(this.capture());this.installHistory();this.ready=this.initialise();
+  this.scienceDocument=emptyScience();this.experiment=null;this.history=new V15History(this.capture());this.installHistory();this.ready=this.initialise();
  }
  subscribe=listener=>{this.listeners.add(listener);return()=>this.listeners.delete(listener);};
  getRevision=()=>this.revision;
  emit(){this.revision++;for(const fn of this.listeners)fn();}
  capture(){
   const s=this.store.state,p={};for(const key of V15_TIME_FIELDS)p[key]=s.presentation[key]??null;
-  return {document:v15Clone(s.document),presentation:p,markers:v15Clone(this.markers),science:v15Clone(this.scienceDocument)};
+  return {document:v15Clone(s.document),presentation:p,markers:v15Clone(this.markers),science:v15Clone(this.scienceDocument),experiment:v15Clone(this.experiment)};
  }
  installHistory(){
   const store=this.store,originalField=store.field.bind(store),originalTransaction=store.transaction.bind(store);
@@ -53,7 +54,7 @@ export class V15Controller {
   }catch(error){this.storageStatus='failed';this.message=error.message;}
   this.emit();
  }
- canSave(){return this.store.state.draft?.validation?.status==='valid'&&!this.store.state.editingInvalidCount;}
+ canSave(){return this.store.state.draft?.validation?.status==='valid'&&!this.store.state.editingInvalidCount&&!this.experimentalEditingDirty;}
  validateFrame(frame,allowInvalid=false,inspectionHorizon=frame.document.mainScenario.subject.simulationDurationH){
   if(!frame?.document?.mainScenario||typeof frame.document.title!=='string'||typeof frame.document.notes!=='string')throw Error('The session document is incomplete.');
   if(frame.document.title.length>500||frame.document.notes.length>20000)throw Error('The session title or notes exceed the supported length.');
@@ -71,6 +72,9 @@ export class V15Controller {
   if(!Number.isFinite(frame.presentation.selectedTimeH)||frame.presentation.selectedTimeH<0||(!allowInvalid&&frame.presentation.selectedTimeH>inspectionHorizon))throw Error('The inspection time must be inside the scenario horizon.');
   frame.markers=v15NormalizeMarkers(frame.markers??[]);
   frame.science=validateScience(frame.science??emptyScience());
+  if(frame.science.datasetContext&&this.bridge.validate(frame.science.datasetContext.scenario).status!=='valid')throw Error('The dataset reconstruction contains invalid model inputs.');
+  frame.experiment=validateExperiment(frame.experiment??null,scenario=>this.bridge.validate(scenario));
+  if(frame.experiment&&this.bridge.resolveProfile)this.bridge.resolveProfile(frame.experiment.reference.profile);
   return frame;
  }
  restore(frame,label='Restored session',record=true,allowInvalid=false,atomic=false){
@@ -79,6 +83,7 @@ export class V15Controller {
   try{
    this.markers=safe.markers;
    this.scienceDocument=safe.science;
+   this.experiment=safe.experiment;
    this.store.transaction(label,()=>{
     const d=safe.document,map={title:d.title,notes:d.notes,preset:d.activePresetMetadata??null,supersededPreset:d.supersededPresetId??null,comparisonTemplate:d.comparisonTemplateId??null,
       subject:d.mainScenario.subject,doses:d.mainScenario.doseEvents,constants:d.mainScenario.constants,comparisons:d.comparisonScenarios,comparisonEnabled:!!d.comparisonEnabled,
@@ -134,7 +139,7 @@ export class V15Controller {
  importObject(value,label='Imported session'){
   let frame,archive=[];
   if(value?.schema===V15_PROJECT_SCHEMA){
-   if(!['1.0.0',V15_PROJECT_SCHEMA_VERSION].includes(value.schemaVersion))throw Error('This session uses an unsupported document version.');
+   if(!['1.0.0','1.1.0',V15_PROJECT_SCHEMA_VERSION].includes(value.schemaVersion))throw Error('This session uses an unsupported document version.');
    if(value.versions?.modelEngineVersion&&value.versions.modelEngineVersion!==this.bridge.versions.modelEngineVersion)throw Error('This session requires engine '+value.versions.modelEngineVersion+'. Use the matching archived release to reproduce it.');
    frame=this.validateFrame(v15Clone(value.frame));
    if(value.history){
@@ -153,6 +158,7 @@ export class V15Controller {
   if(!Array.isArray(records)||records.length>3||records.some(r=>!r||!['fit','evaluate','uncertainty','benchmarks'].includes(r.kind)||typeof r.sourceKey!=='string'||r.sourceKey.length>300000||JSON.stringify(r).length>600000))throw Error('Scientific result archive is invalid or exceeds its size limit.');
   this.restore(frame,label);
   this.scienceRuntime?.importRecords(records);
+  this.experimentRuntime?.invalidateRestoration();
   this.importedHistory=archive;this.emit();
   return frame;
  }

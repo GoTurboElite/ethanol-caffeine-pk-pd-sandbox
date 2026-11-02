@@ -1,0 +1,270 @@
+{
+  "model": "reference-1.60",
+  "engine": "0.4.4",
+  "constants": "0.3.0",
+  "catalog": "2026-11-02.1",
+  "source": "https://www.jstage.jst.go.jp/article/bpb/37/1/37_b13-00401/_html/-char/en",
+  "dataSource": "https://testing.sysmo-db.org/data_files/542",
+  "curatedValuesSha256": "f7272900d372649d2ee238e6dc5a915b0f44f37ed9b06019074143daed7bb885",
+  "participants": 4,
+  "timePoints": 9,
+  "calibrationForInitialisation": 1,
+  "postdoseEvaluation": 8,
+  "provenanceLimit": "Curator numeric preview transcribed; curator endpoint not retrievable during browser research. Primary article independently checked for design, sampling and stated 8 h concentration. Values were not independently redigitised.",
+  "context": {
+    "id": "tanaka2014-caffeine",
+    "title": "Tanaka et al. 2014 — caffeine in a CYP-probe cocktail",
+    "citation": "Tanaka S et al. Biological and Pharmaceutical Bulletin 37 (2014), 18–25. DOI 10.1248/bpb.b13-00401; Figure 3 and Application of the Assay.",
+    "source": "https://www.jstage.jst.go.jp/article/bpb/37/1/37_b13-00401/_html/-char/en",
+    "dataSource": "https://testing.sysmo-db.org/data_files/542",
+    "participants": 4,
+    "population": "Four healthy male volunteers aged 34–41 years. Body masses were not extracted. Repeated group means at nine times are not nine independent participants.",
+    "administration": "Oral caffeine 100 mg, losartan 50 mg, omeprazole 20 mg, dextromethorphan 30 mg and midazolam 1 mg. Requested caffeine abstinence for 72 h. Plasma LC-MS/MS; samples at 0, 0.5, 1, 1.5, 2, 3, 4, 6 and 8 h.",
+    "statistics": "Group arithmetic means; digitised SEM used only as a declared descriptive error scale, not individual measurement SD.",
+    "assumptions": "PK-DB curator CSV (Tanaka2014), digitised from Figure 3; ng/mL retained. Values and SEM transcribed at the curator precision from its indexed preview. The raw curator endpoint could not be retrieved for this release; the figure was not independently redigitised. The publication states 2480 ng/mL at 8 h; curator digitisation is 2470.59 ng/mL (~0.38% lower). No interpolation or baseline subtraction of observations. Reconstruction assumes 70 kg, 37.5 years, direct 5 h half-life, reference distribution volume and light-meal defaults, instantaneous oral input and initial central caffeine matching the observed predose mean. The predose row is marked calibration for initialisation; the eight postdose rows are reserved for evaluation. Weight, food and ingestion duration were not reported here. Other cocktail drugs and their interactions are not modelled. This is a qualified reconstruction and descriptive transportability check, not validation of individual predictions or a reason to revise the reference equations.",
+    "schemaVersion": "1.0.0",
+    "scenario": {
+      "subject": {
+        "bodyMassKg": 70,
+        "bodyCompositionMode": "default demographic TBW fraction",
+        "sexOrPhysiologyMode": "male default",
+        "ethanolEliminationMode": "Michaelis-Menten",
+        "ethanolVmaxMode": "reference-population",
+        "ethanolVmaxParameterState": "automatic",
+        "ethanolVmaxReferenceFfmKg": 60,
+        "ethanolClearanceModifier": 1,
+        "gastricEmptyingModifier": 1,
+        "ethanolToleranceModifier": 1,
+        "baselineAlertnessIndex": 0.5,
+        "caffeineToleranceModifier": 1,
+        "caffeineParameterMode": "direct effective half-life",
+        "referenceCaffeineHalfLifeH": 5,
+        "caffeineHalfLifeH": 5,
+        "caffeineAbsorptionModifier": 1,
+        "cyp1a2ActivityModifier": 1,
+        "simulationDurationH": 8,
+        "solverInternalStepMin": 0.5,
+        "timeStepMin": 5,
+        "customTBWFraction": 0.55,
+        "customApparentVdLPerKg": 0.6,
+        "sedativeToleranceModifier": 1,
+        "functionalToleranceModifier": 1,
+        "perceivedControlCalibration": 1,
+        "sleepDebtModifier": 1,
+        "foodState": "light meal",
+        "mealEvents": [],
+        "initialConditions": {
+          "gastricEthanolG": 0,
+          "intestinalEthanolG": 0,
+          "centralEthanolG": 0,
+          "caffeineGutMg": 0,
+          "caffeineCentralMg": 53.36477999999999,
+          "paraxanthineCentralMg": 0
+        },
+        "legalBACThresholdGdL": 0.08,
+        "vehicleZeroToleranceThresholdGdL": 0.01,
+        "showSensitivityBands": false,
+        "allowLeanFatResidualMass": false,
+        "ageYears": 37.5
+      },
+      "constants": {
+        "ethanolDensityGPerMl": 0.789,
+        "gastricEmptyingRateFastedPerH": 2,
+        "gastricEmptyingRateLightMealPerH": 0.9,
+        "gastricEmptyingRateHeavyMealPerH": 0.35,
+        "gastricEmptyingRateCustomPerH": 0.75,
+        "gastricAbsorptionRatePerH": 0.25,
+        "intestinalAbsorptionRatePerH": 3,
+        "firstPassFractionFasted": 0.05,
+        "firstPassFractionLightMeal": 0.1,
+        "firstPassFractionHeavyMeal": 0.15,
+        "firstPassFractionCustom": 0.1,
+        "zeroOrderEliminationGdLPerH": 0.015,
+        "michaelisMentenVmaxGPerH": 6.31,
+        "michaelisMentenKmGdL": 0.003,
+        "referencePopulationVmaxGPerH": 6.31,
+        "referencePopulationVmaxBodyMassKg": 75,
+        "legacyVmaxGPerHPerKg": 0.1,
+        "totalBodyWaterFractionDefaultMale": 0.58,
+        "totalBodyWaterFractionDefaultFemale": 0.49,
+        "totalBodyWaterFractionCustom": 0.55,
+        "leanTissueWaterFraction": 0.73,
+        "adiposeTissueWaterFraction": 0.1,
+        "bloodWaterFraction": 0.806,
+        "customApparentVdLPerKg": 0.6,
+        "caffeineVdLPerKg": 0.6,
+        "caffeineAbsorptionRatePerH": 2.5,
+        "paraxanthineApproximationEnabled": false,
+        "caffeineToParaxanthineFraction": 0.8,
+        "caffeineMolecularMassMgPerMmol": 194.19,
+        "paraxanthineMolecularMassMgPerMmol": 180.16,
+        "paraxanthineVdLPerKg": 0.7,
+        "paraxanthineHalfLifeH": 3.1,
+        "paraxanthineRelativePotency": 0.5,
+        "ethanolDoesNotReduceCaffeineDose": true,
+        "caffeineDoesNotReduceBAC": true,
+        "optionalEthanolInhibitsCaffeineClearance": false,
+        "ethanolCYP1A2InhibitionImax": 0.25,
+        "ethanolCYP1A2InhibitionIC50GdL": 0.08,
+        "ethanolEC50GdL": 0.06,
+        "ethanolHill": 2,
+        "caffeineEC50MgL": 3,
+        "caffeineHill": 1.5
+      },
+      "doseEvents": [
+        {
+          "id": "tanaka-caffeine",
+          "label": "100 mg oral caffeine; other probes unmodelled",
+          "startTimeH": 0,
+          "durationMin": 0,
+          "caffeineMg": 100,
+          "ethanolGrams": 0,
+          "servings": 1
+        }
+      ]
+    },
+    "dataKey": "[{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-0\",\"label\":\"Tanaka group mean 0 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"calibration\",\"sd\":588.24,\"timeH\":0,\"unit\":\"ng/mL\",\"value\":1270.59},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-1\",\"label\":\"Tanaka group mean 0.5 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1905.88,\"timeH\":0.5,\"unit\":\"ng/mL\",\"value\":3247.06},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-2\",\"label\":\"Tanaka group mean 1 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1505.88,\"timeH\":1,\"unit\":\"ng/mL\",\"value\":3929.41},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-3\",\"label\":\"Tanaka group mean 1.5 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1105.88,\"timeH\":1.5,\"unit\":\"ng/mL\",\"value\":4047.06},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-4\",\"label\":\"Tanaka group mean 2 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1105.88,\"timeH\":2,\"unit\":\"ng/mL\",\"value\":3788.24},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-5\",\"label\":\"Tanaka group mean 3 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1529.41,\"timeH\":3,\"unit\":\"ng/mL\",\"value\":3858.82},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-6\",\"label\":\"Tanaka group mean 4 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1152.94,\"timeH\":4,\"unit\":\"ng/mL\",\"value\":3529.41},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-7\",\"label\":\"Tanaka group mean 6 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1011.76,\"timeH\":6,\"unit\":\"ng/mL\",\"value\":3152.94},{\"analyte\":\"caffeine\",\"conversionSource\":\"\",\"id\":\"tanaka2014-8\",\"label\":\"Tanaka group mean 8 h\",\"matrix\":\"plasma\",\"matrixFactor\":null,\"qualifier\":\"=\",\"role\":\"evaluation\",\"sd\":1082.35,\"timeH\":8,\"unit\":\"ng/mL\",\"value\":2470.59}]"
+  },
+  "metrics": [
+    {
+      "analyte": "caffeine",
+      "role": "calibration",
+      "n": 1,
+      "censored": 0,
+      "unit": "mg/L",
+      "bias": -2.220446049250313e-16,
+      "mae": 2.220446049250313e-16,
+      "rmse": 2.220446049250313e-16,
+      "weightedSSE": 1.424857212248866e-31
+    },
+    {
+      "analyte": "caffeine",
+      "role": "evaluation",
+      "n": 8,
+      "censored": 0,
+      "unit": "mg/L",
+      "bias": -1.0824803484454675,
+      "mae": 1.0824803484454675,
+      "rmse": 1.1307377803300438,
+      "weightedSSE": 7.572403893939346
+    }
+  ],
+  "diagnostics": {
+    "groups": [
+      {
+        "analyte": "caffeine",
+        "role": "calibration",
+        "n": 1,
+        "censored": 0,
+        "suppliedSD": 1,
+        "defaultSD": 0,
+        "standardizedRMSE": 3.774728085900845e-16,
+        "timeTrend": null,
+        "concentrationTrend": null,
+        "matrixCounts": {
+          "plasma": 1
+        },
+        "upperLimitSSE": 0
+      },
+      {
+        "analyte": "caffeine",
+        "role": "evaluation",
+        "n": 8,
+        "censored": 0,
+        "suppliedSD": 8,
+        "defaultSD": 0,
+        "standardizedRMSE": 0.9729082622438862,
+        "timeTrend": {
+          "slope": -0.09523527243736811,
+          "correlation": -0.7138044334999446,
+          "n": 8
+        },
+        "concentrationTrend": {
+          "slope": -0.3295518487329127,
+          "correlation": -0.6363321836169117,
+          "n": 8
+        },
+        "matrixCounts": {
+          "plasma": 8
+        },
+        "upperLimitSSE": 0
+      }
+    ],
+    "method": "Residual = predicted minus observed. Standardised residuals use supplied converted SD or the declared default error scale. Censored observations contribute one-sided exceedance penalties only, not signed measurement residuals. Trend slopes/correlations are descriptive; repeated group means, sparse rows and heterogeneous errors do not support an independent-error inference."
+  },
+  "residuals": [
+    {
+      "timeH": 0,
+      "role": "calibration",
+      "observedMgL": 1.2705899999999999,
+      "predictedMgL": 1.2705899999999997,
+      "residualMgL": -2.220446049250313e-16,
+      "declaredSEMAsErrorScaleMgL": 0.58824
+    },
+    {
+      "timeH": 0.5,
+      "role": "evaluation",
+      "observedMgL": 3.24706,
+      "predictedMgL": 2.81522631676597,
+      "residualMgL": -0.43183368323402993,
+      "declaredSEMAsErrorScaleMgL": 1.9058800000000002
+    },
+    {
+      "timeH": 1,
+      "role": "evaluation",
+      "observedMgL": 3.92941,
+      "predictedMgL": 3.093622755186999,
+      "residualMgL": -0.8357872448130008,
+      "declaredSEMAsErrorScaleMgL": 1.50588
+    },
+    {
+      "timeH": 1.5,
+      "role": "evaluation",
+      "observedMgL": 4.04706,
+      "predictedMgL": 3.0202279803828227,
+      "residualMgL": -1.0268320196171774,
+      "declaredSEMAsErrorScaleMgL": 1.1058800000000002
+    },
+    {
+      "timeH": 2,
+      "role": "evaluation",
+      "observedMgL": 3.78824,
+      "predictedMgL": 2.856299780829299,
+      "residualMgL": -0.9319402191707011,
+      "declaredSEMAsErrorScaleMgL": 1.1058800000000002
+    },
+    {
+      "timeH": 3,
+      "role": "evaluation",
+      "observedMgL": 3.85882,
+      "predictedMgL": 2.499945119617384,
+      "residualMgL": -1.3588748803826163,
+      "declaredSEMAsErrorScaleMgL": 1.5294100000000002
+    },
+    {
+      "timeH": 4,
+      "role": "evaluation",
+      "observedMgL": 3.52941,
+      "predictedMgL": 2.177427892762608,
+      "residualMgL": -1.3519821072373919,
+      "declaredSEMAsErrorScaleMgL": 1.15294
+    },
+    {
+      "timeH": 6,
+      "role": "evaluation",
+      "observedMgL": 3.15294,
+      "predictedMgL": 1.6502677237053178,
+      "residualMgL": -1.5026722762946823,
+      "declaredSEMAsErrorScaleMgL": 1.01176
+    },
+    {
+      "timeH": 8,
+      "role": "evaluation",
+      "observedMgL": 2.47059,
+      "predictedMgL": 1.2506696431858582,
+      "residualMgL": -1.219920356814142,
+      "declaredSEMAsErrorScaleMgL": 1.08235
+    }
+  ],
+  "interpretation": "Descriptive discrepancies conditional on assumed weight, food, ingestion duration, priors and predose initialisation. Group means from four participants are not independent individual trajectories; coadministered probes are unmodelled. This does not isolate structural bias or establish individual predictive validity."
+}

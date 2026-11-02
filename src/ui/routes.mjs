@@ -13,6 +13,7 @@ export function locationFor(state){
   if(v==='timeline')return {group:'session',title:'Session',view:v,native:true};
   if(v==='observations')return {group:'session',title:'Concentration observations',view:v,native:true};
   if(SCIENTIFIC_VIEWS.includes(v))return {group:'analysis',title:'Scientific workbench',view:v,native:true};
+  if(v==='experiment')return {group:'compare',title:'Experimental workbench',view:v,native:true};
   if(v==='compare')return {group:'compare',title:'Compare scenarios',view:v,native:true};
   if(v==='projects')return {group:'saved',title:'Saved sessions',view:v,native:true};
   if(v==='report')return {group:'document',title:'Analysis report',view:v,native:true};

@@ -1,4 +1,12 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.1.3
+# Ethanol + Caffeine PK/PD Sandbox 2.3.0
+
+## v2.3 integrated analytical workbench
+
+Create an experiment from accepted inputs, perturb parameters or schedules, calculate protected reference/experimental trajectories, inspect selectable windows and quantify exposure differences. One/two-axis sweeps support bounded direct evaluations and explicit member promotion. Application changes the main scenario only through an undoable transaction.
+
+Analysis, comparisons, observations and uncertainty share window/axis and keyboard inspection controls. Residual trends, calibration support and conditional objective surfaces expose their assumptions; paired sampling computes differences within each draw and now includes AUC. An external dataset package retains source/population/administration/error metadata and its reconstructed scenario. The added Tanaka 2014 caffeine series comprises nine repeated means from four participants, with explicitly qualified digitisation/SEM and assumed reconstruction inputs. It does not establish individual predictive validity.
+
+Session/scientific documents 1.2.0 migrate v2.1.x inputs without changing equations or measurements. Experiments are bounded and persistent; calculated jobs and presentation windows are transient and separately exportable. See [docs/V2.3-DESIGN.md](docs/V2.3-DESIGN.md) for architecture, mathematics, evidence limits and verification.
 
 ## v2.1.3 interaction refinement
 
@@ -38,15 +46,15 @@ Help provides action/result/check walkthroughs at Default, Detailed and Expert l
 
 ## Reproducibility and compatibility
 
-Application 2.1.3 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session wrapper 1.1.0, scientific workbench/validation 1.0.1, scientific document schema 1.1.0 and evidence revision 2026-10-28.1. Scientific and behavioural component identities remain independent.
+Application 2.3.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session/scientific documents 1.2.0, scientific workbench 1.1.0 and retained validation revision 1.0.1. The prior-evidence registry remains 2026-10-28.1; the added evaluation dataset catalog is 2026-11-02.1. Scientific and behavioural component identities remain independent.
 
 Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 
-Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.1.3.html provides local operation; archived standalone releases remain available.
+Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.3.0.html provides local operation; archived standalone releases remain available.
 
 ## Development and tests
 
-Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs node test/science-browser.mjs and node test/ux-browser.mjs and node test/patch-212-browser.mjs and node test/refinement-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
+Use Node.js 24 and the dependencies pinned in package-lock.json. Run npm ci, npm run build and npm test. Install Playwright browsers with npx playwright install --with-deps, then run npm run test:browser, npm run test:ui, node test/pwa-browser.mjs node test/science-browser.mjs and node test/ux-browser.mjs and node test/patch-212-browser.mjs and node test/refinement-browser.mjs and node test/analytical-browser.mjs for TEST_BROWSER values chromium, firefox and webkit.
 
 Regenerate the portable guide with node scripts/export-guide.mjs after changing guide content. Run node test/live-browser.mjs with DEPLOYMENT_URL for hosted checks. CI discovers the exact Cloudflare preview for a PR and verifies both production hostnames after promotion. Generated test evidence is under test/artifacts and excluded from git.
 

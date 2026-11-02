@@ -4,6 +4,7 @@ import {Button,Table,Panel} from './common.jsx';
 import {parameterLabel} from './units.mjs';
 import {readParameter} from './editors.jsx';
 const tasks=[
+ {label:'Experimental workbench',terms:'experiment reference perturbation sweep sensitivity zoom exposure AUC',route:['session','experiment']},
  {label:'Add intake',terms:'drink ethanol caffeine dose add event',action:'intake'},
  {label:'Person and observation window',terms:'body mass weight kg horizon duration person',action:'person'},
  {label:'Schedule and calendar anchor',terms:'meal time zone model zero clock DST calendar schedule',route:['session','timeline']},
@@ -13,7 +14,7 @@ const tasks=[
  {label:'Saved sessions and recovery',terms:'save restore undo history JSON import export recovery',route:['session','projects']},
  {label:'Report',terms:'download print PDF frozen analysis report',route:['session','report']},
  {label:'Model diagnostics and sources',terms:'diagnostics integrity conservation provenance formula references',route:['expert','']},
- {label:'Sensitivity analysis',terms:'sweep sensitivity perturbation',route:['explore','sweep']},
+ {label:'Sensitivity analysis',terms:'sweep sensitivity perturbation',route:['session','experiment']},
  {label:'Behavioural interpretation',terms:'traits temperament personality effects behaviour PD',route:['behaviour','']},
  {label:'Concentration observations',terms:'manual measurement observations dataset CSV import SD matrix',route:['session','observations']},
  {label:'Evaluate observations',terms:'evaluation residual RMSE bias held out scientific workbench',route:['session','validation']},
