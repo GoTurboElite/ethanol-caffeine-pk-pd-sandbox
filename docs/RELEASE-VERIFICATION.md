@@ -1,3 +1,7 @@
+# v2.1.3 interaction refinement verification
+
+See [V2.1.3-DESIGN.md](V2.1.3-DESIGN.md) for baseline evidence, new regression scenarios, task counters and validation limits. Four new Node groups and nine browser groups cover accepted/draft recursion, route-driven surfaces, 200-row observation continuity, CSV review, inspection semantics and keyboard workflows. All retained release gates below remain required in addition to these groups. Final outcomes and deployment identity are recorded in the release PR/engineering report.
+
 # v2.1.1 release verification
 
 Application 2.1.1 retains PK engine 0.4.4, constants 0.3.0 and scenario schema 0.8.2. Session wrapper 1.1.0 adds the scientific document and result archives. Reference profile reference-1.60 preserves the earlier equations.

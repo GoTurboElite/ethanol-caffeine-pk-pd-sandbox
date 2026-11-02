@@ -1,3 +1,12 @@
+# 2.1.3 — 2026-11-02
+
+- Enumerate grouped accepted/draft scalar, nested, intake, meal, horizon and constant differences without changing calculations.
+- Replace delayed editor opening with route-ready, cancellable activation and commit-aware modal focus restoration.
+- Share compact committed/CSV observation lists with full provenance details, review filtering and 200-row editing continuity.
+- Give interactive graphs slider semantics, shared concentration values and touch-intent handling; preserve numeric inspection.
+- Connect observation tasks to accepted simulation and scientific-result provenance; extend three-level guidance and keyboard workflows.
+- Retain all scientific schemas, PK equations/defaults and algorithms. See docs/V2.1.3-DESIGN.md for evidence and remaining manual assessments.
+
 # 2.1.2 — 2026-11-01
 
 - Reject non-unit native-matrix factors for new observations and unrecognized CSV headers.

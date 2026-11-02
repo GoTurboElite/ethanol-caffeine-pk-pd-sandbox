@@ -1,0 +1,30 @@
+{
+  "version": "2.1.2",
+  "changes": [
+    {
+      "label": "Intake schedule",
+      "accepted": "1 intakes",
+      "draft": "1 intakes; amounts or timing may differ"
+    },
+    {
+      "label": "Other physiology / PK inputs",
+      "accepted": "Captured values",
+      "draft": "initialConditions"
+    },
+    {
+      "label": "Model constants",
+      "accepted": "Captured values",
+      "draft": "caffeineVdLPerKg"
+    }
+  ],
+  "timingDependentPaths": [
+    "Analysis: Edit physiology and meals",
+    "Person dialog: Full person editor"
+  ],
+  "observationTable": {
+    "columns": 11,
+    "width": 959,
+    "viewport": 390,
+    "visibleRows": 20
+  }
+}

@@ -1,4 +1,4 @@
-import {h,React,Fragment,bridge,controller,action,useSession,usePreferences,accepted,navigate,preferences} from './runtime.mjs';
+import {h,React,Fragment,bridge,controller,action,useSession,usePreferences,accepted,navigate,preferences,requestSurface} from './runtime.mjs';
 import {Panel,Button,Intervals,EmptyResult,Disclosure} from './common.jsx';
 import {ConcentrationPlots} from './plots.jsx';
 import {v15Number,v15TimeLabel,v15FormatInstant} from '../session/core.mjs';
@@ -14,7 +14,7 @@ export function Overview({onAdd,onEditPerson,onEditIntake}){
     <div className="v160-intake-list">{d.doseEvents.map(e=><div className="v160-intake-row" key={e.id}><div><b>{e.label||'Intake'}</b><span>{v15TimeLabel(e.startTimeH)} · {v15Number(e.durationMin)} min</span><small>{v15Number(bridge.ethanolAmount(e,d.constants),2)} g ethanol · {v15Number(bridge.caffeineAmount(e),1)} mg caffeine</small></div><button type="button" className="v160-link" aria-label={'Edit '+(e.label||'intake')} onClick={()=>typeof e.ethanolGrams==='number'&&e.caffeineDoseMode!=='mixer-derived'?onEditIntake(e):navigate('calculate')}>Edit</button></div>)}</div>
     {!d.doseEvents.length&&<p className="v160-help">Add an intake to populate the trajectory.</p>}
    </section>
-   <section className="v160-rail-section"><div className="v160-key-value"><span>Meals</span><b>{d.subject.mealEvents?.length??0}</b></div><button className="v160-link" type="button" onClick={()=>{navigate('calculate');setTimeout(()=>bridge.openSurface('person'),80);}}>Edit physiology and meals</button></section>
+   <section className="v160-rail-section"><div className="v160-key-value"><span>Meals</span><b>{d.subject.mealEvents?.length??0}</b></div><button className="v160-link" type="button" onClick={()=>requestSurface('person')}>Edit physiology and meals</button></section>
    <Disclosure id="overview-context" title="Calendar and model context" defaultOpen={prefs.explanations==='expanded'&&!prefs.focus}><p className="v160-help">Current session clock reference: {v15FormatInstant(state.presentation.scenarioAnchorInstant,state.presentation.scenarioTimeZone)}. {state.presentation.scenarioTimeZone}.</p><p className="v160-help">Engine {bridge.versions.modelEngineVersion} · snapshot {snapshot?.snapshotId??'pending'}.</p><Button onClick={()=>navigate('session','timeline')}>Calendar settings</Button></Disclosure>
    {prefs.explanations==='guided'&&<div className="v160-guidance"><b>First analysis</b><p>1. Check the person and horizon.<br/>2. Add or edit intakes.<br/>3. Wait for Current calculation.<br/>4. Move the inspection cursor.</p><button type="button" className="v160-link" onClick={()=>navigate('help',state.presentation.detailMode)}>Open this level’s guide</button></div>}
   </aside>

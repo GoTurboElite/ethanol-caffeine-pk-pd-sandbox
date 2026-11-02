@@ -3,11 +3,15 @@ import {v15PWA} from '../session/pwa.mjs';
 import {InterfacePreferences} from '../session/preferences.mjs';
 import {ScienceController} from '../science/controller.mjs';
 import {acceptedState} from '../session/accepted.mjs';
-export let React,Fragment,bridge,controller,pwa,preferences,science;
+import {SurfaceActivation} from '../session/surfaces.mjs';
+export let React,Fragment,bridge,controller,pwa,preferences,science,surfaces;
 export const h=(...args)=>React.createElement(...args);
 export function v15InitUI(value){
  bridge=value;React=value.React;Fragment=React.Fragment;controller=new V15Controller(value);science=new ScienceController(controller,value);controller.scienceRuntime=science;preferences=new InterfacePreferences(value.store);pwa=v15PWA(controller);
- return{controller,pwa,preferences,science};
+ surfaces=new SurfaceActivation({navigate:hash=>{window.location.hash=hash;},open:surface=>bridge.openSurface(surface),close:surface=>window.dispatchEvent(new CustomEvent('pkpd-ui-action',{detail:{surface,action:'close'}})),restore:(origin,surface)=>{const node=origin?.isConnected&&origin.getClientRects().length?origin:surface==='person'?document.getElementById('subject-body-mass'):document.getElementById('main-content');node?.focus({preventScroll:true});}});
+ window.addEventListener('hashchange',()=>surfaces.location(window.location.hash));
+ window.addEventListener('pkpd-modal-settled',()=>{if(surfaces.active)surfaces.closed(surfaces.active.surface);else if(document.activeElement===document.body||!document.activeElement?.getClientRects().length)document.querySelector('#main-content > .v160-page-heading h1')?.focus();});
+ return{controller,pwa,preferences,science,surfaces};
 }
 export function useScience(){React.useSyncExternalStore(science.subscribe,science.snapshot,science.snapshot);return science;}
 export function useSession(){
@@ -16,7 +20,8 @@ export function useSession(){
 }
 export function usePWA(){React.useSyncExternalStore(pwa.subscribe,()=>pwa.revision,()=>pwa.revision);return pwa.state;}
 export function usePreferences(){React.useSyncExternalStore(preferences.subscribe,preferences.snapshot,preferences.snapshot);return preferences.values;}
-export function navigate(workspace,view=''){window.location.hash='#'+workspace+(view?'/'+view:'');}
+export function navigate(workspace,view=''){surfaces?.cancel();window.location.hash='#'+workspace+(view?'/'+view:'');}
+export function requestSurface(surface){return surfaces.request(surface,document.activeElement);}
 export function announce(text,kind='success'){controller.notice={text,kind};controller.emit();}
 export function action(fn,success){
  try{
@@ -30,5 +35,5 @@ export function download(name,content,type='application/json'){
  a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
 export function accepted(){
- return acceptedState(bridge.store.state,bridge.snapshot());
+ return acceptedState(bridge.store.state,bridge.snapshot(),bridge.parameters);
 }

@@ -1,4 +1,5 @@
-import {h,React,Fragment,bridge,controller,preferences,action,navigate,usePreferences,accepted} from './runtime.mjs';
+import {h,React,Fragment,bridge,controller,preferences,action,navigate,usePreferences,accepted,announce} from './runtime.mjs';
+import {inspectionValue} from './inspection.mjs';
 import {v15Number,v15FormatInstant,v15TimeLabel,v15Interpolate} from '../session/core.mjs';
 import {bacText,bacUnit,caffeineText} from './units.mjs';
 export function Button({children,onClick,primary=false,...props}){return <button type="button" className={'v15-button'+(primary?' primary':'')} onClick={onClick} {...props}>{children}</button>;}
@@ -14,17 +15,17 @@ export function SnapshotNotice({state,snapshot}){
  return <div className={'v15-snapshot '+(relation==='current'?'current':'stale')} role="status"><strong>{relation==='current'?'Current accepted result':snapshot?'Previous accepted result':'Calculation pending'}</strong><span>{snapshot?'Snapshot '+snapshot.snapshotId:'Enter valid inputs and run the calculation.'}</span>{relation!=='current'&&<span>Committed draft changes are awaiting a matching accepted calculation.</span>}</div>;
 }
 function InspectionNumber({time,end}){
- const [draft,setDraft]=React.useState(String(Number(time.toFixed(4)))),[error,setError]=React.useState('');
+ const [draft,setDraft]=React.useState(String(Number(time.toFixed(4)))),[error,setError]=React.useState(''),uid=React.useId();
  React.useEffect(()=>{setDraft(String(Number(time.toFixed(4))));setError('');},[time]);
- const commit=()=>{try{if(!draft.trim())throw Error('Enter an inspection time.');controller.inspect(Number(draft));setError('');}catch(e){setError(e.message);}};
- return <label className="v15-field">Elapsed hours<input aria-label="Inspection elapsed hours" inputMode="decimal" value={draft} onChange={e=>setDraft(e.target.value)} onBlur={commit} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}}} aria-invalid={!!error}/>{error&&<span className="v160-error" role="alert">{error}</span>}</label>;
+ const commit=()=>{try{if(!draft.trim())throw Error('Enter an inspection time.');controller.inspect(Number(draft));setError('');const info=accepted();if(info.result)announce('Selected '+inspectionValue(info.result,info.time,bridge.store.state.presentation));}catch(e){setError(e.message);}};
+ return <label className="v15-field">Elapsed hours<input aria-label="Inspection elapsed hours" inputMode="decimal" value={draft} onChange={e=>setDraft(e.target.value)} onBlur={commit} onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();e.currentTarget.blur();}}} aria-invalid={!!error} aria-describedby={error?uid:undefined}/>{error&&<span id={uid} className="v160-error" role="alert">{error}</span>}</label>;
 }
 export function Inspector({state,result}){
  const info=accepted(),t=info.time,end=result?.summary?.horizonH??info.horizon,p=result?v15Interpolate(result.analysisPoints??result.points,t):null;
  return <div className="v15-inspector">
   <label className="v15-field v15-slider">Inspection time<input aria-label="Inspection time slider" aria-valuetext={v15TimeLabel(t)+(p?'; BAC '+bacText(p.bacGdL,state.presentation)+' '+bacUnit(state.presentation)+'; caffeine '+caffeineText(p.caffeineMgL,2)+' mg/L':' outside accepted coverage')} type="range" min="0" max={end} step=".01" value={Math.min(end,Math.max(0,t))} onChange={e=>action(()=>controller.inspect(Number(e.target.value)))}/></label>
   <InspectionNumber time={t} end={end}/>
-  <div className="v15-inspection-time" role="status" aria-live="polite" aria-atomic="true"><strong>Selected {v15TimeLabel(t)}</strong>{p&&<span className="v160-sr">BAC {bacText(p.bacGdL,state.presentation)} {bacUnit(state.presentation)}; caffeine {caffeineText(p.caffeineMgL,2)} mg/L.</span>}{state.presentation.timeDisplayMode==='clock'&&<span>Current session clock: {v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant)+t*3600000,state.presentation.scenarioTimeZone)}</span>}</div>
+  <div className="v15-inspection-time" aria-label="Selected concentration values"><strong>Selected {v15TimeLabel(t)}</strong>{p&&<span className="v160-sr">BAC {bacText(p.bacGdL,state.presentation)} {bacUnit(state.presentation)}; caffeine {caffeineText(p.caffeineMgL,2)} mg/L.</span>}{state.presentation.timeDisplayMode==='clock'&&<span>Current session clock: {v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant)+t*3600000,state.presentation.scenarioTimeZone)}</span>}</div>
  </div>;
 }
 export function Intervals({result}){
