@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';import path from 'node:path';
 import {core as loadCore,root} from './helpers.mjs';
 import {v15Clone,v15Stable,v15Interpolate,V15History,V15_PROJECT_SCHEMA_VERSION} from '../src/session/core.mjs';
-import {exposure,compareExposure,timeWindow,windowPoints,displaySeries,niceTicks,tickText} from '../src/science/metrics.mjs';
+import {exposure,compareExposure,differenceTrajectory,timeWindow,windowPoints,displaySeries,niceTicks,tickText} from '../src/science/metrics.mjs';
 import {ExperimentController,validateExperiment,inputIdentity} from '../src/session/experiment.mjs';
 import {sweep,sweepSpec,sweepEffects} from '../src/science/exploration.mjs';
 import {runScience,simulate,observationResiduals} from '../src/science/analysis.mjs';
@@ -12,6 +12,52 @@ import {publishedDataset,validateDatasetPackage,TANAKA_2014} from '../src/scienc
 const c=loadCore(),results=[];async function check(name,fn){try{await fn();results.push({name,passed:true});console.log('PASS '+name);}catch(e){results.push({name,passed:false,error:e.stack});console.error('FAIL '+name,e);}}
 const scenario=()=>({subject:v15Clone(c.St),constants:c.bt(90),doseEvents:[{id:'coffee',label:'Coffee',startTimeH:0,durationMin:15,ethanolGrams:0,caffeineMg:100,servings:1}]});
 const input=scenario(),trajectory=simulate(c,input),close=(a,b,t=1e-9)=>assert.ok(Math.abs(a-b)<=t,`${a} vs ${b} (tolerance ${t})`);
+const series=knots=>({points:knots.map(([tH,v])=>({tH,caffeineMgL:v,bacGdL:v/100}))});
+await check('Signed trajectories align mismatched knots and integrate both sides of interpolated crossings',()=>{
+ const a=series([[0,2],[2,2],[4,2]]),b=series([[0,0],[1,4],[3,0]]);
+ assert.deepEqual(differenceTrajectory(a,b).map(p=>[p.tH,p.caffeineMgL]),[[0,-2],[1,2],[2,0],[3,-2]]);
+ const whole=compareExposure(a,b),d=whole.temporal.caffeine;
+ assert.equal(whole.end,3);
+ assert.deepEqual(d.positive,{time:1,value:2});
+ assert.deepEqual(d.negative,{time:0,value:-2});
+ assert.deepEqual(d.crossings,[{start:.5,end:.5},{start:2,end:2}]);
+ assert.equal(d.signedAuc,0);
+ assert.equal(d.absoluteAuc,3);
+ const clipped=compareExposure(a,b,.25,1.5),e=clipped.temporal.caffeine;
+ close(e.signedAuc,1.125,1e-14);close(e.absoluteAuc,1.375,1e-14);
+ close(e.signedAuc,clipped.experiment.caffeine.auc-clipped.reference.caffeine.auc,1e-14);
+ close(clipped.temporal.bac.absoluteAuc,e.absoluteAuc/100,1e-14);
+ assert.throws(()=>compareExposure(a,b,0,3+1e-12),/coverage/);
+ assert.throws(()=>compareExposure(a,b,0,NaN),/coverage/);
+});
+await check('Zero plateaus, tangencies, one-sided and identical trajectories have distinct crossing semantics',()=>{
+ const a=series([[0,2],[4,2]]),b=series([[0,1],[1,2],[2,2],[3,3],[4,2]]);
+ const d=compareExposure(a,b).temporal.caffeine;
+ assert.deepEqual(d.crossings,[{start:1,end:2}]);
+ assert.deepEqual(d.zeroIntervals,[{start:1,end:2},{start:4,end:4}]);
+ close(d.signedAuc,.5,1e-14);close(d.absoluteAuc,1.5,1e-14);
+ const oneSide=compareExposure(a,series([[0,3],[2,2],[4,3]])).temporal.caffeine;
+ assert.deepEqual(oneSide.crossings,[]);assert.deepEqual(oneSide.zeroIntervals,[{start:2,end:2}]);
+ assert.equal(oneSide.negative,null);assert.deepEqual(oneSide.positive,{time:0,value:1});
+ const zero=series([[0,0],[4,0]]);
+ for(const same of [a,zero]){
+  const identical=compareExposure(same,same).temporal.caffeine;
+  assert.equal(identical.identical,true);assert.equal(identical.positive,null);assert.equal(identical.negative,null);
+  assert.equal(identical.signedAuc,0);assert.equal(identical.absoluteAuc,0);assert.deepEqual(identical.crossings,[]);
+ }
+ assert.equal(compareExposure(zero,a).rows.find(r=>r.analyte==='caffeine'&&r.metric==='auc').percent,null);
+});
+await check('Tiny window crossing integrals are nonnegative, additive and consistent with separate AUCs',()=>{
+ const a=series([[0,2],[2,2]]),b=series([[0,1],[2,3]]),lo=1-5e-7,hi=1+5e-7;
+ const whole=compareExposure(a,b,lo,hi),d=whole.temporal.caffeine;
+ const left=compareExposure(a,b,lo,1).temporal.caffeine,right=compareExposure(a,b,1,hi).temporal.caffeine;
+ close(d.crossings[0].start,1,1e-14);
+ close(d.absoluteAuc,2.5e-13,1e-21);close(d.absoluteAuc,left.absoluteAuc+right.absoluteAuc,1e-21);
+ close(d.signedAuc,whole.experiment.caffeine.auc-whole.reference.caffeine.auc,1e-20);
+ assert.ok(d.absoluteAuc>=Math.abs(d.signedAuc));
+ const short=compareExposure(series([[1,0],[4,0]]),series([[2,1],[3,1]]));
+ assert.deepEqual([short.start,short.end],[2,3]);assert.equal(short.temporal.caffeine.signedAuc,1);
+});
 await check('Dense AUC matches retained trapezoids and is additive over arbitrary partial windows',()=>{const all=exposure(trajectory),a=exposure(trajectory,0,1.234567),b=exposure(trajectory,1.234567,24);close(all.caffeine.auc,trajectory.summary.caffeineAucMgHL,1e-10);close(all.bac.auc,trajectory.summary.bacAucGdLH,1e-12);close(a.caffeine.auc+b.caffeine.auc,all.caffeine.auc,1e-10);assert.equal(all.caffeine.unit,'mg·h/L');assert.equal(all.bac.unit,'g·h/dL');});
 await check('Initial central caffeine AUC agrees with an analytical exponential on partial intervals',()=>{const a=scenario();a.doseEvents=[];a.subject.initialConditions.caffeineCentralMg=60;const r=simulate(c,a),k=Math.LN2/a.subject.caffeineHalfLifeH,C0=60/(a.constants.caffeineVdLPerKg*a.subject.bodyMassKg),expected=C0/k*(Math.exp(-k*2)-Math.exp(-k*7));close(exposure(r,2,7).caffeine.auc,expected,2e-5);});
 await check('Zero-reference and unequal-horizon comparisons retain common coverage without percentages or extrapolation',()=>{const a=scenario();a.doseEvents=[];a.subject.simulationDurationH=6;const b=scenario();const v=compareExposure(simulate(c,a),simulate(c,b));assert.equal(v.end,6);assert.equal(v.referenceHorizon,6);assert.equal(v.experimentHorizon,24);assert.equal(v.rows.find(r=>r.analyte==='caffeine'&&r.metric==='auc').percent,null);assert.throws(()=>exposure(trajectory,0,25),/coverage/);});

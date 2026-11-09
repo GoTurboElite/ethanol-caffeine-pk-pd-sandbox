@@ -1,4 +1,4 @@
-# How to use v2.3.0
+# How to use v2.4.0
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -63,6 +63,14 @@ Action. Export Session JSON after the job completes. Save the file outside the b
 Expected result. The document contains observations, model identity, configurations and the latest three scientific result records.
 
 Check. Browser storage belongs to the current hostname. Import the file explicitly when moving between pkpd.goturbo.one and the pages.dev alias.
+
+#### Compare calculated trajectories
+
+Action. Open Compare, then Experiments. Capture the accepted simulation, set an experimental input and choose Calculate experiment. In Trajectory display choose Signed difference.
+
+Expected result. Both analytes show a zero baseline and share one inspection time. The summary reports each peak, selected-window exposure and the integrated separation.
+
+Check. A positive difference indicates a higher concentration in the experiment. Changes to the plot or inspection window preserve the calculated inputs.
 
 ### Controlled experiments and quantitative analysis
 
@@ -457,6 +465,14 @@ Action. Open Evaluation and choose Run published benchmarks. Open Cohort reconst
 Expected result. Four group-level Cmax comparisons from two studies show predictions, reported means and standardized discrepancies.
 
 Check. The retained priors are fixed. The descriptive two-SD screen leaves individual predictive accuracy and full-trajectory agreement unevaluated.
+
+#### Trace a residual to its measurement
+
+Action. In Evaluation run Evaluate current observations. Select a plotted observation, use the captured observation picker, or open residual diagnostics and choose a record.
+
+Expected result. The record shows the original measurement, canonical concentration, matrix, dataset role, qualifier and error scale. The cursor moves to the recorded elapsed time.
+
+Check. The prediction and residual use the captured analysis. Moving the cursor or selecting a record leaves the dataset and accepted calculation intact.
 
 ### Controlled experiments and quantitative analysis
 

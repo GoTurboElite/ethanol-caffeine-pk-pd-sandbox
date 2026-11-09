@@ -1,3 +1,7 @@
+# v2.4 release verification
+
+The analytical numerical suite checks unmatched knots, clipped boundaries, tiny windows, zero-reference percentages, sign reversals, zero plateaus, signed AUC consistency and nonnegative absolute divergence. The browser matrix covers difference-plot inspection, depth-invariant exports, stale experiment context, observation traceability and narrow-layout touch and keyboard operation. Hosted preview and production checks additionally exercise the new comparison and observation routes after verifying asset bytes, worker control and cached reloads. See [the v2.4 design](V2.4-DESIGN.md) and the release PR workflow for final results.
+
 # v2.3 release verification
 
 The integrated analytical release adds mathematical/state tests in test/analytical.mjs and complete three-depth workflows/performance records in test/analytical-browser.mjs. Retained numerical, scientific, history, compatibility, accessibility, browser and offline suites remain required. CI runs the new browser suite in Chromium, Firefox and WebKit, verifies the exact preview before merge, then both production hostnames and asset bytes. The actual archived v2.1.3 exporter supplies a compatibility fixture with observations, history and a scientific archive. Manual assistive-technology/device assessments remain separate. See [V2.3-DESIGN.md](V2.3-DESIGN.md); final run outcomes are recorded in CI and the release engineering report.

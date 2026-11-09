@@ -1,4 +1,10 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.3.0
+# Ethanol + Caffeine PK/PD Sandbox 2.4.0
+
+## v2.4 analytical coherence
+
+Experiments and saved-state comparisons share signed concentration traces, a common inspection cursor and a window-specific exposure summary. Signed ΔAUC measures the net exposure change. Absolute divergence measures separation over time, including differences that cancel in signed ΔAUC. Full-horizon AUC and unresolved threshold returns remain inspectable separately.
+
+Evaluation links plotted observations and residuals to their captured measurement records. Evaluation and Evidence describe the participant structure, endpoints, sampling coverage and error representation of the built-in datasets. See [the v2.4 design and verification record](docs/V2.4-DESIGN.md).
 
 ## v2.3 integrated analytical workbench
 
@@ -46,11 +52,11 @@ Help provides action/result/check walkthroughs at Default, Detailed and Expert l
 
 ## Reproducibility and compatibility
 
-Application 2.3.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session/scientific documents 1.2.0, scientific workbench 1.1.0 and retained validation revision 1.0.1. The prior-evidence registry remains 2026-10-28.1; the added evaluation dataset catalog is 2026-11-02.1. Scientific and behavioural component identities remain independent.
+Application 2.4.0 uses reference profile reference-1.60, PK engine 0.4.4, constants 0.3.0, scenario schema 0.8.2, session/scientific documents 1.2.0, scientific workbench 1.1.0 and retained validation revision 1.0.1. The prior-evidence registry remains 2026-10-28.1; the added evaluation dataset catalog is 2026-11-02.1. Scientific and behavioural component identities remain independent.
 
 Session wrapper 1.0.0 and legacy scenarios remain importable. Earlier documents receive empty scientific defaults while retaining their scenario. Wrapper 1.1.0 preserves observations, fitting/sampling configuration, applied calibration records and the latest three captured scientific result archives. Imported result archives require recomputation before application. Scientific edits use the existing bounded history; update recovery and named states include them. Frozen reports include captured scientific summaries and provenance, with additional source records at Expert depth.
 
-Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.3.0.html provides local operation; archived standalone releases remain available.
+Browser storage is origin-specific. Export and import session JSON to move data between the official hostname and the retained alias. A self-contained standalone-v2.4.0.html provides local operation; archived standalone releases remain available.
 
 ## Development and tests
 

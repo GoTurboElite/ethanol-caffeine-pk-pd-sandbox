@@ -1,3 +1,11 @@
+# 2.4.0 - 2026-11-09
+
+- Add signed B − A plots, interpolated sign reversals, extrema and signed and absolute exposure differences over the common window.
+- Consolidate comparative metrics and identify captured experiment, draft and scientific result context.
+- Link captured observation and residual marks to original measurement, matrix, conversion and error records.
+- Summarise published peak benchmarks and reconstructed trajectory coverage by study and participant structure.
+- Retain the reference engine, model parameters, session and scientific schemas, and historical standalone builds.
+
 # 2.3.0 — 2026-11-02
 
 - Add protected accepted-reference experiments, independent validated drafts, explicit calculation, restore/application, Undo and portable provenance.

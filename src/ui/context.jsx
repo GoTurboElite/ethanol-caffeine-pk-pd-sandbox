@@ -5,6 +5,7 @@ import {v15Number} from '../session/core.mjs';
 import {bacText,bacUnit} from './units.mjs';
 import {SCIENTIFIC_TASKS} from './routes.mjs';
 import {DIFFERENCE_CATEGORIES} from '../session/differences.mjs';
+import {CalculationContext} from './calculation-context.jsx';
 function DifferenceInspection({info,depth}){
  const rows=info.changes.filter(c=>!c.summary),groups=DIFFERENCE_CATEGORIES.filter(category=>rows.some(c=>c.category===category));
  if(!info.changes.length)return null;
@@ -16,7 +17,10 @@ export function ParameterButton({path,children}){
 }
 export function ResultOrigin(){
  const state=useSession(),info=accepted();if(!info.input)return null;const s=info.input.subject;
- return <section className={'v211-result-context '+(!info.current?'previous':'')} aria-label="Calculation input provenance"><strong>{info.label}</strong><span>{v15Number(s.bodyMassKg)} kg · {info.input.doseEvents.length} {info.input.doseEvents.length===1?'intake':'intakes'} · {v15Number(info.horizon)} h calculated horizon · {s.foodState}</span>{!info.current&&<p>Graphs, dose bars, peaks, reference thresholds and model assumptions use calculation {info.snapshot.snapshotId}. Editing controls use the current committed draft.</p>}<DifferenceInspection info={info} depth={state.presentation.detailMode}/>{state.editingInvalidCount>0&&<p role="status">Uncommitted invalid field text is excluded from both the accepted result and committed draft.</p>}</section>;
+ return <CalculationContext className={'v211-result-context '+(!info.current?'previous':'')} name="Calculation input provenance" label={info.label} description={v15Number(s.bodyMassKg)+' kg · '+info.input.doseEvents.length+' intakes · '+v15Number(info.horizon)+' h calculated horizon · '+s.foodState}>
+  {!info.current&&<p>Graphs and summaries use snapshot {info.snapshot.snapshotId}. Editing controls use the committed draft.</p>}
+  <DifferenceInspection info={info} depth={state.presentation.detailMode}/>{state.editingInvalidCount>0&&<p>Uncommitted invalid field text is excluded from both the accepted result and committed draft.</p>}
+ </CalculationContext>;
 }
 export function ModelContext({inputMode=false}){
  const state=useSession(),prefs=usePreferences(),{input,current,snapshot}=accepted(),draft=state.document.mainScenario,model=input??draft,s=model.subject,c=model.constants,depth=state.presentation.detailMode;
