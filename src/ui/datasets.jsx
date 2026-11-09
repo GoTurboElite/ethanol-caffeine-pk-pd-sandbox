@@ -1,10 +1,29 @@
-import {h,React,controller,bridge,science,action,download,navigate,useScience} from './runtime.mjs';
+import {h,React,Fragment,controller,bridge,science,action,download,navigate,useScience} from './runtime.mjs';
 import {Panel,Button,Disclosure,Table} from './common.jsx';
 import {Dialog} from './dialog.jsx';
 import {publishedDataset,validateDatasetPackage} from '../science/datasets.mjs';
+import {BENCHMARKS} from '../science/evidence.mjs';
 import {v15Clone,v15SafeParse,v15Stable} from '../session/core.mjs';
+import {tickText} from '../science/metrics.mjs';
+
+export function ValidationCoverage({candidate=publishedDataset(bridge.scienceCore)}){
+ const {context,observations}=candidate,rows=science.document.observations;
+ const roles=role=>rows.filter(row=>row.role===role).length;
+ return <Panel title="Validation coverage">
+  <p>The built-in evidence comprises four published peak summaries and one reconstructed group trajectory. The working dataset contains {roles('calibration')} calibration and {roles('evaluation')} held-out rows.</p>
+  <Table caption="Published evidence coverage" headers={['Source','Participant and observation structure','Analyte / matrix','Administration and coverage','Error representation']} rows={[
+   [<a href={BENCHMARKS[0].source} target="_blank" rel="noreferrer">{BENCHMARKS[0].study}</a>,'9 men and 8 women; 2 group Cmax summaries','Caffeine / plasma','100 mg nominal oral energy drink; peak endpoint','Published cohort SD'],
+   [<a href={BENCHMARKS[2].source} target="_blank" rel="noreferrer">{BENCHMARKS[2].study}</a>,'Same 9 men in both crossover conditions; 2 group Cmax summaries','Ethanol / whole blood','0.30 g/kg oral ethanol; fasted and high-fat meal; peak endpoint','Published cohort SD'],
+   [<a href={context.source} target="_blank" rel="noreferrer">{context.title}</a>,context.participants+' participants; '+observations.length+' repeated group means; one predose anchor and eight held-out times','Caffeine / plasma','100 mg oral caffeine in a five-probe cocktail; samples through '+observations.at(-1).timeH+' h','Digitised group SEM used as a descriptive error scale']
+  ]}/>
+  <Disclosure id="benchmark-assumptions" title="Cohort reconstruction and evidence limits">
+   <Table caption="Published benchmark definitions" headers={['Study / condition','n','Reported Cmax ± SD','Matrix','Source and reconstruction']} rows={BENCHMARKS.map(b=>[b.study+' / '+b.cohort,b.n,tickText(b.observed)+' ± '+tickText(b.sd)+' '+b.unit,b.matrix,<><p>{b.location} {b.provenance}</p><a href={b.source} target="_blank" rel="noreferrer">Primary publication</a></>])}/>
+   <p>{context.assumptions}</p>
+  </Disclosure>
+ </Panel>;
+}
 export function DatasetContext({context,observations,kind='current'}){
- if(!context)return null;const matches=context.dataKey===v15Stable(observations);return <Disclosure id={'dataset-study-context-'+kind} title="Study population, administration and reconstruction"><p role="status">{matches?'Source context matches these observation values':'Source context is historical: observation values have changed since import'}.</p><h3>{context.title}</h3><p>{context.participants} participants; {observations.length} current rows. {context.population}</p><p>{context.administration}</p><p>{context.statistics}</p><p>{context.assumptions}</p><p><a href={context.source} target="_blank" rel="noreferrer">Primary publication</a> · <a href={context.dataSource} target="_blank" rel="noreferrer">Curated data source</a></p></Disclosure>;
+ if(!context)return null;const matches=context.dataKey===v15Stable(observations);return <Disclosure id={'dataset-study-context-'+kind} title="Study population, administration and reconstruction"><p role="status">{matches?'Source context matches these observation values':'Source context is historical: observation values have changed since import'}.</p><h3>{context.title}</h3><p>Source study: {context.participants} participants. Dataset: {observations.length} rows{matches?" from the recorded source":" after editing"}. {context.population}</p><p>{context.administration}</p><p>{context.statistics}</p><p>{context.assumptions}</p><p><a href={context.source} target="_blank" rel="noreferrer">Primary publication</a> · <a href={context.dataSource} target="_blank" rel="noreferrer">Curated data source</a></p></Disclosure>;
 }
 export function DatasetLibrary(){
  useScience();const file=React.useRef(null),[pending,setPending]=React.useState(null),[error,setError]=React.useState(''),candidate=publishedDataset(bridge.scienceCore);

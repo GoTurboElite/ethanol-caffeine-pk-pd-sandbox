@@ -1,4 +1,4 @@
-export const V15_VERSION = '2.3.0';
+export const V15_VERSION = '2.4.0';
 export const V15_PROJECT_SCHEMA = 'ethanol-caffeine-session';
 export const V15_PROJECT_SCHEMA_VERSION = '1.2.0';
 export const V15_HISTORY_LIMIT = 60;
@@ -169,12 +169,20 @@ export function v15NormalizeMarkers(markers) {
     return{id:m.id,label:m.label,kind:['bedtime','waking','activity','custom'].includes(m.kind)?m.kind:'custom',timeH};
   });
 }
-export function v15ChartSamples(points,max=700) {
+export function v15ChartSamples(points,max=700,signed=false) {
   if(points.length<=max)return points;
-  const out=[points[0]],width=Math.ceil((points.length-2)/Math.max(1,Math.floor((max-2)/4)));
+  const out=[points[0]],width=Math.ceil((points.length-2)/Math.max(1,Math.floor((max-2)/(signed?6:4))));
   for(let start=1;start<points.length-1;start+=width){
     const bucket=points.slice(start,Math.min(points.length-1,start+width)),indices=new Set([0,bucket.length-1]);
-    for(const key of ['bacGdL','caffeineMgL']){let best=0;for(let i=1;i<bucket.length;i++)if(bucket[i][key]>bucket[best][key])best=i;indices.add(best);}
+    for(const key of ['bacGdL','caffeineMgL']){
+      let high=0,low=0;
+      for(let i=1;i<bucket.length;i++){
+        if(bucket[i][key]>bucket[high][key])high=i;
+        if(signed&&bucket[i][key]<bucket[low][key])low=i;
+      }
+      indices.add(high);
+      if(signed)indices.add(low);
+    }
     for(const i of [...indices].sort((a,b)=>a-b))out.push(bucket[i]);
   }
   out.push(points.at(-1));return out;

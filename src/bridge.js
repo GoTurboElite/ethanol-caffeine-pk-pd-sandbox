@@ -1,4 +1,4 @@
-const V2_VERSIONS=Object.freeze({...qt,analyticalWorkbenchVersion:'1.0.0',evaluationDatasetVersion:'2026-11-02.1',experimentSchemaVersion:'1.0.0',scientificWorkbenchVersion:'1.1.0',scientificDocumentSchemaVersion:'1.2.0',referenceModelProfile:'reference-1.60',evidenceVersion:'2026-10-28.1',sessionSchemaVersion:'1.2.0'});
+const V2_VERSIONS=Object.freeze({...qt,analyticalWorkbenchVersion:'1.1.0',evaluationDatasetVersion:'2026-11-02.1',experimentSchemaVersion:'1.0.0',scientificWorkbenchVersion:'1.1.0',scientificDocumentSchemaVersion:'1.2.0',referenceModelProfile:'reference-1.60',evidenceVersion:'2026-10-28.1',sessionSchemaVersion:'1.2.0'});
 const V15Integration=PKPDV15.createV15UI({
  React:M,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS,scienceCore:PKCore,
  parameters:[...XJ,...QJ].filter(p=>/^(subject|constants)\./.test(p.id)),
@@ -31,7 +31,7 @@ const V15Integration=PKPDV15.createV15UI({
   V15Integration.controller.restore(frame,'Loaded worked example');
  }
 });
-const V160_PUBLIC=Object.freeze({version:'2.3.0',releaseLabel:'2.3.0',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,experiments:V15Integration.experiments,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
+const V160_PUBLIC=Object.freeze({version:'2.4.0',releaseLabel:'2.4.0',controller:V15Integration.controller,pwa:V15Integration.pwa,preferences:V15Integration.preferences,science:V15Integration.science,experiments:V15Integration.experiments,store:canonicalStore,runtime:simulationRuntime,versions:V2_VERSIONS});
 Object.defineProperty(window,'__PK_SANDBOX_V15__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V160__',{value:V160_PUBLIC,enumerable:false});
 Object.defineProperty(window,'__PK_SANDBOX_V2__',{value:V160_PUBLIC,enumerable:false});
