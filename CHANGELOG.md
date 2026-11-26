@@ -1,4 +1,8 @@
-# 2.4.0 - 2026-11-09
+# Changelog
+
+## 2.5.0 — 2026-11-26
+
+Added compartment and flux inspection, conservation ledgers, reviewed schedule operations, aligned chronology, comparative sweeps, profile diagnostics, measurement uncertainty and solver refinement. Corrected dose representation during schedule inspection and editing. Scientific document 1.3.0 migrates earlier sessions into parameter-only uncertainty.
 
 - Add signed B − A plots, interpolated sign reversals, extrema and signed and absolute exposure differences over the common window.
 - Consolidate comparative metrics and identify captured experiment, draft and scientific result context.

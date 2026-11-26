@@ -38,12 +38,13 @@ export function commonCoverage(a,b){
 }
 export function differenceTrajectory(a,b){
  const {start,end}=commonCoverage(a,b),reference=windowPoints(seriesOf(a),start,end),experiment=windowPoints(seriesOf(b),start,end),points=[];
+ const value=(rows,index,time,field)=>{const next=rows[index];if(next?.tH===time)return next[field];const prev=rows[index-1],f=(time-prev.tH)/(next.tH-prev.tH);return prev[field]+(next[field]-prev[field])*f;};
  let i=0,j=0;
  while(i<reference.length||j<experiment.length){
   const tH=Math.min(reference[i]?.tH??Infinity,experiment[j]?.tH??Infinity);
-  const A=reference[i]?.tH===tH?reference[i++]:v15Interpolate(reference,tH);
-  const B=experiment[j]?.tH===tH?experiment[j++]:v15Interpolate(experiment,tH);
-  points.push({tH,bacGdL:B.bacGdL-A.bacGdL,caffeineMgL:B.caffeineMgL-A.caffeineMgL});
+  points.push({tH,bacGdL:value(experiment,j,tH,'bacGdL')-value(reference,i,tH,'bacGdL'),caffeineMgL:value(experiment,j,tH,'caffeineMgL')-value(reference,i,tH,'caffeineMgL')});
+  if(reference[i]?.tH===tH)i++;
+  if(experiment[j]?.tH===tH)j++;
  }
  return points;
 }
@@ -85,7 +86,14 @@ export function compareExposure(a,b,start=commonCoverage(a,b).start,end=commonCo
  const clipped=windowPoints(trajectory,start,end),temporal={};
  for(const [analyte,field,unit,aucUnit] of ANALYTES){
   for(const key of ['peak','peakTime','auc','min','final'])rows.push({analyte,metric:key,unit:key==='peakTime'?'h':key==='auc'?aucUnit:unit,...difference(reference[analyte][key],experiment[analyte][key])});
-  temporal[analyte]=differenceMetrics(clipped,field,unit,aucUnit);
+  const d=differenceMetrics(clipped,field,unit,aucUnit),a=reference[analyte],b=experiment[analyte];
+  d.meanAbsoluteDifference=end>start?d.absoluteAuc/(end-start):null;
+  d.referenceNormalisedDivergence=a.auc>0?d.absoluteAuc/a.auc:null;
+  const tolerance=64*Number.EPSILON*Math.max(1,a.peak,b.peak);
+  d.roundoffTolerance=tolerance;
+  d.exposureDirection=Math.abs(d.signedAuc)<=tolerance*(end-start)?'indistinguishable at numerical precision':d.signedAuc>0?'higher in B':'lower in B';
+  d.orderReversed=(d.positive?.value??0)>tolerance&&(d.negative?.value??0)<-tolerance;
+  temporal[analyte]=d;
  }
  return {start,end,referenceHorizon:seriesOf(a).at(-1).tH,experimentHorizon:seriesOf(b).at(-1).tH,rows,reference,experiment,temporal,method:ANALYTICAL_METHOD,differenceMethod:DIFFERENCE_METHOD};
 }

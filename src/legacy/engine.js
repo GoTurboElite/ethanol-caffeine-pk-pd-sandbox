@@ -2853,7 +2853,7 @@ function EM(e, t) {
 function _J(e) {
   return e.caffeineParameterMode === "reference clearance plus CYP1A2 covariate" ? Math.log(2) / Math.max(.1, e.referenceCaffeineHalfLifeH) * Math.max(.01, e.cyp1a2ActivityModifier) : Math.log(2) / Math.max(.1, e.caffeineHalfLifeH);
 }
-function Pf(e) {
+function Pf(e, inspect = false) {
   const {
       state: t,
       tH: n,
@@ -2889,6 +2889,13 @@ function Pf(e) {
     W = s.paraxanthineApproximationEnabled ? Math.max(0, Math.min(1, s.caffeineToParaxanthineFraction)) : 0,
     $ = G * W * (s.paraxanthineMolecularMassMgPerMmol / s.caffeineMolecularMassMgPerMmol),
     ne = Math.log(2) / Math.max(.1, s.paraxanthineHalfLifeH) * t.paraxanthineCentralMg;
+  if (inspect) {
+    const capacity = qv(s.zeroOrderEliminationGdLPerH, l) * a.ethanolClearanceModifier;
+    return {ethanolInput:v.ethanolGPerH, emptying:g, gastricUptake:C, intestinalUptake:S, firstPass:O, ethanolAppearance:A,
+      ethanolElimination:a.ethanolEliminationMode === "zero-order" ? (t.centralEthanolG > an ? capacity : Math.min(A,capacity)) : T,
+      caffeineInput:v.caffeineMgPerH, caffeineAppearance:D, caffeineElimination:G, caffeineKPerH:V,
+      metaboliteFormation:$, metaboliteElimination:ne || 0};
+  }
   return {
     gastricEthanolG: v.ethanolGPerH - g - C,
     intestinalEthanolG: g - S,

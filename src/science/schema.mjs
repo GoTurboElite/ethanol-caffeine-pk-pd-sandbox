@@ -1,5 +1,5 @@
 import {v15Clone,v15Stable} from '../session/core.mjs';
-export const SCIENCE_VERSION='1.2.0';
+export const SCIENCE_VERSION='1.3.0';
 export const MODEL_PROFILE={id:'reference-1.60',name:'v1.60 reference model',engineVersion:'0.4.4',constantsVersion:'0.3.0',evidenceVersion:'2026-10-28.1',validationVersion:'1.0.1',status:'Retained equations; empirical evaluation is endpoint-specific.'};
 export const PARAMETERS={
  caffeineHalfLifeH:{label:'Effective caffeine half-life',unit:'h',section:'subject',key:'caffeineHalfLifeH',min:1,max:30,analyte:'caffeine'},
@@ -34,7 +34,7 @@ export function observationValue(row){const factor=row.analyte==='ethanol'?(row.
 export function observationSD(row){return row.sd==null?(row.analyte==='ethanol'?.002:.1):observationValue({...row,value:row.sd});}
 export function parameterValue(input,id){const p=PARAMETERS[id];if(!p)throw Error('Unknown parameter '+id);return input[p.section][p.key];}
 export function setParameter(input,id,value){const p=PARAMETERS[id];if(!p)throw Error('Unknown parameter '+id);const n=number(value,p.label);if(n<p.min||n>p.max)throw Error(p.label+' is outside '+p.min+' to '+p.max+' '+p.unit+'.');input[p.section][p.key]=n;}
-export function activeParameter(input,id){if(id==='caffeineHalfLifeH'&&input.subject.caffeineParameterMode!=='direct effective half-life')throw Error('Effective half-life is inactive in CYP1A2 covariate mode. Select direct effective half-life in Session inputs.');const p=PARAMETERS[id];if(!input.doseEvents.some(e=>(p.analyte==='caffeine'?(e.caffeineMg??e.caffeineMgPerServing??0):(e.ethanolGrams??e.ethanolGramsPerServing??e.volumeMl??0))>0))throw Error('No '+p.analyte+' intake is present for '+p.label+'.');}
+export function activeParameter(input,id){if(id==='caffeineHalfLifeH'&&input.subject.caffeineParameterMode!=='direct effective half-life')throw Error('Effective half-life is inactive in CYP1A2 covariate mode. Select direct effective half-life in Session inputs.');const p=PARAMETERS[id],ic=input.subject.initialConditions??{},initial=p.analyte==='ethanol'?((ic.centralEthanolG??0)+(ic.gastricEthanolG??0)+(ic.intestinalEthanolG??0)):((ic.caffeineCentralMg??0)+(ic.caffeineGutMg??0));if(initial<=0&&!input.doseEvents.some(e=>(p.analyte==='caffeine'?(e.caffeineMg??e.caffeineMgPerServing??0):(e.ethanolGrams??e.ethanolGramsPerServing??e.volumeMl??0))>0))throw Error('No '+p.analyte+' intake is present for '+p.label+'.');}
 export function cholesky(matrix,n){
  if(!Array.isArray(matrix)||matrix.length!==n||matrix.some(row=>!Array.isArray(row)||row.length!==n))throw Error('Correlation matrix dimensions must match the selected parameters.');
  const L=Array.from({length:n},()=>Array(n).fill(0));
@@ -45,6 +45,8 @@ export function validateParameters(rows,max=3){
 }
 export function migrateScience(value){
  const d=v15Clone(value??emptyScience());
+ if(['1.0.0','1.1.0','1.2.0'].includes(d.schemaVersion)&&d.uncertainty)delete d.uncertainty.observationError;
+ if(d.schemaVersion==='1.2.0')d.schemaVersion=SCIENCE_VERSION;
  if(d.schemaVersion==='1.1.0'){d.schemaVersion=SCIENCE_VERSION;d.datasetContext=null;}
  if(d.schemaVersion==='1.0.0'){
   const notes=[],authored=[];const converted=[];
@@ -63,7 +65,9 @@ export function validateScience(value){
  d.legacyConversionNotes=text(d.legacyConversionNotes??'','Historical conversion notes',2000);
  if(d.datasetContext!=null){const c=d.datasetContext;if(typeof c!=='object'||Array.isArray(c)||c.schemaVersion!=='1.0.0')throw Error('Unsupported dataset context version.');for(const [key,max]of [['id',160],['title',500],['citation',1000],['source',2000],['dataSource',2000],['population',2000],['administration',2000],['assumptions',4000],['statistics',500],['dataKey',100000]])text(c[key],'Dataset '+key,max);for(const key of ['source','dataSource'])if(!/^https:\/\//.test(c[key]))throw Error('Dataset sources require HTTPS URLs.');if(!Number.isInteger(c.participants)||c.participants<1||c.participants>1000000||!c.scenario?.subject||!Array.isArray(c.scenario.doseEvents)||JSON.stringify(c.scenario).length>200000)throw Error('Malformed dataset population or reconstructed scenario.');}
  d.fit={parameters:validateParameters(d.fit?.parameters,2),maxEvaluations:number(d.fit?.maxEvaluations??120,'Fit budget')};if(!Number.isInteger(d.fit.maxEvaluations)||d.fit.maxEvaluations<40||d.fit.maxEvaluations>320)throw Error('Fit budget must be an integer from 40 to 320.');
- const u=d.uncertainty;u.parameters=validateParameters(u.parameters);for(const p of u.parameters){if(!['uniform','triangular','lognormal'].includes(p.distribution))throw Error('Select uniform, triangular or lognormal sampling.');if(p.distribution==='lognormal'&&(p.cv==null||p.cv<=0||p.cv>1))throw Error('Lognormal CV must be between 0 and 1.');}
+ const u=d.uncertainty;
+ if(u.observationError!=null){const e=u.observationError;if(!['none','additive','lognormal'].includes(e.model))throw Error('Unknown prospective observation error model.');if(e.model==='none')delete u.observationError;else{for(const k of ['ethanol','caffeine']){e[k]=number(e[k],k+' measurement scale');if(e[k]<0||e[k]>(e.model==='lognormal'?3:k==='ethanol'?1:100))throw Error('Prospective error scale is outside the supported domain.');}u.observationError={model:e.model,ethanol:e.ethanol,caffeine:e.caffeine,pairing:'independent'};}}
+ u.parameters=validateParameters(u.parameters);for(const p of u.parameters){if(!['uniform','triangular','lognormal'].includes(p.distribution))throw Error('Select uniform, triangular or lognormal sampling.');if(p.distribution==='lognormal'&&(p.cv==null||p.cv<=0||p.cv>1))throw Error('Lognormal CV must be between 0 and 1.');}
  u.seed=number(u.seed,'Random seed');u.samples=number(u.samples,'Sample count');if(!Number.isInteger(u.seed)||u.seed<0||u.seed>4294967295)throw Error('Seed must be an unsigned 32-bit integer.');if(!Number.isInteger(u.samples)||u.samples<16||u.samples>256)throw Error('Use 16 to 256 samples.');u.paired=!!u.paired;cholesky(u.correlation,u.parameters.length);
  if(!Array.isArray(d.calibrations)||d.calibrations.length>12)throw Error('A scientific document supports up to 12 named calibration profiles.');d.calibrations=d.calibrations.map(p=>{text(p.name,'Calibration name',160);if(!p.values||Object.keys(p.values).length>2)throw Error('Malformed calibration profile.');for(const [id,value]of Object.entries(p.values)){const def=PARAMETERS[id];if(!def||!Number.isFinite(value)||value<def.min||value>def.max)throw Error('Invalid calibrated parameter.');}return p;});
  return d;

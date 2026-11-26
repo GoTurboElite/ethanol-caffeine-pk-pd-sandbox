@@ -51,3 +51,5 @@ body[data-v21-state=pending] .calculation-preview-column>.result-preview,body[da
 .v240-view-select,.v240-observation-trace select{max-width:100%;width:fit-content}
 .v240-point-target{cursor:pointer;pointer-events:all}.v240-selected-point{stroke-width:2.5}
 .v240-summary details>summary{cursor:pointer}
+
+.v250-flows{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(15rem,100%),1fr));gap:1rem;margin:1rem 0}.v250-flows>div{display:grid;align-content:start;gap:.45rem}.v250-flows strong{padding:.55rem .7rem;border:1px solid var(--v160-muted);border-radius:.4rem}.v250-flows span{padding-inline:.7rem}
