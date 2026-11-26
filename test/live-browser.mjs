@@ -77,6 +77,10 @@ try{
  assert.match(await signed.getAttribute('aria-valuetext'),/B minus A/);
  assert.equal(await page.locator('.v240-zero-line').count(),2);
  assert.ok(await page.getByRole('region',{name:'Comparative analytical summary',exact:true}).isVisible());
+ await page.getByText('Compartment and flux inspector',{exact:true}).click();
+ await page.getByText(/enter the systemic compartments/).first().waitFor();
+ await page.getByText('Aligned reference and experimental schedules',{exact:true}).click();
+ await page.getByRole('table',{name:'Chronology on a common elapsed-time axis'}).waitFor();
  await page.evaluate(()=>{location.hash='#calculate';});
  await page.goto(new URL('index.html',base).href,{waitUntil:'networkidle'});await current();
  await page.goto(new URL('standalone-v2.5.0.html',base).href,{waitUntil:'networkidle'});await current();

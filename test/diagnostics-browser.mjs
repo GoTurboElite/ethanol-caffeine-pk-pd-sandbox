@@ -31,5 +31,21 @@ try{
  }
  await page.getByRole('button',{name:'Compare with a refined solver step'}).click();
  await page.getByText('Current convergence diagnostic',{exact:true}).waitFor();
- assert.deepEqual(errors,[]);console.log('PASS '+engine+' standalone, reviewed repetition, Undo, three-depth mechanism, phone/tablet/desktop widths and expert solver refinement.');
+ await route('#session/experiment');
+ await page.getByRole('button',{name:'Create experiment from accepted simulation',exact:true}).click();
+ await page.locator('#experimental-sweep > summary').click();
+ await page.getByLabel('Apply each absolute parameter value to both captured scenarios').check();
+ await page.getByLabel('Sweep steps 1',{exact:true}).fill('2');
+ await page.getByRole('button',{name:'Run parameter sweep',exact:true}).click();
+ await page.getByRole('combobox',{name:'Sweep outcome',exact:true}).selectOption('caffeineSignedAuc');
+ const sweep=await page.evaluate(()=>window.__PK_SANDBOX_V2__.experiments.sweep);
+ assert.equal(sweep.members.length,2);assert.ok(sweep.members.every(m=>m.comparison.caffeine.signedAuc===0));
+ await route('#session/uncertainty');await page.getByRole('combobox',{name:/Observation model/}).selectOption('lognormal');
+ await page.getByRole('spinbutton',{name:'caffeine coefficient of variation (fraction)',exact:true}).fill('0.1');
+ await page.getByLabel('Uncertainty samples').fill('16');await page.getByRole('button',{name:'Run uncertainty sampling'}).click();
+ await page.getByText('Prospective measurement quantiles',{exact:true}).click({timeout:60000});
+ await page.getByRole('table',{name:'Pointwise measurements in mg/L'}).waitFor();
+ const prediction=await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.resultFor('uncertainty'));
+ assert.equal(prediction.configuration.observationError.model,'lognormal');assert.equal(prediction.predictiveGrid.length,97);
+ assert.deepEqual(errors,[]);console.log('PASS '+engine+' standalone, reviewed repetition, Undo, three-depth mechanism, phone/tablet/desktop widths, expert solver refinement, common-value sweep and predictive measurement controls.');
 }finally{await browser.close();}
