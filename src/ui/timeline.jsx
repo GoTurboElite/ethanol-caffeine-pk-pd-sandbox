@@ -3,6 +3,10 @@ import {Panel,Button,Table,Metric,SnapshotNotice,Inspector,Intervals,EmptyResult
 import {v15Number,v15LocalInput,v15FormatInstant,v15LocalInstants,v15ResolveLocal,v15TimeLabel,v15Finite,v15Interpolate,v15ChartSamples} from '../session/core.mjs';
 import {bacText,bacUnit} from './units.mjs';
 import {v15CurveSVG} from './report.mjs';
+import {IntakeDialog} from './editors.jsx';
+import {ScheduleAnalysis} from './schedule-analysis.jsx';
+import {planSeries} from '../science/schedule.mjs';
+import {v15Stable,v15Clone} from '../session/core.mjs';
 function Calendar({state}){
  const p=state.presentation;
  const [local,setLocal]=React.useState(()=>v15LocalInput(p.scenarioAnchorInstant,p.scenarioTimeZone)),[zone,setZone]=React.useState(p.scenarioTimeZone),[occurrence,setOccurrence]=React.useState(''),[policy,setPolicy]=React.useState('elapsed');
@@ -18,9 +22,14 @@ function Calendar({state}){
 }
 function EventEditor({state}){
  const d=state.document.mainScenario,[selected,setSelected]=React.useState([]),[shift,setShift]=React.useState('60');
+ const [editing,setEditing]=React.useState(null);
+ const [copies,setCopies]=React.useState('2'),[plan,setPlan]=React.useState(null);
+ const review=operation=>action(()=>{const p=planSeries(d,selected,operation,Number(copies),v15Finite(shift,'Offset minutes')/60);const valid=bridge.validate(p.next);if(valid.status!=='valid')throw Error('The proposed schedule exceeds the validated event or time bounds.');setPlan(p);});
+ const commit=()=>action(()=>{const frame=controller.capture();if(!plan||v15Stable(frame.document.mainScenario)!==plan.sourceKey)throw Error('The schedule changed. Review the operation again.');frame.document.mainScenario=plan.next;controller.restore(frame,'Applied reviewed '+plan.operation,true,false,true);setPlan(null);});
  const items=[...d.doseEvents.map(e=>({type:'dose',key:'dose:'+e.id,event:e})),...(d.subject.mealEvents??[]).map(e=>({type:'meal',key:'meal:'+e.id,event:e}))].sort((a,b)=>a.event.startTimeH-b.event.startTimeH);
  const keys=items.map(x=>x.key).join('|');
  React.useEffect(()=>setSelected(old=>old.filter(k=>items.some(x=>x.key===k))),[keys]);
+ React.useEffect(()=>setPlan(null),[selected,shift,copies]);
  const toggle=key=>setSelected(old=>old.includes(key)?old.filter(k=>k!==key):[...old,key]);
  const run=duplicate=>action(()=>controller.shift(selected,v15Finite(shift,'Shift minutes')/60,duplicate),duplicate?'Selected events duplicated.':'Selected events shifted.');
  return <Panel title="Draft schedule" kicker="Intakes and meals">
@@ -28,14 +37,17 @@ function EventEditor({state}){
   <div className="v15-actions"><Button onClick={()=>setSelected(items.map(x=>x.key))}>Select all events</Button><Button onClick={()=>setSelected([])}>Clear selection</Button><Button onClick={()=>navigate('calculate')}>Edit amounts in Calculator</Button></div>
   <Table headers={['Select','Event','Start','Calendar start','Duration','Amount / state']} rows={items.map(({key,type,event:e})=>[
    <input aria-label={'Select '+(e.label||type)} type="checkbox" checked={selected.includes(key)} onChange={()=>toggle(key)}/>,
-   <strong>{e.label||type}</strong>,
+   <div><strong>{e.label||type}</strong>{type==='dose'&&<Button aria-label={'Edit intake '+(e.label||e.id)} onClick={()=>setEditing(e)}>Edit</Button>}</div>,
    <Button onClick={()=>action(()=>controller.inspect(e.startTimeH))}>{v15TimeLabel(e.startTimeH)}</Button>,
    v15FormatInstant(Date.parse(state.presentation.scenarioAnchorInstant)+e.startTimeH*3600000,state.presentation.scenarioTimeZone),
    v15Number(type==='dose'?e.durationMin:(e.durationH??0)*60)+' min',
-   type==='dose'?v15Number((e.ethanolGrams||0)*(e.servings??1))+' g ethanol · '+v15Number((e.caffeineMg||0)*(e.servings??1))+' mg caffeine':e.foodState
+   type==='dose'?v15Number(bridge.ethanolAmount(e,d.constants))+' g ethanol · '+v15Number(bridge.caffeineAmount(e))+' mg caffeine':e.foodState
   ])}/>
   {!items.length&&<p>No intake or meal events are present.</p>}
   <div className="v15-actions"><label className="v15-field">Signed shift, minutes<input aria-label="Signed shift minutes" type="number" step="1" value={shift} onChange={e=>setShift(e.target.value)}/></label><Button disabled={!selected.length} onClick={()=>run(false)}>Shift selected</Button><Button disabled={!selected.length} onClick={()=>run(true)}>Duplicate selected</Button><span>{selected.length} selected</span></div>
+  {editing&&<IntakeDialog event={editing} onClose={()=>setEditing(null)}/>}
+  <ScheduleAnalysis input={d} onInspect={t=>controller.inspect(t)}/>
+  <details className="v15-details"><summary>Repeat or remove selected events</summary><label className="v15-field">Copies per event<input type="number" min="1" max="24" value={copies} onChange={e=>{setCopies(e.target.value);setPlan(null);}}/></label><p>Each copy uses a successive multiple of the signed shift above. The original event keeps its identity.</p><div className="v15-actions"><Button disabled={!selected.length} onClick={()=>review('repeat')}>Review repeated series</Button><Button disabled={!selected.length} onClick={()=>review('remove')}>Review removal</Button></div>{plan&&<><Table caption={'Review '+plan.operation+' operation'} headers={['Event','Type','Start h']} rows={plan.review.map(({kind,event})=>[event.label,kind,event.startTimeH])}/><div className="v15-actions"><Button onClick={commit} disabled={plan.sourceKey!==v15Stable(v15Clone(d))}>Apply reviewed schedule</Button><Button onClick={()=>setPlan(null)}>Discard preview</Button></div></>}</details>
   <p className="v15-note">Positive shifts move events later; negative shifts move them earlier. Copies receive distinct identifiers and retain their amounts and durations.</p>
  </Panel>;
 }

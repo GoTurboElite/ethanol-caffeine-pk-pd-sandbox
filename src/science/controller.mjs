@@ -19,7 +19,7 @@ export class ScienceController{
  cancel(message='Scientific job cancelled.'){this.serial++;this.worker?.terminate();this.worker=null;this.finishReject?.(Error(message));this.finishReject=null;this.status='cancelled';this.error=message;this.emit();}
  async run(kind){
   if(this.status==='running')this.cancel();if(!this.session.canSave()||this.session.store.state.snapshots.relationToDraft!=='current')throw Error('Wait for a current accepted calculation and complete inputs before running scientific analysis.');
-  if(kind!=='benchmarks')assertObservationAnalysis(this.document);
+  if(kind!=='benchmarks'&&kind!=='convergence')assertObservationAnalysis(this.document);
   const id=++this.serial,document=validateScience(this.document),input=this.input(),comparison=document.uncertainty.paired?this.comparison():null,sourceKey=this.key(),request={kind,input,document,comparison};this.runningKey=sourceKey;this.status='running';this.progress={done:0,total:1};this.error='';this.emit();
   const progress=(done,total)=>{if(id===this.serial){this.progress={done,total};this.emit();}};
   try{

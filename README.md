@@ -1,4 +1,8 @@
-# Ethanol + Caffeine PK/PD Sandbox 2.4.0
+# Ethanol + Caffeine PK/PD Sandbox 2.5.0
+
+## v2.5 scientific diagnostics
+
+Inspect compartment amounts, instantaneous fluxes and mass conservation at the shared cursor. Review repeat schedules, compare captured administrations, examine paired parameter sweeps, fit profiles and prospective measurement distributions. Expert Explain provides a refined-step comparison. See [the design and verification record](docs/V2.5-DESIGN.md).
 
 ## v2.4 analytical coherence
 

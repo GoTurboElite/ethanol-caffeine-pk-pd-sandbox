@@ -3,18 +3,25 @@ import {Button} from './common.jsx';
 import {Dialog} from './dialog.jsx';
 import {v15Clone,v15Finite,v15Id} from '../session/core.mjs';
 import {parameterLabel} from './units.mjs';
+export function preserveDoseBasis(original,edited,constants){
+ const one={...original,servings:1};
+ const restore=keys=>{for(const key of keys){if(Object.hasOwn(original,key))edited[key]=original[key];else delete edited[key];}};
+ if(edited.ethanolGrams===bridge.ethanolAmount(one,constants))restore(['doseBasis','ethanolGrams']);
+ if(edited.caffeineMg===bridge.caffeineAmount(one))restore(['caffeineDoseMode','caffeineMg']);
+}
 function ErrorText({error}){return error?<p className="v160-error" role="alert">{error}</p>:null;}
 export function IntakeDialog({onClose,event=null}){
- const [values,setValues]=React.useState(()=>({label:event?.label??'New intake',startTimeH:String(event?.startTimeH??controller.store.state.presentation.selectedTimeH??0),durationMin:String(event?.durationMin??15),ethanolGrams:String(event?.ethanolGrams??0),caffeineMg:String(event?.caffeineMg??0),servings:String(event?.servings??1)})),[error,setError]=React.useState('');
+ const [values,setValues]=React.useState(()=>({label:event?.label??'New intake',startTimeH:String(event?.startTimeH??controller.store.state.presentation.selectedTimeH??0),durationMin:String(event?.durationMin??15),ethanolGrams:String(event?bridge.ethanolAmount({...event,servings:1},bridge.store.state.document.mainScenario.constants):0),caffeineMg:String(event?bridge.caffeineAmount({...event,servings:1}):0),servings:String(event?.servings??1)})),[error,setError]=React.useState('');
  const change=(key,value)=>setValues(v=>({...v,[key]:value}));
  const submit=e=>{e.preventDefault();try{
   const frame=controller.capture(),item={...(event??{}),id:event?.id??v15Id('dose'),label:values.label.trim()||'Intake',doseBasis:'direct ethanol mass',caffeineDoseMode:'direct',beverageType:event?.beverageType??'custom'};
   for(const k of ['startTimeH','durationMin','ethanolGrams','caffeineMg','servings'])item[k]=v15Finite(values[k],k);
+  if(event)preserveDoseBasis(event,item,frame.document.mainScenario.constants);
   const items=frame.document.mainScenario.doseEvents,at=items.findIndex(v=>v.id===item.id);if(at>=0)items[at]=item;else items.push(item);
   controller.restore(frame,event?'Edited intake':'Added intake');onClose();
  }catch(e){setError(e.message);}};
  return <Dialog title={event?'Edit direct intake':'Add intake'} onClose={onClose}><form onSubmit={submit}>
-  <p className="v160-help">Enter direct amounts per serving. Start time is measured from model zero. For drink-volume recipes and beverage presets, use the full intake editor.</p>
+  <p className="v160-help">Amounts are per serving. Time and serving edits preserve the original recipe. Editing an analyte amount sets that analyte to a direct dose. Start time is measured from model zero.</p>
   <label className="v15-field">Intake label<input autoFocus value={values.label} maxLength="160" onChange={e=>change('label',e.target.value)}/></label>
   <div className="v15-form-grid">{[['startTimeH','Start, elapsed hours'],['durationMin','Duration, minutes'],['ethanolGrams','Ethanol per serving, g'],['caffeineMg','Caffeine per serving, mg'],['servings','Number of servings']].map(([key,label])=><label className="v15-field" key={key}>{label}<input inputMode="decimal" value={values[key]} onChange={e=>change(key,e.target.value)} required/></label>)}</div>
   <ErrorText error={error}/><div className="v15-actions"><Button primary type="submit">{event?'Apply intake changes':'Add intake to session'}</Button><Button onClick={onClose}>Cancel</Button><Button onClick={()=>{onClose();navigate('calculate');}}>Full intake editor</Button></div>

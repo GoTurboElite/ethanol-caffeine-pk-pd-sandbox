@@ -1,3 +1,5 @@
+import {nuisanceProfiles} from './profile.mjs';
+import {inspectConvergence} from './convergence.mjs';
 import {residualDiagnostics} from './diagnostics.mjs';
 import {v15Clone,v15Interpolate,v15Stable} from '../session/core.mjs';
 import {MODEL_PROFILE,PARAMETERS,validateScience,parameterValue,setParameter,activeParameter,observationValue,observationSD,cholesky,assertObservationAnalysis} from './schema.mjs';
@@ -32,7 +34,7 @@ export async function calibrate(core,input,doc,context){
  const spec=doc.fit,parameters=spec.parameters,rows=doc.observations.filter(o=>o.role==='calibration'&&parameters.some(p=>PARAMETERS[p.id].analyte===o.analyte)),quantified=rows.filter(o=>o.qualifier==='=');
  if(quantified.length<Math.max(4,parameters.length*3)||new Set(quantified.map(o=>o.timeH)).size<3)throw Error('Calibration requires at least '+Math.max(4,parameters.length*3)+' quantified calibration observations at three distinct times.');
  for(const p of parameters){assertActive(core,input,p.id);if(!rows.some(o=>o.analyte===PARAMETERS[p.id].analyte))throw Error('No calibration observations match '+PARAMETERS[p.id].label+'.');}
- inputBudget(input,spec.maxEvaluations+80);let count=0,best=null;
+ inputBudget(input,spec.maxEvaluations+(parameters.length===2?306:24));let count=0,best=null;
  const lower=parameters.map(p=>Math.log(p.lower)),upper=parameters.map(p=>Math.log(p.upper));
  async function score(x){context.check();if(count>=spec.maxEvaluations)return Infinity;const candidate=v15Clone(input);parameters.forEach((p,i)=>setParameter(candidate,p.id,Math.exp(x[i])));const result=simulate(core,candidate),residuals=observationResiduals(result,rows),cost=residuals.reduce((s,o)=>s+o.weighted**2,0);count++;if(!best||cost<best.cost)best={x:[...x],cost,input:candidate};if(count%4===0){context.progress(count,spec.maxEvaluations);await context.yield();}return cost;}
  const initial=parameters.map((p,i)=>Math.log(Math.max(p.lower,Math.min(p.upper,parameterValue(input,p.id)))));await score(initial);
@@ -53,12 +55,23 @@ export async function calibrate(core,input,doc,context){
  if(parameters.length===1){const p=parameters[0];for(let i=0;i<=20;i++){context.check();const candidate=v15Clone(best.input),value=Math.exp(lower[0]+(upper[0]-lower[0])*i/20);setParameter(candidate,p.id,value);const cost=observationResiduals(simulate(core,candidate),rows).reduce((s,o)=>s+o.weighted**2,0);profile.push({value,cost});if(i%4===0)await context.yield();}}
  if(profile.length&&!profile.some(p=>p.value===values[parameters[0].id]))profile.push({value:values[parameters[0].id],cost:best.cost});profile.sort((a,b)=>a.value-b.value);
  const objectiveSurface=[];if(parameters.length===2){for(let i=0;i<7;i++)for(let j=0;j<7;j++){context.check();const candidate=v15Clone(best.input),x=Math.exp(lower[0]+(upper[0]-lower[0])*i/6),y=Math.exp(lower[1]+(upper[1]-lower[1])*j/6);setParameter(candidate,parameters[0].id,x);setParameter(candidate,parameters[1].id,y);const cost=observationResiduals(simulate(core,candidate),rows).reduce((s,o)=>s+o.weighted**2,0);objectiveSurface.push({x,y,cost,delta:cost-best.cost});if(j===6)await context.yield();}}
+ const nuisance=parameters.length===2?await nuisanceProfiles(parameters,objectiveSurface,best.cost,async point=>{
+  const candidate=v15Clone(best.input);for(const [id,value] of Object.entries(point))setParameter(candidate,id,value);
+  return observationResiduals(simulate(core,candidate),rows).reduce((sum,r)=>sum+r.weighted**2,0);
+ },context):[];
+ const sensitivityMatrix=quantified.map((r,i)=>{const predicted=residuals.find(v=>v.id===r.id).predicted;return {id:r.id,timeH:r.timeH,analyte:r.analyte,weighted:columns.map(c=>c[i]),elasticity:columns.map(c=>predicted>0?c[i]*observationSD(r)/predicted:null)};});
  const parameterDiagnostics=parameters.map((p,i)=>({...p,value:values[p.id],unit:PARAMETERS[p.id].unit,relativeBoundaryDistance:Math.min(values[p.id]-p.lower,p.upper-values[p.id])/(p.upper-p.lower),weightedLogSensitivityNorm:norms[i],lowerEvaluation:Math.max(p.lower,values[p.id]-Math.max(values[p.id]*.002,1e-6)),upperEvaluation:Math.min(p.upper,values[p.id]+Math.max(values[p.id]*.002,1e-6))}));
  const support=profile.filter(p=>p.cost-best.cost<=3.841459),interval=profile.length&&!doc.datasetContext&&rows.every(r=>r.qualifier==='='&&r.sd!==null)&&support.length?{lower:support[0].value,upper:support.at(-1).value,method:'Coarse profile support: delta weighted SSE <= 3.841459, conditional on independent Gaussian errors with the supplied SDs. Grid endpoints can truncate support.',lowerTruncated:profile[0].cost-best.cost<=3.841459,upperTruncated:profile.at(-1).cost-best.cost<=3.841459}:null;
- return{kind:'fit',profile:MODEL_PROFILE,values,cost:best.cost,evaluations:count,diagnosticEvaluations:1+2*parameters.length+(parameters.length===1?21:49),converged,identifiable,stationarity,sensitivityCorrelation:Number.isFinite(dot)?dot:null,atBounds,applicable:identifiable&&atBounds.length===0&&converged,residuals,metrics:residualMetrics(residuals),profilePoints:profile,objectiveSurface,parameterDiagnostics,diagnostics:residualDiagnostics(residuals),supportInterval:interval,points:compactPoints(result),summary:result.summary,assumptions:'Bounded log-parameter weighted least squares; independent supplied SD or explicit defaults (ethanol 0.002 g/dL; caffeine 0.1 mg/L). Upper limits use a one-sided squared penalty. Matrix factors are user supplied. Evaluation rows are excluded from fitting. Numerical stopping uses objective stabilization or residual projection below 0.05 weighted units along every local parameter sensitivity.'};
+ return{kind:'fit',profile:MODEL_PROFILE,values,cost:best.cost,evaluations:count,diagnosticEvaluations:1+2*parameters.length+(parameters.length===1?21:49)+nuisance.reduce((s,r)=>s+r.evaluations,0),nuisanceProfiles:nuisance,sensitivityMatrix,converged,identifiable,stationarity,sensitivityCorrelation:Number.isFinite(dot)?dot:null,atBounds,profileImprovesFit:nuisance.some(r=>r.delta< -1e-6*(1+best.cost)),applicable:identifiable&&atBounds.length===0&&converged&&!nuisance.some(r=>r.delta< -1e-6*(1+best.cost)),residuals,metrics:residualMetrics(residuals),profilePoints:profile,objectiveSurface,parameterDiagnostics,diagnostics:residualDiagnostics(residuals),supportInterval:interval,points:compactPoints(result),summary:result.summary,assumptions:'Bounded log-parameter weighted least squares; independent supplied SD or explicit defaults (ethanol 0.002 g/dL; caffeine 0.1 mg/L). Upper limits use a one-sided squared penalty. Matrix factors are user supplied. Evaluation rows are excluded from fitting. Numerical stopping uses objective stabilization or residual projection below 0.05 weighted units along every local parameter sensitivity.'};
 }
 function metric(r){return{peakBAC:r.summary.peakBACGdL,peakCaffeine:r.summary.peakCaffeineMgL,bacPeakTime:r.summary.timeOfPeakBACH,caffeinePeakTime:r.summary.timeOfPeakCaffeineH,bacAuc:r.summary.bacAucGdLH,caffeineAuc:r.summary.caffeineAucMgHL};}
 const summarize=values=>({p05:quantile(values,.05),p50:quantile(values,.5),p95:quantile(values,.95)});
+export function prospectiveValue(concentration,scale,model,z){
+ if(!scale)return concentration;
+ if(model==='additive')return concentration+scale*z;
+ const variance=Math.log1p(scale*scale);
+ return concentration*Math.exp(Math.sqrt(variance)*z-variance/2);
+}
 export async function sample(core,input,doc,context,comparison=null){
  const spec=doc.uncertainty,n=spec.samples,paired=spec.paired;if(paired&&!comparison)throw Error('Enable and prepare an A/B comparison before requesting paired uncertainty.');
  const a=paired?comparison.A:input,b=paired?comparison.B:null;for(const p of spec.parameters){assertActive(core,a,p.id);if(b)assertActive(core,b,p.id);}inputBudget(a,n*(paired?2:1));if(b)inputBudget(b,n*2);
@@ -71,14 +84,25 @@ export async function sample(core,input,doc,context,comparison=null){
   if(b){const other=v15Clone(b);for(const [id,value]of Object.entries(values))setParameter(other,id,value);const rb=simulate(core,other),m=metric(rb),base=summaries.at(-1);for(const bucket of series){const p=v15Interpolate(rb.analysisPoints??rb.points,bucket.tH);bucket.bacB.push(p.bacGdL);bucket.caffeineB.push(p.caffeineMgL);bucket.bacDifference.push(p.bacGdL-bucket.bac.at(-1));bucket.caffeineDifference.push(p.caffeineMgL-bucket.caffeine.at(-1));}deltas.push(Object.fromEntries(Object.keys(m).map(k=>[k,m[k]-base[k]])));}
   context.progress(i+1,n);await context.yield();
  }
- return{kind:'uncertainty',profile:MODEL_PROFILE,seed:spec.seed,samples:n,paired,parameterDraws:draws,grid:series.map(p=>({tH:p.tH,bac:summarize(p.bac),caffeine:summarize(p.caffeine),thresholdExceedanceFraction:p.exceed/n})),pairedGrid:paired?series.map(p=>({tH:p.tH,bac:summarize(p.bacB),caffeine:summarize(p.caffeineB),bacDifference:summarize(p.bacDifference),caffeineDifference:summarize(p.caffeineDifference)})):null,configuration:v15Clone(spec),metrics:Object.fromEntries(Object.keys(summaries[0]).map(k=>[k,summarize(summaries.map(s=>s[k]))])),deltas:paired?Object.fromEntries(Object.keys(deltas[0]).map(k=>[k,summarize(deltas.map(s=>s[k]))])):null,threshold:{value:a.subject.vehicleZeroToleranceThresholdGdL,unit:'g/dL',rightCensored:censored,neverExceeded:never,resolved:returns.length,returnTimeResolvedOnly:summarize(returns)},assumptions:'P05/P50/P95 are sampled quantiles conditional on user-specified parameter distributions. Correlation is latent Gaussian-copula correlation before truncation. Whole-draw rejection enforces bounds. Lognormal reference values are medians. Population heterogeneity, model discrepancy and observation error are absent unless explicitly represented. Paired A/B uses identical absolute parameter draws.'};
+ const error=spec.observationError,errorRandom=seededRandom((spec.seed^0xa53c91e7)>>>0);
+ const predictiveGrid=error?series.map(bucket=>{
+  const A={},B={},difference={};
+  for(const [key,scale] of [['bac',error.ethanol],['caffeine',error.caffeine]]){
+   const measure=values=>values.map(v=>prospectiveValue(v,scale,error.model,normal(errorRandom)));
+   const a=measure(bucket[key]);A[key]=summarize(a);
+   if(paired){const b=measure(bucket[key+'B']);B[key]=summarize(b);difference[key]=summarize(b.map((v,i)=>v-a[i]));}
+  }
+  return {tH:bucket.tH,A,...(paired?{B,difference}:{})};
+ }):null;
+ return{predictiveGrid,kind:'uncertainty',profile:MODEL_PROFILE,seed:spec.seed,samples:n,paired,parameterDraws:draws,grid:series.map(p=>({tH:p.tH,bac:summarize(p.bac),caffeine:summarize(p.caffeine),thresholdExceedanceFraction:p.exceed/n})),pairedGrid:paired?series.map(p=>({tH:p.tH,bac:summarize(p.bacB),caffeine:summarize(p.caffeineB),bacDifference:summarize(p.bacDifference),caffeineDifference:summarize(p.caffeineDifference)})):null,configuration:v15Clone(spec),metrics:Object.fromEntries(Object.keys(summaries[0]).map(k=>[k,summarize(summaries.map(s=>s[k]))])),deltas:paired?Object.fromEntries(Object.keys(deltas[0]).map(k=>[k,summarize(deltas.map(s=>s[k]))])):null,threshold:{value:a.subject.vehicleZeroToleranceThresholdGdL,unit:'g/dL',rightCensored:censored,neverExceeded:never,resolved:returns.length,returnTimeResolvedOnly:summarize(returns)},assumptions:'P05/P50/P95 are sampled quantiles conditional on user-specified parameter distributions. Correlation is latent Gaussian-copula correlation before truncation. Whole-draw rejection enforces bounds. Lognormal reference values are medians. Population heterogeneity, model discrepancy and observation error are absent unless explicitly represented. Paired A/B uses identical absolute parameter draws.'};
 }
 export async function runScience(core,request,options={}){
  const doc=validateScience(request.document),input=v15Clone(request.input),context={check:()=>{if(options.cancelled?.())throw Error('Scientific job cancelled.');},yield:options.yield??(()=>new Promise(r=>setTimeout(r,0))),progress:options.progress??(()=>{})};
- assertObservationAnalysis(doc);inputBudget(input,1);if(['fit','evaluate'].includes(request.kind)&&doc.observations.some(o=>o.timeH>input.subject.simulationDurationH))throw Error('An observation lies outside the calculated horizon. Extend the horizon before analysis.');let result;
+ if(request.kind!=='convergence')assertObservationAnalysis(doc);inputBudget(input,1);if(['fit','evaluate'].includes(request.kind)&&doc.observations.some(o=>o.timeH>input.subject.simulationDurationH))throw Error('An observation lies outside the calculated horizon. Extend the horizon before analysis.');let result;
  if(request.kind==='fit')result=await calibrate(core,input,doc,context);
  else if(request.kind==='uncertainty')result=await sample(core,input,doc,context,request.comparison);
+ else if(request.kind==='convergence'){const nominal=simulate(core,input);result=inspectConvergence(core,input,nominal,[0,nominal.summary.timeOfPeakBACH,nominal.summary.timeOfPeakCaffeineH,input.subject.simulationDurationH]);}
  else if(request.kind==='evaluate')result=await evaluate(core,input,doc,context);
  else throw Error('Unsupported scientific job.');
- context.check();return{...result,scenario:input,document:doc,comparison:request.comparison??null,inputKey:v15Stable({input,document:doc,comparison:request.comparison??null}),scientificVersion:'1.1.0',computedAt:new Date().toISOString()};
+ context.check();return{...result,scenario:input,document:doc,comparison:request.comparison??null,inputKey:v15Stable({input,document:doc,comparison:request.comparison??null}),scientificVersion:'1.2.0',computedAt:new Date().toISOString()};
 }

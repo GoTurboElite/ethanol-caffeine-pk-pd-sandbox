@@ -155,7 +155,7 @@ export class V15Controller {
    if(archive.length>120)throw Error('Combined imported editing history exceeds 120 entries. Export without history to import only the working state.');
   }else frame=this.validateFrame(this.bridge.importLegacy(value));
   const records=value?.schema===V15_PROJECT_SCHEMA?(value.scienceResults??[]):[];
-  if(!Array.isArray(records)||records.length>3||records.some(r=>!r||!['fit','evaluate','uncertainty','benchmarks'].includes(r.kind)||typeof r.sourceKey!=='string'||r.sourceKey.length>300000||JSON.stringify(r).length>600000))throw Error('Scientific result archive is invalid or exceeds its size limit.');
+  if(!Array.isArray(records)||records.length>3||records.some(r=>!r||!['fit','evaluate','uncertainty','benchmarks','convergence'].includes(r.kind)||typeof r.sourceKey!=='string'||r.sourceKey.length>300000||JSON.stringify(r).length>600000))throw Error('Scientific result archive is invalid or exceeds its size limit.');
   this.restore(frame,label);
   this.scienceRuntime?.importRecords(records);
   this.experimentRuntime?.invalidateRestoration();

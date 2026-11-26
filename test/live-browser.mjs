@@ -58,7 +58,7 @@ try{
  await page.getByRole('button',{name:'Validate CSV for review',exact:true}).click();assert.equal(await page.evaluate(()=>JSON.stringify(window.__PK_SANDBOX_V2__.science.document)),initialDataset);
  assert.ok(await page.getByRole('region',{name:'Observation CSV review'}).isVisible());await page.getByRole('button',{name:'Confirm replacement with 1 observation',exact:true}).click();
  await page.waitForFunction(()=>window.__PK_SANDBOX_V2__.science.document.observations.length===1);assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].conversionSource),'Hosted conversion source');
- await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,p=a.controller.project(true);a.controller.importObject(p);});await current();assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.schemaVersion),'1.2.0');assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].matrixFactor),2);
+ await page.evaluate(()=>{const a=window.__PK_SANDBOX_V2__,p=a.controller.project(true);a.controller.importObject(p);});await current();assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.schemaVersion),'1.3.0');assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V2__.science.document.observations[0].matrixFactor),2);
  await page.evaluate(()=>{location.hash='#session/validation';});
  await page.getByRole('button',{name:'Evaluate current observations',exact:true}).click();
  const picker=page.getByRole('combobox',{name:'Inspect captured observation',exact:true});
@@ -77,9 +77,13 @@ try{
  assert.match(await signed.getAttribute('aria-valuetext'),/B minus A/);
  assert.equal(await page.locator('.v240-zero-line').count(),2);
  assert.ok(await page.getByRole('region',{name:'Comparative analytical summary',exact:true}).isVisible());
+ await page.getByText('Compartment and flux inspector',{exact:true}).click();
+ await page.getByText(/enter the systemic compartments/).first().waitFor();
+ await page.getByText('Aligned reference and experimental schedules',{exact:true}).click();
+ await page.getByRole('table',{name:'Chronology on a common elapsed-time axis'}).waitFor();
  await page.evaluate(()=>{location.hash='#calculate';});
  await page.goto(new URL('index.html',base).href,{waitUntil:'networkidle'});await current();
- await page.goto(new URL('standalone-v2.4.0.html',base).href,{waitUntil:'networkidle'});await current();
+ await page.goto(new URL('standalone-v2.5.0.html',base).href,{waitUntil:'networkidle'});await current();
  await inputs();
  assert.equal(await page.evaluate(()=>window.__PK_SANDBOX_V15__.pwa.state.status),'standalone');
  assert.deepEqual(errors,[]);assert.deepEqual(failedRequests,[]);

@@ -1,4 +1,4 @@
-# How to use v2.4.0
+# How to use v2.5.0
 
 This is the portable copy of the instructions included in How to use inside the application. The guide level can be selected independently of the interface detail level.
 
@@ -120,7 +120,7 @@ Action. Inspect Calibration support and identifiability after fitting; optionall
 
 Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
 
-Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Optional prospective measurement bands add independent additive SD or proportional lognormal CV to the parameter draws. Latent curves retain parameter-only uncertainty.
 
 #### 7. Preserve the investigation
 
@@ -128,7 +128,7 @@ Action. Export session JSON for the main document and active experiment, Export 
 
 Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
 
-Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
+Check. Session 1.2.0 and scientific document 1.3.0 import earlier supported sessions. Older scientific documents migrate to parameter-only sampling. Reference equations and scenario 0.8.2 remain unchanged.
 
 ### Inspect changes and continue scientific tasks
 
@@ -404,6 +404,22 @@ Expected result. A marker appears on the timeline with modelled concentrations.
 
 Check. Bedtime and waking markers inspect concentration. They do not calculate sleep architecture.
 
+#### 5. Inspect a compartment transfer
+
+Action. Open Analysis or Explain, open Compartment and flux inspector and move the time cursor.
+
+Expected result. Default shows absorption and elimination. Detailed adds the transfer diagram, quantities and mass balances. Expert exposes the equations and solver comparison.
+
+Check. Boluses are discrete doses. A rate is expressed per hour.
+
+#### 6. Construct a repeated schedule
+
+Action. In Schedule, select events, enter the signed offset and copy count, review the proposed series and apply. Undo restores the original schedule.
+
+Expected result. In Compare, inspect both captured schedules alongside concentrations. Detailed and Expert offer common-value parameter sweeps.
+
+Check. Dose totals integrate the selected elapsed interval. Overlapping minutes count once.
+
 ## Detailed
 
 Use this level for meal and physiology assumptions, compartment interpretation, selected-time rates, repeated episodes and comparisons. Begin with the Default walkthrough when entering the app for the first time.
@@ -522,7 +538,7 @@ Action. Inspect Calibration support and identifiability after fitting; optionall
 
 Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
 
-Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Optional prospective measurement bands add independent additive SD or proportional lognormal CV to the parameter draws. Latent curves retain parameter-only uncertainty.
 
 #### 7. Preserve the investigation
 
@@ -530,7 +546,7 @@ Action. Export session JSON for the main document and active experiment, Export 
 
 Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
 
-Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
+Check. Session 1.2.0 and scientific document 1.3.0 import earlier supported sessions. Older scientific documents migrate to parameter-only sampling. Reference equations and scenario 0.8.2 remain unchanged.
 
 ### Inspect changes and continue scientific tasks
 
@@ -758,6 +774,22 @@ Expected result. The selected output varies across the stated parameter range.
 
 Check. The current sensitivity envelopes are deterministic explorations. A probability distribution requires a separately specified sampling model.
 
+#### 7. Inspect a compartment transfer
+
+Action. Open Analysis or Explain, open Compartment and flux inspector and move the time cursor.
+
+Expected result. Default shows absorption and elimination. Detailed adds the transfer diagram, quantities and mass balances. Expert exposes the equations and solver comparison.
+
+Check. Boluses are discrete doses. A rate is expressed per hour.
+
+#### 8. Construct a repeated schedule
+
+Action. In Schedule, select events, enter the signed offset and copy count, review the proposed series and apply. Undo restores the original schedule.
+
+Expected result. In Compare, inspect both captured schedules alongside concentrations. Detailed and Expert offer common-value parameter sweeps.
+
+Check. Dose totals integrate the selected elapsed interval. Overlapping minutes count once.
+
 ## Expert
 
 Use this level for numerical configuration, model assumptions, provenance, conservation, structural comparisons and reproducibility. The same accepted calculation authority serves every expertise level.
@@ -884,7 +916,7 @@ Action. Inspect Calibration support and identifiability after fitting; optionall
 
 Expected result. Profiles and conditional objective grids expose their actual statistical scope. Paired difference quantiles use within-draw differences and include AUC.
 
-Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Sampling represents the declared parameter uncertainty, excluding unmodelled observation error and model discrepancy.
+Check. Absolute-draw pairing requires equal selected parameter baselines and horizons. Optional prospective measurement bands add independent additive SD or proportional lognormal CV to the parameter draws. Latent curves retain parameter-only uncertainty.
 
 #### 7. Preserve the investigation
 
@@ -892,7 +924,7 @@ Action. Export session JSON for the main document and active experiment, Export 
 
 Expected result. Exports identify the release, reference/model/input identities and computational methods. Imported experiments require recalculation.
 
-Check. Session/scientific documents 1.2.0 import earlier 1.0/1.1 documents. Reference equations and scenario 0.8.2 remain unchanged.
+Check. Session 1.2.0 and scientific document 1.3.0 import earlier supported sessions. Older scientific documents migrate to parameter-only sampling. Reference equations and scenario 0.8.2 remain unchanged.
 
 ### Inspect changes and continue scientific tasks
 
@@ -1119,6 +1151,22 @@ Action. Wait for the main snapshot to be current and any enabled comparison to f
 Expected result. The report includes numerical metadata, complete constants, chronology, selected-time inspection and comparison provenance.
 
 Check. The report is a frozen document. Subsequent input changes create a new analytical state.
+
+#### 7. Inspect a compartment transfer
+
+Action. Open Analysis or Explain, open Compartment and flux inspector and move the time cursor.
+
+Expected result. Default shows absorption and elimination. Detailed adds the transfer diagram, quantities and mass balances. Expert exposes the equations and solver comparison.
+
+Check. Boluses are discrete doses. A rate is expressed per hour.
+
+#### 8. Construct a repeated schedule
+
+Action. In Schedule, select events, enter the signed offset and copy count, review the proposed series and apply. Undo restores the original schedule.
+
+Expected result. In Compare, inspect both captured schedules alongside concentrations. Detailed and Expert offer common-value parameter sweeps.
+
+Check. Dose totals integrate the selected elapsed interval. Overlapping minutes count once.
 
 ## Offline and installation
 

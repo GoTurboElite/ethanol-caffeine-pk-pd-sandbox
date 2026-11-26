@@ -1,4 +1,5 @@
 import {h,React,Fragment,bridge,controller,science,action,useSession,accepted,download,navigate} from './runtime.mjs';
+import {mechanismAt,mechanismContext} from '../science/mechanism.mjs';
 import {Panel,Button,Table,SnapshotNotice,EmptyResult} from './common.jsx';
 import {v15Stable,v15Number} from '../session/core.mjs';
 import {v15BuildReport} from './report.mjs';
@@ -10,8 +11,8 @@ export function V15Report(){
  const ready=current&&comparisonReady;
  const make=()=>action(()=>{
   if(!ready)throw Error('Wait for current accepted main and comparison results before generating the report.');
-  const frame=controller.validateFrame(controller.capture()),html=v15BuildReport({frame,result,snapshotId:snapshot.snapshotId,versions:{...bridge.versions},depth,scienceResults:science.exportRecords(),eventAmounts:Object.fromEntries(frame.document.mainScenario.doseEvents.map(e=>[e.id,{ethanolGrams:bridge.ethanolAmount(e,frame.document.mainScenario.constants),caffeineMg:bridge.caffeineAmount(e)}])),comparison:state.document.comparisonEnabled?comparison:null});
-  download('pkpd-analysis-v2.4.0.html',html,'text/html;charset=utf-8');
+  const frame=controller.validateFrame(controller.capture()),html=v15BuildReport({frame,result,mechanism:mechanismAt(mechanismContext(bridge.scienceCore,snapshot.canonicalScenario,result),frame.presentation.selectedTimeH),snapshotId:snapshot.snapshotId,versions:{...bridge.versions},depth,scienceResults:science.exportRecords(),eventAmounts:Object.fromEntries(frame.document.mainScenario.doseEvents.map(e=>[e.id,{ethanolGrams:bridge.ethanolAmount(e,frame.document.mainScenario.constants),caffeineMg:bridge.caffeineAmount(e)}])),comparison:state.document.comparisonEnabled?comparison:null});
+  download('pkpd-analysis-v2.5.0.html',html,'text/html;charset=utf-8');
   setGenerated({snapshotId:snapshot.snapshotId,time:new Date().toLocaleString(),bytes:new TextEncoder().encode(html).byteLength});
  },'Analysis report prepared for download.');
  return <div className="v15-stack"><SnapshotNotice state={state} snapshot={snapshot}/>

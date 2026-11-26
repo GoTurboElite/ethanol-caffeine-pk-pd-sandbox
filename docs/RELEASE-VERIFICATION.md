@@ -1,3 +1,7 @@
+# v2.5 release verification
+
+The numerical gate includes scientific-diagnostics.mjs. The analytical browser gate runs the standalone diagnostic flows before its existing hosted test server workflows. The release process verifies exact preview bytes before merge and both production origins after merge. See [scientific contracts and verification](V2.5-DESIGN.md).
+
 # v2.4 release verification
 
 The analytical numerical suite checks unmatched knots, clipped boundaries, tiny windows, zero-reference percentages, sign reversals, zero plateaus, signed AUC consistency and nonnegative absolute divergence. The browser matrix covers difference-plot inspection, depth-invariant exports, stale experiment context, observation traceability and narrow-layout touch and keyboard operation. Hosted preview and production checks additionally exercise the new comparison and observation routes after verifying asset bytes, worker control and cached reloads. See [the v2.4 design](V2.4-DESIGN.md) and the release PR workflow for final results.
